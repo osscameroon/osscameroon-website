@@ -26,6 +26,7 @@ def status_check(r):
                 "url": r.url,
                 "payload": json.loads(r.content),
                 "message": "Something went wrong with the request",
+                "code": r.status_code
             },
         )
     else:
@@ -63,7 +64,7 @@ def get_users(pagination_limit: int = 2):
         # not necessary but just to print a . for each round
         print(".", end="")
 
-    return {"status": "success", "result": users}
+    return {"status": "success", "result": users, "code": 200}
 
 
 def get_user(user_name: str):
@@ -92,4 +93,4 @@ def get_user(user_name: str):
     # a simple parse of the response
     user_info = json.loads(r.content)
 
-    return {"status": "success", "result": user_info}
+    return {"status": "success", "result": user_info, "code": 200}
