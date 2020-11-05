@@ -1,0 +1,5 @@
+# For exchanges with github api
+requests
+
+# For tests in the application
+pytest
