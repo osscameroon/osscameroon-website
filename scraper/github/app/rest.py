@@ -10,7 +10,6 @@ app = Flask(__name__)
 CORS(app, support_credentials=True)
 
 
-
 # Ex : /
 @app.route('/', methods=['GET'])
 # For cors issues
