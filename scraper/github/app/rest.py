@@ -17,8 +17,8 @@ CORS(app, support_credentials=True)
 @cross_origin(supports_credentials=True)
 def index():
     # Build the response and return it
-    return jsonify({ 
-        'status':'success', 
+    return jsonify({
+        'status': 'success',
         'message': 'Welcome to CaParleDev-Scrapper API.',
         'documentation': 'https://documenter.getpostman.com/view/11958813/TVYQ1u1Q'
     })
@@ -36,7 +36,7 @@ def users():
 
     result = get_users(pagination_limit)
 
-    return jsonify(result), result["code"] 
+    return jsonify(result), result["code"]
 
 
 # Ex : /users/sanix-darker
@@ -45,8 +45,7 @@ def users():
 @cross_origin(supports_credentials=True)
 def user(user_name):
     result = get_user(user_name)
-    return jsonify(result), result["code"] 
-
+    return jsonify(result), result["code"]
 
 
 if __name__ == "__main__":
