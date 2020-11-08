@@ -18,7 +18,7 @@ const Layout = ({ children, title }: PropsWithChildren<LayoutProps>) => (
     </Head>
     <div className="app-container">
       <Header />
-      <Row>{children}</Row>
+      <Row className="content">{children}</Row>
       <Footer />
     </div>
   </div>
