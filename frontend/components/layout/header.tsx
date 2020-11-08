@@ -3,8 +3,10 @@ import Link from "next/link";
 import { Collapse, Navbar, NavbarToggler, Nav, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 
 import ActiveLink from "../utils/ActiveLink";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -19,13 +21,13 @@ const Header = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <ActiveLink href="/developers">Developers</ActiveLink>
+              <ActiveLink href="/developers">{t("menu.developers")}</ActiveLink>
             </NavItem>
             <NavItem>
-              <ActiveLink href="/projects">Projects</ActiveLink>
+              <ActiveLink href="/projects">{t("menu.projects")}</ActiveLink>
             </NavItem>
             <NavItem>
-              <ActiveLink href="/tweets">Tweets</ActiveLink>
+              <ActiveLink href="/tweets">{t("menu.tweets")}</ActiveLink>
             </NavItem>
           </Nav>
           <Nav navbar>
