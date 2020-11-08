@@ -1,0 +1,9 @@
+.app-container {
+  width: 100%;
+}
+
+.app-container .content {
+  color: #fff;
+  min-height: 500px;
+  background-color: #222d32;
+}
