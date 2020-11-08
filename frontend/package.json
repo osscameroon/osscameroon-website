@@ -1,6 +1,6 @@
 {
-  "name": "with-typescript-eslint-jest",
-  "author": "@erikdstock",
+  "name": "frontend",
+  "author": "@tericcabrel",
   "license": "MIT",
   "version": "1.0.0",
   "scripts": {
@@ -26,9 +26,11 @@
     ]
   },
   "dependencies": {
+    "bootstrap": "^4.5.3",
     "next": "latest",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "reactstrap": "^8.7.1"
   },
   "devDependencies": {
     "@testing-library/react": "^10.0.1",
@@ -41,6 +43,7 @@
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-sort-destructure-keys": "^1.3.5",
     "husky": "^4.2.3",
     "jest": "^25.2.3",
     "jest-watch-typeahead": "^0.5.0",
