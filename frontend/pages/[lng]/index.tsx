@@ -1,7 +1,7 @@
 import React from "react";
 import { Col } from "reactstrap";
 
-import { Layout } from "../components/layout/layout";
+import { Layout } from "../../components/layout/layout";
 
 export const Home = (): JSX.Element => (
   <Layout title="OSS Cameroon">
@@ -10,5 +10,9 @@ export const Home = (): JSX.Element => (
     </Col>
   </Layout>
 );
+
+Home.getInitialProps = async () => ({
+  namespacesRequired: ["common"],
+});
 
 export default Home;

@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import { Collapse, Navbar, NavbarToggler, Nav, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 
 import ActiveLink from "../utils/ActiveLink";
-import { useTranslation } from "react-i18next";
+import intl from "../../utils/i18n";
+
+const { Link, i18n, useTranslation } = intl;
 
 const Header = () => {
-  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-
   const toggle = () => setIsOpen(!isOpen);
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -21,23 +21,23 @@ const Header = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <ActiveLink href="/developers">{t("menu.developers")}</ActiveLink>
+              <ActiveLink href="/developers">{t("developers")}</ActiveLink>
             </NavItem>
             <NavItem>
-              <ActiveLink href="/projects">{t("menu.projects")}</ActiveLink>
+              <ActiveLink href="/projects">{t("projects")}</ActiveLink>
             </NavItem>
             <NavItem>
-              <ActiveLink href="/tweets">{t("menu.tweets")}</ActiveLink>
+              <ActiveLink href="/tweets">{t("tweets")}</ActiveLink>
             </NavItem>
           </Nav>
           <Nav navbar>
             <UncontrolledDropdown inNavbar nav>
               <DropdownToggle caret nav>
-                Language
+                {t("language")}
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>French</DropdownItem>
-                <DropdownItem>English</DropdownItem>
+                <DropdownItem onClick={() => i18n.changeLanguage("fr")}>{t("french")}</DropdownItem>
+                <DropdownItem onClick={() => i18n.changeLanguage("en")}>{t("english")}</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
@@ -47,4 +47,4 @@ const Header = () => {
   );
 };
 
-export { Header };
+export default Header;

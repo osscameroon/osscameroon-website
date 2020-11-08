@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from "react";
 import Head from "next/head";
 import { Row } from "reactstrap";
 
-import { Header } from "./header";
+import Header from "./header";
 import { Footer } from "./footer";
 
 type LayoutProps = {
