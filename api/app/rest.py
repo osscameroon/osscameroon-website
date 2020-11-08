@@ -2,7 +2,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 
-from app.utils.github_requests import get_users, get_user
+from app.utils.database.users import get_users, get_user
 
 
 app = Flask(__name__)
@@ -23,17 +23,16 @@ def index():
     })
 
 
-# Ex : /users?p=3
+# Ex : /users?page=3&count
 @app.route('/users', methods=['GET'])
 # For cors issues
 @cross_origin(supports_credentials=True)
 def users():
-    pagination_limit = request.form.get("p")
 
-    if pagination_limit is None:
-        pagination_limit = 2
-
-    result = get_users(pagination_limit)
+    result = get_users(
+        pagination_limit=request.args.get("page"), 
+        count=request.args.get("count")
+    )
 
     return jsonify(result), result["code"]
 
