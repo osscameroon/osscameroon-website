@@ -27,14 +27,17 @@
   },
   "dependencies": {
     "bootstrap": "^4.5.3",
+    "express": "^4.17.1",
     "i18next": "^19.8.3",
     "i18next-browser-languagedetector": "^6.0.1",
     "i18next-xhr-backend": "^3.2.2",
     "next": "latest",
+    "next-i18next": "^7.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-i18next": "^11.7.3",
-    "reactstrap": "^8.7.1"
+    "reactstrap": "^8.7.1",
+    "ts-node": "^9.0.0"
   },
   "devDependencies": {
     "@testing-library/react": "^10.0.1",

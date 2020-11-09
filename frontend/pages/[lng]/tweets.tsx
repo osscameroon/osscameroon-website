@@ -1,6 +1,6 @@
 import { Col } from "reactstrap";
 
-import { Layout } from "../components/layout/layout";
+import { Layout } from "../../components/layout/layout";
 
 export const Home = (): JSX.Element => (
   <Layout title="OSS Cameroon - Tweets">

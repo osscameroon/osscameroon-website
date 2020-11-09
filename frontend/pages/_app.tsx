@@ -1,14 +1,17 @@
-import React, { Suspense } from "react";
-import "../utils/i18n";
+import React from "react";
+import App from "next/app";
+
+import intl from "../utils/i18n";
 
 import "../styles/index.css";
 
-const App = ({ Component, pageProps }: any) => {
-  return (
-    <Suspense fallback="loading">
-      <Component {...pageProps} />
-    </Suspense>
-  );
+const { appWithTranslation } = intl;
+
+const MyApp = ({ Component, pageProps }: any) => {
+  return <Component {...pageProps} />;
 };
 
-export default App;
+MyApp.getInitialProps = async (appContext: any) => ({ ...(await App.getInitialProps(appContext)) });
+
+// @ts-ignore
+export default appWithTranslation(App);
