@@ -4,5 +4,8 @@
   "tweets": "Tweets",
   "language": "Language",
   "english": "Anglais",
-  "french": "Français"
+  "french": "Français",
+  "privacy": "Confidentialité",
+  "terms": "Conditions d'utilisation",
+  "copyright": "tous droits reservés"
 }
