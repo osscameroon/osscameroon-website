@@ -1,0 +1,6 @@
+# For tests in the application
+pytest
+
+# For the rest-api
+flask
+flask_cors
