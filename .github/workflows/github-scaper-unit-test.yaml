@@ -5,10 +5,14 @@ name: github scraper unit test
 
 on:
   push:
+    paths:
+      - "scraper"
     branches:
       - main
       - dev
   pull_request:
+    paths:
+      - "scraper"
     branches:
       - main
       - dev
