@@ -4,7 +4,7 @@
 import requests
 import json
 
-from app.settings import GITHUB_API
+from twitter.app.settings import GITHUB_API
 
 
 def status_check(r):
@@ -30,7 +30,7 @@ def status_check(r):
             },
         )
     else:
-        return (True, {})
+        return True, {}
 
 
 def get_users(pagination_limit: int = 2):

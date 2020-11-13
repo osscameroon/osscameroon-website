@@ -19,6 +19,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+- Copy `example.config.txt` to `config.txt` and ask for the correct parameters
 
 ### How to launch
 

@@ -1,5 +1,4 @@
-import json
-from app.utils.get_twitter_stats import *
+from twitter.app.utils.get_twitter_stats import *
 
 
 def main():

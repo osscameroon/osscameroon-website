@@ -12,14 +12,13 @@ def extract_summary(result: object):
 
     """
     # we parse the html content
-    parser = BeautifulSoup(result["page_summary"]["html"], "html.parser") \
-    .find("div", {
+    parser = BeautifulSoup(result["page_summary"]["html"], "html.parser").find("div", {
         "class": "home-pagesummary"
     })
 
     # We remove the html key
     del result["page_summary"]["html"]
-    
+
     # we create others parameters from beautifullsoup parser
     result["page_summary"]["visits"] = parser.find("div", {
         "class": "metric-profile-views"
@@ -47,8 +46,7 @@ def extract_user_info(result: object):
 
     """
     # we parse the html content
-    parser = BeautifulSoup(result["top_follower"]["html"], "html.parser") \
-    .find("div", {
+    parser = BeautifulSoup(result["top_follower"]["html"], "html.parser").find("div", {
         "class": "organic"
     })
 
@@ -58,10 +56,10 @@ def extract_user_info(result: object):
     # we create others parameters from beautifullsoup parser
     result["top_follower"]["followed_by"] = parser.find("h2", {
         "class": "home-panel-title"
-    }).find("small")\
-        .get_text()\
-        .replace("followed by ", "")\
-        .replace(" people", "")\
+    }).find("small") \
+        .get_text() \
+        .replace("followed by ", "") \
+        .replace(" people", "") \
         .replace("\n", "").strip()
 
     # we set the user_info parser
@@ -93,23 +91,28 @@ def extract_user_info(result: object):
 def extract_top_mention(result: object):
     """
 
+    Using BeautifulSoup to extract top_mention
+     from the html content
+
+    @params: result as input result from curl-request
+    @return: result as the parsed object
+
     """
     # we parse the html content
-    parser = BeautifulSoup(result["top_mention"]["html"], "html.parser") \
-    .find("div", {
+    parser = BeautifulSoup(result["top_mention"]["html"], "html.parser").find("div", {
         "class": "organic"
     })
 
     # We remove the html key
     del result["top_mention"]["html"]
-    
+
     # we create others parameters from beautifullsoup parser
     result["top_mention"]["engagements"] = parser.find("h2", {
         "class": "home-panel-title"
-    }).find("small")\
-        .get_text()\
-        .replace("earned ", "")\
-        .replace(" engagements", "")\
+    }).find("small") \
+        .get_text() \
+        .replace("earned ", "") \
+        .replace(" engagements", "") \
         .replace("\n", "").strip()
 
     # We extract user informations
@@ -129,7 +132,6 @@ def extract_top_mention(result: object):
     result["top_mention"]["user"]["sreen-name"] = parser.find("span", {
         "class": "tweet-screen-name"
     }).get_text()
-
 
     result["top_mention"]["href"] = parser.find("span", {
         "class": "tweet-created-at"

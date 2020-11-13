@@ -2,29 +2,46 @@
 
 A scrapper tool for devs users in Cameroun/Cameroon location.
 
-
-### Requirements
-
-- Python (3.x recommended)
-- requests / pytest
-
 ### Project structure
 
 - File/Folder structure :
 ```shell
 .
-├── app
-│   ├── __init__.py
-│   ├── main.py
-│   ├── settings.py
-│   └── utils.py
+├── github
+│   ├── app
+│   │   ├── cli.py
+│   │   ├── __init__.py
+│   │   ├── settings.py
+│   │   └── utils
+│   │       ├── github_requests.py
+│   │       ├── __init__.py
+│   ├── install.sh
+│   ├── README.md
+│   ├── requirements.txt
+│   └── tests
+│       ├── __init__.py
+│       └── test_github_requests.py
 ├── img
-│   └── test_screen.png
+│   └── test_screen.png
 ├── README.md
-├── requirements.txt
-└── tests
-    ├── __init__.py
-    └── test_utils.py
+└── twitter
+    ├── app
+    │   ├── __init__.py
+    │   ├── main.py
+    │   ├── settings.py
+    │   └── utils
+    │       ├── extractors.py
+    │       ├── get_twitter_stats.py
+    │       ├── __init__.py
+    ├── example.config.txt
+    ├── img
+    │   ├── page_summary.png
+    │   ├── top_follower.png
+    │   └── top_mention.png
+    ├── README.md
+    ├── requirements.txt
+    └── tests
+        └── __init__.py
 ```
 
 - Branches structure :
@@ -41,42 +58,10 @@ A scrapper tool for devs users in Cameroun/Cameroon location.
 ......
 ```
 
-### How to install
-
-- Set up your virtualenv : 
-```shell
-virtualenv -p python3 venv
-# activate it
-source venv/bin/activate
-```
-
-- Install requirements :
-```shell
-pip install -r requirements.txt
-```
-
-
-### How to launch
-
-- To get information for a dev user :
-```shell
-# You need to provide the username parameter here
-# u or --user_name
-python -m app.main -u elhmn
-```
-
-- To get the list of devs from cameroun : 
-```shell
-# You just need to provide the pagination
-# For example to get first 12 pages :
-python -m app.main -p 12
-```
-
 ### How to test
 
 - To run tests, you just have to hit `pytest`.
 ![](./img/test_screen.png)
-
 
 ### Contribution workflow
 

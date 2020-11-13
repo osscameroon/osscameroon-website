@@ -1,13 +1,7 @@
-import time
 from os import system
-from random import randint, shuffle, randrange, sample
-import json 
-import uuid
-import threading
-from bs4 import BeautifulSoup
-from app.settings import *
-from app.utils.extractors import *
-
+import json
+from twitter.app.settings import *
+from twitter.app.utils.extractors import *
 
 
 def curl_request(url: str):
@@ -43,6 +37,7 @@ def curl_request(url: str):
     # we remove the json output
     system("rm -rf ./out.json")
 
+
 def get_top_mention(start_time: str, end_time: str):
     """
     A simple request for fetching the top_mentions
@@ -53,12 +48,12 @@ def get_top_mention(start_time: str, end_time: str):
 
     """
 
-    url = "{}/top_tweets.json?start_time={}&end_time={}"\
+    url = "{}/top_tweets.json?start_time={}&end_time={}" \
         .format(HOST, start_time, end_time)
     result = curl_request(url)
 
     result["top_mention"] = extract_top_mention(result)
-    
+
     # we add range of time in the resut
     result["start_time"] = start_time
     result["end_time"] = end_time
@@ -80,7 +75,7 @@ def get_top_follower(start_time: str, end_time: str):
 
     """
 
-    url = "{}/top_follower.json?start_time={}&end_time={}"\
+    url = "{}/top_follower.json?start_time={}&end_time={}" \
         .format(HOST, start_time, end_time)
     result = curl_request(url)
 
@@ -101,7 +96,7 @@ def get_page_summary(start_time: str, end_time: str):
 
     """
 
-    url = "{}/page_summary.json?start_time={}&end_time={}"\
+    url = "{}/page_summary.json?start_time={}&end_time={}" \
         .format(HOST, start_time, end_time)
     result = curl_request(url)
 
