@@ -1,4 +1,8 @@
-from twitter.app.utils.extractors import *
+from app.utils.extractors import (
+    extract_top_mention,
+    extract_top_follower,
+    extract_summary
+)
 
 
 def test_extract_top_mention():
