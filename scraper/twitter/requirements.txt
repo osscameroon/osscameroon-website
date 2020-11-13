@@ -3,3 +3,6 @@ beautifulsoup4
 
 # To manage configurations
 configparser
+
+# For tests
+pytest

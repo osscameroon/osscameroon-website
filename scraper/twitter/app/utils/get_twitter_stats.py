@@ -82,8 +82,9 @@ def get_top_follower(start_time: str, end_time: str):
     # we add range of time in the resut
     result["start_time"] = start_time
     result["end_time"] = end_time
+    result = extract_top_follower(result)
 
-    return extract_user_info(result)
+    return result
 
 
 def get_page_summary(start_time: str, end_time: str):
@@ -103,5 +104,6 @@ def get_page_summary(start_time: str, end_time: str):
     # we add range of time in the resut
     result["start_time"] = start_time
     result["end_time"] = end_time
+    result = extract_summary(result)
 
-    return extract_summary(result)
+    return result

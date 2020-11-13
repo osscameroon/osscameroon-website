@@ -35,7 +35,7 @@ def extract_summary(result: object):
     return result
 
 
-def extract_user_info(result: object):
+def extract_top_follower(result: object):
     """
 
     Using BeautifulSoup to extract user 
