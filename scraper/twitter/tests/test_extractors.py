@@ -1,4 +1,4 @@
-from app.utils.extractors import *
+from twitter.app.utils.extractors import *
 
 
 def test_extract_top_mention():

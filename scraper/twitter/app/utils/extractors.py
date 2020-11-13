@@ -4,9 +4,9 @@ from bs4 import BeautifulSoup
 def extract_summary(result: object):
     """
 
-    Using BeautifulSoup to extract summary necessary 
+    Using BeautifulSoup to extract summary necessary
     information from the html content
-    
+
     @params: result as input result from curl-request
     @return: result as the parsed object
 
@@ -38,9 +38,9 @@ def extract_summary(result: object):
 def extract_top_follower(result: object):
     """
 
-    Using BeautifulSoup to extract user 
+    Using BeautifulSoup to extract user
     information from the html content
-    
+
     @params: result as input result from curl-request
     @return: result as the parsed object
 

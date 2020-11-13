@@ -1,7 +1,7 @@
 from os import system
 import json
-from app.settings import *
-from app.utils.extractors import *
+from twitter.app.settings import *
+from twitter.app.utils.extractors import *
 
 
 def curl_request(url: str):
@@ -13,7 +13,6 @@ def curl_request(url: str):
     @returns: result, the json response from that request
 
     """
-
     system("\
         curl '" + url + "' \
         -H 'authority: analytics.twitter.com' \
@@ -26,7 +25,7 @@ def curl_request(url: str):
         -H 'sec-fetch-mode: cors' \
         -H 'sec-fetch-dest: empty' \
         -H 'referer: https://analytics.twitter.com/user/" + ACCOUNT["username"] + "/tweets' \
-        -H 'accept-language: en-US,en;q=0.9' \
+        -H 'accept-language: en-US,en;qget_top_mention=0.9' \
         -H 'cookie: " + ACCOUNT["cookie"] + "' \
         --compressed > out.json")
 
@@ -47,7 +46,6 @@ def get_top_mention(start_time: str, end_time: str):
     @returns : result, a json object
 
     """
-
     url = "{}/top_tweets.json?start_time={}&end_time={}" \
         .format(HOST, start_time, end_time)
     result = curl_request(url)

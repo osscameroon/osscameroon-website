@@ -1,4 +1,5 @@
-from app.utils.get_twitter_stats import *
+from twitter.app.utils.get_twitter_stats import *
+import json
 
 
 def main():
@@ -7,7 +8,6 @@ def main():
     The basic main method to send all over the time
 
     """
-
     try:
         start_time = "1604188800000"
         end_time = "1605225599999"
@@ -35,7 +35,6 @@ def main():
         print("\n------------------------------------------")
     except KeyboardInterrupt:
         print("[x] Twitter stats-scraper stopped")
-
 
 
 if __name__ == "__main__":
