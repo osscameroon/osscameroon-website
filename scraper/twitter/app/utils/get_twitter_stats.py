@@ -1,7 +1,7 @@
 from os import system
 import json
-from twitter.app.settings import *
-from twitter.app.utils.extractors import *
+from app.settings import *
+from app.utils.extractors import *
 
 
 def curl_request(url: str):

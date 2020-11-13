@@ -4,7 +4,7 @@
 import requests
 import json
 
-from twitter.app.settings import GITHUB_API
+from app.settings import GITHUB_API
 
 
 def status_check(r):

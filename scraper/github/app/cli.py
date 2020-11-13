@@ -1,7 +1,7 @@
 # main.py
 # THe main cli script
 
-from twitter.app.utils.github_requests import get_users, get_user
+from app.utils.github_requests import get_users, get_user
 import argparse
 
 if __name__ == "__main__":

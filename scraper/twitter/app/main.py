@@ -1,4 +1,4 @@
-from twitter.app.utils.get_twitter_stats import *
+from app.utils.get_twitter_stats import *
 
 
 def main():
