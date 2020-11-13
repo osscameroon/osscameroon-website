@@ -1,0 +1,5 @@
+# To fetch results and parse results
+beautifulsoup4
+
+# To manage configurations
+configparser

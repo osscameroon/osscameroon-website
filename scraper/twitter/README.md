@@ -1,4 +1,4 @@
-# Github-Scraper
+# Twitter-Scraper
 
 ## Requirements
 
