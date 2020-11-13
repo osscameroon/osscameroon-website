@@ -1,7 +1,11 @@
 from os import system
 import json
-from twitter.app.settings import *
-from twitter.app.utils.extractors import *
+from app.settings import ACCOUNT, HOST
+from app.utils.extractors import (
+    extract_top_mention,
+    extract_top_follower,
+    extract_summary
+)
 
 
 def curl_request(url: str):
