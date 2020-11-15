@@ -3,3 +3,6 @@ requests
 
 # For tests in the application
 pytest
+
+# For gcloud datastore
+google-cloud-datastore
