@@ -4,6 +4,7 @@
 *__pycache__
 *.pyc
 *venv
+.secrets
 
 #vim
 .*sw*
