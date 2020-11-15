@@ -4,7 +4,6 @@
 from app.utils.github_requests import get_users, get_user
 from app.utils.storage import store_user
 import argparse
-import sys
 
 
 def store_users(users):
