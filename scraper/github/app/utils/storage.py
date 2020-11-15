@@ -1,5 +1,4 @@
 from google.cloud import datastore
-import datetime
 
 # For the gcloud auth to work properly this env variable should be set
 # GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json
