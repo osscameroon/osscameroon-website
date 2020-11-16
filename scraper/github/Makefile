@@ -1,5 +1,6 @@
 .DEFAULT_GOAL=help
 
+PAGES=2
 VENVPATH=venv
 PYTHON=$(VENVPATH)/bin/python3
 
@@ -12,6 +13,12 @@ $(VENVPATH)/bin/activate: requirements.txt
 
 ##venv: setup your dev environment
 install: venv
+
+
+##run: run the scraper and accepts the number of PAGES as argument
+## 		example: make run PAGES=5
+run:
+	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) -m app.cli -p $(PAGES)
 
 lint: venv
 	$(PYTHON) -m flake8 . --show-source --statistics
