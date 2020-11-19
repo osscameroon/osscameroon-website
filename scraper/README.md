@@ -2,47 +2,7 @@
 
 A scrapper tool for devs users in Cameroun/Cameroon location.
 
-### Project structure
-
-- File/Folder structure :
-```shell
-.
-├── github
-│   ├── app
-│   │   ├── cli.py
-│   │   ├── __init__.py
-│   │   ├── settings.py
-│   │   └── utils
-│   │       ├── github_requests.py
-│   │       ├── __init__.py
-│   ├── install.sh
-│   ├── README.md
-│   ├── requirements.txt
-│   └── tests
-│       ├── __init__.py
-│       └── test_github_requests.py
-├── img
-│   └── test_screen.png
-├── README.md
-└── twitter
-    ├── app
-    │   ├── __init__.py
-    │   ├── main.py
-    │   ├── settings.py
-    │   └── utils
-    │       ├── extractors.py
-    │       ├── get_twitter_stats.py
-    │       ├── __init__.py
-    ├── example.config.txt
-    ├── img
-    │   ├── page_summary.png
-    │   ├── top_follower.png
-    │   └── top_mention.png
-    ├── README.md
-    ├── requirements.txt
-    └── tests
-        └── __init__.py
-```
+### Project Branches structure
 
 - Branches structure :
 ```shell
