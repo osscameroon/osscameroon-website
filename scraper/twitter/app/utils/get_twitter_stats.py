@@ -1,4 +1,4 @@
-from os import system
+from os import system, remove
 import json
 from app.settings import ACCOUNT, HOST
 from app.utils.extractors import (
@@ -33,12 +33,15 @@ def curl_request(url: str):
         -H 'cookie: " + ACCOUNT["cookie"] + "' \
         --compressed > out.json")
 
+    result = {}
     # we just read the file and return the output
     with open("./out.json", "r") as fr:
-        return json.loads(fr.read())
+        result = json.loads(fr.read())
 
     # we remove the json output
-    system("rm -rf ./out.json")
+    remove("./out.json")
+
+    return result
 
 
 def get_top_mention(start_time: str, end_time: str):
