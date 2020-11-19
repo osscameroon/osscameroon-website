@@ -23,7 +23,8 @@ def curl_request(url: str):
         -H 'pragma: no-cache' \
         -H 'cache-control: no-cache' \
         -H 'accept: application/json, text/javascript, */*; q=0.01' \
-        -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36' \
+        -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) \
+            AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36' \
         -H 'x-requested-with: XMLHttpRequest' \
         -H 'sec-fetch-site: same-origin' \
         -H 'sec-fetch-mode: cors' \

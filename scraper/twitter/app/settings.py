@@ -1,8 +1,7 @@
-import configparser as Configparser
+import configparser as cf
 
-conf = Configparser.RawConfigParser()
-conf_path = r'config.txt'
-conf.read(conf_path)
+conf = cf.RawConfigParser()
+conf.read(r'config.txt')
 
 COOKIE = conf.get("tscrap", "COOKIE")
 ACCOUNT = {
