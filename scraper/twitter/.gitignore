@@ -4,7 +4,6 @@ __pycache__
 out.json
 *pyc
 .vscode
-s
 *.html
 config.txt
 *.json
