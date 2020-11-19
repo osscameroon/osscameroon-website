@@ -1,4 +1,4 @@
-from os import system, remove
+from os import system
 import json
 from app.settings import ACCOUNT, HOST
 from app.utils.extractors import (
@@ -38,9 +38,6 @@ def curl_request(url: str):
     with open("./out.json", "r") as fr:
         result = json.loads(fr.read())
 
-    # we remove the json output
-    remove("./out.json")
-
     return result
 
 
@@ -56,18 +53,21 @@ def get_top_mention(start_time: str, end_time: str):
     url = "{}/top_tweets.json?start_time={}&end_time={}" \
         .format(HOST, start_time, end_time)
     result = curl_request(url)
-
-    result["top_mention"] = extract_top_mention(result)
-
     # we add range of time in the resut
     result["start_time"] = start_time
     result["end_time"] = end_time
 
-    # we remove unecessary sub-objects
-    del result["top_tweet"]
-    del result["top_media_tweet"]
+    # We check if the result object contain something
+    if bool(result):
+        result["top_mention"] = extract_top_mention(result)
 
-    return result
+        # we remove unecessary sub-objects
+        del result["top_tweet"]
+        del result["top_media_tweet"]
+
+        return result
+    else:
+        return {}
 
 
 def get_top_follower(start_time: str, end_time: str):
@@ -87,9 +87,12 @@ def get_top_follower(start_time: str, end_time: str):
     # we add range of time in the resut
     result["start_time"] = start_time
     result["end_time"] = end_time
-    result = extract_top_follower(result)
 
-    return result
+    # We check if the result object contain something
+    if bool(result):
+        return extract_top_follower(result)
+    else:
+        return {}
 
 
 def get_page_summary(start_time: str, end_time: str):
@@ -109,6 +112,9 @@ def get_page_summary(start_time: str, end_time: str):
     # we add range of time in the resut
     result["start_time"] = start_time
     result["end_time"] = end_time
-    result = extract_summary(result)
 
-    return result
+    # We check if the result object contain something
+    if bool(result):
+        return extract_summary(result)
+    else:
+        return {}
