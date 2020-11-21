@@ -2,10 +2,14 @@
   width: 100%;
 }
 
-.app-container .content {
-  color: #fff;
-  min-height: 500px;
-  background-color: #222d32;
+.inline-ul {
+  list-style: none;
+  padding: 0;
+}
+
+.inline-ul li {
+  display: inline-block;
+  margin-right: 10px;
 }
 
 .footer {
