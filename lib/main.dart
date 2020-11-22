@@ -1,55 +1,18 @@
-/*
- * Created on Fri Nov 06 2020 by Boris Gautier
- *
- * Copyright (c) 2020 Osscameroon
- */
+import 'package:caparledev/simpleAppObserver.dart';
+import 'package:caparledev/src/app.dart';
+import 'package:caparledev/src/bloc/auth/auth_bloc.dart';
+import 'package:caparledev/src/bloc/auth/auth_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:caparledev/src/injection/di.dart' as di;
 
-void main() {
-  runApp(MyApp());
-}
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  HydratedBloc.storage = await HydratedStorage.build();
+  Bloc.observer = SimpleBlocObserver();
+  await di.init();
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'CaParleDev',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'CaParleDev'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'App Mobile CaParleDev',
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  runApp(BlocProvider(
+      create: (_) => di.getIt<AuthBloc>()..add(AuthStarted()), child: MyApp()));
 }
