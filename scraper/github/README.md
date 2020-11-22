@@ -25,7 +25,7 @@ pip install -r requirements.txt
 ```shell
 # You need to provide the username parameter here
 # u or --user_name
-python -m app.main -u elhmn
+GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json python -m app.cli -u elhmn
 ```
 
 - To get the list of devs from cameroun : 

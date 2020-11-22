@@ -26,14 +26,16 @@ def status_check(r):
                 "url": r.url,
                 "payload": json.loads(r.content),
                 "message": "Something went wrong with the request",
-                "code": r.status_code
+                "code": r.status_code,
             },
         )
     else:
         return True, {}
 
 
-def get_users(pagination_limit: int = 2):
+def get_users(
+    pagination_limit: int = 2, on_pageloaded_success=None, on_pageloaded_error=None
+):
     """
 
     This method will just fetch users from
@@ -56,15 +58,16 @@ def get_users(pagination_limit: int = 2):
         # We check the status of the requet and return a predefined error message
         schk = status_check(r)
         if not schk[0]:
+            if on_pageloaded_error:
+                on_pageloaded_error(schk[1])
             return schk[1]
 
         # We append or merge
-        users = users + json.loads(r.content)["items"]
-
-        # not necessary but just to print a . for each round
-        print(".", end="")
-
-    return {"status": "success", "result": users, "code": 200}
+        items = json.loads(r.content)["items"]
+        if on_pageloaded_success:
+            on_pageloaded_success(items)
+        users = users + items
+    return users
 
 
 def get_user(user_name: str):
@@ -93,4 +96,4 @@ def get_user(user_name: str):
     # a simple parse of the response
     user_info = json.loads(r.content)
 
-    return {"status": "success", "result": user_info, "code": 200}
+    return user_info

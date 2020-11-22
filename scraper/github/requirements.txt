@@ -3,3 +3,9 @@ requests
 
 # For tests in the application
 pytest
+
+#lint
+flake8
+
+# For gcloud datastore
+google-cloud-datastore
