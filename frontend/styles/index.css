@@ -1,0 +1,21 @@
+/* ensure all pages have Bootstrap CSS */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+@import "common.css";
+@import "header.css";
+
+:root {
+    --primary-color: #2F80ED;
+    --dark-color: #333333;
+    --light-color: #F2F2F2;
+    --dark-accent: #15202B;
+    --white: #FFFFFF;
+    --border-shadow: 0 0 4px rgba(51, 51, 51, 0.35);
+    --main-font: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--main-font);
+}
+
