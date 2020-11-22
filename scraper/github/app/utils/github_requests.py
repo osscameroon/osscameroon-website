@@ -30,7 +30,7 @@ def status_check(r):
             },
         )
     else:
-        return (True, {})
+        return True, {}
 
 
 def get_users(pagination_limit: int = 2):

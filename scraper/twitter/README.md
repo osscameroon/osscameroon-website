@@ -1,9 +1,9 @@
-# Github-Scraper
+# Twitter-Scraper
 
 ## Requirements
 
 - Python (3.x recommended)
-- requests / pytest
+
 
 ### How to install
 
@@ -19,21 +19,15 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+- Copy `example.config.txt` to `config.txt` and ask for the correct parameters
+
 ### How to launch
 
-- To get information for a dev user :
+- You just have to run the scrapper with this command :
 ```shell
-# You need to provide the username parameter here
-# u or --user_name
-python -m app.main -u elhmn
+python -m app.main
 ```
 
-- To get the list of devs from cameroun : 
-```shell
-# You just need to provide the pagination
-# For example to get first 12 pages :
-python -m app.main -p 12
-```
 
 ## Output
 

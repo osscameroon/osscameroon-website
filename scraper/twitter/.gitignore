@@ -1,0 +1,9 @@
+accounts.json
+.history
+__pycache__
+out.json
+*pyc
+.vscode
+*.html
+config.txt
+*.json
