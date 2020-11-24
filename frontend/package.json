@@ -37,6 +37,7 @@
     "react-dom": "^16.13.1",
     "react-i18next": "^11.7.3",
     "reactstrap": "^8.7.1",
+    "sass": "^1.29.0",
     "ts-node": "^9.0.0"
   },
   "devDependencies": {
