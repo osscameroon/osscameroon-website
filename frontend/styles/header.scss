@@ -1,6 +1,6 @@
 header {
   background-color: #fff;
-  box-shadow: 0 4px 2px -2px red;
+  box-shadow: var(--border-shadow);
   .navbar {
     a:hover {
       text-decoration: none;
