@@ -31,7 +31,7 @@ def users():
 
     result = get_users(
         pagination_limit=request.args.get("page"), 
-        count=request.args.get("count")
+        count=int(request.args.get("count"))
     )
 
     return jsonify(result), result["code"]

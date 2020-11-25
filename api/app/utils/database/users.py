@@ -1,8 +1,8 @@
 # database utils functions
+from app.utils.database import storage
 import json
 
-
-def get_users(pagination_limit, count):
+def get_users(pagination_limit, count: int):
     """
     get_users [this method fetch dev users from the database]
 
@@ -14,29 +14,20 @@ def get_users(pagination_limit, count):
 
     if count is None:
         count = 100
-    
-    if pagination_limit is None:
-        pagination_limit = 2
 
-    mongo_results = [
-        {
-            "dump1": "1",
-            "dump2": "2",
-        },
-        {
-            "dump3": "3",
-            "dump4": "4",
-        },
-        {
-            "dump5": "1",
-            "dump6": "2",
+    client = storage.get_client()
+    query = client.query(kind=storage.DATA_KIND)
+    result = list(query.fetch(limit=count))
+
+    if not result or len(result) < 1:
+        return {
+            "code": 400
         }
-    ]
 
     response = {
         "code": 200,
         "status": "success",
-        "result": mongo_results[:int(count)]
+        "result": result,
     }
 
     return response
@@ -44,7 +35,7 @@ def get_users(pagination_limit, count):
 
 def get_user(user_name: str):
     """
-    get_user[this method fetch dev user's information 
+    get_user[this method fetch dev user's information
     from the database]
 
     @params : user_name
@@ -52,12 +43,20 @@ def get_user(user_name: str):
 
     """
 
-    mongo_result = {
-        "code": 200,
-        "result": {
-            "dump3":"3",
-            "dump4":"4",
+    client = storage.get_client()
+    query = client.query(kind=storage.DATA_KIND)
+    query = query.add_filter("login", "=", user_name)
+    result = list(query.fetch())
+
+    if not result or len(result) < 1:
+        return {
+            "code": 400
         }
+
+    response = {
+        "code": 200,
+        "status": "success",
+        "result": result[0]
     }
 
-    return mongo_result
+    return response
