@@ -22,11 +22,14 @@ export const Home = (): JSX.Element => {
               <div className="col-md-6">
                 <h1>Lorem ipsum dolor sit amet, consectetur adipscing elit.</h1>
                 <p>
-                  <Button color="primary" outline> COMMUNITY PROJECTS </Button>
+                  <Button color="primary" outline>
+                    {" "}
+                    COMMUNITY PROJECTS{" "}
+                  </Button>
                 </p>
               </div>
               <div className="col-md-6 text-right">
-                <img alt="developer illustration" className="d-none d-md-block" src="/static/img/developer.svg" style={{marginTop: "30px"}}/>
+                <img alt="developer illustration" className="d-none d-md-block" src="/static/img/developer.svg" style={{ marginTop: "30px" }} />
               </div>
             </div>
           </div>
@@ -40,7 +43,9 @@ export const Home = (): JSX.Element => {
                 <InputGroup>
                   <Input className="search-input" placeholder="ex: Full Stack Web Developer" />
                   <InputGroupAddon addonType="append">
-                    <Button className="search-button"><img alt="search button" src="/static/icons/search.svg" /></Button>
+                    <Button className="search-button">
+                      <img alt="search button" src="/static/icons/search.svg" />
+                    </Button>
                   </InputGroupAddon>
                 </InputGroup>
               </div>
@@ -58,13 +63,10 @@ export const Home = (): JSX.Element => {
           <div className="text-center">
             <h2> TOP PROJECTS </h2>
             <div className="container">
-              <div className="row" style={{margin: "40px 0 40px 0"}}>
+              <div className="row" style={{ margin: "40px 0 40px 0" }}>
                 {PROJECTS.map((project, i) => (
-                  <div className="col-md-4" key={i} style={{margin: "20px 0 20px 0"}}>
-                    <Project description={project.description}
-                      language={project.language}
-                      name={project.name}
-                      stars={project.stars} />
+                  <div className="col-md-4" key={i} style={{ margin: "20px 0 20px 0" }}>
+                    <Project description={project.description} language={project.language} name={project.name} stars={project.stars} />
                   </div>
                 ))}
               </div>
@@ -77,16 +79,18 @@ export const Home = (): JSX.Element => {
           <div className="text-center">
             <h2> TOP TWEETS </h2>
             <div className="container">
-              <div className="row" style={{margin: "40px 0 40px 0"}}>
+              <div className="row" style={{ margin: "40px 0 40px 0" }}>
                 {TWEETS.map((tweet, i) => (
-                  <div className="col-md-4" key={i} style={{margin: "20px 0 20px 0"}}>
-                    <Tweet avatar={tweet.avatar}
+                  <div className="col-md-4" key={i} style={{ margin: "20px 0 20px 0" }}>
+                    <Tweet
+                      avatar={tweet.avatar}
                       comments={tweet.comments}
                       likes={tweet.likes}
                       name={tweet.name}
                       retweets={tweet.retweets}
                       text={tweet.text}
-                      username={tweet.username} />
+                      username={tweet.username}
+                    />
                   </div>
                 ))}
               </div>
