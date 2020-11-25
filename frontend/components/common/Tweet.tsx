@@ -13,10 +13,10 @@ type TweetProps = {
 const Tweet: React.FunctionComponent<TweetProps> = (props) => {
   return (
     <div className="row">
-      <div className="col-sm-2">
+      <div className="col-2 col-md-2">
         <img alt={`${props.name} avatar`} src={props.avatar} />
       </div>
-      <div className="col-sm-10 text-left">
+      <div className="col-10 col-sm-10 text-left">
         <div>
           <strong>{props.name}</strong> <span style={{fontWeight: 100}}>&ensp; {props.username}</span>
         </div>

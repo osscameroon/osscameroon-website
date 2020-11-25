@@ -1,0 +1,63 @@
+.home-page section {
+    padding: 50px 0 50px 0;
+}
+
+#banner {
+    background: url("/static/img/banner-background.svg") center no-repeat;
+}
+
+#banner h1 {
+    font-size: 1.75rem;
+    margin: 55px 0 25px 0;
+}
+
+#project {
+    background-color: var(--white);
+}
+
+#tweets {
+    background-color: var(--dark-accent);
+    color: var(--light-color);
+}
+
+#search {
+    background-color: var(--light-color);
+}
+
+#search .search-input {
+    height: 50px;
+    width: 615px;
+    border-radius: 40px 0 0 40px;
+    border: none;
+    box-shadow: var(--border-shadow);
+    padding-left: 25px;
+    outline: none;
+}
+
+#search .search-button {
+    height: 50px;
+    width: 50px;
+    border-radius: 0 40px 40px 0;
+    border: none;
+    box-shadow: var(--border-shadow);
+    background-color: var(--white);
+    outline: none;
+}
+
+#search .search-form {
+    margin: 25px;
+}
+
+@media screen and (max-width: 720px) {
+    #search .search-input {
+        width: 60%;
+    }
+
+    #banner {
+        background: none;
+    }
+
+    #banner h1 {
+        margin: 0px 0 25px 0;
+    }
+}
