@@ -1,45 +1,9 @@
-# CaParleDev-Scraper
+# Github-Scraper
 
-A scrapper tool for devs users in Cameroun/Cameroon location.
-
-
-### Requirements
+## Requirements
 
 - Python (3.x recommended)
 - requests / pytest
-
-### Project structure
-
-- File/Folder structure :
-```shell
-.
-├── app
-│   ├── __init__.py
-│   ├── main.py
-│   ├── settings.py
-│   └── utils.py
-├── img
-│   └── test_screen.png
-├── README.md
-├── requirements.txt
-└── tests
-    ├── __init__.py
-    └── test_utils.py
-```
-
-- Branches structure :
-```shell
-.
-├── master
-│   ├── dev
-│   |    ├── feature/dev/feature-name1
-│   |    ├── feature/dev/feature-name2
-|   |    |    └── fix/dev/fix-name1
-│   |    ├── feature/dev/feature-name3
-|   |    |    ├── fix/dev/fix-name4
-|   |    |    └── fix/dev/fix-name5
-......
-```
 
 ### How to install
 
@@ -55,14 +19,13 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-
 ### How to launch
 
 - To get information for a dev user :
 ```shell
 # You need to provide the username parameter here
 # u or --user_name
-python -m app.main -u elhmn
+GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json python -m app.cli -u elhmn
 ```
 
 - To get the list of devs from cameroun : 
@@ -72,16 +35,13 @@ python -m app.main -u elhmn
 python -m app.main -p 12
 ```
 
-### How to test
+## Output
 
-- To run tests, you just have to hit `pytest`.
-![](./img/test_screen.png)
+- The Output of Summary scrapping
+![summary](./img/page_summary.png)
 
+- The Output of Top-Follower
+![top-follower](./img/top_follower.png)
 
-### Contribution workflow
-
-- Create an issue with your feature/improvement (Optionnal but recommended).
-- Fork the project.
-- Create a branch for your feature/update/fix(Make sure to have the latest master-branch updates).
-- Create a Pull Request to dev branch.
-- After a check, it will be verify and merge to the project.
+- The Output of Top-Mention
+![top-mention](./img/top_mention.png)
