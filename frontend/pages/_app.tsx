@@ -3,7 +3,7 @@ import App from "next/app";
 
 import intl from "../utils/i18n";
 
-import "../styles/index.css";
+import "../styles/index.scss";
 
 const { appWithTranslation } = intl;
 
