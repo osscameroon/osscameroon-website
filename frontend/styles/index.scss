@@ -1,0 +1,24 @@
+/* ensure all pages have Bootstrap CSS */
+
+/*Find variables to override in this file: node_modules/bootstrap/scss/_variables.scss */
+$primary: #2f80ed;
+
+@import "node_modules/bootstrap/scss/bootstrap";
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+@import "common.scss";
+@import "header.scss";
+
+:root {
+  --primary-color: #2f80ed;
+  --dark-color: #333333;
+  --light-color: #f2f2f2;
+  --dark-accent: #15202b;
+  --white: #ffffff;
+  --border-shadow: 0 0 4px rgba(51, 51, 51, 0.35);
+  --main-font: "Source Sans Pro", sans-serif;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--main-font);
+}
