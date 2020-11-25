@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import Link from "next/link";
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -20,19 +21,27 @@ const Footer = () => {
             <h3 className="font-weight-bold">Site</h3>
             <ul className="site">
               <li>
-                <a href="/projects">{t("projects")}</a>
+                <Link href="/projects">
+                  <a>{t("projects")}</a>
+                </Link>
               </li>
               <li>
-                <a href="/developers">{t("developers")}</a>
+                <Link href="/developers">
+                  <a>{t("developers")}</a>
+                </Link>
               </li>
               <li>
                 <a href="https://twitter.com/hashtag/CaParleDev">{t("tweets")}</a>
               </li>
               <li>
-                <a href="/privacy">{t("privacy")}</a>
+                <Link href="/privacy">
+                  <a>{t("privacy")}</a>
+                </Link>
               </li>
               <li>
-                <a href="/terms">{t("terms")}</a>
+                <Link href="/terms">
+                  <a>{t("terms")}</a>
+                </Link>
               </li>
             </ul>
           </div>
