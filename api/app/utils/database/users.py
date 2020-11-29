@@ -18,7 +18,8 @@ def get_users(pagination_limit, count: int = 100):
 
     if not result or len(result) < 1:
         return {
-            "code": 400
+            "code": 400,
+            "reason": "nothing found"
         }
 
     response = {
@@ -47,7 +48,8 @@ def get_user(user_name: str):
 
     if not result or len(result) < 1:
         return {
-            "code": 400
+            "code": 400,
+            "reason": "nothing found"
         }
 
     response = {
