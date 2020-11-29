@@ -4,8 +4,12 @@
 import requests
 import json
 
-from app.settings import GITHUB_API
+from app.settings import GITHUB_API, GITHUB_TOKENPATH
 
+def get_githubtoken():
+    with open(GITHUB_TOKENPATH, 'r') as file:
+        token = file.read().replace('\n', '')
+    return token
 
 def status_check(r):
     """
@@ -53,8 +57,8 @@ def get_users(
         query = "location:%22cameroon%22+location:%22cameroun%22&page={}".format(page)
 
         # a simple request to the api
-        r = requests.get("{}/search/users?q={}".format(GITHUB_API, query))
-
+        headers = {"Authorization": "token {}".format(get_githubtoken())}
+        r = requests.get("{}/search/users?q={}".format(GITHUB_API, query), headers=headers)
         # We check the status of the requet and return a predefined error message
         schk = status_check(r)
         if not schk[0]:
@@ -86,7 +90,9 @@ def get_user(user_name: str):
     user_name = user_name.replace("@", "") if "@" in user_name else user_name
 
     # we make a simple request to the api
-    r = requests.get("{}/users/{}".format(GITHUB_API, user_name))
+
+    headers = {"Authorization": "token {}".format(get_githubtoken())}
+    r = requests.get("{}/users/{}".format(GITHUB_API, user_name), headers=headers)
 
     # We check the status of the requet and return a predefined error message
     schk = status_check(r)
