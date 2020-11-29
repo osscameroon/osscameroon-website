@@ -2,7 +2,7 @@
 from app.utils.database import storage
 import json
 
-def get_users(pagination_limit, count: int):
+def get_users(pagination_limit, count: int = 100):
     """
     get_users [this method fetch dev users from the database]
 
@@ -11,9 +11,6 @@ def get_users(pagination_limit, count: int):
                - status the status string of the request
                - result the result of that request
     """
-
-    if count is None:
-        count = 100
 
     client = storage.get_client()
     query = client.query(kind=storage.DATA_KIND)

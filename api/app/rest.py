@@ -29,9 +29,13 @@ def index():
 @cross_origin(supports_credentials=True)
 def users():
 
+    count = request.args.get("count")
+    if count is not None:
+        count = int(count)
+
     result = get_users(
-        pagination_limit=request.args.get("page"), 
-        count=int(request.args.get("count"))
+        pagination_limit=request.args.get("page"),
+        count=count
     )
 
     return jsonify(result), result["code"]
