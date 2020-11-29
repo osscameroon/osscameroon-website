@@ -6,13 +6,15 @@ name: github scraper unit test
 on:
   push:
     paths:
-      - "scraper"
+      - .github/workflows/github-scraper-unit-test.yaml
+      - scraper/github/**
     branches:
       - main
       - dev
   pull_request:
     paths:
-      - "scraper"
+      - .github/workflows/github-scraper-unit-test.yaml
+      - scraper/github/**
     branches:
       - main
       - dev

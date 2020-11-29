@@ -5,10 +5,16 @@ name: twitter scraper unit test
 
 on:
   push:
+    paths:
+      - .github/workflows/twitter-scraper-unit-test.yaml
+      - scraper/twitter/**
     branches:
       - main
       - dev
   pull_request:
+    paths:
+      - .github/workflows/twitter-scraper-unit-test.yaml
+      - scraper/twitter/**
     branches:
       - main
       - dev
