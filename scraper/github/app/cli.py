@@ -21,9 +21,12 @@ def store_users(users):
             print("Failed to save user data.")
             continue
 
+        print("Fetch detailed user {}:{} data...".format(u["id"], u["login"]))
+        user = get_user(u["login"])
         print("Storing user {}:{} data...".format(u["id"], u["login"]))
-        store_user(u)
+        store_user(user)
         print("Stored user {}:{} data.".format(u["id"], u["login"]))
+        print("-----------\n")
     print("Page user data stored.")
 
 
