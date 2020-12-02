@@ -48,5 +48,6 @@ jobs:
       - name: Test with pytest
         run: |
           source venv/bin/activate
+          cp ./example.config.txt config.txt
           pytest
         working-directory: ${{env.working-directory}}
