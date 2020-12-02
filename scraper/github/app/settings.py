@@ -7,5 +7,5 @@ conf = cf.RawConfigParser()
 conf.read(r'config.txt')
 
 # we get those secrets value
-GITHUB_API = conf.get("gscrap", "GITHUB_API")
-GITHUB_TOKEN = conf.get("gscrap", "GITHUB_TOKEN")
+GITHUB_API = conf.get("githubscraper", "GITHUB_API")
+GITHUB_TOKEN = conf.get("githubscraper", "GITHUB_TOKEN")
