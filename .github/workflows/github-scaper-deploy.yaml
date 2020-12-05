@@ -1,13 +1,7 @@
 name: github scraper deploy
 
 on:
-#   push:
-#     paths:
-#       - .github/workflows/github-scraper-deploy.yaml
-#       - scraper/github/**
-#     branches:
-#       - test-github-action
-  pull_request:
+  push:
     paths:
       - .github/workflows/github-scraper-deploy.yaml
       - scraper/github/**
