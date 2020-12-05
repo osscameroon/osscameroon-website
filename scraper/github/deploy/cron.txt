@@ -1,0 +1,4 @@
+#after changing this line contact dev admins
+#which should make sure that cron is updated with this 2 commands
+# `crontab -l` to list crons and `crontab cron.txt`
+0 */8,23 * * * (cd /home/deploy/caparledev-website/crons/github/deploy && ./run.sh) >> cron.log 2>&1

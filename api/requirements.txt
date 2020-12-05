@@ -4,3 +4,6 @@ pytest
 # For the rest-api
 flask
 flask_cors
+
+# For gcloud datastore
+google-cloud-datastore

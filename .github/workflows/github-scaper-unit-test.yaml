@@ -6,13 +6,15 @@ name: github scraper unit test
 on:
   push:
     paths:
-      - "scraper"
+      - .github/workflows/github-scraper-unit-test.yaml
+      - scraper/github/**
     branches:
       - main
       - dev
   pull_request:
     paths:
-      - "scraper"
+      - .github/workflows/github-scraper-unit-test.yaml
+      - scraper/github/**
     branches:
       - main
       - dev
@@ -48,5 +50,6 @@ jobs:
       - name: Test with pytest
         run: |
           source venv/bin/activate
+          cp ./example.config.txt config.txt
           pytest
         working-directory: ${{env.working-directory}}
