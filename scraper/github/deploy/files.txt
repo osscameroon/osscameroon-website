@@ -1,5 +1,4 @@
 Makefile
 requirements.txt
 app
-scripts
 deploy
