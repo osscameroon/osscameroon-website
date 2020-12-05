@@ -4,12 +4,8 @@
 import requests
 import json
 
-from app.settings import GITHUB_API, GITHUB_TOKENPATH
+from app.settings import GITHUB_API, GITHUB_TOKEN
 
-def get_githubtoken():
-    with open(GITHUB_TOKENPATH, 'r') as file:
-        token = file.read().replace('\n', '')
-    return token
 
 def request_failed(ret):
     return ret and "status" in ret and ret["status"] == "error"
@@ -60,7 +56,7 @@ def get_users(
         query = "location:%22cameroon%22+location:%22cameroun%22&page={}".format(page)
 
         # a simple request to the api
-        headers = {"Authorization": "token {}".format(get_githubtoken())}
+        headers = {"Authorization": "token {}".format(GITHUB_TOKEN)}
         r = requests.get("{}/search/users?q={}".format(GITHUB_API, query), headers=headers)
         # We check the status of the requet and return a predefined error message
         schk = status_check(r)
@@ -94,7 +90,7 @@ def get_user(user_name: str):
 
     # we make a simple request to the api
 
-    headers = {"Authorization": "token {}".format(get_githubtoken())}
+    headers = {"Authorization": "token {}".format(GITHUB_TOKEN)}
     r = requests.get("{}/users/{}".format(GITHUB_API, user_name), headers=headers)
 
     # We check the status of the requet and return a predefined error message

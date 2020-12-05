@@ -9,3 +9,6 @@ flake8
 
 # For gcloud datastore
 google-cloud-datastore
+
+# For configurations
+configparser
