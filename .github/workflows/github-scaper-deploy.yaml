@@ -6,16 +6,16 @@ on:
       - .github/workflows/github-scraper-deploy.yaml
       - scraper/github/**
     branches:
-      - main
+      - test-github-action
 
 jobs:
   build:
+    runs-on: ubuntu-latest
     env:
       working-directory: scraper/github/
-    runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
 
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
@@ -24,6 +24,10 @@ jobs:
 
     - name: Run unit tests
       run: |
+        pwd
+        echo "----"
+        ls
+        echo "----"
         make test
 
     - name: Setup env variables
