@@ -24,6 +24,9 @@ lint: venv
 	$(PYTHON) -m flake8 . --show-source --statistics
 	$(PYTHON) -m flake8 ./ --statistics
 
+deploy: test
+	cd deploy && ./deploy.sh
+
 ##test: test your code
 test: venv lint
 	$(PYTHON) -m pytest
