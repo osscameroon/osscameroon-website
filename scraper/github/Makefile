@@ -1,5 +1,6 @@
 .DEFAULT_GOAL=help
 
+CONFIG_FILE=./config.txt
 PAGES=2
 VENVPATH=venv
 PYTHON=$(VENVPATH)/bin/python3
@@ -11,13 +12,16 @@ $(VENVPATH)/bin/activate: requirements.txt
 	pip install -r requirements.txt; \
 	touch $(VENVPATH)/bin/activate;
 
-##venv: setup your dev environment
-install: venv
+$(CONFIG_FILE):
+	echo "adding config file..."
+	cp example.config.txt $(CONFIG_FILE)
 
+##venv: setup your dev environment
+install: venv $(CONFIG_FILE)
 
 ##run: run the scraper and accepts the number of PAGES as argument
 ## 		example: make run PAGES=5
-run: venv
+run: install
 	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) -m app.cli -p $(PAGES)
 
 lint: venv
