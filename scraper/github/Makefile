@@ -17,12 +17,15 @@ install: venv
 
 ##run: run the scraper and accepts the number of PAGES as argument
 ## 		example: make run PAGES=5
-run:
+run: venv
 	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) -m app.cli -p $(PAGES)
 
 lint: venv
 	$(PYTHON) -m flake8 . --show-source --statistics
 	$(PYTHON) -m flake8 ./ --statistics
+
+deploy: test
+	cd deploy && ./deploy.sh
 
 ##test: test your code
 test: venv lint

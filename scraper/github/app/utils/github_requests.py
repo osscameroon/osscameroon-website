@@ -11,6 +11,9 @@ def get_githubtoken():
         token = file.read().replace('\n', '')
     return token
 
+def request_failed(ret):
+    return ret and "status" in ret and ret["status"] == "error"
+
 def status_check(r):
     """
 
