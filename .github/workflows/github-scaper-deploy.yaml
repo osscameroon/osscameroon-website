@@ -10,7 +10,6 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
     env:
       working-directory: scraper/github/
     runs-on: ubuntu-latest
