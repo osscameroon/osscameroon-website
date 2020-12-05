@@ -1,0 +1,44 @@
+name: github scraper deploy
+
+on:
+  push:
+    paths:
+      - .github/workflows/github-scraper-deploy.yaml
+      - scraper/github/**
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: scraper/github/
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Run unit tests
+      run: |
+        make test
+
+    - name: Setup env variables
+      run: |
+        echo "FILES=$(./deploy/files.txt)" >> $GITHUB_ENV
+        echo "TARGET=$(./deploy/target.txt)" >> $GITHUB_ENV
+
+    - name: Copy file via scp
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.DROPLET_HOST }}
+        username: ${{ secrets.DROPLET_DEPLOY_USERNAME }}
+        passphrase: ${{ secrets.DROPLET_DEPLOY_PASSPHRASE }}
+        key: ${{ secrets.DROPLET_DEPLOY_SSHKEY }}
+        source: ${{ env.FILES }}
+        target: ${{ env.TARGET }}
+
