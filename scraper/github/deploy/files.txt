@@ -1,5 +1,5 @@
 Makefile
 requirements.txt
 app
-scripts
 deploy
+example.config.txt

@@ -32,7 +32,7 @@ deploy: test
 	cd deploy && ./deploy.sh
 
 ##test: test your code
-test: venv lint
+test: install lint
 	$(PYTHON) -m pytest
 
 clean:
