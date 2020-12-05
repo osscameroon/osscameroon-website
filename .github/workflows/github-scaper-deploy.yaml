@@ -33,23 +33,31 @@ jobs:
 
       - name: Run unit tests
         run: |
-          pwd
-          echo "----"
-          ls
-          echo "----"
           make test
 
       - name: Setup env variables
+# multistring env variables check this out
+# https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#multiline-strings
+#
+
         run: |
-          echo "FILES=$(./deploy/files.txt)" >> $GITHUB_ENV
-          echo "TARGET=$(./deploy/target.txt)" >> $GITHUB_ENV
+          echo 'SCP_FILES=scraper/github/build.tar' >> $GITHUB_ENV
+
+          echo 'SCP_TARGET<<EOF' >> $GITHUB_ENV
+          cat ./deploy/target.txt >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+
+          tar -cvf build.tar $(cat deploy/files.txt)
 
       - name: Copy file via scp
-        uses: appleboy/scp-action@master
+        uses: appleboy/scp-action@v0.1.0
         with:
           host: ${{ secrets.DROPLET_HOST }}
           username: ${{ secrets.DROPLET_DEPLOY_USERNAME }}
-          passphrase: ${{ secrets.DROPLET_DEPLOY_PASSPHRASE }}
+          passphrase: ${{ secrets.DROPLET_DEPLOY_SSH_PASSPHRASE }}
           key: ${{ secrets.DROPLET_DEPLOY_SSHKEY }}
-          source: ${{ env.FILES }}
-          target: ${{ env.TARGET }}
+          source: ${{ env.SCP_FILES }}
+          target: ${{ env.SCP_TARGET }}
+          overwrite: true
+          use_insecure_cipher: true
+          debug: true
