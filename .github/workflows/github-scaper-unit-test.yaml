@@ -22,8 +22,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      working-directory: scraper/github/
+    defaults:
+      run:
+        working-directory: scraper/github/
 
     steps:
       - uses: actions/checkout@v2
@@ -39,17 +40,16 @@ jobs:
           virtualenv -p python3 venv
           source venv/bin/activate
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        working-directory: ${{env.working-directory}}
+
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
           flake8 . --show-source --statistics
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 ./ --statistics
-        working-directory: ${{env.working-directory}}
+
       - name: Test with pytest
         run: |
           source venv/bin/activate
           cp ./example.config.txt config.txt
           pytest
-        working-directory: ${{env.working-directory}}
