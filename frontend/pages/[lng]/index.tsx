@@ -66,7 +66,13 @@ export const Home = (): JSX.Element => {
               <div className="row" style={{ margin: "40px 0 40px 0" }}>
                 {PROJECTS.map((project, i) => (
                   <div className="col-md-4" key={i} style={{ margin: "20px 0 20px 0" }}>
-                    <Project description={project.description} language={project.language} name={project.name} stars={project.stars} />
+                    <Project
+                      description={project.description}
+                      language={project.language}
+                      name={project.name}
+                      stars={project.stars}
+                      type="small"
+                    />
                   </div>
                 ))}
               </div>
