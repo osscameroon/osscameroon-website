@@ -2,7 +2,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 
-from app.utils.database.users import get_users, get_user
+from app.main.utils.database.users import get_users, get_user
 
 
 app = Flask(__name__)

@@ -1,13 +1,13 @@
-from flask import request, jsonify
 from flask_restplus import Resource
+from flask import request
 
-from app.main.utils.decorator import *
+# from app.main.utils.decorator import *
 from app.main.utils.dto import ApiDto
 from app.main.utils.database.users import get_users, get_user
 
-
 api = ApiDto.api
 gh_users = ApiDto.github_user
+
 
 # Ex : /users?page=3&count
 @api.route('/', methods=['GET'])
@@ -17,7 +17,7 @@ class ApidtoUsers(Resource):
         """This method will return all github users with filter"""
 
         result = get_users(
-            pagination_limit=request.args.get("page"), 
+            pagination_limit=request.args.get("page"),
             count=request.args.get("count")
         )
 

@@ -45,4 +45,3 @@ config_by_name = dict(
 key = Config.SECRET_KEY
 app_port = Config.APP_PORT
 app_host = Config.APP_HOST
-

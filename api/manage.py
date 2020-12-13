@@ -1,6 +1,3 @@
-from os import path as ospath
-from os import makedirs as osmakedirs
-
 import unittest
 
 from flask_migrate import Migrate, MigrateCommand
@@ -14,7 +11,6 @@ app = create_app('dev')
 
 app.register_blueprint(blueprint)
 app.app_context().push()
-
 
 manager = Manager(app)
 migrate = Migrate(app, db)
@@ -34,6 +30,7 @@ def test():
     if result.wasSuccessful():
         return 0
     return 1
+
 
 if __name__ == '__main__':
     manager.run()
