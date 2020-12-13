@@ -1,9 +1,18 @@
 # For tests in the application
 pytest
 
-# For the rest-api
-flask
-flask_cors
-
-# For gcloud datastore
+# For data storage
 google-cloud-datastore
+
+# For the rest-api
+flask>=0.12.3
+Flask-Bcrypt==0.7.1
+Flask-Cors==3.0.3
+Flask-Migrate==2.1.1
+flask-restplus==0.10.1
+Flask-Script==2.0.6
+Flask-SocketIO==2.9.3
+Flask-SQLAlchemy==2.3.2
+Flask-Testing==0.7.1
+
+werkzeug==0.16.1

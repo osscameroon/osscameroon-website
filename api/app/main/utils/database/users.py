@@ -1,5 +1,5 @@
 # database utils functions
-from app.utils.database import storage
+from app.main.utils.database import storage
 import json
 
 def get_users(pagination_limit, count: int = 100):

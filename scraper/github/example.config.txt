@@ -1,0 +1,3 @@
+[githubscraper]
+GITHUB_API = https://api.github.com
+GITHUB_TOKEN = b503f40f7c73628c36358b11329bee2b12df74ad
