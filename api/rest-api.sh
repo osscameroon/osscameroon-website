@@ -1,1 +1,1 @@
-python3 -m app.rest
+python manage.py run
