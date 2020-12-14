@@ -56,3 +56,25 @@ now that an instance of mielisearch is running you can run the command as usual
 $> make run
 ```
 
+
+
+#### Test locally:
+
+you can test meilisearch locally by running the following command
+
+
+
+```bash
+$> curl -vsS -X GET https://127.0.0.1:7700/indexes
+$> curl -vsS -X GET https://127.0.0.1:7700/indexes/github_users/search -d'{"q": sanix}'
+```
+
+
+
+with api key:
+
+```bash
+$> export MEILISEARCH_MASTER_KEY=<your_master_key>
+$> curl -vsS -X GET https://127.0.0.1:7700/indexes/github_users/search -d'{"q": "sanix"}' -H "X-Meili-API-Key: $MIELISEARCH_MASTER_KEY"
+```
+
