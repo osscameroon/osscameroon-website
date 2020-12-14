@@ -1,0 +1,14 @@
+# For exchanges with github api
+requests
+
+# For tests in the application
+pytest
+
+# meilisearch
+meilisearch
+
+#lint
+flake8
+
+# For gcloud datastore
+google-cloud-datastore
