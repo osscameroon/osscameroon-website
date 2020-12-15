@@ -10,7 +10,7 @@ type TweetProps = {
   likes: number;
 };
 
-const Tweet: React.FunctionComponent<TweetProps> = (props) => {
+export const Tweet: React.FunctionComponent<TweetProps> = (props) => {
   return (
     <div className="row">
       <div className="col-2 col-md-2">
@@ -38,5 +38,3 @@ const Tweet: React.FunctionComponent<TweetProps> = (props) => {
     </div>
   );
 };
-
-export default Tweet;

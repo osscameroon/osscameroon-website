@@ -9,7 +9,7 @@ type ProjectProps = {
   type: "small" | "big"
 };
 
-const Project: React.FunctionComponent<ProjectProps> = (props) => {
+export const Project: React.FunctionComponent<ProjectProps> = (props) => {
   const style = {
     card: {
       boxShadow: "var(--border-shadow)",
@@ -52,5 +52,3 @@ const Project: React.FunctionComponent<ProjectProps> = (props) => {
     </div>
   );
 };
-
-export default Project;

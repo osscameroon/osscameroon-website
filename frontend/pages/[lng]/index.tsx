@@ -3,8 +3,7 @@ import { Input, InputGroup, InputGroupAddon, Button } from "reactstrap";
 
 import intl from "../../utils/i18n";
 import { Layout } from "../../components/layout/layout";
-import Tweet from "../../components/common/Tweet";
-import Project from "../../components/common/Project";
+import { Tweet, Project } from "../../components/common";
 
 import { TWEETS, PROJECTS } from "../../fixtures";
 
