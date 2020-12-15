@@ -14,18 +14,31 @@ const style = {
 
 type PaginationProps = {
   position: "top" | "bottom"
+  itemPerPage: number
+  nbItems: number
+  currentPage: number
 };
 
 export const Pagination: React.FunctionComponent<PaginationProps> = (props) => {
   const isTop = props.position === "top";
+  const pages: any[] = [];
+  const nbPages: number = Math.floor(props.nbItems / props.itemPerPage);
+
+  for(let i = 0; i < nbPages; i++) {
+    pages.push(i + 1);
+  }
 
   return (
     <div className="row" style={isTop ? style.top : style.bottom}>
       <div className="col text-left">
-        1-12 of more than 200 results
+        1 - {props.itemPerPage} of more than {props.nbItems} results
       </div>
       <div className="col text-right">
-        1 2 3 4 5 ... 50
+        {pages.map((value) => (
+          <a href={`#${value}`} style={value !== props.currentPage ? {color: "var(--dark-color"} : {}}>
+            <strong>&nbsp; {value} </strong>
+          </a>
+        ))}
       </div>
     </div>
   );

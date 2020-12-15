@@ -19,6 +19,7 @@ export const Home = (): JSX.Element => (
 
     <div className="container">
       <div className="row" style={{marginTop: "30px"}}>
+
         <div className="col-md-3">
           <div className="side-card">
             <h4 className="bold">Filters</h4>
@@ -53,20 +54,23 @@ export const Home = (): JSX.Element => (
             </Form>
           </div>
         </div>
+
         <div className="col-md-9">
-          <Pagination position="top" />
-          {PROJECTS.map((project, i) => (
-            <div className="row" key={i} style={{marginTop: "20px", marginBottom: "20px"}}>
-              <Project
-                description={project.description}
-                language={project.language}
-                name={project.name}
-                stars={project.stars}
-                type="big"
-              />
-            </div>
-          ))}
-          <Pagination position="bottom" />
+          <div style={{margin: "0 15px 0 15px"}}>
+            <Pagination currentPage={1} itemPerPage={12} nbItems={40} position="top" />
+            {PROJECTS.map((project, i) => (
+              <div className="row" key={i} style={{marginTop: "20px", marginBottom: "20px"}}>
+                <Project
+                  description={project.description}
+                  language={project.language}
+                  name={project.name}
+                  stars={project.stars}
+                  type="big"
+                />
+              </div>
+            ))}
+            <Pagination currentPage={1} itemPerPage={12} nbItems={40} position="bottom" />
+          </div>
         </div>
       </div>
     </div>

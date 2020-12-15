@@ -33,7 +33,7 @@ export const Project: React.FunctionComponent<ProjectProps> = (props) => {
   return (
     <div className="text-left" style={style.card}>
       <div className="row">
-        <div className={isBig ? "col-md-10" : ""}>
+        <div className={isBig ? "col-10" : ""}>
           <h1 style={style.h1}>{props.name}</h1>
           <p style={style.p}>{props.description}</p>
           <span>
@@ -46,7 +46,7 @@ export const Project: React.FunctionComponent<ProjectProps> = (props) => {
         </div>
 
         {isBig ?
-          <div className="col-md-2 item-center"> <Button color="primary"> View </Button> </div> : <></>
+          <div className="col-2 item-center"> <Button color="primary"> View </Button> </div> : <></>
         }
       </div>
     </div>
