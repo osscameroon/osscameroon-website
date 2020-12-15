@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from "react";
 import Head from "next/head";
 
-import Header from "./header";
+import { Header } from "./header";
 import { Footer } from "./footer";
 import intl from "../../utils/i18n";
 

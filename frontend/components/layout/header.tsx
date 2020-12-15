@@ -12,10 +12,11 @@ import {
   Container,
 } from "reactstrap";
 
-import ActiveLink from "../utils/ActiveLink";
 import intl from "../../utils/i18n";
+import ActiveLink from "../utils/activeLink";
+import { LocaleLink } from "../utils/localeLink";
 
-const { Link, i18n, useTranslation } = intl;
+const { i18n, useTranslation } = intl;
 
 const getFlag = (locale: string) => {
   if (locale === "fr") {
@@ -34,11 +35,11 @@ const Header = () => {
     <header>
       <Container>
         <Navbar color="white" expand="md">
-          <Link href="/">
+          <LocaleLink as="" href="">
             <a className="navbar-brand">
               <img alt="OSS logo" src="/static/icons/oss.svg" />
             </a>
-          </Link>
+          </LocaleLink>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar>
@@ -53,11 +54,11 @@ const Header = () => {
               </NavItem>
             </Nav>
             <div className="d-flex align-items-center">
-              <Link href="#">
+              <LocaleLink as="#" href="#">
                 <a className="btn-join-us btn btn-primary" color="primary">
-                  JOIN US
+                  {t("joinus")}
                 </a>
-              </Link>
+              </LocaleLink>
               {i18n.language && (
                 <Nav navbar>
                   <UncontrolledDropdown inNavbar nav>
@@ -84,4 +85,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export { Header };
