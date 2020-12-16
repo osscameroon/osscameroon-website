@@ -1,10 +1,22 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import Link from "next/link";
+import { DropdownItem, DropdownMenu, DropdownToggle, Nav, UncontrolledDropdown } from "reactstrap";
+
+import intl from "../../utils/i18n";
+
+const { i18n, useTranslation } = intl;
+
+const getFlag = (locale: string) => {
+  if (locale === "fr") {
+    return "/static/icons/flags/fr.svg";
+  }
+
+  return "/static/icons/flags/en.svg";
+};
 
 const Footer = () => {
   const year = new Date().getFullYear();
-  const { t } = useTranslation();
+  const { t } = useTranslation("footer");
 
   return (
     <footer className="d-flex justify-content-center align-items-center h-50 footer">
@@ -18,16 +30,16 @@ const Footer = () => {
             </p>
           </div>
           <div className="offset-md-1 col-md-3">
-            <h3 className="font-weight-bold">Site</h3>
+            <h3 className="font-weight-bold">{t("footer:menuTitle")}</h3>
             <ul className="site">
               <li>
                 <Link href="/projects">
-                  <a>{t("projects")}</a>
+                  <a>{t("footer:projects")}</a>
                 </Link>
               </li>
               <li>
                 <Link href="/developers">
-                  <a>{t("developers")}</a>
+                  <a>{t("footer:developers")}</a>
                 </Link>
               </li>
               <li>
@@ -35,18 +47,18 @@ const Footer = () => {
               </li>
               <li>
                 <Link href="/privacy">
-                  <a>{t("privacy")}</a>
+                  <a>{t("footer:privacy")}</a>
                 </Link>
               </li>
               <li>
                 <Link href="/terms">
-                  <a>{t("terms")}</a>
+                  <a>{t("footer:terms")}</a>
                 </Link>
               </li>
             </ul>
           </div>
           <div className="col-md-3">
-            <h3 className="font-weight-bold">Join us</h3>
+            <h3 className="font-weight-bold">{t("footer:joinUs")}</h3>
             <ul className="join-us">
               <li>
                 <a href="https://twitter.com/caparledev">
@@ -64,11 +76,34 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
+            <div>
+              {i18n.language && (
+                <Nav navbar className="locale-selector">
+                  <UncontrolledDropdown inNavbar nav>
+                    <DropdownToggle className="d-flex align-items-center" nav>
+                      <img alt="Flag" height={16} src={getFlag(i18n.language)} />
+                      {i18n.language === "en" ? t("common:english") : t("common:french")}
+                    </DropdownToggle>
+
+                    <DropdownMenu className="locale-selector-dropdown" right>
+                      <DropdownItem className="d-flex align-items-center" onClick={() => i18n.changeLanguage("fr")}>
+                        <img alt="French Flag" height={16} src="/static/icons/flags/fr.svg" />
+                        {t("common:french")}
+                      </DropdownItem>
+                      <DropdownItem className="d-flex align-items-center" onClick={() => i18n.changeLanguage("en")}>
+                        <img alt="English Flag" height={16} src="/static/icons/flags/en.svg" />
+                        {t("common:english")}
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                </Nav>
+              )}
+            </div>
           </div>
         </div>
         <div className="row text-center">
           <div className="col-md-12">
-            &copy; {year} Open Source Software 237, {t("copyright")}.
+            &copy; {year} Open Source Software 237, {t("footer:copyright")}.
           </div>
         </div>
       </div>
@@ -76,4 +111,4 @@ const Footer = () => {
   );
 };
 
-export { Footer };
+export default Footer;

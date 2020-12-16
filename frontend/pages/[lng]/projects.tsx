@@ -1,13 +1,21 @@
+import React from "react";
 import { Col } from "reactstrap";
 
-import { Layout } from "../../components/layout/layout";
+import intl from "../../utils/i18n";
+import Layout from "../../components/layout/layout";
 
-export const Home = (): JSX.Element => (
-  <Layout title="OSS Cameroon - Projects">
-    <Col className="d-flex justify-content-center align-items-center" sm="12">
-      <h1>PROJECTS</h1>
-    </Col>
-  </Layout>
-);
+const { useTranslation } = intl;
 
-export default Home;
+const Project = () => {
+  const { t } = useTranslation();
+
+  return (
+    <Layout title={t("title:projects")}>
+      <Col className="d-flex justify-content-center align-items-center" sm="12">
+        <h1>PROJECTS</h1>
+      </Col>
+    </Layout>
+  );
+};
+
+export default Project;

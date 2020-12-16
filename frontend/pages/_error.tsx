@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import { WithTranslation } from "next-i18next";
 
 import intl from "../utils/i18n";

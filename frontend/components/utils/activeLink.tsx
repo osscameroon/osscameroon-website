@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from "react";
 import { useRouter } from "next/router";
 
-import { LocaleLink } from "./localeLink";
+import LocaleLink from "./localeLink";
 
 type ActiveLinkProps = {
   href: string;

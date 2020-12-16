@@ -2,11 +2,8 @@
   "developers": "Developers",
   "projects": "Projects",
   "tweets": "Tweets",
-  "joinus": "JOIN US",
+  "joinUs": "JOIN US",
   "language": "Language",
   "english": "English",
-  "french": "French",
-  "privacy": "Privacy policy",
-  "terms": "Terms of use",
-  "copyright": "all rights reserved"
+  "french": "French"
 }

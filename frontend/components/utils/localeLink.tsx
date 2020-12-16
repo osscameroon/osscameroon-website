@@ -1,6 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { useTranslation } from "react-i18next";
+
+import intl from "../../utils/i18n";
+
+const { useTranslation } = intl;
 
 const LocaleLink = ({ as, href, ...props }) => {
   const {
@@ -9,4 +12,4 @@ const LocaleLink = ({ as, href, ...props }) => {
   return <Link {...props} as={`/${language}${as}`} href={`/${language}${href}`} />;
 };
 
-export { LocaleLink };
+export default LocaleLink;

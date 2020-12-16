@@ -2,11 +2,11 @@ import React from "react";
 import { Input, InputGroup, InputGroupAddon, Button } from "reactstrap";
 
 import intl from "../../utils/i18n";
-import { Layout } from "../../components/layout/layout";
+import Layout from "../../components/layout/layout";
 import Tweet from "../../components/common/Tweet";
 import Project from "../../components/common/Project";
 
-import { TWEETS, PROJECTS } from "../../fixtures";
+import { TWEETS, PROJECTS } from "../../fixtures/home";
 
 const { useTranslation } = intl;
 
@@ -102,9 +102,5 @@ export const Home = (): JSX.Element => {
     </Layout>
   );
 };
-
-Home.getInitialProps = async () => ({
-  namespacesRequired: ["common"],
-});
 
 export default Home;
