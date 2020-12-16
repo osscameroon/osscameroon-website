@@ -1,17 +1,17 @@
 import React from "react";
 import { Input, InputGroup, InputGroupAddon, Button } from "reactstrap";
 
-import intl from "../../utils/i18n";
-import Layout from "../../components/layout/layout";
-import Tweet from "../../components/common/Tweet";
-import Project from "../../components/common/Project";
+import intl from "@utils/i18n";
+import Layout from "@components/layout/layout";
+import Tweet from "@components/common/Tweet";
+import Project from "@components/common/Project";
 
-import { TWEETS, PROJECTS } from "../../fixtures/home";
+import { TWEETS, PROJECTS } from "@fixtures/home";
 
 const { useTranslation } = intl;
 
-export const Home = (): JSX.Element => {
-  const { t } = useTranslation();
+export const Home = () => {
+  const { t } = useTranslation("title");
 
   return (
     <Layout title={t("title:home")}>
@@ -102,5 +102,9 @@ export const Home = (): JSX.Element => {
     </Layout>
   );
 };
+
+Home.getInitialProps = async () => ({
+  namespacesRequired: ["title"],
+});
 
 export default Home;

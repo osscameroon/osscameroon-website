@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { DropdownItem, DropdownMenu, DropdownToggle, Nav, UncontrolledDropdown } from "reactstrap";
 
-import intl from "../../utils/i18n";
+import intl from "@utils/i18n";
 
 const { i18n, useTranslation } = intl;
 

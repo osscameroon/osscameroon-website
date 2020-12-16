@@ -2,7 +2,7 @@ import { Response } from "express";
 import React, { PropsWithChildren } from "react";
 import { WithTranslation } from "next-i18next";
 
-import intl from "../utils/i18n";
+import intl from "@utils/i18n";
 
 const { withTranslation } = intl;
 

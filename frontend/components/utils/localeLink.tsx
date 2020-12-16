@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import intl from "../../utils/i18n";
+import intl from "@utils/i18n";
 
 const { useTranslation } = intl;
 

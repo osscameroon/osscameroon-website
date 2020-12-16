@@ -1,8 +1,8 @@
 import React from "react";
 import { Col } from "reactstrap";
 
-import intl from "../../utils/i18n";
-import Layout from "../../components/layout/layout";
+import intl from "@utils/i18n";
+import Layout from "@components/layout/layout";
 
 const { useTranslation } = intl;
 
@@ -17,5 +17,9 @@ const Project = () => {
     </Layout>
   );
 };
+
+Project.getInitialProps = async () => ({
+  namespacesRequired: ["title"],
+});
 
 export default Project;

@@ -1,7 +1,7 @@
 import { Col } from "reactstrap";
 
-import intl from "../../utils/i18n";
-import Layout from "../../components/layout/layout";
+import intl from "@utils/i18n";
+import Layout from "@components/layout/layout";
 
 const { useTranslation } = intl;
 
@@ -16,5 +16,9 @@ const Developers = () => {
     </Layout>
   );
 };
+
+Developers.getInitialProps = async () => ({
+  namespacesRequired: ["title"],
+});
 
 export default Developers;

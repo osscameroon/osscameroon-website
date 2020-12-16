@@ -3,7 +3,7 @@ import Head from "next/head";
 
 import Header from "./header";
 import Footer from "./footer";
-import intl from "../../utils/i18n";
+import intl from "@utils/i18n";
 
 const { useTranslation } = intl;
 

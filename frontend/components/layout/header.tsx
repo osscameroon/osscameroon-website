@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Collapse, Navbar, NavbarToggler, Nav, NavItem, Container } from "reactstrap";
 
-import intl from "../../utils/i18n";
-import ActiveLink from "../utils/activeLink";
-import LocaleLink from "../utils/localeLink";
+import intl from "@utils/i18n";
+import ActiveLink from "@components/utils/activeLink";
+import LocaleLink from "@components/utils/localeLink";
 
 const { useTranslation } = intl;
 
