@@ -1,8 +1,8 @@
 import React from "react";
-import Link from "next/link";
 import { DropdownItem, DropdownMenu, DropdownToggle, Nav, UncontrolledDropdown } from "reactstrap";
 
 import intl from "@utils/i18n";
+import LocaleLink from "@components/utils/localeLink";
 
 const { i18n, useTranslation } = intl;
 
@@ -16,7 +16,7 @@ const getFlag = (locale: string) => {
 
 const Footer = () => {
   const year = new Date().getFullYear();
-  const { t } = useTranslation("footer");
+  const { t } = useTranslation(["footer", "common"]);
 
   return (
     <footer className="d-flex justify-content-center align-items-center h-50 footer">
@@ -33,27 +33,29 @@ const Footer = () => {
             <h3 className="font-weight-bold">{t("footer:menuTitle")}</h3>
             <ul className="site">
               <li>
-                <Link href="/projects">
+                <LocaleLink as="/projects" href="/projects">
                   <a>{t("footer:projects")}</a>
-                </Link>
+                </LocaleLink>
               </li>
               <li>
-                <Link href="/developers">
+                <LocaleLink as="/developers" href="/developers">
                   <a>{t("footer:developers")}</a>
-                </Link>
+                </LocaleLink>
               </li>
               <li>
-                <a href="https://twitter.com/hashtag/CaParleDev">{t("tweets")}</a>
+                <a href="https://twitter.com/hashtag/CaParleDev" rel="noreferrer" target="_blank">
+                  {t("tweets")}
+                </a>
               </li>
               <li>
-                <Link href="/privacy">
+                <LocaleLink as="/privacy" href="/privacy">
                   <a>{t("footer:privacy")}</a>
-                </Link>
+                </LocaleLink>
               </li>
               <li>
-                <Link href="/terms">
+                <LocaleLink as="/terms" href="/terms">
                   <a>{t("footer:terms")}</a>
-                </Link>
+                </LocaleLink>
               </li>
             </ul>
           </div>
@@ -61,24 +63,24 @@ const Footer = () => {
             <h3 className="font-weight-bold">{t("footer:joinUs")}</h3>
             <ul className="join-us">
               <li>
-                <a href="https://twitter.com/caparledev">
+                <a href="https://twitter.com/caparledev" rel="noreferrer" target="_blank">
                   <img alt="Twitter logo" src="/static/icons/twitter-30-px.svg" />
                 </a>
               </li>
               <li>
-                <a href="https://github.com/osscameroon">
+                <a href="https://github.com/osscameroon" rel="noreferrer" target="_blank">
                   <img alt="Github logo" src="/static/icons/github-30-px.svg" />
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a href="#" rel="noreferrer" target="_blank">
                   <img alt="telegram Logo" src="/static/icons/telegram-30-px.svg" />{" "}
                 </a>
               </li>
             </ul>
             <div>
               {i18n.language && (
-                <Nav navbar className="locale-selector">
+                <Nav className="locale-selector" navbar>
                   <UncontrolledDropdown inNavbar nav>
                     <DropdownToggle className="d-flex align-items-center" nav>
                       <img alt="Flag" height={16} src={getFlag(i18n.language)} />
@@ -110,5 +112,9 @@ const Footer = () => {
     </footer>
   );
 };
+
+Footer.getInitialProps = async () => ({
+  namespacesRequired: ["footer", "common"],
+});
 
 export default Footer;
