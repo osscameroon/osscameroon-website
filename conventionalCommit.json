@@ -1,0 +1,30 @@
+{
+  "types": {
+    "ci": {},
+    "enh": {},
+    "eng": {},
+    "docs": {},
+    "feat": {},
+    "fix": {},
+    "refactor": {},
+    "revert": {},
+    "style": {},
+    "test": {}
+  },
+  "scopes": {
+    "app": {},
+    "backend": {},
+    "bot": {},
+    "build": {},
+    "ci": {},
+    "database": {},
+    "frontend": {},
+    "intl": {},
+    "logs": {},
+    "monitoring": {},
+    "scraper": {},
+    "seo": {},
+    "stats": {},
+    "ui": {}
+  }
+}
