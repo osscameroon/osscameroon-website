@@ -7,3 +7,9 @@ flask_cors
 
 # For gcloud datastore
 google-cloud-datastore
+
+# For configurations
+configparser
+
+# meilisearch
+meilisearch
