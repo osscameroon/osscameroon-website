@@ -1,7 +1,7 @@
 from flask_restplus import Api as TheAPI
 from flask import Blueprint, url_for
 
-from app.main.controller.github_users_controller import api as pacifista_ns
+from app.main.controller.github_users_controller import api as github_users_controller
 from app.main.config import app_port
 
 blueprint = Blueprint('api', __name__)
@@ -20,4 +20,4 @@ api = Api(blueprint,
           version='1.0',
           description='The Backend of the platform CaParleDev.')
 
-api.add_namespace(pacifista_ns)
+api.add_namespace(github_users_controller)

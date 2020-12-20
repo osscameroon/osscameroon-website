@@ -1,9 +1,10 @@
 from flask_restplus import Resource
-from flask import request
+from flask import request, jsonify
 
 # from app.main.utils.decorator import *
 from app.main.utils.dto import ApiDto
 from app.main.utils.database.users import get_users, get_user
+from app.main.utils.database.search import get_search_users
 
 api = ApiDto.api
 
@@ -32,3 +33,25 @@ class ApidtoUser(Resource):
 
         result = get_user(user_name)
         return result, result["code"]
+
+# Ex : /search/users?q=<query_strin>g&count=<element_per_page>&page=<page_number>
+@api.route('/search/users', methods=['GET'])
+class ApidtoSearch(Resource):
+    @api.doc('Get_search_infos')
+    def get(self):
+        query = request.args.get("query")
+
+        count = request.args.get("count")
+        if count is not None:
+            count = int(count)
+        else:
+            count = 20
+
+        page = request.args.get("page")
+        if page is not None:
+            page = int(page)
+        else:
+            page = 1
+
+        result = get_search_users(query, count, page)
+        return jsonify(result), result["code"]

@@ -1,5 +1,5 @@
 # database utils functions
-from app.utils.database import storage
+from app.main.utils.database import storage
 from app.settings import MEILISEARCH_MASTER_KEY, MEILISEARCH_HOST
 import meilisearch
 import json
