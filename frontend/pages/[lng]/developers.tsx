@@ -6,29 +6,20 @@ import intl from "@utils/i18n";
 import Layout from "@components/layout/layout";
 import Breadcrumb from "@components/common/Breadcrumb";
 import TagInput, { TagInputData } from "@components/common/TagInput";
+import { SUGGESTIONS, TAGS, YEAR_OF_EXPERIENCES } from "@fixtures/developers";
+import CheckboxList from "@components/common/CheckboxList";
 
 const { useTranslation } = intl;
-
-const tags: TagInputData[] = [
-  { id: "python", name: "Python" },
-  { id: "django", name: "Django" },
-  { id: "react", name: "React.js" },
-];
-const suggestions: TagInputData[] = [
-  { id: "java", name: "Java" },
-  { id: "typescript", name: "Typescript" },
-  { id: "nodejs", name: "Node.js" },
-  { id: "php", name: "PHP" },
-  { id: "csharp", name: "C-Sharp" },
-  { id: "graphql", name: "GraphQL" },
-  { id: "css", name: "CSS" },
-  { id: "html", name: "HTML" },
-];
 
 const Developers = () => {
   const { t } = useTranslation();
 
   const onTagInputChange = (values: TagInputData[]) => {
+    // eslint-disable-next-line no-console
+    console.log(values);
+  };
+
+  const onExperienceFilterChange = (values: string[]) => {
     // eslint-disable-next-line no-console
     console.log(values);
   };
@@ -60,7 +51,11 @@ const Developers = () => {
                 </FormGroup>
                 <FormGroup>
                   <Label htmlFor="tools">Tools</Label>
-                  <TagInput defaultValues={tags} suggestions={suggestions} onChange={onTagInputChange} />
+                  <TagInput defaultValues={TAGS} suggestions={SUGGESTIONS} onChange={onTagInputChange} />
+                </FormGroup>
+                <Label htmlFor="tools">Years of experience</Label>
+                <FormGroup check>
+                  <CheckboxList defaultValues={[]} options={YEAR_OF_EXPERIENCES} onChange={onExperienceFilterChange} />
                 </FormGroup>
               </Form>
             </div>

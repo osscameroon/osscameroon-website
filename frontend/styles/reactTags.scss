@@ -36,7 +36,7 @@
 }
 
 .react-tags__selected-tag:after {
-  content: '\2715';
+  content: "\2715";
   color: #fff;
   margin-left: 5px;
   border: solid 1px #fff;
@@ -64,12 +64,10 @@
 }
 
 @media screen and (min-width: 30em) {
-
   .react-tags__search {
     /* this will become the offsetParent for suggestions */
     position: relative;
   }
-
 }
 
 .react-tags__search-input {
@@ -99,11 +97,9 @@
 }
 
 @media screen and (min-width: 30em) {
-
   .react-tags__suggestions {
     width: 240px;
   }
-
 }
 
 .react-tags__suggestions ul {
