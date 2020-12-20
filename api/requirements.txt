@@ -7,7 +7,6 @@ flake8
 # For data storage
 google-cloud-datastore
 
-<<<<<<< HEAD
 # For the rest-api
 flask>=0.12.3
 Flask-Bcrypt==0.7.1
@@ -20,10 +19,9 @@ Flask-SQLAlchemy==2.3.2
 Flask-Testing==0.7.1
 
 werkzeug==0.16.1
-=======
+
 # For configurations
 configparser
 
 # meilisearch
 meilisearch
->>>>>>> 525b90ce616de19f7df9906fcea83ce63d4c3028
