@@ -1,6 +1,16 @@
 from app.utils.github_requests import get_user_repos, request_failed
 from app.utils.storage import fetch_all_users, store_project
+from datetime import datetime
 import time
+
+def convert_time_fields_to_date_time(repo):
+    d = repo["created_at"]
+    d = datetime.strptime(d, "%Y-%m-%dT%H:%M:%SZ")
+    repo["created_at"] = d
+
+    d = repo["updated_at"]
+    d = datetime.strptime(d, "%Y-%m-%dT%H:%M:%SZ")
+    repo["updated_at"] = d
 
 def filter_relevant_repos(repos):
     ret = []
@@ -32,6 +42,7 @@ def on_pageloaded_success(page):
             print("storing user {} relevant public repositories...".format(user_name))
             for r in repos:
                 print("storing project {} ...".format(r["name"]))
+                convert_time_fields_to_date_time(r)
                 store_project(r)
                 print("project {} stored".format(r["name"]))
             print("user {} relevant public repositories stored !".format(user_name))

@@ -1,5 +1,17 @@
 from app.utils.github_requests import get_users, get_user, request_failed
+from datetime import datetime
 from app.utils.storage import store_user
+
+
+def convert_time_fields_to_date_time(user):
+    d = user["created_at"]
+    d = datetime.strptime(d, "%Y-%m-%dT%H:%M:%SZ")
+    user["created_at"] = d
+
+    d = user["updated_at"]
+    d = datetime.strptime(d, "%Y-%m-%dT%H:%M:%SZ")
+    user["updated_at"] = d
+
 
 def store_users(users):
     """
@@ -23,6 +35,7 @@ def store_users(users):
             return
 
         print("Storing user {}:{} data...".format(u["id"], u["login"]))
+        convert_time_fields_to_date_time(user)
         store_user(user)
 
         print("Stored user {}:{} data.".format(u["id"], u["login"]))
@@ -44,6 +57,7 @@ def scrape_users(prs):
         if request_failed(user):
             print("Failed to save user data: {} .".format(user))
         else:
+            convert_time_fields_to_date_time(user)
             store_user(user)
     else:
         print("[+] Getting devs from cameroun/cameroon...")
