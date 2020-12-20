@@ -1,7 +1,5 @@
 import os
 
-# uncomment the line below for postgres database url from environment variable
-# postgres_local_base = os.environ['DATABASE_URL']
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -11,8 +9,9 @@ class Config:
     DEBUG = False
     APP_HOST = os.getenv('APP_HOST', '0.0.0.0')
     APP_PORT = os.getenv('APP_PORT', '8811')
-    APP_VERSION = os.getenv('APP_VERSION', '1.1')
+    APP_VERSION = os.getenv('APP_VERSION', '0.0.1')
     APP_NAME = os.getenv('APP_NAME', 'CaParleDev-WebSite')
+
 
 class DevelopmentConfig(Config):
     # uncomment the line below to use postgres

@@ -6,7 +6,6 @@ from app.main.utils.dto import ApiDto
 from app.main.utils.database.users import get_users, get_user
 
 api = ApiDto.api
-gh_users = ApiDto.github_user
 
 
 # Ex : /users?page=3&count

@@ -6,6 +6,7 @@ from google.cloud import datastore
 DATA_KIND = "github_users"
 __CLIENT = None
 
+
 def get_client():
     global __CLIENT
     if __CLIENT is None:

@@ -19,6 +19,6 @@ api = Api(blueprint,
           title='CAPARLEDEV RESTPLUS API ',
           version='1.0',
           description='The Backend of the platform CaParleDev.'
-          )
+        )
 
 api.add_namespace(pacifista_ns)
