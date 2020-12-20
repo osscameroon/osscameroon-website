@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Badge, Button } from "reactstrap";
+import { Button } from "reactstrap";
 
 type ProjectProps = {
   name: string;
@@ -36,13 +36,13 @@ const Project: React.FunctionComponent<ProjectProps> = (props) => {
         <div className={isBig ? "col-10" : ""}>
           <h1 style={style.h1}>{props.name}</h1>
           <p style={style.p}>{props.description}</p>
-          <span>
-            <Badge color="secondary">{props.language}</Badge>
-          </span>
-          &emsp;
-          <span style={{ verticalAlign: "middle" }}>
-            <img alt="star icon" src="/static/icons/star.svg" /> <strong>{props.stars}</strong>
-          </span>
+          <div className="d-flex">
+            <div className="project-language">{props.language}</div>
+            <div className="d-flex justify-content-start align-items-center">
+              <img alt="star icon" src="/static/icons/star.svg" />
+              <span className="font-weight-bold">{props.stars}</span>
+            </div>
+          </div>
         </div>
 
         {isBig ? (
