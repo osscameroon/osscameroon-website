@@ -5,11 +5,33 @@ import { BsArrowClockwise, BsXCircle } from "react-icons/bs";
 import intl from "@utils/i18n";
 import Layout from "@components/layout/layout";
 import Breadcrumb from "@components/common/Breadcrumb";
+import TagInput, { TagInputData } from "@components/common/TagInput";
 
 const { useTranslation } = intl;
 
+const tags: TagInputData[] = [
+  { id: "python", name: "Python" },
+  { id: "django", name: "Django" },
+  { id: "react", name: "React.js" },
+];
+const suggestions: TagInputData[] = [
+  { id: "java", name: "Java" },
+  { id: "typescript", name: "Typescript" },
+  { id: "nodejs", name: "Node.js" },
+  { id: "php", name: "PHP" },
+  { id: "csharp", name: "C-Sharp" },
+  { id: "graphql", name: "GraphQL" },
+  { id: "css", name: "CSS" },
+  { id: "html", name: "HTML" },
+];
+
 const Developers = () => {
   const { t } = useTranslation();
+
+  const onTagInputChange = (values: TagInputData[]) => {
+    // eslint-disable-next-line no-console
+    console.log(values);
+  };
 
   return (
     <Layout title={t("title:developers")}>
@@ -35,6 +57,10 @@ const Developers = () => {
                 <FormGroup>
                   <Label htmlFor="title">Title</Label>
                   <Input id="title" placeholder="Full Stack Web Developer" type="text" />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="tools">Tools</Label>
+                  <TagInput defaultValues={tags} suggestions={suggestions} onChange={onTagInputChange} />
                 </FormGroup>
               </Form>
             </div>

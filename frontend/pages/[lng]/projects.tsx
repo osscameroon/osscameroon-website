@@ -33,7 +33,7 @@ export const Home = (): JSX.Element => {
               <Form>
                 <FormGroup>
                   <Label htmlFor="title">Title</Label>
-                  <Input type="text" id="title" placeholder="Project title" />
+                  <Input id="title" placeholder="Project title" type="text" />
                 </FormGroup>
                 <FormGroup>
                   <Form>
