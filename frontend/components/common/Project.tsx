@@ -6,7 +6,7 @@ type ProjectProps = {
   description: string;
   language: string;
   stars: number;
-  type: "small" | "big"
+  type: "small" | "big";
 };
 
 const Project: React.FunctionComponent<ProjectProps> = (props) => {
@@ -16,7 +16,7 @@ const Project: React.FunctionComponent<ProjectProps> = (props) => {
       padding: "15px 25px 15px 25px",
       borderRadius: "5px",
       height: "150px",
-      width: "100%"
+      width: "100%",
     },
     h1: {
       fontSize: "1.125rem",
@@ -45,9 +45,14 @@ const Project: React.FunctionComponent<ProjectProps> = (props) => {
           </span>
         </div>
 
-        {isBig ?
-          <div className="col-2 item-center"> <Button color="primary"> View </Button> </div> : <></>
-        }
+        {isBig ? (
+          <div className="col-2 item-center">
+            {" "}
+            <Button color="primary"> View </Button>{" "}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

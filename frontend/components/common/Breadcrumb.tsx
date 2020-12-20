@@ -1,11 +1,9 @@
 import * as React from "react";
-import Link from "next/link";
 import LocaleLink from "@components/utils/localeLink";
 
-
 type BreadcrumbProps = {
-  links: {title: string, href: string}[]
-}
+  links: { title: string; href: string }[];
+};
 
 const style = {
   breadcrumb: {
@@ -13,15 +11,15 @@ const style = {
     alignItems: "center",
     background: "var(--dark-color)",
     color: "var(--white)",
-    height: "70px"
+    height: "70px",
   },
   bottom: {
-    verticalAlign: "bottom"
+    verticalAlign: "bottom",
   },
   a: {
     color: "var(--white)",
-    textDecoration: "none"
-  }
+    textDecoration: "none",
+  },
 };
 
 const Breadcrumb: React.FunctionComponent<BreadcrumbProps> = (props) => {
@@ -30,11 +28,11 @@ const Breadcrumb: React.FunctionComponent<BreadcrumbProps> = (props) => {
       <div className="container">
         <LocaleLink as="/" href="/">
           <a style={style.a}>
-            <img alt="home icon" src="/static/icons/home.svg" style={style.bottom}/> Home
+            <img alt="home icon" src="/static/icons/home.svg" style={style.bottom} /> Home
           </a>
         </LocaleLink>
         {props.links.map((link, index) => {
-          if(index === props.links.length - 1){
+          if (index === props.links.length - 1) {
             return <span key={index}> / {link.title}</span>;
           }
           return (

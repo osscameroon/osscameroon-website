@@ -1,0 +1,10 @@
+#developers-list {
+  .filter-section {
+    .selected-title {
+      background: rgba(47, 128, 237, 0.25);
+      border-radius: 5px;
+      color: var(--primary-color);
+      padding: 10px 8px;
+    }
+  }
+}
