@@ -10,7 +10,7 @@ api = ApiDto.api
 
 
 # Ex : /users?page=3&count
-@api.route('/', methods=['GET'])
+@api.route('/users', methods=['GET'])
 class ApidtoUsers(Resource):
     @api.doc('Get_all_users')
     def get(self):
@@ -25,7 +25,7 @@ class ApidtoUsers(Resource):
 
 
 # Ex : /users/elhmne
-@api.route('/<user_name>', methods=['GET'])
+@api.route('/users/<user_name>', methods=['GET'])
 class ApidtoUser(Resource):
     @api.doc('Get_user_infos')
     def get(self, user_name):
@@ -34,8 +34,9 @@ class ApidtoUser(Resource):
         result = get_user(user_name)
         return result, result["code"]
 
+
 # Ex : /search/users?q=<query_strin>g&count=<element_per_page>&page=<page_number>
-@api.route('/search/users', methods=['GET'])
+@api.route('/users/search', methods=['GET'])
 class ApidtoSearch(Resource):
     @api.doc('Get_search_infos')
     def get(self):
