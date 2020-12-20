@@ -1,27 +1,53 @@
-import React from "react";
-import { Col, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
+import React, { useState } from "react";
+import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import { BsArrowClockwise, BsXCircle } from "react-icons/bs";
 
+import { AVAILABILITY, SUGGESTIONS, TAGS, YEAR_OF_EXPERIENCES } from "@fixtures/developers";
 import intl from "@utils/i18n";
 import Layout from "@components/layout/layout";
 import Breadcrumb from "@components/common/Breadcrumb";
 import TagInput, { TagInputData } from "@components/common/TagInput";
-import { SUGGESTIONS, TAGS, YEAR_OF_EXPERIENCES } from "@fixtures/developers";
 import CheckboxList from "@components/common/CheckboxList";
 
 const { useTranslation } = intl;
 
+const showAdvancedFilter = false;
+
 const Developers = () => {
   const { t } = useTranslation();
+  const [jobTitle, setJobTitle] = useState("");
+  const [tools, setTools] = useState<TagInputData[]>(TAGS);
+  const [ossFilterChecked, setOssFilterChecked] = useState(false);
 
-  const onTagInputChange = (values: TagInputData[]) => {
+  const onTitleChange = (event) => {
+    setJobTitle(event.target.value);
+  };
+
+  const onToolsListChange = (values: TagInputData[]) => {
     // eslint-disable-next-line no-console
-    console.log(values);
+    console.log("Tools : ", values);
+    setTools(values);
   };
 
   const onExperienceFilterChange = (values: string[]) => {
     // eslint-disable-next-line no-console
-    console.log(values);
+    console.log("Experience : ", values);
+  };
+
+  const onAvailabilityFilterChange = (values: string[]) => {
+    // eslint-disable-next-line no-console
+    console.log("Availability : ", values);
+  };
+
+  const onFilterSubmit = () => {
+    const input = {
+      title: jobTitle,
+      tools: tools.map((value) => value.id),
+      ossFilter: ossFilterChecked,
+    };
+
+    // eslint-disable-next-line no-console
+    console.log(input);
   };
 
   return (
@@ -46,17 +72,52 @@ const Developers = () => {
               <div className="dropdown-divider" />
               <Form>
                 <FormGroup>
-                  <Label htmlFor="title">Title</Label>
-                  <Input id="title" placeholder="Full Stack Web Developer" type="text" />
+                  <Label className="filter-label" htmlFor="title">
+                    Title
+                  </Label>
+                  <Input id="title" placeholder="Full Stack Web Developer" type="text" value={jobTitle} onChange={onTitleChange} />
                 </FormGroup>
                 <FormGroup>
-                  <Label htmlFor="tools">Tools</Label>
-                  <TagInput defaultValues={TAGS} suggestions={SUGGESTIONS} onChange={onTagInputChange} />
+                  <Label className="filter-label" htmlFor="tools">
+                    Tools
+                  </Label>
+                  <TagInput defaultValues={TAGS} suggestions={SUGGESTIONS} onChange={onToolsListChange} />
                 </FormGroup>
-                <Label htmlFor="tools">Years of experience</Label>
-                <FormGroup check>
-                  <CheckboxList defaultValues={[]} options={YEAR_OF_EXPERIENCES} onChange={onExperienceFilterChange} />
-                </FormGroup>
+                {showAdvancedFilter && (
+                  <>
+                    <div className="mb-3">
+                      <Label className="filter-label" htmlFor="yoxp">
+                        Years of experience
+                      </Label>
+                      <FormGroup check>
+                        <CheckboxList defaultValues={[]} options={YEAR_OF_EXPERIENCES} onChange={onExperienceFilterChange} />
+                      </FormGroup>
+                    </div>
+                    <div className="mt-1 mb-3">
+                      <Label className="filter-label" htmlFor="availability">
+                        Availability
+                      </Label>
+                      <FormGroup check>
+                        <CheckboxList defaultValues={[]} options={AVAILABILITY} onChange={onAvailabilityFilterChange} />
+                      </FormGroup>
+                    </div>
+                  </>
+                )}
+                <div className="mt-1">
+                  <Label className="filter-label" htmlFor="oss">
+                    Has open source projects
+                  </Label>
+                  <FormGroup check>
+                    <Label check>
+                      <Input checked={ossFilterChecked} type="checkbox" onChange={() => setOssFilterChecked(!ossFilterChecked)} /> Yes
+                    </Label>
+                  </FormGroup>
+                </div>
+                <div className="d-flex justify-content-center mt-4 mb-3">
+                  <Button className="pl-4 pr-4" color="primary" type="button" onClick={onFilterSubmit}>
+                    Filter
+                  </Button>
+                </div>
               </Form>
             </div>
           </Col>
