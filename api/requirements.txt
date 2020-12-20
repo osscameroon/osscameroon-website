@@ -1,6 +1,9 @@
 # For tests in the application
 pytest
 
+# flake8
+flake8
+
 # For data storage
 google-cloud-datastore
 
