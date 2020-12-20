@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import { BsArrowClockwise, BsXCircle } from "react-icons/bs";
 
-import { AVAILABILITY, SUGGESTIONS, TAGS, YEAR_OF_EXPERIENCES } from "@fixtures/developers";
+import { AVAILABILITY, DEVELOPERS, SUGGESTIONS, TAGS, YEAR_OF_EXPERIENCES } from "@fixtures/developers";
 import intl from "@utils/i18n";
 import Layout from "@components/layout/layout";
 import Breadcrumb from "@components/common/Breadcrumb";
 import TagInput, { TagInputData } from "@components/common/TagInput";
 import CheckboxList from "@components/common/CheckboxList";
+import Pagination from "@components/common/Pagination";
+import Developer from "@components/common/Developer";
 
 const { useTranslation } = intl;
 
 const showAdvancedFilter = false;
 
-const Developers = () => {
+const DeveloperPage = () => {
   const { t } = useTranslation();
   const [jobTitle, setJobTitle] = useState("");
   const [tools, setTools] = useState<TagInputData[]>(TAGS);
@@ -48,6 +50,11 @@ const Developers = () => {
 
     // eslint-disable-next-line no-console
     console.log(input);
+  };
+
+  const onPaginationChange = (page: number) => {
+    // eslint-disable-next-line no-console
+    console.log("Pagination Page : ", page);
   };
 
   return (
@@ -121,15 +128,27 @@ const Developers = () => {
               </Form>
             </div>
           </Col>
-          <Col md="9">Developers List</Col>
+          <Col md="9">
+            <div style={{ margin: "0 15px 0 15px" }}>
+              <Pagination currentPage={1} itemPerPage={12} nbItems={40} position="top" onPageChange={onPaginationChange} />
+              <Row className="developer-section">
+                {DEVELOPERS.map((developer) => (
+                  <Col key={`develop${developer.id}`} md={4} style={{ marginTop: "20px", marginBottom: "20px" }}>
+                    <Developer data={developer} />
+                  </Col>
+                ))}
+              </Row>
+              <Pagination currentPage={1} itemPerPage={12} nbItems={40} position="bottom" onPageChange={onPaginationChange} />
+            </div>
+          </Col>
         </Row>
       </Container>
     </Layout>
   );
 };
 
-Developers.getInitialProps = async () => ({
+DeveloperPage.getInitialProps = async () => ({
   namespacesRequired: ["title"],
 });
 
-export default Developers;
+export default DeveloperPage;

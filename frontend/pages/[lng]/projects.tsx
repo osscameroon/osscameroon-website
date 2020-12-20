@@ -14,7 +14,7 @@ const languages = [
   { value: "typescript", label: "Typescript" },
 ];
 
-export const Home = (): JSX.Element => {
+export const ProjectPage = (): JSX.Element => {
   const onPageChange = (page: number) => {
     // Do something with page
     // eslint-disable-next-line no-console
@@ -79,4 +79,4 @@ export const Home = (): JSX.Element => {
   );
 };
 
-export default Home;
+export default ProjectPage;

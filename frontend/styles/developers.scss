@@ -10,4 +10,31 @@
       font-weight: bold;
     }
   }
+  .developer-section {
+    .developer-item {
+      box-shadow: var(--border-shadow);
+      border-radius: 5px;
+      height: 335px;
+      .card {
+        height: inherit;
+        overflow-y: hidden;
+        .devtool-list {
+          height: 62px;
+          overflow-y: hidden;
+          .devtool-item {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            text-align: center;
+            color: var(--primary-color);
+            background: rgba(47, 128, 237, 0.25);
+            border-radius: 5px;
+            padding: 2px 5px 3.5px 5px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+          }
+        }
+      }
+    }
+  }
 }
