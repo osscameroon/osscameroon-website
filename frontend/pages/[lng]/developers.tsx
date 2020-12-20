@@ -16,7 +16,7 @@ const { useTranslation } = intl;
 const showAdvancedFilter = false;
 
 const DeveloperPage = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(["developer", "title"]);
   const [jobTitle, setJobTitle] = useState("");
   const [tools, setTools] = useState<TagInputData[]>(TAGS);
   const [ossFilterChecked, setOssFilterChecked] = useState(false);
@@ -59,15 +59,15 @@ const DeveloperPage = () => {
 
   return (
     <Layout title={t("title:developers")}>
-      <Breadcrumb links={[{ title: "Developers", href: "" }]} />
+      <Breadcrumb links={[{ title: t("title:developers"), href: "" }]} />
       <Container id="developers-list">
-        <Row style={{ marginTop: "30px" }}>
+        <Row className="mt-30">
           <Col md="3">
             <div className="side-card filter-section">
               <div className="d-flex justify-content-between">
-                <div className="bold">Filters</div>
+                <div className="bold">{t("developer:filterTitle")}</div>
                 <div className="cursor-pointer text-color-main">
-                  Reset <BsArrowClockwise />
+                  {t("developer:btnReset")} <BsArrowClockwise />
                 </div>
               </div>
               <div className="selected-title d-flex justify-content-between align-items-center mt-3 mb-3">
@@ -80,13 +80,13 @@ const DeveloperPage = () => {
               <Form>
                 <FormGroup>
                   <Label className="filter-label" htmlFor="title">
-                    Title
+                    {t("developer:jobTitleLabel")}
                   </Label>
-                  <Input id="title" placeholder="Full Stack Web Developer" type="text" value={jobTitle} onChange={onTitleChange} />
+                  <Input id="title" placeholder={t("developer:jobTitleHint")} type="text" value={jobTitle} onChange={onTitleChange} />
                 </FormGroup>
                 <FormGroup>
                   <Label className="filter-label" htmlFor="tools">
-                    Tools
+                    {t("developer:languageLabel")}
                   </Label>
                   <TagInput defaultValues={TAGS} suggestions={SUGGESTIONS} onChange={onToolsListChange} />
                 </FormGroup>
@@ -112,17 +112,18 @@ const DeveloperPage = () => {
                 )}
                 <div className="mt-1">
                   <Label className="filter-label" htmlFor="oss">
-                    Has open source projects
+                    {t("developer:hasOssLabel")}
                   </Label>
                   <FormGroup check>
                     <Label check>
-                      <Input checked={ossFilterChecked} type="checkbox" onChange={() => setOssFilterChecked(!ossFilterChecked)} /> Yes
+                      <Input checked={ossFilterChecked} type="checkbox" onChange={() => setOssFilterChecked(!ossFilterChecked)} />
+                      {t("developer:hasOssValue")}
                     </Label>
                   </FormGroup>
                 </div>
                 <div className="d-flex justify-content-center mt-4 mb-3">
                   <Button className="pl-4 pr-4" color="primary" type="button" onClick={onFilterSubmit}>
-                    Filter
+                    {t("developer:btnFilter")}
                   </Button>
                 </div>
               </Form>
@@ -148,7 +149,7 @@ const DeveloperPage = () => {
 };
 
 DeveloperPage.getInitialProps = async () => ({
-  namespacesRequired: ["title"],
+  namespacesRequired: ["title", "developer"],
 });
 
 export default DeveloperPage;

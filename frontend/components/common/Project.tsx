@@ -1,5 +1,8 @@
 import * as React from "react";
 import { Button } from "reactstrap";
+import intl from "@utils/i18n";
+
+const { useTranslation } = intl;
 
 type ProjectProps = {
   name: string;
@@ -9,7 +12,8 @@ type ProjectProps = {
   type: "small" | "big";
 };
 
-const Project: React.FunctionComponent<ProjectProps> = (props) => {
+const Project = (props: ProjectProps) => {
+  const { t } = useTranslation("project");
   const style = {
     card: {
       boxShadow: "var(--border-shadow)",
@@ -48,7 +52,7 @@ const Project: React.FunctionComponent<ProjectProps> = (props) => {
         {isBig ? (
           <div className="col-2 item-center">
             {" "}
-            <Button color="primary"> View </Button>{" "}
+            <Button color="primary"> {t("buttonView")} </Button>{" "}
           </div>
         ) : (
           <></>
@@ -57,5 +61,9 @@ const Project: React.FunctionComponent<ProjectProps> = (props) => {
     </div>
   );
 };
+
+Project.getInitialProps = async () => ({
+  namespacesRequired: ["project"],
+});
 
 export default Project;

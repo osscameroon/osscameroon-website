@@ -10,7 +10,7 @@ import { TWEETS, PROJECTS } from "@fixtures/home";
 
 const { useTranslation } = intl;
 
-export const Home = () => {
+const HomePage = () => {
   const { t } = useTranslation("title");
 
   return (
@@ -103,8 +103,8 @@ export const Home = () => {
   );
 };
 
-Home.getInitialProps = async () => ({
+HomePage.getInitialProps = async () => ({
   namespacesRequired: ["title"],
 });
 
-export default Home;
+export default HomePage;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, FormGroup, Input, Label, Container, Row, Col } from "reactstrap";
 import Select from "react-select";
+import { BsArrowClockwise } from "react-icons/bs";
 
 import Layout from "@components/layout/layout";
 import Project from "@components/common/Project";
@@ -9,17 +10,26 @@ import Breadcrumb from "@components/common/Breadcrumb";
 import TagInput, { TagInputData } from "@components/common/TagInput";
 import { PROJECTS } from "@fixtures/home";
 import { SUGGESTIONS, TAGS } from "@fixtures/developers";
-import { BsArrowClockwise } from "react-icons/bs";
+import intl from "@utils/i18n";
+
+const { useTranslation } = intl;
 
 const orderOptions = [
-  { value: "mp", label: "Most popular" },
-  { value: "mr", label: "Most Recent" },
-  { value: "alpha", label: "Alphabetical" },
+  { value: "mp", label: "project:mostPopularOption" },
+  { value: "mr", label: "project:mostRecentOption" },
+  { value: "alpha", label: "project:alphabeticalOption" },
 ];
 
 export const ProjectPage = (): JSX.Element => {
   const [projectTitle, setProjectTitle] = useState("");
   const [languages, setLanguages] = useState<TagInputData[]>(TAGS);
+
+  const { t } = useTranslation(["project", "title"]);
+
+  const translatedOrderOptions = orderOptions.map((option) => ({
+    ...option,
+    label: t(option.label),
+  }));
 
   const onPageChange = (page: number) => {
     // Do something with page
@@ -48,48 +58,46 @@ export const ProjectPage = (): JSX.Element => {
   };
 
   return (
-    <Layout title="Projects">
-      <Breadcrumb links={[{ title: "Projects", href: "" }]} />
+    <Layout title={t("title:projects")}>
+      <Breadcrumb links={[{ title: t("title:projects"), href: "" }]} />
 
       <Container id="project-list">
         <Row className="mt-30">
           <Col md="3">
             <div className="side-card">
               <div className="d-flex justify-content-between mb-3">
-                <div className="bold">Filters</div>
+                <div className="bold">{t("project:filterTitle")}</div>
                 <div className="cursor-pointer text-color-main">
-                  Reset <BsArrowClockwise />
+                  {t("project:btnReset")} <BsArrowClockwise />
                 </div>
               </div>
               <Form>
                 <FormGroup>
                   <Label className="font-weight-bold" htmlFor="title">
-                    Title
+                    {t("project:titleLabel")}
                   </Label>
-                  <Input id="title" placeholder="Project title" type="text" value={projectTitle} onChange={onTitleChange} />
+                  <Input id="title" placeholder={t("project:titleHint")} type="text" value={projectTitle} onChange={onTitleChange} />
                 </FormGroup>
                 <FormGroup>
-                  <Form>
-                    <Label className="font-weight-bold" htmlFor="languages">
-                      Programming Languages
-                    </Label>
-                    <TagInput defaultValues={TAGS} suggestions={SUGGESTIONS} onChange={onLanguageTagChange} />
-                  </Form>
+                  <Label className="font-weight-bold" htmlFor="languages">
+                    {t("project:languageLabel")}
+                  </Label>
+                  <TagInput defaultValues={TAGS} suggestions={SUGGESTIONS} onChange={onLanguageTagChange} />
                 </FormGroup>
 
                 <FormGroup className="text-center pt-4">
                   <Button color="primary" onClick={onFilterSubmit}>
-                    Filter
+                    {t("project:btnFilter")}
                   </Button>
                 </FormGroup>
               </Form>
             </div>
 
             <div className="side-card">
-              <h4 className="bold">Sort by</h4>
+              <h4 className="bold">{t("project:sortTitle")}</h4>
               <Form>
                 <FormGroup>
-                  <Select options={orderOptions} isMulti />
+                  <Select options={translatedOrderOptions} isMulti />
                 </FormGroup>
               </Form>
             </div>
@@ -111,5 +119,9 @@ export const ProjectPage = (): JSX.Element => {
     </Layout>
   );
 };
+
+ProjectPage.getInitialProps = async () => ({
+  namespacesRequired: ["title", "project"],
+});
 
 export default ProjectPage;

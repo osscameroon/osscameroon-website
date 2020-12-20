@@ -16,7 +16,7 @@ const getFlag = (locale: string) => {
 
 const Footer = () => {
   const year = new Date().getFullYear();
-  const { t } = useTranslation(["footer", "common"]);
+  const { t } = useTranslation(["footer"]);
 
   return (
     <footer className="d-flex justify-content-center align-items-center h-50 footer">
@@ -114,7 +114,7 @@ const Footer = () => {
 };
 
 Footer.getInitialProps = async () => ({
-  namespacesRequired: ["footer", "common"],
+  namespacesRequired: ["footer"],
 });
 
 export default Footer;

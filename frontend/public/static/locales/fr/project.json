@@ -1,0 +1,13 @@
+{
+  "buttonView": "Voir",
+  "filterTitle": "Filtres",
+  "btnReset": "Effacer",
+  "titleLabel": "Titre",
+  "titleHint": "Titre du projet",
+  "languageLabel": "Langages de programmation",
+  "btnFilter": "Filtrer",
+  "sortTitle": "Trier par",
+  "mostPopularOption": "Plus populaire",
+  "mostRecentOption": "Plus récent",
+  "alphabeticalOption": "Alphabétique"
+}
