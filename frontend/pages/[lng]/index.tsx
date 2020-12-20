@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, InputGroup, InputGroupAddon, Button } from "reactstrap";
+import { Input, InputGroup, InputGroupAddon, Button, Container, Row, Col } from "reactstrap";
 
 import intl from "@utils/i18n";
 import Layout from "@components/layout/layout";
@@ -17,9 +17,9 @@ export const Home = () => {
     <Layout title={t("title:home")}>
       <div className="home-page">
         <section id="banner">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-6">
+          <Container>
+            <Row>
+              <Col md="6">
                 <h1>Lorem ipsum dolor sit amet, consectetur adipscing elit.</h1>
                 <p>
                   <Button color="primary" outline>
@@ -27,12 +27,12 @@ export const Home = () => {
                     COMMUNITY PROJECTS{" "}
                   </Button>
                 </p>
-              </div>
-              <div className="col-md-6 text-right">
+              </Col>
+              <Col className="text-right" md="6">
                 <img alt="developer illustration" className="d-none d-md-block" src="/static/img/developer.svg" style={{ marginTop: "30px" }} />
-              </div>
-            </div>
-          </div>
+              </Col>
+            </Row>
+          </Container>
         </section>
 
         <section className="item-center" id="search">
@@ -62,15 +62,21 @@ export const Home = () => {
         <section className="item-center" id="projects">
           <div className="text-center">
             <h2> TOP PROJECTS </h2>
-            <div className="container">
-              <div className="row" style={{ margin: "40px 0 40px 0" }}>
+            <Container>
+              <Row style={{ margin: "40px 0 40px 0" }}>
                 {PROJECTS.map((project, i) => (
-                  <div className="col-md-4" key={i} style={{ margin: "20px 0 20px 0" }}>
-                    <Project description={project.description} language={project.language} name={project.name} stars={project.stars} />
-                  </div>
+                  <Col md="4" key={i} style={{ margin: "20px 0 20px 0" }}>
+                    <Project
+                      description={project.description}
+                      language={project.language}
+                      name={project.name}
+                      stars={project.stars}
+                      type="small"
+                    />
+                  </Col>
                 ))}
-              </div>
-            </div>
+              </Row>
+            </Container>
             <Button color="primary">VIEW MORE PROJECTS</Button>
           </div>
         </section>
@@ -78,10 +84,10 @@ export const Home = () => {
         <section className="item-center" id="tweets">
           <div className="text-center">
             <h2> TOP TWEETS </h2>
-            <div className="container">
-              <div className="row" style={{ margin: "40px 0 40px 0" }}>
+            <Container>
+              <Row style={{ margin: "40px 0 40px 0" }}>
                 {TWEETS.map((tweet, i) => (
-                  <div className="col-md-4" key={i} style={{ margin: "20px 0 20px 0" }}>
+                  <Col md="4" key={i} style={{ margin: "20px 0 20px 0" }}>
                     <Tweet
                       avatar={tweet.avatar}
                       comments={tweet.comments}
@@ -91,10 +97,10 @@ export const Home = () => {
                       text={tweet.text}
                       username={tweet.username}
                     />
-                  </div>
+                  </Col>
                 ))}
-              </div>
-            </div>
+              </Row>
+            </Container>
             <Button color="primary"> VIEW MORE TWEETS </Button>
           </div>
         </section>

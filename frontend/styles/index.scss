@@ -31,3 +31,15 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.side-card {
+  border-radius: 5px 5px 0 0;
+  border-top: 5px var(--primary-color) solid;
+  padding: 15px 10px 10px 10px;
+  margin-bottom: 25px;
+  box-shadow: var(--border-shadow);
+}
+
+.bold {
+  font-weight: bold;
+}
