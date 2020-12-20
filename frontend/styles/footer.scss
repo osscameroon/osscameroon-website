@@ -11,6 +11,21 @@
     display: inline-block;
     margin-right: 25px;
   }
+  ul.locale-selector {
+    li {
+      a {
+        color: #fff;
+        img {
+          margin-right: 10px;
+        }
+      }
+    }
+    .locale-selector-dropdown {
+      button img {
+        margin-right: 10px;
+      }
+    }
+  }
   .site a {
     display: inline-block;
     margin-bottom: 10px;

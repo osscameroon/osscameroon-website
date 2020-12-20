@@ -11,4 +11,4 @@ const ni18n = new NextI18Next({
   localePath: path.resolve("./public/static/locales"),
 });
 
-export default { ...ni18n };
+export default ni18n;
