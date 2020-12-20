@@ -2,8 +2,8 @@ import React, { PropsWithChildren } from "react";
 import Head from "next/head";
 
 import Header from "./header";
-import { Footer } from "./footer";
-import intl from "../../utils/i18n";
+import Footer from "./footer";
+import intl from "@utils/i18n";
 
 const { useTranslation } = intl;
 
@@ -30,4 +30,4 @@ const Layout = ({ children, title }: PropsWithChildren<LayoutProps>) => {
   );
 };
 
-export { Layout };
+export default Layout;

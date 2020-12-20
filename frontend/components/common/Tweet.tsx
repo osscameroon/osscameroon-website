@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Row, Col } from "reactstrap";
 
 type TweetProps = {
   avatar: string;
@@ -10,13 +11,13 @@ type TweetProps = {
   likes: number;
 };
 
-export const Tweet: React.FunctionComponent<TweetProps> = (props) => {
+const Tweet: React.FunctionComponent<TweetProps> = (props) => {
   return (
-    <div className="row">
-      <div className="col-2 col-md-2">
+    <Row className="row">
+      <Col md="2" xs="2">
         <img alt={`${props.name} avatar`} src={props.avatar} />
-      </div>
-      <div className="col-10 col-sm-10 text-left">
+      </Col>
+      <Col className="text-left" md="10" xs="10">
         <div>
           <strong>{props.name}</strong> <span style={{ fontWeight: 100 }}>&ensp; {props.username}</span>
         </div>
@@ -34,7 +35,9 @@ export const Tweet: React.FunctionComponent<TweetProps> = (props) => {
             </li>
           </ul>
         </div>
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 };
+
+export default Tweet;

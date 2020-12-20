@@ -1,9 +1,11 @@
 import React from "react";
-import { Form, Button, FormGroup, Input, Label } from "reactstrap";
+import { Form, Button, FormGroup, Input, Label, Container, Row, Col } from "reactstrap";
 import Select from 'react-select';
-import { Layout } from "../../components/layout/layout";
-import { PROJECTS } from "../../fixtures";
-import { Project, Pagination, Breadcrumb } from "../../components/common";
+import Layout from "@components/layout/layout";
+import Project from "@components/common/Project";
+import Pagination from "@components/common/Pagination";
+import Breadcrumb from "@components/common/Breadcrumb";
+import { PROJECTS } from "@fixtures/home";
 
 
 const languages = [
@@ -13,68 +15,77 @@ const languages = [
   { value: 'typescript', label: 'Typescript' }
 ];
 
-export const Home = (): JSX.Element => (
-  <Layout title="Projects">
-    <Breadcrumb links={[{title: "Projects", href: ""}]}/>
+export const Home = (): JSX.Element => {
 
-    <div className="container">
-      <div className="row" style={{marginTop: "30px"}}>
+  const onPageChange = (page: number) => {
+    // Do something with page
+    // eslint-disable-next-line no-console
+    console.log(page);
+  };
 
-        <div className="col-md-3">
-          <div className="side-card">
-            <h4 className="bold">Filters</h4>
-            <Form>
-              <FormGroup>
-                <Label htmlFor="title">Title</Label>
-                <Input type="text" id="title" placeholder="Project title" />
-              </FormGroup>
-              <FormGroup>
-                <Form>
-                  <Label htmlFor="languages">Programming Languages</Label>
-                  <Select options={languages} isMulti />
-                </Form>
-              </FormGroup>
+  return (
+    <Layout title="Projects">
+      <Breadcrumb links={[{title: "Projects", href: ""}]}/>
 
-              <FormGroup className="text-center">
-                <Button color="primary">Filter</Button>
-              </FormGroup>
-            </Form>
-          </div>
+      <Container>
+        <Row style={{marginTop: "30px"}}>
 
-          <div className="side-card">
-            <h4 className="bold">Sort by</h4>
-            <Form>
-              <FormGroup>
-                <Input type="select" name="select">
-                  <option>Most popular</option>
-                  <option>Most Recent</option>
-                  <option>Alphabetical</option>
-                </Input>
-              </FormGroup>
-            </Form>
-          </div>
-        </div>
+          <Col md="3">
+            <div className="side-card">
+              <h4 className="bold">Filters</h4>
+              <Form>
+                <FormGroup>
+                  <Label htmlFor="title">Title</Label>
+                  <Input type="text" id="title" placeholder="Project title" />
+                </FormGroup>
+                <FormGroup>
+                  <Form>
+                    <Label htmlFor="languages">Programming Languages</Label>
+                    <Select options={languages} isMulti />
+                  </Form>
+                </FormGroup>
 
-        <div className="col-md-9">
-          <div style={{margin: "0 15px 0 15px"}}>
-            <Pagination currentPage={1} itemPerPage={12} nbItems={40} position="top" />
-            {PROJECTS.map((project, i) => (
-              <div className="row" key={i} style={{marginTop: "20px", marginBottom: "20px"}}>
-                <Project
-                  description={project.description}
-                  language={project.language}
-                  name={project.name}
-                  stars={project.stars}
-                  type="big"
-                />
-              </div>
-            ))}
-            <Pagination currentPage={1} itemPerPage={12} nbItems={40} position="bottom" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </Layout>
-);
+                <FormGroup className="text-center">
+                  <Button color="primary">Filter</Button>
+                </FormGroup>
+              </Form>
+            </div>
+
+            <div className="side-card">
+              <h4 className="bold">Sort by</h4>
+              <Form>
+                <FormGroup>
+                  <Input type="select" name="select">
+                    <option>Most popular</option>
+                    <option>Most Recent</option>
+                    <option>Alphabetical</option>
+                  </Input>
+                </FormGroup>
+              </Form>
+            </div>
+          </Col>
+
+          <Col md="9">
+            <div style={{margin: "0 15px 0 15px"}}>
+              <Pagination currentPage={1} itemPerPage={12} nbItems={40} position="top" onPageChange={onPageChange}/>
+              {PROJECTS.map((project, i) => (
+                <Row key={i} style={{marginTop: "20px", marginBottom: "20px"}}>
+                  <Project
+                    description={project.description}
+                    language={project.language}
+                    name={project.name}
+                    stars={project.stars}
+                    type="big"
+                  />
+                </Row>
+              ))}
+              <Pagination currentPage={1} itemPerPage={12} nbItems={40} position="bottom" onPageChange={onPageChange}/>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </Layout>
+  );
+};
 
 export default Home;

@@ -1,24 +1,25 @@
 import React from "react";
-import { Input, InputGroup, InputGroupAddon, Button } from "reactstrap";
+import { Input, InputGroup, InputGroupAddon, Button, Container, Row, Col } from "reactstrap";
 
-import intl from "../../utils/i18n";
-import { Layout } from "../../components/layout/layout";
-import { Tweet, Project } from "../../components/common";
+import intl from "@utils/i18n";
+import Layout from "@components/layout/layout";
+import Tweet from "@components/common/Tweet";
+import Project from "@components/common/Project";
 
-import { TWEETS, PROJECTS } from "../../fixtures";
+import { TWEETS, PROJECTS } from "@fixtures/home";
 
 const { useTranslation } = intl;
 
-export const Home = (): JSX.Element => {
-  const { t } = useTranslation();
+export const Home = () => {
+  const { t } = useTranslation("title");
 
   return (
     <Layout title={t("title:home")}>
       <div className="home-page">
         <section id="banner">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-6">
+          <Container>
+            <Row>
+              <Col md="6">
                 <h1>Lorem ipsum dolor sit amet, consectetur adipscing elit.</h1>
                 <p>
                   <Button color="primary" outline>
@@ -26,12 +27,12 @@ export const Home = (): JSX.Element => {
                     COMMUNITY PROJECTS{" "}
                   </Button>
                 </p>
-              </div>
-              <div className="col-md-6 text-right">
+              </Col>
+              <Col className="text-right" md="6">
                 <img alt="developer illustration" className="d-none d-md-block" src="/static/img/developer.svg" style={{ marginTop: "30px" }} />
-              </div>
-            </div>
-          </div>
+              </Col>
+            </Row>
+          </Container>
         </section>
 
         <section className="item-center" id="search">
@@ -61,10 +62,10 @@ export const Home = (): JSX.Element => {
         <section className="item-center" id="projects">
           <div className="text-center">
             <h2> TOP PROJECTS </h2>
-            <div className="container">
-              <div className="row" style={{ margin: "40px 0 40px 0" }}>
+            <Container>
+              <Row style={{ margin: "40px 0 40px 0" }}>
                 {PROJECTS.map((project, i) => (
-                  <div className="col-md-4" key={i} style={{ margin: "20px 0 20px 0" }}>
+                  <Col md="4" key={i} style={{ margin: "20px 0 20px 0" }}>
                     <Project
                       description={project.description}
                       language={project.language}
@@ -72,10 +73,10 @@ export const Home = (): JSX.Element => {
                       stars={project.stars}
                       type="small"
                     />
-                  </div>
+                  </Col>
                 ))}
-              </div>
-            </div>
+              </Row>
+            </Container>
             <Button color="primary">VIEW MORE PROJECTS</Button>
           </div>
         </section>
@@ -83,10 +84,10 @@ export const Home = (): JSX.Element => {
         <section className="item-center" id="tweets">
           <div className="text-center">
             <h2> TOP TWEETS </h2>
-            <div className="container">
-              <div className="row" style={{ margin: "40px 0 40px 0" }}>
+            <Container>
+              <Row style={{ margin: "40px 0 40px 0" }}>
                 {TWEETS.map((tweet, i) => (
-                  <div className="col-md-4" key={i} style={{ margin: "20px 0 20px 0" }}>
+                  <Col md="4" key={i} style={{ margin: "20px 0 20px 0" }}>
                     <Tweet
                       avatar={tweet.avatar}
                       comments={tweet.comments}
@@ -96,10 +97,10 @@ export const Home = (): JSX.Element => {
                       text={tweet.text}
                       username={tweet.username}
                     />
-                  </div>
+                  </Col>
                 ))}
-              </div>
-            </div>
+              </Row>
+            </Container>
             <Button color="primary"> VIEW MORE TWEETS </Button>
           </div>
         </section>
@@ -109,7 +110,7 @@ export const Home = (): JSX.Element => {
 };
 
 Home.getInitialProps = async () => ({
-  namespacesRequired: ["common"],
+  namespacesRequired: ["title"],
 });
 
 export default Home;

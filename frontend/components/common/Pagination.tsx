@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Row, Col } from "reactstrap";
 
 const style = {
   top: {
@@ -17,11 +18,12 @@ type PaginationProps = {
   itemPerPage: number
   nbItems: number
   currentPage: number
+  onPageChange: (page: number) => void
 };
 
-export const Pagination: React.FunctionComponent<PaginationProps> = (props) => {
+const Pagination: React.FunctionComponent<PaginationProps> = (props) => {
   const isTop = props.position === "top";
-  const pages: any[] = [];
+  const pages: number[] = [];
   const nbPages: number = Math.floor(props.nbItems / props.itemPerPage);
 
   for(let i = 0; i < nbPages; i++) {
@@ -29,17 +31,24 @@ export const Pagination: React.FunctionComponent<PaginationProps> = (props) => {
   }
 
   return (
-    <div className="row" style={isTop ? style.top : style.bottom}>
-      <div className="col text-left">
+    <Row style={isTop ? style.top : style.bottom}>
+      <Col className="text-left">
         1 - {props.itemPerPage} of more than {props.nbItems} results
-      </div>
-      <div className="col text-right">
+      </Col>
+      <Col className="text-right">
         {pages.map((value) => (
-          <a href={`#${value}`} style={value !== props.currentPage ? {color: "var(--dark-color"} : {}}>
+          <a
+            href="#"
+            key={value}
+            style={value !== props.currentPage ? {color: "var(--dark-color"} : {}}
+            onClick={() => props.onPageChange(value)}
+          >
             <strong>&nbsp; {value} </strong>
           </a>
         ))}
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 };
+
+export default Pagination;

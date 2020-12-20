@@ -1,5 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
+import LocaleLink from "@components/utils/localeLink";
 
 
 type BreadcrumbProps = {
@@ -23,22 +24,28 @@ const style = {
   }
 };
 
-export const Breadcrumb: React.FunctionComponent<BreadcrumbProps> = (props) => {
+const Breadcrumb: React.FunctionComponent<BreadcrumbProps> = (props) => {
   return (
     <div className="container-fluid" style={style.breadcrumb}>
       <div className="container">
-        <Link href="/">
+        <LocaleLink as="/" href="/">
           <a style={style.a}>
             <img alt="home icon" src="/static/icons/home.svg" style={style.bottom}/> Home
           </a>
-        </Link>
+        </LocaleLink>
         {props.links.map((link, index) => {
           if(index === props.links.length - 1){
             return <span key={index}> / {link.title}</span>;
           }
-          return <Link href={link.href} key={index}> <a style={style.a}> / {link.title} </a> </Link>;
+          return (
+            <LocaleLink as="#" href={link.href} key={index}>
+              <a style={style.a}> / {link.title} </a>
+            </LocaleLink>
+          );
         })}
       </div>
     </div>
   );
 };
+
+export default Breadcrumb;
