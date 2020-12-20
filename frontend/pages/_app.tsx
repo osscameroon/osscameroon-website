@@ -1,9 +1,9 @@
 import React from "react";
 import App from "next/app";
 
-import intl from "../utils/i18n";
+import intl from "@utils/i18n";
 
-import "../styles/index.scss";
+import "@styles/index.scss";
 
 const { appWithTranslation } = intl;
 

@@ -7,6 +7,9 @@ import json
 from app.settings import GITHUB_API, GITHUB_TOKEN
 
 
+def request_failed(ret):
+    return ret and "status" in ret and ret["status"] == "error"
+
 def status_check(r):
     """
 
@@ -99,3 +102,33 @@ def get_user(user_name: str):
     user_info = json.loads(r.content)
 
     return user_info
+
+def get_user_repos(user_name: str):
+    """
+
+    This method is for getting details about one user
+
+    @params : user_name [the username of the dev]
+    @returns : repositories [the json result form github api]
+
+    """
+
+    if len(user_name) <= 2:
+        return {"status": "error", "message": "Please provide a valid username"}
+    # We just remove the default @ if it's provide from the user_name
+    user_name = user_name.replace("@", "") if "@" in user_name else user_name
+
+    # we make a simple request to the api
+
+    headers = {"Authorization": "token {}".format(GITHUB_TOKEN)}
+    r = requests.get("{}/users/{}/repos".format(GITHUB_API, user_name), headers=headers)
+
+    # We check the status of the requet and return a predefined error message
+    schk = status_check(r)
+    if not schk[0]:
+        return schk[1]
+
+    # a simple parse of the response
+    repos = json.loads(r.content)
+
+    return repos

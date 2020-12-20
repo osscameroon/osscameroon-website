@@ -23,6 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  bloc_test: ^7.1.0
+  cached_network_image: ^2.3.3
   chopper: ^3.0.3
   cupertino_icons: ^1.0.0
   equatable: ^1.2.5
@@ -39,7 +41,6 @@ dependencies:
   moor_flutter: ^3.1.0
   rxdart: ^0.24.1
   shared_preferences: ^0.5.10
-  cached_network_image: ^2.3.3
 
 dev_dependencies:
   flutter_test:
