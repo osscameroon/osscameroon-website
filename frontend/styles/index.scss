@@ -9,6 +9,9 @@ $primary: #2f80ed;
 @import "header";
 @import "footer";
 @import "home";
+@import "developers";
+@import "reactTags";
+@import "projects";
 
 :root {
   --primary-color: #2f80ed;
@@ -42,4 +45,20 @@ body {
 
 .bold {
   font-weight: bold;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.text-color-main {
+  color: var(--primary-color);
+}
+
+.text-size-20 {
+  font-size: 20px;
 }

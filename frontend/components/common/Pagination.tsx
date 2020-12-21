@@ -6,19 +6,19 @@ const style = {
     borderTop: "5px var(--primary-color) solid",
     borderRadius: "5px 5px 0 0",
     boxShadow: "var(--border-shadow)",
-    padding: "8px 15px 8px 15px"
+    padding: "8px 15px 8px 15px",
   },
   bottom: {
-    margin: " 25px 0 25px 0"
-  }
+    margin: " 25px 0 25px 0",
+  },
 };
 
 type PaginationProps = {
-  position: "top" | "bottom"
-  itemPerPage: number
-  nbItems: number
-  currentPage: number
-  onPageChange: (page: number) => void
+  position: "top" | "bottom";
+  itemPerPage: number;
+  nbItems: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
 };
 
 const Pagination: React.FunctionComponent<PaginationProps> = (props) => {
@@ -26,7 +26,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = (props) => {
   const pages: number[] = [];
   const nbPages: number = Math.floor(props.nbItems / props.itemPerPage);
 
-  for(let i = 0; i < nbPages; i++) {
+  for (let i = 0; i < nbPages; i++) {
     pages.push(i + 1);
   }
 
@@ -37,12 +37,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = (props) => {
       </Col>
       <Col className="text-right">
         {pages.map((value) => (
-          <a
-            href="#"
-            key={value}
-            style={value !== props.currentPage ? {color: "var(--dark-color"} : {}}
-            onClick={() => props.onPageChange(value)}
-          >
+          <a href="#" key={value} style={value !== props.currentPage ? { color: "var(--dark-color" } : {}} onClick={() => props.onPageChange(value)}>
             <strong>&nbsp; {value} </strong>
           </a>
         ))}

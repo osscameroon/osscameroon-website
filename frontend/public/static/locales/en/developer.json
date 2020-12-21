@@ -1,0 +1,10 @@
+{
+  "filterTitle": "Filters",
+  "btnReset": "Reset",
+  "jobTitleLabel": "Title",
+  "jobTitleHint": "Full Stack Web Developer",
+  "languageLabel": "Languages/Technologies",
+  "btnFilter": "Filter",
+  "hasOssLabel": "Has open source projects",
+  "hasOssValue": "Yes"
+}

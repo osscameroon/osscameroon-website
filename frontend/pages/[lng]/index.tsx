@@ -10,7 +10,7 @@ import { TWEETS, PROJECTS } from "@fixtures/home";
 
 const { useTranslation } = intl;
 
-export const Home = () => {
+const HomePage = () => {
   const { t } = useTranslation("title");
 
   return (
@@ -65,14 +65,8 @@ export const Home = () => {
             <Container>
               <Row style={{ margin: "40px 0 40px 0" }}>
                 {PROJECTS.map((project, i) => (
-                  <Col md="4" key={i} style={{ margin: "20px 0 20px 0" }}>
-                    <Project
-                      description={project.description}
-                      language={project.language}
-                      name={project.name}
-                      stars={project.stars}
-                      type="small"
-                    />
+                  <Col key={i} md="4" style={{ margin: "20px 0 20px 0" }}>
+                    <Project description={project.description} language={project.language} name={project.name} stars={project.stars} type="small" />
                   </Col>
                 ))}
               </Row>
@@ -87,7 +81,7 @@ export const Home = () => {
             <Container>
               <Row style={{ margin: "40px 0 40px 0" }}>
                 {TWEETS.map((tweet, i) => (
-                  <Col md="4" key={i} style={{ margin: "20px 0 20px 0" }}>
+                  <Col key={i} md="4" style={{ margin: "20px 0 20px 0" }}>
                     <Tweet
                       avatar={tweet.avatar}
                       comments={tweet.comments}
@@ -109,8 +103,8 @@ export const Home = () => {
   );
 };
 
-Home.getInitialProps = async () => ({
+HomePage.getInitialProps = async () => ({
   namespacesRequired: ["title"],
 });
 
-export default Home;
+export default HomePage;
