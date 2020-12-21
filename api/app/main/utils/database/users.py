@@ -1,7 +1,25 @@
 # database utils functions
 
 from app.main.utils.database import storage
+from app.main.utils import converters
 
+def sanitize_user_data(data):
+    """
+        sanitize_user_data [prepare user data format]
+        @params: data
+    """
+
+    data = converters.convert_datetime_fields_to_string(data)
+    return data
+
+def sanitize_array_of_user_data(data_arr: list):
+    """
+        sanitize_array_of_user_data [prepare array of user data format]
+        @params: data_arr
+    """
+    for data in data_arr:
+        data = sanitize_user_data(data)
+    return data_arr
 
 def get_users(pagination_limit, count: int = 100):
     """
@@ -22,6 +40,8 @@ def get_users(pagination_limit, count: int = 100):
             "code": 400,
             "reason": "nothing found"
         }
+
+    result = sanitize_array_of_user_data(result)
 
     response = {
         "code": 200,
@@ -53,10 +73,12 @@ def get_user(user_name: str):
             "reason": "nothing found"
         }
 
+    result = sanitize_user_data(result[0])
+
     response = {
         "code": 200,
         "status": "success",
-        "result": result[0]
+        "result": result
     }
 
     return response

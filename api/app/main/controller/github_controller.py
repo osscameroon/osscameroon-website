@@ -1,5 +1,6 @@
 from flask_restplus import Resource
-from flask import request, jsonify
+from flask import request, json
+import datetime
 
 # from app.main.utils.decorator import *
 from app.main.utils.dto import ApiDto
@@ -35,7 +36,7 @@ class ApidtoUser(Resource):
         return result, result["code"]
 
 
-# Ex : /search/users?q=<query_strin>g&count=<element_per_page>&page=<page_number>
+# Ex : /search/users?q=<query_string>&count=<element_per_page>&page=<page_number>
 @api.route('/users/search', methods=['GET'])
 class ApidtoSearch(Resource):
     @api.doc('Get_search_infos')
@@ -55,4 +56,4 @@ class ApidtoSearch(Resource):
             page = 1
 
         result = get_search_users(query, count, page)
-        return jsonify(result), result["code"]
+        return result, result["code"]
