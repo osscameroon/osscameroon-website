@@ -7,11 +7,13 @@ import os
 conf = cf.RawConfigParser()
 conf.read(r'config.txt')
 
+
 def get_meilisearch_host():
     host = conf.get("meilisearch", "MEILISEARCH_HOST")
     if host == "":
         host = os.environ.get("MEILISEARCH_HOST")
     return host
+
 
 def get_meilisearch_master_key():
     key = conf.get("meilisearch", "MEILISEARCH_MASTER_KEY")
