@@ -8,3 +8,4 @@ out.json
 config.txt
 *.json
 *.sw*
+*.ini
