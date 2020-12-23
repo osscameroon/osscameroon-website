@@ -114,7 +114,14 @@ class ApidtoProjects(Resource):
 # Ex : /projects/search?query=<query_string>&count=<element_per_page>&page=<page_number>
 @api.route("/projects/search", methods=["GET"])
 class ApidtoProjectsSearch(Resource):
-    @api.doc("Get_search_infos")
+    @api.doc(
+        "Get_search_infos",
+        params={
+            "query": "query string",
+            "count": "item count",
+            "page": "page number",
+        },
+    )
     def get(self):
         query = request.args.get("query")
 
