@@ -25,13 +25,12 @@ def fetch_tweets( api_url, parameters ):
         return results
 
 
-# Configure the api.twitter.com paramaters
-
 try: 
+    # Default query url for api
     api_url = "https://api.twitter.com/2/tweets/search/recent?query=%23caparledev"
-    parameters = {
-                "max_results" : 100
-            }
+    # Configure the api.twitter.com paramaters
+    parameters = { "max_results" : 100 }
+
     datastore = []
     try:
         results = fetch_tweets( api_url, parameters )
@@ -40,6 +39,7 @@ try:
             parameters["next_token"] = results["meta"]["next_token"]
             results = fetch_tweets( api_url, parameters )
             datastore = datastore + results["data"]
+
     except ValueError as value_error:
         print(">> Error requesting from API:", value_error)
         print(">> Headers:", response.status_code)
