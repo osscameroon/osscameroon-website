@@ -6,7 +6,7 @@ import requests
 import mysql.connector
 import configparser
 
-CONFIGS = configparser.ConfigParser()
+CONFIGS = configparser.ConfigParser(interpolation=None)
 CONFIGS.read( "config.ini" )
 
 # Available from Twitter App
@@ -55,7 +55,7 @@ try:
                 try:
                     tweet_id = data[i]["id"]
                     tweet_text = data[i]["text"]
-                    # sqlDatabaseInsert( tweet_id, tweet_text )
+                    sqlDatabaseInsert( tweet_id, tweet_text )
                 except Exception as e:
                     print(repr(e))
                     pass

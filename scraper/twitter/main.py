@@ -5,7 +5,7 @@ from tqdm import tqdm
 import requests
 import configparser
 
-CONFIGS = configparser.ConfigParser()
+CONFIGS = configparser.ConfigParser(interpolation=None)
 CONFIGS.read( "config.ini" )
 
 # Available from Twitter App
