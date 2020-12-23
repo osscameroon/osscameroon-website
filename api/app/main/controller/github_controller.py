@@ -123,6 +123,7 @@ class ApidtoProjectsSearch(Resource):
         },
     )
     def get(self):
+        """This request will return all github projects that matches search query field"""
         query = request.args.get("query")
 
         count = request.args.get("count")
