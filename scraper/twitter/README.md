@@ -21,10 +21,14 @@ pip install -r requirements.txt
 ```
 
 ### Generating config file 'config.ini'
-- Run python generate\_config\_file.py
+```shell
+python generate\_config\_file.py
+```
 
 ### [optional] Import MySQL database schema (if running the mysql script)
-- mysql -u <username> -p < files/twitter\_db\_schema.sql
+```shell
+mysql -u <username> -p < files/twitter\_db\_schema.sql
+```
 
 ### Run script without MySQL connection
 ```shell
