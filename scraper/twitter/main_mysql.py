@@ -48,7 +48,6 @@ try:
 
         if response.status_code != 200:
             raise ValueError(">> Request not successful...") 
-        # print( results )
         else:
             data = results["data"]
             for i in tqdm(range(len(data)), desc="Extracting Tweets..."):
