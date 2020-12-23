@@ -23,8 +23,11 @@ pip install -r requirements.txt
 ### Generating config file 'config.ini'
 - Run python generate\_config\_file.py
 
-
-### Run script
+### Run script without MySQL connection
 ```shell
 python main.py
+```
+### Run script with MySQL connection
+```shell
+python main_mysql.py
 ```
