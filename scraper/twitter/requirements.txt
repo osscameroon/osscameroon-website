@@ -1,0 +1,10 @@
+certifi==2020.12.5
+chardet==4.0.0
+configparser==5.0.1
+idna==2.10
+mysql-connector-python==8.0.22
+protobuf==3.14.0
+requests==2.25.1
+six==1.15.0
+tqdm==4.54.1
+urllib3==1.26.2
