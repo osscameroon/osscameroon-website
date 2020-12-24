@@ -80,7 +80,7 @@ def store_project(repo: dict):
     client.put(data)
 
 
-def get_one_page_of_projects(cursor=None, limit: int = 20):
+def get_one_page_of_users(cursor=None, limit: int = 20):
     client = __get_client()
     query = client.query(kind=KIND_USERS)
     query_iter = query.fetch(start_cursor=cursor, limit=limit)
@@ -95,13 +95,13 @@ def get_one_page_of_projects(cursor=None, limit: int = 20):
 
 def fetch_all_users(on_pageloaded_success=None):
     pages = []
-    page, next_cursor = get_one_page_of_projects()
+    page, next_cursor = get_one_page_of_users()
     if on_pageloaded_success:
         on_pageloaded_success(page)
     pages += page
 
     while next_cursor:
-        page, next_cursor = get_one_page_of_projects(cursor=next_cursor)
+        page, next_cursor = get_one_page_of_users(cursor=next_cursor)
         if on_pageloaded_success:
             on_pageloaded_success(page)
         pages += page

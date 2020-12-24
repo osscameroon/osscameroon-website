@@ -4,9 +4,9 @@ from app.main.utils.database import storage
 from app.main.utils import converters
 
 
-def sanitize_user_data(data):
+def sanitize_project_data(data):
     """
-    sanitize_user_data [prepare user data format]
+    sanitize_project_data [prepare project data format]
     @params: data
     """
 
@@ -14,19 +14,32 @@ def sanitize_user_data(data):
     return data
 
 
-def sanitize_array_of_user_data(data_arr: list):
+def sanitize_array_of_project_data(data_arr: list):
     """
-    sanitize_array_of_user_data [prepare array of user data format]
+    sanitize_array_of_project_data [prepare array of project data format]
     @params: data_arr
     """
     for data in data_arr:
-        data = sanitize_user_data(data)
+        data = sanitize_project_data(data)
     return data_arr
 
 
-def get_users(count: int = 20):
+def get_one_page_of_projects(cursor=None, limit: int = 20):
+    client = storage.get_client()
+    query = client.query(kind=storage.KIND_PROJECTS)
+    query_iter = query.fetch(start_cursor=cursor, limit=limit)
+    page = next(query_iter.pages)
+
+    result = list(page)
+    result = sanitize_array_of_project_data(result)
+
+    next_cursor = query_iter.next_page_token
+    return result, next_cursor
+
+
+def get_projects(count: int = 20):
     """
-    get_users [this function fetch dev users from the database]
+    get_users [this function fetch open source projects from the database]
     the count of items returned by this function can be limited to the size of data the datastore is able to return
 
     @params : count
@@ -36,13 +49,13 @@ def get_users(count: int = 20):
     """
 
     client = storage.get_client()
-    query = client.query(kind=storage.KIND_USERS)
+    query = client.query(kind=storage.KIND_PROJECTS)
     result = list(query.fetch(limit=count))
 
     if not result or len(result) < 1:
         return {"code": 400, "reason": "nothing found"}
 
-    result = sanitize_array_of_user_data(result)
+    result = sanitize_array_of_project_data(result)
 
     response = {
         "code": 200,
@@ -52,8 +65,7 @@ def get_users(count: int = 20):
 
     return response
 
-
-def get_user(user_name: str):
+def get_project(project_name: str):
     """
     get_user[this method fetch dev user's information
     from the database]
@@ -64,14 +76,14 @@ def get_user(user_name: str):
     """
 
     client = storage.get_client()
-    query = client.query(kind=storage.KIND_USERS)
-    query = query.add_filter("login", "=", user_name)
+    query = client.query(kind=storage.KIND_PROJECTS)
+    query = query.add_filter("name", "=", project_name)
     result = list(query.fetch())
 
     if not result or len(result) < 1:
         return {"code": 400, "reason": "nothing found"}
 
-    result = sanitize_user_data(result[0])
+    result = sanitize_project_data(result[0])
 
     response = {"code": 200, "status": "success", "result": result}
 
