@@ -11,24 +11,23 @@ api = ApiDto.api
 
 
 # Ex : /users?page=3&count
-@api.route('/users', methods=['GET'])
+@api.route("/users", methods=["GET"])
 class ApidtoUsers(Resource):
-    @api.doc('Get_all_users')
+    @api.doc("Get_all_users")
     def get(self):
         """This method will return all github users with filter"""
 
         result = get_users(
-            pagination_limit=request.args.get("page"),
-            count=request.args.get("count")
+            pagination_limit=request.args.get("page"), count=request.args.get("count")
         )
 
         return result, result["code"]
 
 
 # Ex : /users/elhmne
-@api.route('/users/<user_name>', methods=['GET'])
+@api.route("/users/<user_name>", methods=["GET"])
 class ApidtoUser(Resource):
-    @api.doc('Get_user_infos')
+    @api.doc("Get_user_infos")
     def get(self, user_name):
         """This method will return a github user with more informations"""
 
@@ -36,11 +35,19 @@ class ApidtoUser(Resource):
         return result, result["code"]
 
 
-# Ex : /search/users?q=<query_string>&count=<element_per_page>&page=<page_number>
-@api.route('/users/search', methods=['GET'])
+# Ex : /search/users?query=<query_string>&count=<element_per_page>&page=<page_number>
+@api.route("/users/search", methods=["GET"])
 class ApidtoSearch(Resource):
-    @api.doc('Get_search_infos')
+    @api.doc(
+        "Get_search_infos",
+        params={
+            "query": "query string can be a user name",
+            "page": "page number",
+            "count": "item count",
+        },
+    )
     def get(self):
+        """This request will return the list of users that match the query string"""
         query = request.args.get("query")
 
         count = request.args.get("count")
