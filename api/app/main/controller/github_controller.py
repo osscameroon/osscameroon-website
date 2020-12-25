@@ -7,6 +7,8 @@ from app.main.utils.dto import ApiDto
 from app.main.utils.database.users import get_users, get_user
 from app.main.utils.database.projects import get_projects, get_project
 from app.main.utils.database.search import get_search_users, get_search_projects
+from app.main.utils.database.search import get_search_users, get_search_projects
+from app.main.utils.database.languages import get_languages
 
 api = ApiDto.api
 
@@ -139,4 +141,14 @@ class ApidtoProjectsSearch(Resource):
             page = 1
 
         result = get_search_projects(query, count, page)
+        return result, result["code"]
+
+# Ex : /languages
+@api.route("/languages", methods=["GET"])
+class ApidtoLanguages(Resource):
+    @api.doc("Get_github_languages")
+    def get(self):
+        """This request will return a list of github languages"""
+
+        result = get_languages()
         return result, result["code"]
