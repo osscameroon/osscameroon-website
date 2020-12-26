@@ -1,8 +1,0 @@
-[AUTH]
-bearer_token = 
-
-[MYSQL]
-host = 
-user = 
-password = 
-database = 

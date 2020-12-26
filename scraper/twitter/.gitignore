@@ -9,3 +9,4 @@ config.txt
 *.json
 *.sw*
 *.ini
+.secrets/*
