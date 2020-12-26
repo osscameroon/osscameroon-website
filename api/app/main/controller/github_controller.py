@@ -1,4 +1,4 @@
-from flask_restplus import Resource
+from flask_restplus import Resource, fields
 from flask import request, json
 import datetime
 
@@ -6,8 +6,11 @@ import datetime
 from app.main.utils.dto import ApiDto
 from app.main.utils.database.users import get_users, get_user
 from app.main.utils.database.projects import get_projects, get_project
-from app.main.utils.database.search import get_search_users, get_search_projects
-from app.main.utils.database.search import get_search_users, get_search_projects
+from app.main.utils.database.search import (
+    get_search_users,
+    get_search_projects,
+    post_search_projects,
+)
 from app.main.utils.database.languages import get_languages
 
 api = ApiDto.api
@@ -119,7 +122,7 @@ class ApidtoProjects(Resource):
 
 
 # Ex : /projects/search?query=<query_string>&count=<element_per_page>&page=<page_number>
-@api.route("/projects/search", methods=["GET"])
+@api.route("/projects/search", methods=["GET", "POST"])
 class ApidtoProjectsSearch(Resource):
     @api.doc(
         "Get_search_infos",
@@ -147,7 +150,78 @@ class ApidtoProjectsSearch(Resource):
 
         result = get_search_projects(query, count, page)
         return result, result["code"]
+      
+    model = api.model(
+        "Name Model",
+        {
+            "query": fields.String(
+                description="search string",
+                help="Enter a search query string",
+                default="",
+            ),
+            "page": fields.Integer(
+                description="Page number",
+                default=1
+            ),
+            "count": fields.Integer(
+                description="count of elements per page",
+                default=20
+            ),
+            "languages": fields.List(
+                cls_or_instance=fields.String,
+                description="list of languages",
+                help="Specify a list of languages",
+                default=["javascript", "java", "c", "c++"]
+            ),
+            "sort_type": fields.String(
+                description="Sorting type [alphabetic, popularity, most_recent]",
+                help="Specify sorting type",
+                default="most_recent"
+            ),
+        },
+    )
 
+    @api.expect(model)
+    @api.doc(
+        "Post_search_infos",
+    )
+    def post(self):
+        """This request will return all github projects that matches search query field"""
+        data = request.json
+
+        # get query
+        query = data.get("query")
+
+        # get count
+        count = data.get("count")
+        if count is not None:
+            count = int(count)
+        else:
+            count = 20
+
+        # get page
+        page = data.get("page")
+        if page is not None:
+            page = int(page)
+        else:
+            page = 1
+
+        # get sort_type
+        sort_type = data.get("sort_type")
+        if sort_type is None:
+            sort_type = ""
+
+        # get languages
+        languages = data.get("languages")
+        if languages is None:
+            languages = []
+
+        result = post_search_projects(
+            query, sort_type=sort_type, languages=languages, page=page, count=count
+        )
+        return result, result["code"]
+      
+      
 # Ex : /languages
 @api.route("/languages", methods=["GET"])
 class ApidtoLanguages(Resource):
