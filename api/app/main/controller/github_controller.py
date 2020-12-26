@@ -10,10 +10,14 @@ from app.main.utils.database.search_projects import (
     get_search_projects,
     post_search_projects,
 )
+
 from app.main.utils.database.search_users import (
     post_search_users,
     get_search_users,
 )
+
+from app.main.utils.database.languages import get_languages
+
 
 api = ApiDto.api
 
@@ -21,7 +25,12 @@ api = ApiDto.api
 # Ex : /users?count=<count>
 @api.route("/users", methods=["GET"])
 class ApidtoUsers(Resource):
-    @api.doc("Get_all_users")
+    @api.doc(
+        "Get_all_users",
+        params={
+            "count": "item count",
+        },
+    )
     def get(self):
         """This method will return all github users with filter"""
 
@@ -275,4 +284,15 @@ class ApidtoProjectsSearch(Resource):
         result = post_search_projects(
             query, sort_type=sort_type, languages=languages, page=page, count=count
         )
+        return result, result["code"]
+      
+      
+# Ex : /languages
+@api.route("/languages", methods=["GET"])
+class ApidtoLanguages(Resource):
+    @api.doc("Get_github_languages")
+    def get(self):
+        """This request will return a list of github languages"""
+
+        result = get_languages()
         return result, result["code"]
