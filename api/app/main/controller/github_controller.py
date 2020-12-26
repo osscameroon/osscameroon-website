@@ -6,12 +6,18 @@ import datetime
 from app.main.utils.dto import ApiDto
 from app.main.utils.database.users import get_users, get_user
 from app.main.utils.database.projects import get_projects, get_project
-from app.main.utils.database.search import (
-    get_search_users,
+from app.main.utils.database.search_projects import (
     get_search_projects,
     post_search_projects,
 )
+
+from app.main.utils.database.search_users import (
+    post_search_users,
+    get_search_users,
+)
+
 from app.main.utils.database.languages import get_languages
+
 
 api = ApiDto.api
 
@@ -51,7 +57,7 @@ class ApidtoUser(Resource):
 
 
 # Ex : /users/search?query=<query_string>&count=<element_per_page>&page=<page_number>
-@api.route("/users/search", methods=["GET"])
+@api.route("/users/search", methods=["GET", "POST"])
 class ApidtoSearch(Resource):
     @api.doc(
         "Get_search_infos",
@@ -78,6 +84,65 @@ class ApidtoSearch(Resource):
             page = 1
 
         result = get_search_users(query, count, page)
+        return result, result["code"]
+
+    user_model = api.model(
+        "User Model",
+        {
+            "query": fields.String(
+                description="search string",
+                help="Enter a search query string",
+                default="",
+            ),
+            "page": fields.Integer(
+                description="Page number",
+                default=1
+            ),
+            "count": fields.Integer(
+                description="count of elements per page",
+                default=20
+            ),
+            "sort_type": fields.String(
+                description="Sorting type [alphabetic, most_recent]",
+                help="Specify sorting type",
+                default="most_recent"
+            ),
+        },
+    )
+
+    @api.expect(user_model)
+    @api.doc(
+        "Post_users_search_infos",
+    )
+    def post(self):
+        """This request will return all github users that matches search query field"""
+        data = request.json
+
+        # get query
+        query = data.get("query")
+
+        # get count
+        count = data.get("count")
+        if count is not None:
+            count = int(count)
+        else:
+            count = 20
+
+        # get page
+        page = data.get("page")
+        if page is not None:
+            page = int(page)
+        else:
+            page = 1
+
+        # get sort_type
+        sort_type = data.get("sort_type")
+        if sort_type is None:
+            sort_type = ""
+
+        result = post_search_users(
+            query, sort_type=sort_type, page=page, count=count
+        )
         return result, result["code"]
 
 
@@ -150,9 +215,9 @@ class ApidtoProjectsSearch(Resource):
 
         result = get_search_projects(query, count, page)
         return result, result["code"]
-      
-    model = api.model(
-        "Name Model",
+
+    project_model = api.model(
+        "Project Model",
         {
             "query": fields.String(
                 description="search string",
@@ -181,9 +246,9 @@ class ApidtoProjectsSearch(Resource):
         },
     )
 
-    @api.expect(model)
+    @api.expect(project_model)
     @api.doc(
-        "Post_search_infos",
+        "Post_project_search_infos",
     )
     def post(self):
         """This request will return all github projects that matches search query field"""
