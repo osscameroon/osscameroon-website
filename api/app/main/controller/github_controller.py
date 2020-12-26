@@ -14,7 +14,12 @@ api = ApiDto.api
 # Ex : /users?count=<count>
 @api.route("/users", methods=["GET"])
 class ApidtoUsers(Resource):
-    @api.doc("Get_all_users")
+    @api.doc(
+        "Get_all_users",
+        params={
+            "count": "item count",
+        },
+    )
     def get(self):
         """This method will return all github users with filter"""
 
