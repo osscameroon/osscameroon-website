@@ -59,7 +59,7 @@ try:
     # Default query url for api
     api_url = "https://api.twitter.com/2/tweets/search/recent?query=%23caparledev"
     # Configure the api.twitter.com paramaters
-    parameters = {"max_results": 10}
+    parameters = {"max_results": 100}
 
     try:
         results = fetch_tweets(api_url, parameters)
