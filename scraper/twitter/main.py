@@ -3,6 +3,7 @@
 
 from google.cloud import datastore
 
+from tqdm import tqdm
 import requests
 import configparser
 
@@ -67,8 +68,8 @@ try:
             parameters["next_token"] = results["meta"]["next_token"]
             results = fetch_tweets(api_url, parameters)
             
-            for result in results["data"]:
-                store_tweet( result )
+            for i in tqdm(range(len(results["data"])), desc="Storing in GCP..."):
+                store_tweet( results["data"][i] )
 
     except ValueError as value_error:
         print(">> Error requesting from API:", value_error)
