@@ -18,18 +18,25 @@ mydb = mysql.connector.connect(
     host=CONFIGS["MYSQL"]["HOST"],
     user=CONFIGS["MYSQL"]["USER"],
     password=CONFIGS["MYSQL"]["PASSWORD"],
-    database=CONFIGS["MYSQL"]["DATABASE"]
+    database=CONFIGS["MYSQL"]["DATABASE"],
+    use_unicode=True,
+    charset='utf8'
 )
 
 # Databse requires a table called tweets with (tweet_id, text) columns
 mydbcursor = mydb.cursor()
 
 def sqlDatabaseInsert( tweet_id, tweet_text ):
-	query = "INSERT INTO tweets (tweet_id, text) VALUES (%s, %s)"
-	query_vals = (tweet_id, tweet_text)
-	mydbcursor.execute(query, query_vals)
-	mydb.commit()
-
+    try:
+        query = "INSERT INTO tweets (tweet_id, text) VALUES (%s, %s)"
+        query_vals = (tweet_id, tweet_text)
+        mydbcursor.execute(query, query_vals)
+        mydb.commit()
+    except mysql.connector.Error as err:
+        print(err)
+        print("Error Code:", err.errno)
+        print("SQLSTATE", err.sqlstate)
+        print("Message", err.msg)
 
 def fetch_tweets( api_url, parameters ):
     for param in parameters:
@@ -39,7 +46,7 @@ def fetch_tweets( api_url, parameters ):
     response = requests.get(api_url, headers=headers)
     results = response.json()
     if response.status_code != 200:
-        raise ValueError(">> Request not successful...") 
+        raise ValueError( response ) 
     else:
         return results
 
@@ -48,33 +55,20 @@ try:
     # Default query url for api
     api_url = "https://api.twitter.com/2/tweets/search/recent?query=%23caparledev"
     # Configure the api.twitter.com paramaters
-    parameters = { "max_results" : 100 }
-
-    datastore = []
+    parameters = { "max_results" : 10 }
     try:
         results = fetch_tweets( api_url, parameters )
         datastore = results["data"]
         while "next_token" in results["meta"]:
             parameters["next_token"] = results["meta"]["next_token"]
             results = fetch_tweets( api_url, parameters )
-            datastore = datastore + results["data"]
+
+            for i in tqdm(range(len(results["data"])), desc="Storing in MySQL..."):
+                if "text" in results["data"][i]:
+                    sqlDatabaseInsert( results["data"][i]["id"], results["data"][i]["text"] )
 
     except ValueError as value_error:
         print(">> Error requesting from API:", value_error)
-        print(">> Headers:", response.status_code)
-        print(">> request_log:", results)
-        print(">> Exiting...")
 
-    for i in tqdm(range(len(datastore)), desc="Extracting Tweets..."):
-        tweet_id = datastore[i]["id"]
-        tweet_text = datastore[i]["text"]
-
-        # TODO: Something with GCP or for GCP or turn this whole thing to a function and import
-        # print( datastore[i] )
-
-        # Write to a database
-        sqlDatabaseInsert( tweet_id, tweet_text )
-        pass
-
-except Exception as e:
-    print(">> runtime error:", repr(e))
+except ValueError as runtime_error:
+    print(">> runtime error:", repr(runtime_error))
