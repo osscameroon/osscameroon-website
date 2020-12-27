@@ -10,3 +10,4 @@ config.txt
 *.sw*
 *.ini
 .secrets/*
+*.sh

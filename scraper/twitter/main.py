@@ -35,9 +35,6 @@ def store_user(tweet_data: dict):
         @params : user data
     """
 
-    if not user:
-        return
-
     client = __get_client()
     key = client.key("twitter", tweet_data["tweet_id"])
     # key = client.key(KIND_USERS, user["id"])
@@ -73,7 +70,7 @@ try:
         while "next_token" in results["meta"]:
             parameters["next_token"] = results["meta"]["next_token"]
             results = fetch_tweets(api_url, parameters)
-	    # store_user( results )
+            store_user( results )
             # datastore = datastore + results["data"]
             # TODO: do the storing here directly
 
