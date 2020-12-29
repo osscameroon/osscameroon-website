@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import { BsArrowClockwise, BsXCircle } from "react-icons/bs";
 
-import { AVAILABILITY, DEVELOPERS, SUGGESTIONS, TAGS, YEAR_OF_EXPERIENCES } from "@fixtures/developers";
+import {AVAILABILITY, DEVELOPERS, SUGGESTIONS, TAGS, YEAR_OF_EXPERIENCES} from "@fixtures/developers";
 import intl from "@utils/i18n";
 import Layout from "@components/layout/layout";
 import Breadcrumb from "@components/common/Breadcrumb";
@@ -10,6 +10,7 @@ import TagInput, { TagInputData } from "@components/common/TagInput";
 import CheckboxList from "@components/common/CheckboxList";
 import Pagination from "@components/common/Pagination";
 import Developer from "@components/common/Developer";
+import DeveloperDetailModal from "@components/common/DeveloperDetailModal";
 
 const { useTranslation } = intl;
 
@@ -20,6 +21,16 @@ const DeveloperPage = () => {
   const [jobTitle, setJobTitle] = useState("");
   const [tools, setTools] = useState<TagInputData[]>(TAGS);
   const [ossFilterChecked, setOssFilterChecked] = useState(false);
+
+  const [selectedDevId, setSelectedDevId] = React.useState("");
+  const [showDevModal, setShowDevModal] = React.useState(false);
+
+  const openDevModal = () => setShowDevModal(true);
+
+  const closeDevModal = () => {
+    setSelectedDevId("");
+    setShowDevModal(false);
+  };
 
   const onTitleChange = (event) => {
     setJobTitle(event.target.value);
@@ -134,7 +145,7 @@ const DeveloperPage = () => {
               <Pagination currentPage={1} itemPerPage={12} nbItems={40} position="top" onPageChange={onPaginationChange} />
               <Row className="developer-section">
                 {DEVELOPERS.map((developer) => (
-                  <Col key={`develop${developer.id}`} md={4} style={{ marginTop: "20px", marginBottom: "20px" }}>
+                  <Col key={`develop${developer.id}`} md={4} style={{ marginTop: "20px", marginBottom: "20px" }} onClick={openDevModal}>
                     <Developer data={developer} />
                   </Col>
                 ))}
@@ -143,6 +154,9 @@ const DeveloperPage = () => {
             </div>
           </Col>
         </Row>
+
+        {/* eslint-disable-next-line no-console */}
+        <DeveloperDetailModal devId={selectedDevId} visible={showDevModal} onClose={closeDevModal} />
       </Container>
     </Layout>
   );
