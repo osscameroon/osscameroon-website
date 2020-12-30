@@ -11,10 +11,12 @@ type DeveloperDetailModalProps = {
 const DeveloperDetailModal = ({ visible, devId, onClose }: DeveloperDetailModalProps) => {
   return (
     <>
-      {visible ?
-        <div id="developer-modal">
-          <DeveloperDetail data={DEVELOPER_DATA} onClose={onClose} />
-        </div> : <></>
+      {visible &&
+        (
+          <div id="developer-modal">
+            <DeveloperDetail data={DEVELOPER_DATA} onClose={onClose} />
+          </div>
+        )
       }
     </>
   );
