@@ -97,7 +97,7 @@ export const ProjectPage = (): JSX.Element => {
               <h4 className="bold">{t("project:sortTitle")}</h4>
               <Form>
                 <FormGroup>
-                  <Select options={translatedOrderOptions} isMulti />
+                  <Select options={translatedOrderOptions} />
                 </FormGroup>
               </Form>
             </div>
