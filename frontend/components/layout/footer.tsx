@@ -23,11 +23,10 @@ const Footer = () => {
       <div className="container">
         <div className="row">
           <div className="col-md-5 description">
-            <img alt="OSS 237 Logo" className="desc-img" src="/static/icons/logo-alt.svg" />
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis leo nibh, nec consectetur ligula sollicitudin ac. Duis eu lorem
-              venenatis, feugiat erat eget, bibendum massa. Sed ac ipsum eget libero faucibus tincidunt sed eu massa.
-            </p>
+            {/*<img alt="OSS 237 Logo" className="desc-img" src="/static/icons/logo-alt.svg" />*/}
+            {/*<img alt="OSS logo" src="/static/icons/oss.svg" />*/}
+            <h3 className="font-weight-bold">{t("footer:aboutTitle")}</h3>
+            <p>{t("footer:aboutText")}</p>
           </div>
           <div className="offset-md-1 col-md-3">
             <h3 className="font-weight-bold">{t("footer:menuTitle")}</h3>
@@ -41,11 +40,6 @@ const Footer = () => {
                 <LocaleLink as="/developers" href="/developers">
                   <a>{t("footer:developers")}</a>
                 </LocaleLink>
-              </li>
-              <li>
-                <a href="https://twitter.com/hashtag/CaParleDev" rel="noreferrer" target="_blank">
-                  {t("tweets")}
-                </a>
               </li>
               <li>
                 <LocaleLink as="/privacy" href="/privacy">
@@ -73,7 +67,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" rel="noreferrer" target="_blank">
+                <a href="https://telegram.org" rel="noreferrer" target="_blank">
                   <img alt="telegram Logo" src="/static/icons/telegram-30-px.svg" />{" "}
                 </a>
               </li>
@@ -105,7 +99,7 @@ const Footer = () => {
         </div>
         <div className="row text-center">
           <div className="col-md-12">
-            &copy; {year} Open Source Software 237, {t("footer:copyright")}.
+            &copy; {year} OSS Cameroon, {t("footer:copyright")}.
           </div>
         </div>
       </div>

@@ -1,14 +1,14 @@
 module.exports = {
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "sort-destructure-keys"],
+  plugins: ["@typescript-eslint", "react", "sort-destructure-keys"],
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     // Uncomment the following lines to enable eslint-config-prettier
     // Is not enabled right now to avoid issues with the Next.js repo
-    // "prettier",
-    // "prettier/@typescript-eslint"
+    "prettier",
+    "prettier/@typescript-eslint",
   ],
   env: {
     es6: true,
@@ -21,7 +21,18 @@ module.exports = {
     "react/display-name": 0,
     "react/prop-types": 0,
     //"react/prop-types": [2, { ignore: ["children"] }],
-    //"react/destructuring-assignment": "error",
+    "react/destructuring-assignment": "error",
+    "react/boolean-prop-naming": "error",
+    "react/jsx-curly-brace-presence": [
+      "error",
+      {
+        props: "never",
+        children: "never",
+      },
+    ],
+    "no-nested-ternary": "error",
+    "no-else-return": "error",
+    "no-eval": "error",
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/explicit-member-accessibility": 0,
     "@typescript-eslint/indent": 0,
@@ -29,6 +40,8 @@ module.exports = {
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/no-use-before-define": 0,
+    "@typescript-eslint/prefer-optional-chain": "error",
+    "@typescript-eslint/member-ordering": "error",
     "@typescript-eslint/no-unused-vars": [2, { argsIgnorePattern: "^_" }],
     //"@typescript-eslint/typedef": "error",
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],

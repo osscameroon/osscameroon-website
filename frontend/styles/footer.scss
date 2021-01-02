@@ -36,8 +36,13 @@
   .desc-img {
     margin-bottom: 25px;
   }
-  .description p {
-    text-align: justify;
-    font-size: 0.875rem;
+  .description {
+    img {
+      height: 32px;
+    }
+    p {
+      text-align: justify;
+      font-size: 1.125rem;
+    }
   }
 }

@@ -6,5 +6,8 @@
   "joinUs": "JOIN US",
   "language": "Language",
   "english": "English",
-  "french": "French"
+  "french": "French",
+  "error-with-status": "A {{statusCode}} error occurred on server",
+  "error-without-status": "An error occurred on the server",
+  "pagination-text": "{{startResult}} - {{endResult}} of more than {{totalResults}} results"
 }

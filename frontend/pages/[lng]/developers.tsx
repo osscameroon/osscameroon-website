@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import { BsArrowClockwise, BsXCircle } from "react-icons/bs";
 
-import {AVAILABILITY, DEVELOPERS, SUGGESTIONS, TAGS, YEAR_OF_EXPERIENCES} from "@fixtures/developers";
+import { AVAILABILITY, DEVELOPERS, SUGGESTIONS, TAGS, YEAR_OF_EXPERIENCES } from "@fixtures/developers";
 import intl from "@utils/i18n";
 import Layout from "@components/layout/layout";
 import Breadcrumb from "@components/common/Breadcrumb";
@@ -155,7 +155,6 @@ const DeveloperPage = () => {
           </Col>
         </Row>
 
-        {/* eslint-disable-next-line no-console */}
         <DeveloperDetailModal devId={selectedDevId} visible={showDevModal} onClose={closeDevModal} />
       </Container>
     </Layout>
