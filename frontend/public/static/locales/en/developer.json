@@ -1,0 +1,16 @@
+{
+  "filterTitle": "Filters",
+  "btnReset": "Reset",
+  "jobTitleLabel": "Title",
+  "jobTitleHint": "Full Stack Web Developer",
+  "languageLabel": "Languages/Technologies",
+  "btnFilter": "Filter",
+  "hasOssLabel": "Has open source projects",
+  "hasOssValue": "Yes",
+  "modal": {
+    "summary": "Summary",
+    "tools": "Languages/Technologies",
+    "yearOfExperience": "Years of experience:",
+    "availability": "Availability:"
+  }
+}

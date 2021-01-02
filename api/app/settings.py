@@ -7,6 +7,7 @@ import os
 conf = cf.RawConfigParser()
 conf.read(r'config.txt')
 
+
 def get_conf(context: str, key: str) -> str:
     """
     A simple method to get a configuration parameter
@@ -20,7 +21,6 @@ def get_conf(context: str, key: str) -> str:
     if value == "":
         value = os.environ.get(key)
     return value
-
 
 # meili configurations
 MEILISEARCH_HOST = get_conf("meilisearch", "MEILISEARCH_HOST")

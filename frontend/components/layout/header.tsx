@@ -17,7 +17,7 @@ const Header = () => {
       <Container>
         <Navbar color="white" expand="md">
           <LocaleLink as="" href="">
-            <a className="navbar-brand">
+            <a className="navbar-brand cursor-pointer">
               <img alt="OSS logo" src="/static/icons/oss.svg" />
             </a>
           </LocaleLink>
@@ -31,15 +31,15 @@ const Header = () => {
                 <ActiveLink href="/projects">{t("projects")}</ActiveLink>
               </NavItem>
               <NavItem>
-                <ActiveLink href="/tweets">{t("tweets")}</ActiveLink>
+                <a className="text-dark" href="https://twitter.com/caparledev" rel="noreferrer" target="_blank">
+                  {t("tweets")}
+                </a>
               </NavItem>
             </Nav>
             <div className="d-flex align-items-center">
-              <LocaleLink as="#" href="#">
-                <a className="btn-join-us btn btn-primary" color="primary">
-                  {t("joinUs")}
-                </a>
-              </LocaleLink>
+              <a className="btn-join-us btn btn-primary" color="primary" href="https://telegram.org" rel="noreferrer" target="_blank">
+                {t("joinUs")}
+              </a>
             </div>
           </Collapse>
         </Navbar>

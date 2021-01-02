@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Row, Col } from "reactstrap";
 
 type TweetProps = {
   avatar: string;
@@ -10,32 +11,32 @@ type TweetProps = {
   likes: number;
 };
 
-const Tweet: React.FunctionComponent<TweetProps> = (props) => {
+const Tweet = ({ avatar, comments, likes, name, retweets, text, username }: TweetProps) => {
   return (
-    <div className="row">
-      <div className="col-2 col-md-2">
-        <img alt={`${props.name} avatar`} src={props.avatar} />
-      </div>
-      <div className="col-10 col-sm-10 text-left">
+    <Row className="row">
+      <Col md="2" xs="2">
+        <img alt={`${name} avatar`} src={avatar} />
+      </Col>
+      <Col className="text-left" md="10" xs="10">
         <div>
-          <strong>{props.name}</strong> <span style={{ fontWeight: 100 }}>&ensp; {props.username}</span>
+          <strong>{name}</strong> <span style={{ fontWeight: 100 }}>&ensp; {username}</span>
         </div>
-        <p>{props.text}</p>
+        <p>{text}</p>
         <div>
           <ul className="inline-ul">
             <li>
-              <img alt="comment icon" src="/static/icons/comments.svg" /> <strong>{props.comments}</strong>{" "}
+              <img alt="comment icon" src="/static/icons/comments.svg" /> <strong>{comments}</strong>{" "}
             </li>
             <li>
-              <img alt="retweet icon" src="/static/icons/retweet.svg" /> <strong>{props.retweets}</strong>
+              <img alt="retweet icon" src="/static/icons/retweet.svg" /> <strong>{retweets}</strong>
             </li>
             <li>
-              <img alt="like icon" src="/static/icons/like.svg" /> <strong>{props.likes}</strong>
+              <img alt="like icon" src="/static/icons/like.svg" /> <strong>{likes}</strong>
             </li>
           </ul>
         </div>
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 };
 

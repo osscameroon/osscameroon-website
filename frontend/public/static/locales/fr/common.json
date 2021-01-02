@@ -1,9 +1,13 @@
 {
+  "home": "Accueil",
   "developers": "Développeurs",
   "projects": "Projets",
   "tweets": "Tweets",
   "joinUs": "REJOIGNEZ NOUS",
   "language": "Language",
   "english": "Anglais",
-  "french": "Français"
+  "french": "Français",
+  "error-with-status": "A {{statusCode}} error occurred on server",
+  "error-without-status": "An error occurred on the server",
+  "pagination-text": "{{startResult}} - {{endResult}} sur plus de {{totalResults}} résultats"
 }
