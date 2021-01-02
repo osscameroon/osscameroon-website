@@ -4,6 +4,8 @@ import datetime
 
 # from app.main.utils.decorator import *
 from app.main.utils.dto import ApiDto
+from app.main.utils.database.twitter.top_tweets import get_top_tweets
+
 
 api = ApiDto.api
 
@@ -21,6 +23,5 @@ class ApidtoTopTweets(Resource):
         result = get_top_tweets(c)
 
         return result, result["code"]
-
 
 
