@@ -20,5 +20,5 @@ export type DeveloperDetailData = {
   summary?: string;
   yearsOfExperiences?: number;
   availabilities?: string[];
-  location?: string
-}
+  location?: string;
+};
