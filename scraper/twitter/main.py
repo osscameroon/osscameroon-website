@@ -20,6 +20,7 @@ headers = {'Authorization': 'Bearer ' + tweeterBearerToken}
 KIND_PROJECT = "twitter"
 __CLIENT = None
 
+
 def __get_client():
     global __CLIENT
     # print( dir(datastore.Client))
@@ -27,10 +28,11 @@ def __get_client():
         __CLIENT = datastore.Client()
     return __CLIENT
 
+
 def store_tweet(tweet_data: dict):
     # Because of not this, defining the type is useless
     if not isinstance(tweet_data, dict):
-    	raise TypeError
+        raise TypeError
     """
         Stores user data in our gcp datastore server
 
@@ -44,9 +46,10 @@ def store_tweet(tweet_data: dict):
     client.put(data)
 
 
-def fetch_tweets(api_url, parameters): 
-    for param in parameters: api_url += f"&{param}={parameters[param]}" 
-    print(">> Requesting:", api_url, headers) 
+def fetch_tweets(api_url, parameters):
+    for param in parameters:
+        api_url += f"&{param}={parameters[param]}"
+    print(">> Requesting:", api_url, headers)
     response = requests.get(api_url, headers=headers)
     results = response.json()
     if response.status_code != 200:
@@ -58,7 +61,8 @@ def fetch_tweets(api_url, parameters):
 
 try:
     # Default query url for api
-    api_url = "https://api.twitter.com/2/tweets/search/recent?query=%23caparledev"
+    api_url = "https://api.twitter.com/2/"
+    "tweets/search/recent?query=%23caparledev"
     # Configure the api.twitter.com paramaters
     parameters = {"max_results": 100}
 
@@ -67,9 +71,9 @@ try:
         while "next_token" in results["meta"]:
             parameters["next_token"] = results["meta"]["next_token"]
             results = fetch_tweets(api_url, parameters)
-            
-            for i in tqdm(range(len(results["data"])), desc="Storing in GCP..."):
-                store_tweet( results["data"][i] )
+            res_len = len(results["data"])
+            for i in tqdm(range(res_len), desc="Storing in GCP..."):
+                store_tweet(results["data"][i])
 
     except ValueError as value_error:
         print(">> Error requesting from API:", value_error)

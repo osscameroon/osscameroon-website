@@ -8,6 +8,6 @@ out.json
 config.txt
 *.json
 *.sw*
-*.ini
+config.ini
 .secrets/*
 *.sh
