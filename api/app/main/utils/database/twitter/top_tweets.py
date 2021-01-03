@@ -17,15 +17,18 @@ def top_tweets(cache):
         try:
             # we make another request
             # to the twitter api
+            print(">> Hitting twitter api...")
             tweets = requests.get(
                 "https://api.twitter.com/1.1/search/tweets.json?q=%23caparledev&result_type=popular",
                 auth=OAuth1(API_KEY, API_SECRET_KEY)
             ).content.decode()
             # and we cache it as json string
-            cache.set("top-tweets", tweets, 10)
+            cache.set("top-tweets", tweets, 360)
         except Exception as es:
             raise es
             return False, ""
+    else:
+        print("<< Getting from cache...")
 
     return True, cache.get("top-tweets")
 
