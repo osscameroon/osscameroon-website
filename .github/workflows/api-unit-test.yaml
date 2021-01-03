@@ -1,20 +1,20 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: twitter scraper unit test
+name: api check + unit test
 
 on:
   push:
     paths:
-      - .github/workflows/twitter-scraper-unit-test.yaml
-      - scraper/twitter/**
+      - .github/workflows/api-unit-test.yaml
+      - api/**
     branches:
       - main
       - dev
   pull_request:
     paths:
-      - .github/workflows/twitter-scraper-unit-test.yaml
-      - scraper/twitter/**
+      - .github/workflows/api-unit-test.yaml
+      - api/**
     branches:
       - main
       - dev
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: scraper/twitter/
+        working-directory: api/
 
     steps:
       - uses: actions/checkout@v2
@@ -54,4 +54,3 @@ jobs:
         run: |
           source venv/bin/activate
           pytest
-
