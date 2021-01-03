@@ -25,7 +25,7 @@ def top_tweets(cache):
             ).content.decode()
             # and we cache it as json string
             cache.set("top-tweets", tweets, 3600)
-        except Exception as es:
+        except Exception:
             # We just print the trace-back here
             get_trace()
             return False, cache.get("top-tweets")
@@ -63,4 +63,3 @@ def get_top_tweets(cache):
             "code": 500,
             "status": "error"
         }
-

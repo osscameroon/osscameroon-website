@@ -1,4 +1,6 @@
-import sys, traceback
+import sys
+import traceback
+
 
 def get_trace():
     """
@@ -9,4 +11,3 @@ def get_trace():
     print("-"*60)
     traceback.print_exc(file=sys.stdout)
     print("-"*60)
-
