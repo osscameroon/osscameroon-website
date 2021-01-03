@@ -7,7 +7,7 @@ from app.main.utils.dto import ApiDto
 from app.main.utils.database.twitter.top_tweets import get_top_tweets
 
 
-api = ApiDto.api
+api = ApiDto.twitter_api
 
 c = Cache()
 

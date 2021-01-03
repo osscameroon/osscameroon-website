@@ -19,7 +19,7 @@ from app.main.utils.database.search_users import (
 from app.main.utils.database.languages import get_languages
 
 
-api = ApiDto.api
+api = ApiDto.github_api
 
 
 # Ex : /users?count=<count>
@@ -285,8 +285,8 @@ class ApidtoProjectsSearch(Resource):
             query, sort_type=sort_type, languages=languages, page=page, count=count
         )
         return result, result["code"]
-      
-      
+
+
 # Ex : /languages
 @api.route("/languages", methods=["GET"])
 class ApidtoLanguages(Resource):
