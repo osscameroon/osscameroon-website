@@ -4,7 +4,6 @@ from app.settings import MEILISEARCH_MASTER_KEY, MEILISEARCH_HOST
 import meilisearch
 import datetime
 import time
-import json
 
 SORT_TYPE_POPULARITY = "popularity"
 SORT_TYPE_MOST_RECENT = "most_recent"

@@ -22,6 +22,7 @@ def get_conf(context: str, key: str) -> str:
         value = os.environ.get(key)
     return value
 
+
 # meili configurations
 MEILISEARCH_HOST = get_conf("meilisearch", "MEILISEARCH_HOST")
 MEILISEARCH_MASTER_KEY = get_conf("meilisearch", "MEILISEARCH_MASTER_KEY")
@@ -29,4 +30,3 @@ MEILISEARCH_MASTER_KEY = get_conf("meilisearch", "MEILISEARCH_MASTER_KEY")
 # Twitter configurations
 API_KEY = get_conf("twitter", "API_KEY")
 API_SECRET_KEY = get_conf("twitter", "API_SECRET_KEY")
-

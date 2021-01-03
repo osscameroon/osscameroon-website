@@ -2,9 +2,7 @@ import requests
 from requests_oauthlib import OAuth1
 from app.settings import API_KEY, API_SECRET_KEY
 import json
-from app.main.utils.helpers.cache import Cache
 
-# c = Cache()
 
 def top_tweets(cache):
     """
@@ -20,8 +18,8 @@ def top_tweets(cache):
             # we make another request
             # to the twitter api
             tweets = requests.get(
-              "https://api.twitter.com/1.1/search/tweets.json?q=%23caparledev&result_type=popular",
-              auth=OAuth1(API_KEY, API_SECRET_KEY)
+                "https://api.twitter.com/1.1/search/tweets.json?q=%23caparledev&result_type=popular",
+                auth=OAuth1(API_KEY, API_SECRET_KEY)
             ).content.decode()
             # and we cache it as json string
             cache.set("top-tweets", tweets, 10)
@@ -57,7 +55,6 @@ def get_top_tweets(cache):
             }
     else:
         return {
-                "code": 500,
-                "status": "error"
+            "code": 500,
+            "status": "error"
         }
-

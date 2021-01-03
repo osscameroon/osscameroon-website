@@ -6,7 +6,7 @@ import time
 class Cache(object):
 
     _cache_ = {}
-    VALUE   = 0
+    VALUE = 0
     EXPIRES = 1
 
     @classmethod
@@ -16,7 +16,7 @@ class Cache(object):
             if cls._cache_[key][cls.EXPIRES] > time.time():
                 return cls._cache_[key][cls.VALUE]
             else:
-                del cls._cache_[key] # Delete the item if it has expired
+                del cls._cache_[key]  # Delete the item if it has expired
                 return None
         except KeyError:
             return None
@@ -36,8 +36,7 @@ class Cache(object):
     def clean(cls):
         """Remove all expired items from the cache"""
         for key in cls._cache_.keys():
-            cls.get(key) # Attempting to fetch an expired item deletes it
-
+            cls.get(key)  # Attempting to fetch an expired item deletes it
 
     @classmethod
     def purge(cls):
@@ -53,4 +52,3 @@ if __name__ == "__main__":
 
     c.clean()
     c.purge()
-

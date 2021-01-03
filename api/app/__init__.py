@@ -23,4 +23,3 @@ api = Api(blueprint,
 
 api.add_namespace(github)
 api.add_namespace(twitter)
-
