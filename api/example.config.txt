@@ -3,6 +3,6 @@ MEILISEARCH_HOST = http://127.0.0.1:7700
 MEILISEARCH_MASTER_KEY =
 
 [twitter]
-API_KEY =
-API_SECRET_KEY =
+API_KEY = ----------
+API_SECRET_KEY = ----------
 
