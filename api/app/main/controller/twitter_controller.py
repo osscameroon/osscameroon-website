@@ -5,7 +5,7 @@ from app.main.utils.helpers.cache import Cache
 
 
 api = ApiDto.twitter_api
-c = Cache()
+cache = Cache()
 
 # Ex : /top-tweets
 @api.route("/top-tweets", methods=["GET"])
@@ -16,6 +16,7 @@ class ApidtoTopTweets(Resource):
     def get(self):
         """This method will return all top tweets"""
 
-        result = get_top_tweets(c)
+        result = get_top_tweets(cache)
 
         return result, result["code"]
+

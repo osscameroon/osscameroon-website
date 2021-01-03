@@ -1,6 +1,7 @@
 import requests
 from requests_oauthlib import OAuth1
 from app.settings import API_KEY, API_SECRET_KEY
+from app.main.utils.helpers.commons import get_trace
 import json
 
 
@@ -23,10 +24,11 @@ def top_tweets(cache):
                 auth=OAuth1(API_KEY, API_SECRET_KEY)
             ).content.decode()
             # and we cache it as json string
-            cache.set("top-tweets", tweets, 360)
+            cache.set("top-tweets", tweets, 3600)
         except Exception as es:
-            raise es
-            return False, ""
+            # We just print the trace-back here
+            get_trace()
+            return False, cache.get("top-tweets")
     else:
         print("<< Getting from cache...")
 
@@ -61,3 +63,4 @@ def get_top_tweets(cache):
             "code": 500,
             "status": "error"
         }
+
