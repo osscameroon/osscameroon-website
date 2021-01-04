@@ -22,3 +22,49 @@ export type DeveloperDetailData = {
   availabilities?: string[];
   location?: string;
 };
+
+export type ApiResponse<T> = {
+  code: number;
+  status: "success" | "failed";
+  result: {
+    hits: T;
+    offset: number;
+    limit: number;
+    nbHits: number;
+  };
+};
+
+export type GithubUser = {
+  email: string;
+  public_gists: number;
+  bio: string;
+  name: string;
+  url: string;
+  id: number;
+  location: string;
+  starred_url: string;
+  followers_url: string;
+  gravatar_id: string;
+  twitter_username?: any;
+  public_repos: number;
+  avatar_url: string;
+  following_url: string;
+  company: string;
+  received_events_url: string;
+  updated_at: string;
+  node_id: string;
+  blog: string;
+  hireable: boolean;
+  subscriptions_url: string;
+  type: string;
+  html_url: string;
+  organizations_url: string;
+  login: string;
+  site_admin: boolean;
+  gists_url: string;
+  repos_url: string;
+  followers: number;
+  following: number;
+  created_at: string;
+  events_url: string;
+};

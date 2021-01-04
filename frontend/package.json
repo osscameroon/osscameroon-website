@@ -26,16 +26,13 @@
     ]
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
     "express": "^4.17.1",
-    "i18next": "^19.8.3",
-    "i18next-browser-languagedetector": "^6.0.1",
-    "i18next-xhr-backend": "^3.2.2",
     "next": "latest",
     "next-i18next": "^7.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-i18next": "^11.7.3",
     "react-icons": "^4.1.0",
     "react-select": "^3.1.1",
     "react-tag-autocomplete": "^6.1.0",

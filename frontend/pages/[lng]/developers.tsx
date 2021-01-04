@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import { BsArrowClockwise, BsXCircle } from "react-icons/bs";
+import axios from "axios";
 
-import { AVAILABILITY, DEVELOPERS, SUGGESTIONS, TAGS, YEAR_OF_EXPERIENCES } from "@fixtures/developers";
+import { AVAILABILITY, SUGGESTIONS, TAGS, YEAR_OF_EXPERIENCES } from "@fixtures/developers";
 import intl from "@utils/i18n";
 import Layout from "@components/layout/layout";
 import Breadcrumb from "@components/common/Breadcrumb";
@@ -11,12 +12,19 @@ import CheckboxList from "@components/common/CheckboxList";
 import Pagination from "@components/common/Pagination";
 import Developer from "@components/common/Developer";
 import DeveloperDetailModal from "@components/common/DeveloperDetailModal";
+import { ApiResponse, GithubUser } from "@utils/types";
+import Paginate from "@components/utils/Paginate";
 
 const { useTranslation } = intl;
 
 const showAdvancedFilter = false;
 
-const DeveloperPage = () => {
+type DevelopersProps = {
+  response: ApiResponse<GithubUser[]>;
+  currentPage: number;
+};
+
+const DeveloperPage = ({ currentPage, response }: DevelopersProps) => {
   const { t } = useTranslation(["developer", "title"]);
   const [jobTitle, setJobTitle] = useState("");
   const [tools, setTools] = useState<TagInputData[]>(TAGS);
@@ -24,6 +32,10 @@ const DeveloperPage = () => {
 
   const [selectedDevId, setSelectedDevId] = React.useState("");
   const [showDevModal, setShowDevModal] = React.useState(false);
+
+  useEffect(() => {
+    console.log(response);
+  }, []);
 
   const openDevModal = () => setShowDevModal(true);
 
@@ -142,15 +154,33 @@ const DeveloperPage = () => {
           </Col>
           <Col md="9">
             <div style={{ margin: "0 15px 0 15px" }}>
-              <Pagination currentPage={1} itemPerPage={12} nbItems={40} position="top" onPageChange={onPaginationChange} />
+              {/*<Pagination
+                currentPage={currentPage}
+                itemPerPage={response.result.limit}
+                nbItems={response.result.nbHits}
+                position="top"
+                onPageChange={onPaginationChange}
+              />*/}
+              <Paginate
+                totalRecords={response.result.nbHits}
+                pageLimit={response.result.limit}
+                pageNeighbours={1}
+                onPageChanged={onPaginationChange}
+              />
               <Row className="developer-section">
-                {DEVELOPERS.map((developer) => (
+                {response.result.hits.map((developer) => (
                   <Col key={`develop${developer.id}`} md={4} style={{ marginTop: "20px", marginBottom: "20px" }} onClick={openDevModal}>
-                    <Developer data={developer} />
+                    <Developer developer={developer} />
                   </Col>
                 ))}
               </Row>
-              <Pagination currentPage={1} itemPerPage={12} nbItems={40} position="bottom" onPageChange={onPaginationChange} />
+              {/*<Pagination
+                currentPage={currentPage}
+                itemPerPage={response.result.limit}
+                nbItems={response.result.nbHits}
+                position="bottom"
+                onPageChange={onPaginationChange}
+              />*/}
             </div>
           </Col>
         </Row>
@@ -161,8 +191,19 @@ const DeveloperPage = () => {
   );
 };
 
-DeveloperPage.getInitialProps = async () => ({
-  namespacesRequired: ["title", "developer"],
-});
+DeveloperPage.getInitialProps = async (context) => {
+  // console.log(Object.keys(context.req));
+  const page = 1;
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/github/users/search?page=${page}`).catch((error) => {
+    console.log(error.response);
+    return { status: error.response?.status, data: [{ ...error.response?.data }] };
+  });
+
+  return {
+    namespacesRequired: ["title", "developer"],
+    response: response.data,
+    currentPage: page,
+  };
+};
 
 export default DeveloperPage;
