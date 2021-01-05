@@ -105,13 +105,13 @@ export const ProjectPage = (): JSX.Element => {
 
           <Col md="9">
             <div id="project-row-content">
-              <Pagination currentPage={1} itemPerPage={12} nbItems={40} position="top" onPageChange={onPageChange} />
+              <Pagination currentPage={1} href="/projects" itemPerPage={12} nbItems={200} position="top" query="page" />
               {PROJECTS.map((project, i) => (
                 <Row className="project-row" key={i}>
                   <Project description={project.description} language={project.language} name={project.name} stars={project.stars} type="big" />
                 </Row>
               ))}
-              <Pagination currentPage={1} itemPerPage={12} nbItems={40} position="bottom" onPageChange={onPageChange} />
+              <Pagination currentPage={1} href="/projects" itemPerPage={12} nbItems={200} position="bottom" query="page" />
             </div>
           </Col>
         </Row>
