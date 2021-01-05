@@ -1,6 +1,6 @@
 import { TagInputData } from "@components/common/TagInput";
 import { CheckboxListOption } from "@components/common/CheckboxList";
-import {DeveloperData, DeveloperDetailData} from "@utils/types";
+import { DeveloperData, DeveloperDetailData } from "@utils/types";
 
 export const TAGS: TagInputData[] = [
   { id: "python", name: "Python" },
@@ -109,10 +109,22 @@ export const DEVELOPER_DATA: DeveloperDetailData = {
   twitter: "https://twitter/gtindo_dev",
   linkedin: "https://linkedin.com/",
   github: "https://github.com/gtindo",
-  summary: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. " +
+  summary:
+    "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. " +
     "Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-  tools: ["Python", "Django", "PostgreSQL", "Django Rest Framework", "Celery",
-    "Docker", "Webpack", "Google Cloud Platform", "React.js", "Redux", "Antd"],
+  tools: [
+    "Python",
+    "Django",
+    "PostgreSQL",
+    "Django Rest Framework",
+    "Celery",
+    "Docker",
+    "Webpack",
+    "Google Cloud Platform",
+    "React.js",
+    "Redux",
+    "Antd",
+  ],
   availabilities: ["Full Time"],
-  yearsOfExperiences: 5
+  yearsOfExperiences: 5,
 };

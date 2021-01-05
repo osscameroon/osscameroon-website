@@ -5,13 +5,13 @@ import intl from "@utils/i18n";
 import Layout from "@components/layout/layout";
 import Tweet from "@components/common/Tweet";
 import Project from "@components/common/Project";
-
 import { TWEETS, PROJECTS } from "@fixtures/home";
+import LocaleLink from "@components/utils/localeLink";
 
 const { useTranslation } = intl;
 
 const HomePage = () => {
-  const { t } = useTranslation("title");
+  const { t } = useTranslation();
 
   return (
     <Layout title={t("title:home")}>
@@ -20,12 +20,11 @@ const HomePage = () => {
           <Container>
             <Row>
               <Col md="6">
-                <h1>Lorem ipsum dolor sit amet, consectetur adipscing elit.</h1>
-                <p>
-                  <Button color="primary" outline>
-                    {" "}
-                    COMMUNITY PROJECTS{" "}
-                  </Button>
+                <h1>{t("home:mainTitle")}</h1>
+                <p className="main-text">
+                  <LocaleLink as="/projects" href="/projects">
+                    <a className="navbar-brand cursor-pointer btn btn-outline-primary btn-sm">{t("home:btnToProject")}</a>
+                  </LocaleLink>
                 </p>
               </Col>
               <Col className="text-right" md="6">
@@ -37,7 +36,7 @@ const HomePage = () => {
 
         <section className="item-center" id="search">
           <div className="text-center">
-            <h2>Looking for experienced developers ?</h2>
+            <h2>{t("home:searchTitle")}</h2>
             <form className="search-form">
               <div>
                 <InputGroup>
@@ -53,7 +52,7 @@ const HomePage = () => {
             {/*
             <a href="#">
               <img alt="circle down arrow" src="/static/icons/circle-down-arrow.svg" /> <br />
-              Advenced search
+              {t('home:btnAdvancedSearch')}
             </a>
             */}
           </div>
@@ -61,7 +60,7 @@ const HomePage = () => {
 
         <section className="item-center" id="projects">
           <div className="text-center">
-            <h2> TOP PROJECTS </h2>
+            <h2> {t("home:topProjectTitle")} </h2>
             <Container>
               <Row style={{ margin: "40px 0 40px 0" }}>
                 {PROJECTS.map((project, i) => (
@@ -71,13 +70,13 @@ const HomePage = () => {
                 ))}
               </Row>
             </Container>
-            <Button color="primary">VIEW MORE PROJECTS</Button>
+            <Button color="primary">{t("home:btnViewMoreProject")}</Button>
           </div>
         </section>
 
         <section className="item-center" id="tweets">
           <div className="text-center">
-            <h2> TOP TWEETS </h2>
+            <h2> {t("home:topTweetTitle")} </h2>
             <Container>
               <Row style={{ margin: "40px 0 40px 0" }}>
                 {TWEETS.map((tweet, i) => (
@@ -95,7 +94,7 @@ const HomePage = () => {
                 ))}
               </Row>
             </Container>
-            <Button color="primary"> VIEW MORE TWEETS </Button>
+            <Button color="primary"> {t("home:btnViewMoreTweet")} </Button>
           </div>
         </section>
       </div>
@@ -104,7 +103,7 @@ const HomePage = () => {
 };
 
 HomePage.getInitialProps = async () => ({
-  namespacesRequired: ["title"],
+  namespacesRequired: ["title", "home"],
 });
 
 export default HomePage;

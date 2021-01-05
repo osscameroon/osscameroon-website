@@ -1,20 +1,20 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: twitter scraper unit test
+name: api check + unit test
 
 on:
   push:
     paths:
-      - .github/workflows/twitter-scraper-unit-test.yaml
-      - scraper/twitter/**
+      - .github/workflows/api-unit-test.yaml
+      - api/**
     branches:
       - main
       - dev
   pull_request:
     paths:
-      - .github/workflows/twitter-scraper-unit-test.yaml
-      - scraper/twitter/**
+      - .github/workflows/api-unit-test.yaml
+      - api/**
     branches:
       - main
       - dev
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: scraper/twitter/
+        working-directory: api/
 
     steps:
       - uses: actions/checkout@v2
@@ -32,21 +32,23 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install virtualenv
-          pip install flake8 pytest
-          virtualenv -p python3 venv
-          source venv/bin/activate
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
+            
       - name: Lint with flake8
-        run: |
+        run: | 
+          python -m pip install --upgrade pip
+          pip install flake8 
           # stop the build if there are Python syntax errors or undefined names
           flake8 . --show-source --statistics
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 ./ --statistics
+      
+      - name: Install dependencies
+        run: |
+          pip install virtualenv
+          pip install pytest
+          virtualenv -p python3 venv
+          source venv/bin/activate
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Test with pytest
         run: |

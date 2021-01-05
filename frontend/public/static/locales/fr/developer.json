@@ -6,5 +6,11 @@
   "languageLabel": "Langages/Technologies",
   "btnFilter": "Filtrer",
   "hasOssLabel": "A des projets open source",
-  "hasOssValue": "Oui"
+  "hasOssValue": "Oui",
+  "modal": {
+    "summary": "Sommaire",
+    "tools": "Langages/Technologies",
+    "yearOfExperience": "Années d'expérience :",
+    "availability": "Disponibilité :"
+  }
 }
