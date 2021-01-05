@@ -8,20 +8,25 @@ conf = cf.RawConfigParser()
 conf.read(r'config.txt')
 
 
-def get_meilisearch_host():
-    host = conf.get("meilisearch", "MEILISEARCH_HOST")
-    if host == "":
-        host = os.environ.get("MEILISEARCH_HOST")
-    return host
+def get_conf(context: str, key: str) -> str:
+    """
+    A simple method to get a configuration parameter
+    from the configuration file
+    or just pick it on the os environment
+
+    params : context, key
+    return : value
+    """
+    value = conf.get(context, key)
+    if value == "":
+        value = os.environ.get(key)
+    return value
 
 
-def get_meilisearch_master_key():
-    key = conf.get("meilisearch", "MEILISEARCH_MASTER_KEY")
-    if key == "":
-        key = os.environ.get("MEILISEARCH_MASTER_KEY")
-    return key
+# meili configurations
+MEILISEARCH_HOST = get_conf("meilisearch", "MEILISEARCH_HOST")
+MEILISEARCH_MASTER_KEY = get_conf("meilisearch", "MEILISEARCH_MASTER_KEY")
 
-
-# we get those secrets value
-MEILISEARCH_HOST = get_meilisearch_host()
-MEILISEARCH_MASTER_KEY = get_meilisearch_master_key()
+# Twitter configurations
+API_KEY = get_conf("twitter", "API_KEY")
+API_SECRET_KEY = get_conf("twitter", "API_SECRET_KEY")

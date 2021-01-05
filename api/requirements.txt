@@ -25,3 +25,8 @@ configparser
 
 # meilisearch
 meilisearch
+
+# for requests
+requests
+requests_oauthlib
+
