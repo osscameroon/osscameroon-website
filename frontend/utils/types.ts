@@ -68,3 +68,10 @@ export type GithubUser = {
   created_at: string;
   events_url: string;
 };
+
+export type PaginationChangeEventData = {
+  currentPage: number;
+  totalPages: number;
+  pageLimit: number;
+  totalRecords: number;
+};

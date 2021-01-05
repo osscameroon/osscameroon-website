@@ -1,3 +1,6 @@
+$base-color: #ced4da;
+$light-background: lighten(desaturate($base-color, 50%), 12.5%);
+
 .current-page {
   font-size: 1.5rem;
   vertical-align: middle;

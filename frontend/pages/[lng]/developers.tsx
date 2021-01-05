@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import { BsArrowClockwise, BsXCircle } from "react-icons/bs";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 import { AVAILABILITY, SUGGESTIONS, TAGS, YEAR_OF_EXPERIENCES } from "@fixtures/developers";
 import intl from "@utils/i18n";
@@ -12,8 +13,7 @@ import CheckboxList from "@components/common/CheckboxList";
 import Pagination from "@components/common/Pagination";
 import Developer from "@components/common/Developer";
 import DeveloperDetailModal from "@components/common/DeveloperDetailModal";
-import { ApiResponse, GithubUser } from "@utils/types";
-import Paginate from "@components/utils/Paginate";
+import { ApiResponse, GithubUser, PaginationChangeEventData } from "@utils/types";
 
 const { useTranslation } = intl;
 
@@ -25,7 +25,8 @@ type DevelopersProps = {
 };
 
 const DeveloperPage = ({ currentPage, response }: DevelopersProps) => {
-  const { t } = useTranslation(["developer", "title"]);
+  const router = useRouter();
+  const { i18n, t } = useTranslation(["developer", "title"]);
   const [jobTitle, setJobTitle] = useState("");
   const [tools, setTools] = useState<TagInputData[]>(TAGS);
   const [ossFilterChecked, setOssFilterChecked] = useState(false);
@@ -75,9 +76,10 @@ const DeveloperPage = ({ currentPage, response }: DevelopersProps) => {
     console.log(input);
   };
 
-  const onPaginationChange = (page: number) => {
+  const onPaginationChange = (eventData: PaginationChangeEventData) => {
     // eslint-disable-next-line no-console
-    console.log("Pagination Page : ", page);
+    console.log("Pagination Page : ", eventData);
+    router.push(`/[lng]/developers?page=${eventData.currentPage}`);
   };
 
   return (
@@ -154,33 +156,34 @@ const DeveloperPage = ({ currentPage, response }: DevelopersProps) => {
           </Col>
           <Col md="9">
             <div style={{ margin: "0 15px 0 15px" }}>
-              {/*<Pagination
-                currentPage={currentPage}
-                itemPerPage={response.result.limit}
-                nbItems={response.result.nbHits}
-                position="top"
-                onPageChange={onPaginationChange}
-              />*/}
-              <Paginate
-                totalRecords={response.result.nbHits}
-                pageLimit={response.result.limit}
-                pageNeighbours={1}
-                onPageChanged={onPaginationChange}
-              />
+              {response.result && (
+                <Pagination
+                  currentPage={currentPage}
+                  href="/developers"
+                  itemPerPage={response.result.limit}
+                  nbItems={response.result.nbHits}
+                  position="top"
+                  query="page"
+                />
+              )}
               <Row className="developer-section">
-                {response.result.hits.map((developer) => (
-                  <Col key={`develop${developer.id}`} md={4} style={{ marginTop: "20px", marginBottom: "20px" }} onClick={openDevModal}>
-                    <Developer developer={developer} />
-                  </Col>
-                ))}
+                {response.result &&
+                  response.result.hits.map((developer) => (
+                    <Col key={`develop${developer.id}`} md={4} style={{ marginTop: "20px", marginBottom: "20px" }} onClick={openDevModal}>
+                      <Developer developer={developer} />
+                    </Col>
+                  ))}
               </Row>
-              {/*<Pagination
-                currentPage={currentPage}
-                itemPerPage={response.result.limit}
-                nbItems={response.result.nbHits}
-                position="bottom"
-                onPageChange={onPaginationChange}
-              />*/}
+              {response.result && (
+                <Pagination
+                  currentPage={currentPage}
+                  href="/developers"
+                  itemPerPage={response.result.limit}
+                  nbItems={response.result.nbHits}
+                  position="bottom"
+                  query="page"
+                />
+              )}
             </div>
           </Col>
         </Row>
@@ -192,10 +195,10 @@ const DeveloperPage = ({ currentPage, response }: DevelopersProps) => {
 };
 
 DeveloperPage.getInitialProps = async (context) => {
-  // console.log(Object.keys(context.req));
-  const page = 1;
+  // console.log(Object.keys(context.query));
+  const page = context.query.page || 1;
   const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/github/users/search?page=${page}`).catch((error) => {
-    console.log(error.response);
+    console.log("Error : ", error);
     return { status: error.response?.status, data: [{ ...error.response?.data }] };
   });
 
