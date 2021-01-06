@@ -1,0 +1,22 @@
+header {
+  background-color: #fff;
+  box-shadow: var(--border-shadow);
+  .navbar {
+    a:hover {
+      text-decoration: none;
+    }
+    .navbar-brand img {
+      height: 32px;
+    }
+    .nav-item {
+      margin-right: 15px;
+    }
+    .navbar-nav:first-child {
+      margin-left: 15px;
+    }
+    .btn-join-us {
+      height: 32px;
+      font-size: 0.775rem;
+    }
+  }
+}
