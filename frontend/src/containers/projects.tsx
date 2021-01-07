@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Form, Button, FormGroup, Input, Label, Container, Row, Col } from "reactstrap";
 import Select from "react-select";
 import { BsArrowClockwise } from "react-icons/bs";
-import {useIntl} from "react-intl";
+import { useIntl } from "react-intl";
+import { useQuery } from "react-query";
 
 import Layout from "../components/layout/layout";
 import Project from "../components/common/Project";
@@ -11,8 +12,9 @@ import Breadcrumb from "../components/common/Breadcrumb";
 import TagInput, { TagInputData } from "../components/common/TagInput";
 import { PROJECTS } from "../fixtures/home";
 import { SUGGESTIONS, TAGS } from "../fixtures/developers";
-import {projectMessages, titleMessages} from "../locales/messages";
-import {PaginationChangeEventData} from "../utils/types";
+import { projectMessages, titleMessages } from "../locales/messages";
+import {GithubProject, PaginationChangeEventData} from "../utils/types";
+import {searchProject} from "../services/projects";
 
 type OrderOption = {
   value: string;
@@ -26,6 +28,14 @@ const orderOptions: OrderOption[] = [
 ];
 
 export const ProjectPage = (): JSX.Element => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEM_PER_PAGE = 20;
+
+  const { data: projects, error, isLoading } = useQuery(
+    ["projects", {page: currentPage, count: ITEM_PER_PAGE}],
+    searchProject
+  );
+
   const [projectTitle, setProjectTitle] = useState("");
   const [languages, setLanguages] = useState<TagInputData[]>(TAGS);
   const { formatMessage} = useIntl();
@@ -108,15 +118,20 @@ export const ProjectPage = (): JSX.Element => {
           </Col>
 
           <Col md="9">
-            <div id="project-row-content">
-              <Pagination currentPage={1} itemPerPage={12} totalItems={40} position="top" onPageChange={onPaginationChange} />
-              {PROJECTS.map((project, i) => (
-                <Row className="project-row" key={i}>
-                  <Project description={project.description} language={project.language} name={project.name} stars={project.stars} type="big" />
-                </Row>
-              ))}
-              <Pagination currentPage={1} itemPerPage={12} totalItems={40} position="bottom" onPageChange={onPaginationChange} />
-            </div>
+            {isLoading ? <> Loading.... </> :
+              error ? <> Something Went Wrong </> :
+                (
+                  <div id="project-row-content">
+                    <Pagination currentPage={1} itemPerPage={12} totalItems={40} position="top" onPageChange={onPaginationChange}/>
+                    {PROJECTS.map((project, i) => (
+                      <Row className="project-row" key={i}>
+                        <Project description={project.description} language={project.language} name={project.name} stars={project.stars} type="big"/>
+                      </Row>
+                    ))}
+                    <Pagination currentPage={1} itemPerPage={12} totalItems={40} position="bottom" onPageChange={onPaginationChange}/>
+                  </div>
+                )
+            }
           </Col>
         </Row>
       </Container>

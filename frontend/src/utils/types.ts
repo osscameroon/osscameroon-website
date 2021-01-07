@@ -95,3 +95,18 @@ export type PaginationChangeEventData = {
   pageLimit: number;
   totalRecords: number;
 };
+
+export type GithubProject = {
+  id: number;
+  stargazers_count: number;
+  license: {
+    url: string,
+    name: string,
+    key: string,
+    node_id: string,
+    spdx_id: string
+  },
+  html_url: string;
+  language: string;
+  description: string;
+}
