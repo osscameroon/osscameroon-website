@@ -10,11 +10,9 @@ import Project from "../components/common/Project";
 import Pagination from "../components/common/Pagination";
 import Breadcrumb from "../components/common/Breadcrumb";
 import TagInput, { TagInputData } from "../components/common/TagInput";
-import { PROJECTS } from "../fixtures/home";
-import { SUGGESTIONS, TAGS } from "../fixtures/developers";
 import { projectMessages, titleMessages } from "../locales/messages";
-import {GithubProject, PaginationChangeEventData} from "../utils/types";
-import {searchProject} from "../services/projects";
+import { PaginationChangeEventData, ProjectFilters } from "../utils/types";
+import {getLanguages, searchProject} from "../services/projects";
 
 type OrderOption = {
   value: string;
@@ -22,22 +20,32 @@ type OrderOption = {
 }
 
 const orderOptions: OrderOption[] = [
-  { value: "mp", label: "mostPopularOption" },
-  { value: "mr", label: "mostRecentOption" },
-  { value: "alpha", label: "alphabeticalOption" },
+  { value: "popularity", label: "mostPopularOption" },
+  { value: "most_recent", label: "mostRecentOption" },
+  { value: "alphabetic", label: "alphabeticalOption" },
 ];
 
 export const ProjectPage = (): JSX.Element => {
+  const initialFilters: ProjectFilters = {
+    title: "",
+    tools: []
+  }
+  const [filters, setFilters] = useState(initialFilters);
+  const [sortMethod, setSortMethod] = useState("");
+
   const [currentPage, setCurrentPage] = useState(1);
   const ITEM_PER_PAGE = 20;
 
-  const { data: projects, error, isLoading } = useQuery(
-    ["projects", {page: currentPage, count: ITEM_PER_PAGE}],
+  const { data: projects_data, error, isLoading } = useQuery(
+    ["projects", {page: currentPage, count: ITEM_PER_PAGE, filters: filters, sortMethod: sortMethod}],
     searchProject
   );
 
+  const { data: languageListData, isLoading: tagsLoading, error: tagsError } = useQuery("tags", getLanguages)
+  const languageTags = languageListData?.result.map(value => ({id: value, name: value}));
+
   const [projectTitle, setProjectTitle] = useState("");
-  const [languages, setLanguages] = useState<TagInputData[]>(TAGS);
+  const [languages, setLanguages] = useState<TagInputData[]>([] as TagInputData[]);
   const { formatMessage} = useIntl();
 
   // @ts-ignore
@@ -47,8 +55,7 @@ export const ProjectPage = (): JSX.Element => {
   }));
 
   const onPaginationChange = (eventData: PaginationChangeEventData) => {
-    // eslint-disable-next-line no-console
-    console.log("Pagination Page : ", eventData);
+    setCurrentPage(eventData.currentPage);
   };
 
   const onTitleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -56,8 +63,6 @@ export const ProjectPage = (): JSX.Element => {
   };
 
   const onLanguageTagChange = (values: TagInputData[]) => {
-    // eslint-disable-next-line no-console
-    console.log("Languages : ", values);
     setLanguages(values);
   };
 
@@ -67,9 +72,26 @@ export const ProjectPage = (): JSX.Element => {
       tools: languages.map((value) => value.id),
     };
 
-    // eslint-disable-next-line no-console
     console.log(input);
+
+    setCurrentPage(1) // Return to page 1
+
+    setFilters(prevState => ({
+      ...prevState,
+      ...input
+    }));
   };
+
+  const onResetFilters = () => {
+    setFilters(prevState => ({
+      ...prevState,
+      ...initialFilters
+    }));
+  }
+
+  const onSelectSortMethod = (e: any) => {
+    setSortMethod(e.value);
+  }
 
   return (
     <Layout title={formatMessage(titleMessages.projects)}>
@@ -81,7 +103,7 @@ export const ProjectPage = (): JSX.Element => {
             <div className="side-card">
               <div className="d-flex justify-content-between mb-3">
                 <div className="bold">{formatMessage(projectMessages.filterTitle)}</div>
-                <div className="cursor-pointer text-color-main">
+                <div className="cursor-pointer text-color-main" onClick={onResetFilters}>
                   {formatMessage(projectMessages.btnReset)} <BsArrowClockwise />
                 </div>
               </div>
@@ -92,12 +114,15 @@ export const ProjectPage = (): JSX.Element => {
                   </Label>
                   <Input id="title" placeholder={formatMessage(projectMessages.titleHint)} type="text" value={projectTitle} onChange={onTitleChange} />
                 </FormGroup>
-                <FormGroup>
-                  <Label className="font-weight-bold" htmlFor="languages">
-                    {formatMessage(projectMessages.languageLabel)}
-                  </Label>
-                  <TagInput defaultValues={TAGS} suggestions={SUGGESTIONS} onChange={onLanguageTagChange} />
-                </FormGroup>
+
+                {!tagsLoading && !tagsError && (
+                  <FormGroup>
+                    <Label className="font-weight-bold" htmlFor="languages">
+                      {formatMessage(projectMessages.languageLabel)}
+                    </Label>
+                    <TagInput defaultValues={[]} suggestions={languageTags || []} onChange={onLanguageTagChange} />
+                  </FormGroup>
+                )}
 
                 <FormGroup className="text-center pt-4">
                   <Button color="primary" onClick={onFilterSubmit}>
@@ -111,7 +136,7 @@ export const ProjectPage = (): JSX.Element => {
               <h4 className="bold">{formatMessage(projectMessages.sortTitle)}</h4>
               <Form>
                 <FormGroup>
-                  <Select options={translatedOrderOptions} />
+                  <Select options={translatedOrderOptions} onChange={onSelectSortMethod} />
                 </FormGroup>
               </Form>
             </div>
@@ -122,13 +147,32 @@ export const ProjectPage = (): JSX.Element => {
               error ? <> Something Went Wrong </> :
                 (
                   <div id="project-row-content">
-                    <Pagination currentPage={1} itemPerPage={12} totalItems={40} position="top" onPageChange={onPaginationChange}/>
-                    {PROJECTS.map((project, i) => (
+                    <Pagination
+                      currentPage={currentPage}
+                      itemPerPage={ITEM_PER_PAGE}
+                      totalItems={(projects_data?.result.nbHits || 0) * ITEM_PER_PAGE}
+                      position="top"
+                      onPageChange={onPaginationChange}
+                    />
+                    {projects_data?.result.hits.map((project, i) => (
                       <Row className="project-row" key={i}>
-                        <Project description={project.description} language={project.language} name={project.name} stars={project.stars} type="big"/>
+                        <Project
+                          description={project.description}
+                          language={project.language}
+                          link={project.html_url}
+                          name={project.name}
+                          stars={project.stargazers_count}
+                          type="big"
+                        />
                       </Row>
                     ))}
-                    <Pagination currentPage={1} itemPerPage={12} totalItems={40} position="bottom" onPageChange={onPaginationChange}/>
+                    <Pagination
+                      currentPage={currentPage}
+                      itemPerPage={ITEM_PER_PAGE}
+                      totalItems={(projects_data?.result.nbHits || 0) * ITEM_PER_PAGE}
+                      position="bottom"
+                      onPageChange={onPaginationChange}
+                    />
                   </div>
                 )
             }
