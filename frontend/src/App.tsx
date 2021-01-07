@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import '@formatjs/intl-relativetimeformat/polyfill';
 import '@formatjs/intl-relativetimeformat/dist/include-aliases';
@@ -22,20 +23,24 @@ const messages = {
   fr: messages_fr,
 };
 
+export const queryClient = new QueryClient();
+
 const App = () => {
   return (
-    <LocaleSwitcher.Provider>
-      <LocaleProvider messages={messages}>
-        <BrowserRouter>
-          <Switch>
-            <Route exact={true} path="/" name="Login Page" component={HomePage} />
-            <Route exact={true} path="/developers" name="Register Page" component={DeveloperPage} />
-            <Route exact={true} path="/projects" name="Register Page" component={ProjectPage} />
-            <Route name="Page 404" component={NotFound} />
-          </Switch>
-        </BrowserRouter>
-      </LocaleProvider>
-    </LocaleSwitcher.Provider>
+    <QueryClientProvider client={queryClient}>
+      <LocaleSwitcher.Provider>
+        <LocaleProvider messages={messages}>
+          <BrowserRouter>
+            <Switch>
+              <Route exact={true} path="/" name="Login Page" component={HomePage} />
+              <Route exact={true} path="/developers" name="Register Page" component={DeveloperPage} />
+              <Route exact={true} path="/projects" name="Register Page" component={ProjectPage} />
+              <Route name="Page 404" component={NotFound} />
+            </Switch>
+          </BrowserRouter>
+        </LocaleProvider>
+      </LocaleSwitcher.Provider>
+    </QueryClientProvider>
   );
 }
 

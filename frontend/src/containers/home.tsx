@@ -67,7 +67,14 @@ const HomePage = () => {
               <Row style={{ margin: "40px 0 40px 0" }}>
                 {PROJECTS.map((project, i) => (
                   <Col key={i} md="4" style={{ margin: "20px 0 20px 0" }}>
-                    <Project description={project.description} language={project.language} name={project.name} stars={project.stars} type="small" />
+                    <Project
+                      description={project.description}
+                      language={project.language}
+                      link={project.name}
+                      name={project.name}
+                      stars={project.stars}
+                      type="small"
+                    />
                   </Col>
                 ))}
               </Row>

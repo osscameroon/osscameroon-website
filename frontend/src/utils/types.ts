@@ -95,3 +95,44 @@ export type PaginationChangeEventData = {
   pageLimit: number;
   totalRecords: number;
 };
+
+export type GithubProject = {
+  id: number;
+  name: string;
+  stargazers_count: number;
+  license: {
+    url: string,
+    name: string,
+    key: string,
+    node_id: string,
+    spdx_id: string
+  },
+  html_url: string;
+  language: string;
+  description: string;
+}
+
+export type Response<T> = {
+  code: number;
+  status: string;
+  result: T
+}
+
+export type ResponseData<T> = {
+  code: number;
+  status: string;
+  result: {
+    hits: T[];
+    offset: number;
+    limit: number;
+    nbHits: number;
+    exhaustiveNbHits: boolean;
+    processingTimeMs: number;
+    query: string;
+  }
+}
+
+export type ProjectFilters = {
+  title: string;
+  tools: string[]
+}

@@ -11,10 +11,11 @@ type ProjectProps = {
   description: string;
   language: string;
   stars: number;
+  link: string;
   type: "small" | "big";
 };
 
-const Project = ({ description, language, name, stars, type }: ProjectProps) => {
+const Project = ({ description, language, name, stars, link, type }: ProjectProps) => {
   const { formatMessage } = useIntl();
   const style = {
     card: {
@@ -54,7 +55,8 @@ const Project = ({ description, language, name, stars, type }: ProjectProps) => 
         {isBig ? (
           <div className="col-2 item-center">
             {" "}
-            <Button color="primary"> {formatMessage(projectMessages.buttonView)} </Button>{" "}
+            <a href={link} target="_blank" rel="noreferrer"><Button color="primary"> {formatMessage(projectMessages.buttonView)} </Button> </a>
+            {" "}
           </div>
         ) : (
           <></>
