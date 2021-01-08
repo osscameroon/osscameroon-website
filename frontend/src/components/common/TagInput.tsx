@@ -1,4 +1,4 @@
-import React, { useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import ReactTags from "react-tag-autocomplete";
 
 export type TagInputData = {

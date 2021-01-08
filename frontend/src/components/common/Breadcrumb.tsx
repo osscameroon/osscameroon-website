@@ -1,8 +1,8 @@
 import React from "react";
-import {useIntl} from "react-intl";
-import {NavLink} from "react-router-dom";
+import { useIntl } from "react-intl";
+import { NavLink } from "react-router-dom";
 
-import {commonMessages} from "../../locales/messages";
+import { commonMessages } from "../../locales/messages";
 import homeIcon from "../../assets/icons/home.svg";
 
 type BreadcrumbProps = {

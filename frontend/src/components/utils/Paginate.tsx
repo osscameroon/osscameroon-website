@@ -1,12 +1,12 @@
-import React, {Fragment, useEffect, useState} from "react";
-import {PaginationChangeEventData} from "../../utils/types";
+import React, { Fragment, useEffect, useState } from "react";
+import { PaginationChangeEventData } from "../../utils/types";
 
 type PaginateProps = {
   totalRecords: number;
   pageLimit: number;
   pageNeighbours: number;
   onPageChanged: (page: PaginationChangeEventData) => void;
-}
+};
 const LEFT_PAGE = "LEFT";
 const RIGHT_PAGE = "RIGHT";
 
@@ -25,7 +25,6 @@ const range = (from: number, to: number, step = 1) => {
 
   return range;
 };
-
 
 /**
  * Let's say we have 10 pages and we set pageNeighbours to 2
@@ -50,7 +49,7 @@ const fetchPageNumbers = (totalPages: number, currentPage: number, pageNeighbour
     const startPage = Math.max(2, currentPage - pageNeighbours);
     const endPage = Math.min(totalPages - 1, currentPage + pageNeighbours);
 
-    let pages: Array<string|number> = range(startPage, endPage);
+    let pages: Array<string | number> = range(startPage, endPage);
 
     /**
      * hasLeftSpill: has hidden pages to the left
@@ -92,13 +91,13 @@ const fetchPageNumbers = (totalPages: number, currentPage: number, pageNeighbour
 /**
  * @see https://www.digitalocean.com/community/tutorials/how-to-build-custom-pagination-with-react
  */
-const  Paginate = ({ totalRecords = 0, pageLimit = 30, pageNeighbours = 0, onPageChanged }: PaginateProps) =>  {
+const Paginate = ({ onPageChanged, pageLimit = 30, pageNeighbours = 0, totalRecords = 0 }: PaginateProps) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   // pageNeighbours can be: 0, 1 or 2
-  let pageNeighboursValue = Math.max(0, Math.min(pageNeighbours, 2));
+  const pageNeighboursValue = Math.max(0, Math.min(pageNeighbours, 2));
 
-  let totalPages = Math.ceil(totalRecords / pageLimit);
+  const totalPages = Math.ceil(totalRecords / pageLimit);
 
   useEffect(() => {
     gotoPage(1);
@@ -109,26 +108,26 @@ const  Paginate = ({ totalRecords = 0, pageLimit = 30, pageNeighbours = 0, onPag
 
     const paginationData: PaginationChangeEventData = {
       currentPage,
-      totalPages: totalPages,
-      pageLimit: pageLimit,
-      totalRecords: totalRecords,
+      totalPages,
+      pageLimit,
+      totalRecords,
     };
 
     setCurrentPage(currentPage);
-    onPageChanged(paginationData)
+    onPageChanged(paginationData);
   };
 
-  const handleClick = (page: number|string) => (evt: { preventDefault: () => void; }) => {
+  const handleClick = (page: number | string) => (evt: { preventDefault: () => void }) => {
     evt.preventDefault();
     gotoPage(page as number);
   };
 
-  const handleMoveLeft = (evt: { preventDefault: () => void; }) => {
+  const handleMoveLeft = (evt: { preventDefault: () => void }) => {
     evt.preventDefault();
     gotoPage(currentPage - pageNeighboursValue * 2 - 1);
   };
 
-  const handleMoveRight = (evt: { preventDefault: () => void; }) => {
+  const handleMoveRight = (evt: { preventDefault: () => void }) => {
     evt.preventDefault();
     gotoPage(currentPage + pageNeighboursValue * 2 + 1);
   };
@@ -144,8 +143,8 @@ const  Paginate = ({ totalRecords = 0, pageLimit = 30, pageNeighbours = 0, onPag
           {pages.map((page, index) => {
             if (page === LEFT_PAGE)
               return (
-                <li key={index} className="page-item">
-                  <a className="page-link" href="#" aria-label="Previous" onClick={handleMoveLeft}>
+                <li className="page-item" key={index}>
+                  <a aria-label="Previous" className="page-link" href="#" onClick={handleMoveLeft}>
                     <span aria-hidden="true">&laquo;</span>
                     <span className="sr-only">Previous</span>
                   </a>
@@ -154,8 +153,8 @@ const  Paginate = ({ totalRecords = 0, pageLimit = 30, pageNeighbours = 0, onPag
 
             if (page === RIGHT_PAGE)
               return (
-                <li key={index} className="page-item">
-                  <a className="page-link" href="#" aria-label="Next" onClick={handleMoveRight}>
+                <li className="page-item" key={index}>
+                  <a aria-label="Next" className="page-link" href="#" onClick={handleMoveRight}>
                     <span aria-hidden="true">&raquo;</span>
                     <span className="sr-only">Next</span>
                   </a>
@@ -163,7 +162,7 @@ const  Paginate = ({ totalRecords = 0, pageLimit = 30, pageNeighbours = 0, onPag
               );
 
             return (
-              <li key={index} className={`page-item${currentPage === page ? " active" : ""}`}>
+              <li className={`page-item${currentPage === page ? " active" : ""}`} key={index}>
                 <a className="page-link" href="#" onClick={handleClick(page)}>
                   {page}
                 </a>
@@ -174,6 +173,6 @@ const  Paginate = ({ totalRecords = 0, pageLimit = 30, pageNeighbours = 0, onPag
       </nav>
     </Fragment>
   );
-}
+};
 
 export default Paginate;

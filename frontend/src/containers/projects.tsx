@@ -12,12 +12,12 @@ import Breadcrumb from "../components/common/Breadcrumb";
 import TagInput, { TagInputData } from "../components/common/TagInput";
 import { projectMessages, titleMessages } from "../locales/messages";
 import { PaginationChangeEventData, ProjectFilters } from "../utils/types";
-import {getLanguages, searchProject} from "../services/projects";
+import { getLanguages, searchProject } from "../services/projects";
 
 type OrderOption = {
   value: string;
-  label: keyof typeof projectMessages
-}
+  label: keyof typeof projectMessages;
+};
 
 const orderOptions: OrderOption[] = [
   { value: "popularity", label: "mostPopularOption" },
@@ -28,8 +28,8 @@ const orderOptions: OrderOption[] = [
 export const ProjectPage = (): JSX.Element => {
   const initialFilters: ProjectFilters = {
     title: "",
-    tools: []
-  }
+    tools: [],
+  };
   const [filters, setFilters] = useState(initialFilters);
   const [sortMethod, setSortMethod] = useState("");
 
@@ -37,18 +37,17 @@ export const ProjectPage = (): JSX.Element => {
   const ITEM_PER_PAGE = 20;
 
   const { data: projects_data, error, isLoading } = useQuery(
-    ["projects", {page: currentPage, count: ITEM_PER_PAGE, filters: filters, sortMethod: sortMethod}],
-    searchProject
+    ["projects", { page: currentPage, count: ITEM_PER_PAGE, filters, sortMethod }],
+    searchProject,
   );
 
-  const { data: languageListData, isLoading: tagsLoading, error: tagsError } = useQuery("tags", getLanguages)
-  const languageTags = languageListData?.result.map(value => ({id: value, name: value}));
+  const { data: languageListData, error: tagsError, isLoading: tagsLoading } = useQuery("tags", getLanguages);
+  const languageTags = languageListData?.result.map((value) => ({ id: value, name: value }));
 
   const [projectTitle, setProjectTitle] = useState("");
   const [languages, setLanguages] = useState<TagInputData[]>([] as TagInputData[]);
-  const { formatMessage} = useIntl();
+  const { formatMessage } = useIntl();
 
-  // @ts-ignore
   const translatedOrderOptions = orderOptions.map((option) => ({
     ...option,
     label: formatMessage(projectMessages[option.label]),
@@ -58,7 +57,7 @@ export const ProjectPage = (): JSX.Element => {
     setCurrentPage(eventData.currentPage);
   };
 
-  const onTitleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+  const onTitleChange = (event: { target: { value: React.SetStateAction<string> } }) => {
     setProjectTitle(event.target.value);
   };
 
@@ -72,26 +71,24 @@ export const ProjectPage = (): JSX.Element => {
       tools: languages.map((value) => value.id),
     };
 
-    console.log(input);
+    setCurrentPage(1); // Return to page 1
 
-    setCurrentPage(1) // Return to page 1
-
-    setFilters(prevState => ({
+    setFilters((prevState) => ({
       ...prevState,
-      ...input
+      ...input,
     }));
   };
 
   const onResetFilters = () => {
-    setFilters(prevState => ({
+    setFilters((prevState) => ({
       ...prevState,
-      ...initialFilters
+      ...initialFilters,
     }));
-  }
+  };
 
   const onSelectSortMethod = (e: any) => {
     setSortMethod(e.value);
-  }
+  };
 
   return (
     <Layout title={formatMessage(titleMessages.projects)}>
@@ -112,7 +109,13 @@ export const ProjectPage = (): JSX.Element => {
                   <Label className="font-weight-bold" htmlFor="title">
                     {formatMessage(projectMessages.titleLabel)}
                   </Label>
-                  <Input id="title" placeholder={formatMessage(projectMessages.titleHint)} type="text" value={projectTitle} onChange={onTitleChange} />
+                  <Input
+                    id="title"
+                    placeholder={formatMessage(projectMessages.titleHint)}
+                    type="text"
+                    value={projectTitle}
+                    onChange={onTitleChange}
+                  />
                 </FormGroup>
 
                 {!tagsLoading && !tagsError && (
@@ -143,39 +146,39 @@ export const ProjectPage = (): JSX.Element => {
           </Col>
 
           <Col md="9">
-            {isLoading ? <> Loading.... </> :
-              error ? <> Something Went Wrong </> :
-                (
-                  <div id="project-row-content">
-                    <Pagination
-                      currentPage={currentPage}
-                      itemPerPage={ITEM_PER_PAGE}
-                      totalItems={(projects_data?.result.nbHits || 0) * ITEM_PER_PAGE}
-                      position="top"
-                      onPageChange={onPaginationChange}
+            {/* eslint-disable-next-line no-nested-ternary */}
+            {isLoading ? (
+              <> Loading.... </>
+            ) : error ? (
+              <> Something Went Wrong </>
+            ) : (
+              <div id="project-row-content">
+                <Pagination
+                  itemPerPage={ITEM_PER_PAGE}
+                  position="top"
+                  totalItems={(projects_data?.result.nbHits || 0) * ITEM_PER_PAGE}
+                  onPageChange={onPaginationChange}
+                />
+                {projects_data?.result.hits.map((project, i) => (
+                  <Row className="project-row" key={i}>
+                    <Project
+                      description={project.description}
+                      language={project.language}
+                      link={project.html_url}
+                      name={project.name}
+                      stars={project.stargazers_count}
+                      type="big"
                     />
-                    {projects_data?.result.hits.map((project, i) => (
-                      <Row className="project-row" key={i}>
-                        <Project
-                          description={project.description}
-                          language={project.language}
-                          link={project.html_url}
-                          name={project.name}
-                          stars={project.stargazers_count}
-                          type="big"
-                        />
-                      </Row>
-                    ))}
-                    <Pagination
-                      currentPage={currentPage}
-                      itemPerPage={ITEM_PER_PAGE}
-                      totalItems={(projects_data?.result.nbHits || 0) * ITEM_PER_PAGE}
-                      position="bottom"
-                      onPageChange={onPaginationChange}
-                    />
-                  </div>
-                )
-            }
+                  </Row>
+                ))}
+                <Pagination
+                  itemPerPage={ITEM_PER_PAGE}
+                  position="bottom"
+                  totalItems={(projects_data?.result.nbHits || 0) * ITEM_PER_PAGE}
+                  onPageChange={onPaginationChange}
+                />
+              </div>
+            )}
           </Col>
         </Row>
       </Container>

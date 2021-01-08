@@ -19,7 +19,7 @@ const CheckboxList = ({ defaultValues, onChange, options }: CheckboxListProps) =
     return selectedOptions.includes(value);
   };
 
-  const onChoiceChange = (event: { target: { value: any; }; }) => {
+  const onChoiceChange = (event: { target: { value: any } }) => {
     const { value } = event.target;
 
     const isOptionExist = selectedOptions.includes(value);

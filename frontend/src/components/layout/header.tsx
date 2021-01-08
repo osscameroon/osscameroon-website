@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Collapse, Navbar, NavbarToggler, Nav, NavItem, Container } from "reactstrap";
-import {useIntl} from "react-intl";
-import {NavLink} from "react-router-dom";
+import { useIntl } from "react-intl";
+import { NavLink } from "react-router-dom";
 
 import ActiveLink from "../../components/utils/activeLink";
-import {commonMessages} from "../../locales/messages";
+import { commonMessages } from "../../locales/messages";
 
-import logo from '../../assets/icons/oss.svg';
+import logo from "../../assets/icons/oss.svg";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);

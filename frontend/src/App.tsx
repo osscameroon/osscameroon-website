@@ -1,18 +1,18 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-import '@formatjs/intl-relativetimeformat/polyfill';
-import '@formatjs/intl-relativetimeformat/dist/include-aliases';
-import '@formatjs/intl-relativetimeformat/dist/locale-data/en';
-import '@formatjs/intl-relativetimeformat/dist/locale-data/de';
-import '@formatjs/intl-relativetimeformat/dist/locale-data/es';
-import '@formatjs/intl-relativetimeformat/dist/locale-data/fr';
+import "@formatjs/intl-relativetimeformat/polyfill";
+import "@formatjs/intl-relativetimeformat/dist/include-aliases";
+import "@formatjs/intl-relativetimeformat/dist/locale-data/en";
+import "@formatjs/intl-relativetimeformat/dist/locale-data/de";
+import "@formatjs/intl-relativetimeformat/dist/locale-data/es";
+import "@formatjs/intl-relativetimeformat/dist/locale-data/fr";
 
-import messages_en from './locales/en.json';
-import messages_fr from './locales/fr.json';
+import messages_en from "./locales/en.json";
+import messages_fr from "./locales/fr.json";
 
-import LocaleProvider, {LocaleSwitcher} from "./components/localeProvider";
+import LocaleProvider, { LocaleSwitcher } from "./components/localeProvider";
 import HomePage from "./containers/home";
 import DeveloperPage from "./containers/developers";
 import ProjectPage from "./containers/projects";
@@ -42,6 +42,6 @@ const App = () => {
       </LocaleSwitcher.Provider>
     </QueryClientProvider>
   );
-}
+};
 
 export default App;

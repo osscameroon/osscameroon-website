@@ -1,8 +1,8 @@
 import * as React from "react";
-import {useIntl} from "react-intl";
+import { useIntl } from "react-intl";
 
 import { DeveloperDetailData } from "../../utils/types";
-import {developerMessages} from "../../locales/messages";
+import { developerMessages } from "../../locales/messages";
 
 type DeveloperDetailProps = {
   data: DeveloperDetailData;
