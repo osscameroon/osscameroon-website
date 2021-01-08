@@ -1,238 +1,238 @@
-import { defineMessages } from 'react-intl';
+import { defineMessages } from "react-intl";
 
 export const localeMessages = defineMessages({
   english: {
-    id: 'app.locale.english',
-    defaultMessage: 'English',
+    id: "app.locale.english",
+    defaultMessage: "English",
   },
   french: {
-    id: 'app.locale.french',
-    defaultMessage: 'French',
+    id: "app.locale.french",
+    defaultMessage: "French",
   },
 });
 
 export const commonMessages = defineMessages({
   home: {
-    id: 'app.common.home',
-    defaultMessage: 'Home',
+    id: "app.common.home",
+    defaultMessage: "Home",
   },
   developers: {
-    id: 'app.common.developers',
-    defaultMessage: 'Developers',
+    id: "app.common.developers",
+    defaultMessage: "Developers",
   },
   projects: {
-    id: 'app.common.projects',
-    defaultMessage: 'Projects',
+    id: "app.common.projects",
+    defaultMessage: "Projects",
   },
   tweets: {
-    id: 'app.common.tweets',
-    defaultMessage: 'Tweets',
+    id: "app.common.tweets",
+    defaultMessage: "Tweets",
   },
   joinUs: {
-    id: 'app.common.joinUs',
-    defaultMessage: 'JOIN US',
+    id: "app.common.joinUs",
+    defaultMessage: "JOIN US",
   },
   language: {
-    id: 'app.common.language',
-    defaultMessage: 'Language',
+    id: "app.common.language",
+    defaultMessage: "Language",
   },
   paginationText: {
-    id: 'app.common.paginationText',
-    defaultMessage: '{startResult} - {endResult} of more than {totalResults} results',
+    id: "app.common.paginationText",
+    defaultMessage: "{startResult} - {endResult} of more than {totalResults} results",
   },
 });
 
 export const developerMessages = defineMessages({
   filterTitle: {
-    id: 'app.developer.filterTitle',
-    defaultMessage: 'Filters'
+    id: "app.developer.filterTitle",
+    defaultMessage: "Filters",
   },
   btnReset: {
-    id: 'app.developer.btnReset',
-    defaultMessage: 'Reset'
+    id: "app.developer.btnReset",
+    defaultMessage: "Reset",
   },
   jobTitleLabel: {
-    id: 'app.developer.jobTitleLabel',
-    defaultMessage: 'Title'
+    id: "app.developer.jobTitleLabel",
+    defaultMessage: "Title",
   },
   jobTitleHint: {
-    id: 'app.developer.jobTitleHint',
-    defaultMessage: 'Full Stack Web Developer'
+    id: "app.developer.jobTitleHint",
+    defaultMessage: "Full Stack Web Developer",
   },
   languageLabel: {
-    id: 'app.developer.languageLabel',
-    defaultMessage: 'Languages/Technologies'
+    id: "app.developer.languageLabel",
+    defaultMessage: "Languages/Technologies",
   },
   btnFilter: {
-    id: 'app.developer.btnFilter',
-    defaultMessage: 'Filter'
+    id: "app.developer.btnFilter",
+    defaultMessage: "Filter",
   },
   hasOssLabel: {
-    id: 'app.developer.hasOssLabel',
-    defaultMessage: 'Has open source projects'
+    id: "app.developer.hasOssLabel",
+    defaultMessage: "Has open source projects",
   },
   hasOssValue: {
-    id: 'app.developer.hasOssValue',
-    defaultMessage: 'Yes'
+    id: "app.developer.hasOssValue",
+    defaultMessage: "Yes",
   },
   summary: {
-    id: 'app.developer.modal.summary',
-    defaultMessage: 'Summary'
+    id: "app.developer.modal.summary",
+    defaultMessage: "Summary",
   },
   tools: {
-    id: 'app.developer.modal.tools',
-    defaultMessage: 'Languages/Technologies'
+    id: "app.developer.modal.tools",
+    defaultMessage: "Languages/Technologies",
   },
   yearOfExperience: {
-    id: 'app.developer.modal.yearOfExperience',
-    defaultMessage: 'Years of experience:'
+    id: "app.developer.modal.yearOfExperience",
+    defaultMessage: "Years of experience:",
   },
   availability: {
-    id: 'app.developer.modal.availability',
-    defaultMessage: 'Availability:'
+    id: "app.developer.modal.availability",
+    defaultMessage: "Availability:",
   },
 });
 
 export const footerMessages = defineMessages({
   menuTitle: {
-    id: 'app.footer.menuTitle',
-    defaultMessage: 'Site',
+    id: "app.footer.menuTitle",
+    defaultMessage: "Site",
   },
   developers: {
-    id: 'app.footer.developers',
-    defaultMessage: 'Developers',
+    id: "app.footer.developers",
+    defaultMessage: "Developers",
   },
   projects: {
-    id: 'app.footer.projects',
-    defaultMessage: 'Projects',
+    id: "app.footer.projects",
+    defaultMessage: "Projects",
   },
   tweets: {
-    id: 'app.footer.tweets',
-    defaultMessage: 'Tweets',
+    id: "app.footer.tweets",
+    defaultMessage: "Tweets",
   },
   privacy: {
-    id: 'app.footer.privacy',
-    defaultMessage: 'Privacy policy',
+    id: "app.footer.privacy",
+    defaultMessage: "Privacy policy",
   },
   terms: {
-    id: 'app.footer.terms',
-    defaultMessage: 'Terms of use',
+    id: "app.footer.terms",
+    defaultMessage: "Terms of use",
   },
   copyright: {
-    id: 'app.footer.copyright',
-    defaultMessage: 'All rights reserved',
+    id: "app.footer.copyright",
+    defaultMessage: "All rights reserved",
   },
   joinUs: {
-    id: 'app.footer.joinUs',
-    defaultMessage: 'Join us',
+    id: "app.footer.joinUs",
+    defaultMessage: "Join us",
   },
   aboutTitle: {
-    id: 'app.footer.aboutTitle',
-    defaultMessage: 'About Us',
+    id: "app.footer.aboutTitle",
+    defaultMessage: "About Us",
   },
   aboutText: {
-    id: 'app.footer.aboutText',
-    defaultMessage: 'Lorem ipsum',
+    id: "app.footer.aboutText",
+    defaultMessage: "Lorem ipsum",
   },
 });
 
 export const homeMessages = defineMessages({
   mainTitle: {
-    id: 'app.home.mainTitle',
-    defaultMessage: 'Lorem ipsum dolor sit amet, consectetur adipscing elit.',
+    id: "app.home.mainTitle",
+    defaultMessage: "Lorem ipsum dolor sit amet, consectetur adipscing elit.",
   },
   btnToProject: {
-    id: 'app.home.btnToProject',
-    defaultMessage: 'COMMUNITY PROJECTS',
+    id: "app.home.btnToProject",
+    defaultMessage: "COMMUNITY PROJECTS",
   },
   searchTitle: {
-    id: 'app.home.searchTitle',
-    defaultMessage: 'Looking for experienced developers?',
+    id: "app.home.searchTitle",
+    defaultMessage: "Looking for experienced developers?",
   },
   btnAdvancedSearch: {
-    id: 'app.home.btnAdvancedSearch',
-    defaultMessage: 'Advanced search',
+    id: "app.home.btnAdvancedSearch",
+    defaultMessage: "Advanced search",
   },
   topProjectTitle: {
-    id: 'app.home.topProjectTitle',
-    defaultMessage: 'TOP PROJECTS',
+    id: "app.home.topProjectTitle",
+    defaultMessage: "TOP PROJECTS",
   },
   btnViewMoreProject: {
-    id: 'app.home.btnViewMoreProject',
-    defaultMessage: 'VIEW MORE PROJECTS',
+    id: "app.home.btnViewMoreProject",
+    defaultMessage: "VIEW MORE PROJECTS",
   },
   topTweetTitle: {
-    id: 'app.home.topTweetTitle',
-    defaultMessage: 'TOP TWEETS',
+    id: "app.home.topTweetTitle",
+    defaultMessage: "TOP TWEETS",
   },
   btnViewMoreTweet: {
-    id: 'app.home.btnViewMoreTweet',
-    defaultMessage: 'VIEW MORE TWEETS',
+    id: "app.home.btnViewMoreTweet",
+    defaultMessage: "VIEW MORE TWEETS",
   },
 });
 
 export const projectMessages = defineMessages({
   buttonView: {
-    id: 'app.project.buttonView',
-    defaultMessage: 'View',
+    id: "app.project.buttonView",
+    defaultMessage: "View",
   },
   filterTitle: {
-    id: 'app.project.filterTitle',
-    defaultMessage: 'Filters',
+    id: "app.project.filterTitle",
+    defaultMessage: "Filters",
   },
   btnReset: {
-    id: 'app.project.btnReset',
-    defaultMessage: 'Reset',
+    id: "app.project.btnReset",
+    defaultMessage: "Reset",
   },
   titleLabel: {
-    id: 'app.project.titleLabel',
-    defaultMessage: 'Title',
+    id: "app.project.titleLabel",
+    defaultMessage: "Title",
   },
   titleHint: {
-    id: 'app.project.titleHint',
-    defaultMessage: 'Project title',
+    id: "app.project.titleHint",
+    defaultMessage: "Project title",
   },
   languageLabel: {
-    id: 'app.project.languageLabel',
-    defaultMessage: 'Programming Languages',
+    id: "app.project.languageLabel",
+    defaultMessage: "Programming Languages",
   },
   btnFilter: {
-    id: 'app.project.btnFilter',
-    defaultMessage: 'Filter',
+    id: "app.project.btnFilter",
+    defaultMessage: "Filter",
   },
   sortTitle: {
-    id: 'app.project.sortTitle',
-    defaultMessage: 'Sort by',
+    id: "app.project.sortTitle",
+    defaultMessage: "Sort by",
   },
   mostPopularOption: {
-    id: 'app.project.mostPopularOption',
-    defaultMessage: 'Most popular',
+    id: "app.project.mostPopularOption",
+    defaultMessage: "Most popular",
   },
   mostRecentOption: {
-    id: 'app.project.mostRecentOption',
-    defaultMessage: 'Most recent',
+    id: "app.project.mostRecentOption",
+    defaultMessage: "Most recent",
   },
   alphabeticalOption: {
-    id: 'app.project.alphabeticalOption',
-    defaultMessage: 'Alphabetical',
-  }
+    id: "app.project.alphabeticalOption",
+    defaultMessage: "Alphabetical",
+  },
 });
 
 export const titleMessages = defineMessages({
   appName: {
-    id: 'app.title.appName',
-    defaultMessage: 'OSS Cameroon',
+    id: "app.title.appName",
+    defaultMessage: "OSS Cameroon",
   },
   home: {
-    id: 'app.title.home',
-    defaultMessage: 'Home',
+    id: "app.title.home",
+    defaultMessage: "Home",
   },
   developers: {
-    id: 'app.title.developers',
-    defaultMessage: 'Developers',
+    id: "app.title.developers",
+    defaultMessage: "Developers",
   },
   projects: {
-    id: 'app.title.projects',
-    defaultMessage: 'Projects',
+    id: "app.title.projects",
+    defaultMessage: "Projects",
   },
 });

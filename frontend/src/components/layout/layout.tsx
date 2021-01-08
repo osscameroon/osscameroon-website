@@ -7,7 +7,7 @@ type LayoutProps = {
   title: string;
 };
 
-const Layout = ({ children, title }: PropsWithChildren<LayoutProps>) => {
+const Layout = ({ children }: PropsWithChildren<LayoutProps>) => {
   return (
     <div>
       {/*<Head>

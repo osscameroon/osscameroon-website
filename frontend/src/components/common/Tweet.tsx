@@ -1,9 +1,9 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
 
-import tweetCommentIcon from '../../assets/icons/comments.svg';
-import tweetLikeIcon from '../../assets/icons/like.svg';
-import retweetIcon from '../../assets/icons/retweet.svg';
+import tweetCommentIcon from "../../assets/icons/comments.svg";
+import tweetLikeIcon from "../../assets/icons/like.svg";
+import retweetIcon from "../../assets/icons/retweet.svg";
 
 type TweetProps = {
   avatar: string;

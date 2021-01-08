@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import { BsArrowClockwise, BsXCircle } from "react-icons/bs";
 import axios from "axios";
-import {useIntl} from "react-intl";
+import { useIntl } from "react-intl";
 
 import { AVAILABILITY, SUGGESTIONS, TAGS, YEAR_OF_EXPERIENCES } from "../fixtures/developers";
 import Layout from "../components/layout/layout";
@@ -13,7 +13,7 @@ import Pagination from "../components/common/Pagination";
 import Developer from "../components/common/Developer";
 import DeveloperDetailModal from "../components/common/DeveloperDetailModal";
 import { ApiResponse, GithubUser, PaginationChangeEventData } from "../utils/types";
-import {developerMessages, titleMessages} from "../locales/messages";
+import { developerMessages, titleMessages } from "../locales/messages";
 
 const showAdvancedFilter = false;
 
@@ -45,13 +45,15 @@ const DeveloperPage = () => {
   const [showDevModal, setShowDevModal] = React.useState(false);
 
   useEffect(() => {
-    getUsers(currentPage).then((response) => {
-      console.log(response);
-      setUserData(response.data);
-    }).catch((error) => {
-      console.log(error);
-      setUserData(defaultUserData);
-    });
+    getUsers(currentPage)
+      .then((response) => {
+        // console.log(response);
+        setUserData(response.data);
+      })
+      .catch(() => {
+        // console.log(error);
+        setUserData(defaultUserData);
+      });
   }, []);
 
   const openDevModal = () => setShowDevModal(true);
@@ -61,7 +63,7 @@ const DeveloperPage = () => {
     setShowDevModal(false);
   };
 
-  const onTitleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+  const onTitleChange = (event: { target: { value: React.SetStateAction<string> } }) => {
     setJobTitle(event.target.value);
   };
 
@@ -123,7 +125,13 @@ const DeveloperPage = () => {
                   <Label className="filter-label" htmlFor="title">
                     {formatMessage(developerMessages.jobTitleLabel)}
                   </Label>
-                  <Input id="title" placeholder={formatMessage(developerMessages.jobTitleHint)} type="text" value={jobTitle} onChange={onTitleChange} />
+                  <Input
+                    id="title"
+                    placeholder={formatMessage(developerMessages.jobTitleHint)}
+                    type="text"
+                    value={jobTitle}
+                    onChange={onTitleChange}
+                  />
                 </FormGroup>
                 <FormGroup>
                   <Label className="filter-label" htmlFor="tools">
@@ -174,7 +182,6 @@ const DeveloperPage = () => {
             <div style={{ margin: "0 15px 0 15px" }}>
               {userData.result?.hits.length && (
                 <Pagination
-                  currentPage={currentPage}
                   itemPerPage={userData.result.limit}
                   position="top"
                   totalItems={userData.result.nbHits}
@@ -183,7 +190,7 @@ const DeveloperPage = () => {
               )}
               <Row className="developer-section">
                 {userData.result?.hits.length &&
-                userData.result.hits.map((developer) => (
+                  userData.result.hits.map((developer) => (
                     <Col key={`develop${developer.id}`} md={4} style={{ marginTop: "20px", marginBottom: "20px" }} onClick={openDevModal}>
                       <Developer developer={developer} />
                     </Col>
@@ -191,7 +198,6 @@ const DeveloperPage = () => {
               </Row>
               {userData.result?.hits.length && (
                 <Pagination
-                  currentPage={currentPage}
                   itemPerPage={userData.result.limit}
                   position="bottom"
                   totalItems={userData.result.nbHits}

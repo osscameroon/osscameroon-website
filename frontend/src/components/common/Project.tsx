@@ -1,10 +1,9 @@
 import * as React from "react";
 import { Button } from "reactstrap";
-import {useIntl} from "react-intl";
+import { useIntl } from "react-intl";
 
-import {projectMessages} from "../../locales/messages";
-import starIcon from '../../assets/icons/star.svg';
-
+import { projectMessages } from "../../locales/messages";
+import starIcon from "../../assets/icons/star.svg";
 
 type ProjectProps = {
   name: string;
@@ -15,7 +14,7 @@ type ProjectProps = {
   type: "small" | "big";
 };
 
-const Project = ({ description, language, name, stars, link, type }: ProjectProps) => {
+const Project = ({ description, language, link, name, stars, type }: ProjectProps) => {
   const { formatMessage } = useIntl();
   const style = {
     card: {
@@ -55,8 +54,9 @@ const Project = ({ description, language, name, stars, link, type }: ProjectProp
         {isBig ? (
           <div className="col-2 item-center">
             {" "}
-            <a href={link} target="_blank" rel="noreferrer"><Button color="primary"> {formatMessage(projectMessages.buttonView)} </Button> </a>
-            {" "}
+            <a href={link} target="_blank" rel="noreferrer">
+              <Button color="primary"> {formatMessage(projectMessages.buttonView)} </Button>{" "}
+            </a>{" "}
           </div>
         ) : (
           <></>

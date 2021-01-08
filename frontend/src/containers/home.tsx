@@ -1,13 +1,13 @@
 import React from "react";
 import { Input, InputGroup, InputGroupAddon, Button, Container, Row, Col } from "reactstrap";
 import { useIntl } from "react-intl";
-import { NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import Layout from "../components/layout/layout";
 import Tweet from "../components/common/Tweet";
 import Project from "../components/common/Project";
 import { TWEETS, PROJECTS } from "../fixtures/home";
-import {homeMessages, titleMessages} from "../locales/messages";
+import { homeMessages, titleMessages } from "../locales/messages";
 
 import developer from "../assets/img/developer.svg";
 import search from "../assets/icons/search.svg";
