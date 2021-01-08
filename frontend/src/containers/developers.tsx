@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import { BsArrowClockwise, BsXCircle } from "react-icons/bs";
-import axios from "axios";
 import { useIntl } from "react-intl";
 
 import { AVAILABILITY, SUGGESTIONS, TAGS, YEAR_OF_EXPERIENCES } from "../fixtures/developers";
@@ -9,19 +8,17 @@ import Layout from "../components/layout/layout";
 import Breadcrumb from "../components/common/Breadcrumb";
 import TagInput, { TagInputData } from "../components/common/TagInput";
 import CheckboxList from "../components/common/CheckboxList";
-import Pagination from "../components/common/Pagination";
-import Developer from "../components/common/Developer";
+// import Pagination from "../components/common/Pagination";
+// import Developer from "../components/common/Developer";
 import DeveloperDetailModal from "../components/common/DeveloperDetailModal";
-import { ApiResponse, GithubUser, PaginationChangeEventData } from "../utils/types";
+// import { PaginationChangeEventData } from "../utils/types";
 import { developerMessages, titleMessages } from "../locales/messages";
+import { useQuery } from "react-query";
+import { findUsers } from "../services/developers";
 
 const showAdvancedFilter = false;
 
-const getUsers = async (currentPage: number) => {
-  return axios.get(`${process.env.REACT_APP_API_BASE_URL}/github/users/search?page=${currentPage}`);
-};
-
-const defaultUserData: ApiResponse<GithubUser[]> = {
+/*const defaultUserData: ApiResponse<GithubUser[]> = {
   code: 200,
   status: "success",
   result: {
@@ -30,12 +27,17 @@ const defaultUserData: ApiResponse<GithubUser[]> = {
     limit: 20,
     nbHits: 0,
   },
-};
+};*/
 
 const DeveloperPage = () => {
   const { formatMessage } = useIntl();
-  const [userData, setUserData] = useState<ApiResponse<GithubUser[]>>(defaultUserData);
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [userData, setUserData] = useState<ApiResponse<GithubUser[]>>(defaultUserData);
+  // const [currentPage, setCurrentPage] = useState(1);
+
+  const { data: usersData, error, isLoading } = useQuery("users", findUsers);
+
+  // eslint-disable-next-line no-console
+  console.log(usersData);
 
   const [jobTitle, setJobTitle] = useState("");
   const [tools, setTools] = useState<TagInputData[]>(TAGS);
@@ -44,19 +46,7 @@ const DeveloperPage = () => {
   const [selectedDevId, setSelectedDevId] = React.useState("");
   const [showDevModal, setShowDevModal] = React.useState(false);
 
-  useEffect(() => {
-    getUsers(currentPage)
-      .then((response) => {
-        // console.log(response);
-        setUserData(response.data);
-      })
-      .catch(() => {
-        // console.log(error);
-        setUserData(defaultUserData);
-      });
-  }, []);
-
-  const openDevModal = () => setShowDevModal(true);
+  // const openDevModal = () => setShowDevModal(true);
 
   const closeDevModal = () => {
     setSelectedDevId("");
@@ -94,11 +84,11 @@ const DeveloperPage = () => {
     console.log(input);
   };
 
-  const onPaginationChange = (eventData: PaginationChangeEventData) => {
+  /*const onPaginationChange = (eventData: PaginationChangeEventData) => {
     // eslint-disable-next-line no-console
     console.log("Pagination Page : ", eventData);
-    setCurrentPage(eventData.currentPage);
-  };
+    // setCurrentPage(eventData.currentPage);
+  };*/
 
   return (
     <Layout title={formatMessage(titleMessages.developers)}>
@@ -179,7 +169,7 @@ const DeveloperPage = () => {
             </div>
           </Col>
           <Col md="9">
-            <div style={{ margin: "0 15px 0 15px" }}>
+            {/*<div style={{ margin: "0 15px 0 15px" }}>
               {userData.result?.hits.length && (
                 <Pagination
                   itemPerPage={userData.result.limit}
@@ -204,7 +194,7 @@ const DeveloperPage = () => {
                   onPageChange={onPaginationChange}
                 />
               )}
-            </div>
+            </div>*/}
           </Col>
         </Row>
 
