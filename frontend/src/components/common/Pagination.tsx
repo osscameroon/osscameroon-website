@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Row, Col } from "reactstrap";
-import { useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
 import Paginate from "../../components/utils/Paginate";
 import { PaginationChangeEventData } from "../../utils/types";
@@ -23,18 +23,27 @@ type PaginationProps = {
   itemPerPage: number;
   totalItems: number;
   onPageChange: (page: PaginationChangeEventData) => void;
+  currentPage: number;
 };
 
-const Pagination = ({ itemPerPage, onPageChange, position, totalItems }: PaginationProps) => {
-  const { formatMessage } = useIntl();
+const Pagination = ({ currentPage, itemPerPage, onPageChange, position, totalItems }: PaginationProps) => {
   const isTop = position === "top";
 
   return (
-    <Row style={isTop ? style.top : style.bottom}>
-      <Col className="text-left">
-        {formatMessage(commonMessages.paginationText, { startResult: 1, endResult: itemPerPage, totalResults: totalItems })}
+    <Row className="pagination-container" style={isTop ? style.top : style.bottom}>
+      <Col className="text-left d-flex align-items-center pl-0">
+        <FormattedMessage
+          defaultMessage={commonMessages.paginationText.defaultMessage}
+          id={commonMessages.paginationText.id}
+          values={{
+            startResult: (currentPage - 1) * itemPerPage + 1,
+            endResult: itemPerPage * currentPage,
+            totalResults: totalItems,
+            b: (chunks: string) => <span className="font-weight-bold ml-1 mr-1">{chunks}</span>,
+          }}
+        />
       </Col>
-      <Col className="text-right">
+      <Col className="text-right pr-0">
         <Paginate pageLimit={itemPerPage} pageNeighbours={1} totalRecords={totalItems} onPageChanged={onPageChange} />
       </Col>
     </Row>

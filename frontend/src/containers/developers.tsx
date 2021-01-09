@@ -189,6 +189,7 @@ const DeveloperPage = () => {
               <div style={{ margin: "0 15px 0 15px" }}>
                 {developersList.result?.hits.length && (
                   <Pagination
+                    currentPage={currentPage}
                     itemPerPage={developersList.result.limit}
                     position="top"
                     totalItems={developersList.result.nbHits}
@@ -205,6 +206,7 @@ const DeveloperPage = () => {
                 </Row>
                 {developersList.result?.hits.length && (
                   <Pagination
+                    currentPage={currentPage}
                     itemPerPage={developersList.result.limit}
                     position="bottom"
                     totalItems={developersList.result.nbHits}
