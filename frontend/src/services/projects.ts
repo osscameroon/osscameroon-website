@@ -1,14 +1,15 @@
 import axios from "axios";
-import { GithubProject, ResponseData, Response } from "../utils/types";
+import { GithubProject, ResponseData, Response, ProjectQueryKey } from "../utils/types";
 import { API_BASE_URL } from "../config";
+import { QueryFunctionContext } from "react-query";
 
 const PROJECTS_URL = `${API_BASE_URL}/github/projects`;
 const LANGUAGES_URL = `${API_BASE_URL}/github/languages`;
 
-export const searchProject = ({ queryKey }: any): Promise<ResponseData<GithubProject>> => {
+export const searchProject = ({ queryKey }: QueryFunctionContext<ProjectQueryKey>): Promise<ResponseData<GithubProject>> => {
   // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
-    const [, { count, filters, page, sortMethod }] = queryKey;
+    const [, { count, filters, page, sortMethod }]: ProjectQueryKey = queryKey;
     const url = `${PROJECTS_URL}/search`;
 
     try {
@@ -16,7 +17,7 @@ export const searchProject = ({ queryKey }: any): Promise<ResponseData<GithubPro
         query: filters.title,
         page,
         count,
-        languages: filters.toolss,
+        languages: filters.tools,
         sort_type: sortMethod,
       };
 

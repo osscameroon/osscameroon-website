@@ -136,3 +136,17 @@ export type ProjectFilters = {
   title: string;
   tools: string[];
 };
+
+export type ProjectQueryFilter = {
+  page: number;
+  count: number;
+  filters: ProjectFilters;
+  sortMethod: string;
+};
+export type DeveloperQueryFilter = {
+  page: number;
+  count: number;
+};
+
+export type ProjectQueryKey = [string | undefined, ProjectQueryFilter];
+export type DeveloperQueryKey = [string | undefined, DeveloperQueryFilter];

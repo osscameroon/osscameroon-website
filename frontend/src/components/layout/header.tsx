@@ -17,10 +17,8 @@ const Header = () => {
     <header>
       <Container>
         <Navbar color="white" expand="md">
-          <NavLink to="/">
-            <a className="navbar-brand cursor-pointer">
-              <img alt="OSS logo" src={logo} />
-            </a>
+          <NavLink className="navbar-brand cursor-pointer" to="/">
+            <img alt="OSS logo" src={logo} />
           </NavLink>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
