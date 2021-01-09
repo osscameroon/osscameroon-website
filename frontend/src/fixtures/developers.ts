@@ -2,11 +2,6 @@ import { TagInputData } from "../components/common/TagInput";
 import { CheckboxListOption } from "../components/common/CheckboxList";
 import { DeveloperData, DeveloperDetailData } from "../utils/types";
 
-export const TAGS: TagInputData[] = [
-  { id: "python", name: "Python" },
-  { id: "react", name: "React.js" },
-];
-
 export const SUGGESTIONS: TagInputData[] = [
   { id: "django", name: "Django" },
   { id: "java", name: "Java" },
@@ -17,6 +12,8 @@ export const SUGGESTIONS: TagInputData[] = [
   { id: "graphql", name: "GraphQL" },
   { id: "css", name: "CSS" },
   { id: "html", name: "HTML" },
+  { id: "python", name: "Python" },
+  { id: "react", name: "React.js" },
 ];
 
 export const YEAR_OF_EXPERIENCES: CheckboxListOption[] = [

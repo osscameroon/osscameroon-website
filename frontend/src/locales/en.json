@@ -8,7 +8,7 @@
   "app.common.tweets": "Tweets",
   "app.common.joinUs": "JOIN US",
   "app.common.language": "Language",
-  "app.common.paginationText": "{startResult} - {endResult} of more than {totalResults} results",
+  "app.common.paginationText": "<b>{startResult}</b> - <b>{endResult}</b> of more than <b>{totalResults}</b> results",
 
   "app.developer.filterTitle": "Filters",
   "app.developer.btnReset": "Reset",
