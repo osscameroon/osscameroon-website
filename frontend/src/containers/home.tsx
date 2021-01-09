@@ -6,13 +6,25 @@ import { NavLink } from "react-router-dom";
 import Layout from "../components/layout/layout";
 import Tweet from "../components/common/Tweet";
 import Project from "../components/common/Project";
-import { TWEETS, PROJECTS } from "../fixtures/home";
+import { TWEETS } from "../fixtures/home";
 import { homeMessages, titleMessages } from "../locales/messages";
 
 import developer from "../assets/img/developer.svg";
 import search from "../assets/icons/search.svg";
+import { useQuery } from "react-query";
+import { searchProject } from "../services/projects";
 
 const HomePage = () => {
+  const NB_TOP_PROJECTS = 6;
+  const TOP_PROJECTS_PAGE = 1;
+  const TOP_PROJECTS_SORT = "popularity";
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { data: projects_data, error, isLoading } = useQuery(
+    ["projects", { page: TOP_PROJECTS_PAGE, count: NB_TOP_PROJECTS, sortMethod: TOP_PROJECTS_SORT }],
+    searchProject,
+  );
+
   const { formatMessage } = useIntl();
 
   return (
@@ -65,21 +77,23 @@ const HomePage = () => {
             <h2> {formatMessage(homeMessages.topProjectTitle)} </h2>
             <Container>
               <Row style={{ margin: "40px 0 40px 0" }}>
-                {PROJECTS.map((project, i) => (
+                {projects_data?.result.hits.map((project, i) => (
                   <Col key={i} md="4" style={{ margin: "20px 0 20px 0" }}>
                     <Project
                       description={project.description}
                       language={project.language}
-                      link={project.name}
+                      link={project.html_url}
                       name={project.name}
-                      stars={project.stars}
+                      stars={project.stargazers_count}
                       type="small"
                     />
                   </Col>
                 ))}
               </Row>
             </Container>
-            <Button color="primary">{formatMessage(homeMessages.btnViewMoreProject)}</Button>
+            <NavLink to="/projects">
+              <Button color="primary">{formatMessage(homeMessages.btnViewMoreProject)}</Button>
+            </NavLink>
           </div>
         </section>
 

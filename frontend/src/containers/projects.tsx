@@ -162,7 +162,7 @@ export const ProjectPage = (): JSX.Element => {
                 {projects_data?.result.hits.map((project, i) => (
                   <Row className="project-row" key={i}>
                     <Project
-                      description={project.description}
+                      description={project.description || ""}
                       language={project.language}
                       link={project.html_url}
                       name={project.name}
