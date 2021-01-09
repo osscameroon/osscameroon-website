@@ -1,3 +1,5 @@
+import { projectMessages } from "../locales/messages";
+
 export type LocaleMessages = {
   [key: string]: {
     [prop: string]: string;
@@ -148,5 +150,17 @@ export type DeveloperQueryFilter = {
   count: number;
 };
 
+export type OrderOption = {
+  value: string;
+  label: keyof typeof projectMessages;
+};
+
 export type ProjectQueryKey = [string | undefined, ProjectQueryFilter];
-export type DeveloperQueryKey = [string | undefined, DeveloperQueryFilter];
+
+export type DeveloperQueryParams = {
+  page?: number;
+  title?: string;
+  tools?: string;
+  sortType?: string;
+  ossFilter?: boolean;
+};

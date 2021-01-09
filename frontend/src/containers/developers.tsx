@@ -11,9 +11,10 @@ import CheckboxList from "../components/common/CheckboxList";
 import Pagination from "../components/common/Pagination";
 import Developer from "../components/common/Developer";
 import DeveloperDetailModal from "../components/common/DeveloperDetailModal";
-import { ApiResponse, GithubUser, PaginationChangeEventData } from "../utils/types";
+import { ApiResponse, DeveloperQueryParams, GithubUser, PaginationChangeEventData } from "../utils/types";
 import { developerMessages, titleMessages } from "../locales/messages";
 import { searchDevelopers } from "../services/developers";
+import ItemSortMethod from "../components/common/ItemSortMethod";
 
 const showAdvancedFilter = false;
 
@@ -23,13 +24,14 @@ const DeveloperPage = () => {
   const [jobTitle, setJobTitle] = useState("");
   const [tools, setTools] = useState<TagInputData[]>([]);
   const [ossFilterChecked, setOssFilterChecked] = useState(false);
+  const [sortMethod, setSortMethod] = useState("");
   const [developersList, setDevelopersList] = useState<ApiResponse<GithubUser[]> | undefined>();
   const [isSearchMode, setIsSearchMode] = useState(false);
   const [selectedDevId, setSelectedDevId] = React.useState("");
   const [showDevModal, setShowDevModal] = React.useState(false);
 
   useEffect(() => {
-    searchDevelopers(1, "", "").then((response) => {
+    searchDevelopers({}).then((response) => {
       setDevelopersList(response.data);
     });
   }, []);
@@ -59,15 +61,19 @@ const DeveloperPage = () => {
     values.toString();
   };
 
-  const onFilterSubmit = () => {
-    const input = {
+  const buildDeveloperQueryParams = (overrides?: DeveloperQueryParams) => {
+    return {
       title: jobTitle,
       tools: tools.map((value) => value.id).join(" "),
+      page: isSearchMode ? currentPage : 1,
+      sortType: sortMethod,
       ossFilter: ossFilterChecked,
+      ...overrides,
     };
-    const page = isSearchMode ? currentPage : 1;
+  };
 
-    searchDevelopers(page, input.title, input.tools).then((response) => {
+  const onFilterSubmit = () => {
+    searchDevelopers(buildDeveloperQueryParams()).then((response) => {
       setIsSearchMode(true);
       setDevelopersList(response.data);
     });
@@ -75,14 +81,9 @@ const DeveloperPage = () => {
 
   const onPaginationChange = (eventData: PaginationChangeEventData) => {
     setCurrentPage(eventData.currentPage);
-    const input = { title: "", tools: "", ossFilter: false };
+    const input = buildDeveloperQueryParams({ page: eventData.currentPage });
 
-    if (isSearchMode) {
-      input.title = jobTitle;
-      input.tools = tools.map((value) => value.id).join(" ");
-      input.ossFilter = ossFilterChecked;
-    }
-    searchDevelopers(eventData.currentPage, input.title, input.tools).then((response) => {
+    searchDevelopers(input).then((response) => {
       setDevelopersList(response.data);
     });
   };
@@ -99,7 +100,15 @@ const DeveloperPage = () => {
     setTools([]);
     setOssFilterChecked(false);
     setJobTitle("");
-    searchDevelopers(1, "", "").then((response) => {
+    setSortMethod("");
+    searchDevelopers(buildDeveloperQueryParams({ page: 1 })).then((response) => {
+      setDevelopersList(response.data);
+    });
+  };
+
+  const onSelectSortMethod = (method: string) => {
+    setSortMethod(method);
+    searchDevelopers(buildDeveloperQueryParams({ sortType: method })).then((response) => {
       setDevelopersList(response.data);
     });
   };
@@ -182,6 +191,9 @@ const DeveloperPage = () => {
                   </Button>
                 </div>
               </Form>
+            </div>
+            <div className="side-card">
+              <ItemSortMethod onChange={onSelectSortMethod} />
             </div>
           </Col>
           <Col md="9">
