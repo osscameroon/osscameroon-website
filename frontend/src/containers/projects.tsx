@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, FormGroup, Input, Label, Container, Row, Col } from "reactstrap";
+import { Form, Button, FormGroup, Input, Label, Container, Row, Col, Collapse } from "reactstrap";
 import { BsArrowClockwise } from "react-icons/bs";
 import { useIntl } from "react-intl";
 import { useQuery } from "react-query";
@@ -14,12 +14,20 @@ import { PaginationChangeEventData, ProjectFilters } from "../utils/types";
 import { getLanguages, searchProject } from "../services/projects";
 import { DEFAULT_CACHE_OPTIONS } from "../config";
 import ItemSortMethod from "../components/common/ItemSortMethod";
+import Loader from "../components/common/Loader";
+import NetworkError from "../components/common/NetworkError";
+
 
 export const ProjectPage = (): JSX.Element => {
   const initialFilters: ProjectFilters = {
     title: "",
     tools: [],
   };
+
+  const smallScreenWidth = 700;
+  const [showFilters, setShowFilters] = useState(window.innerWidth > smallScreenWidth);
+  const onChangeFiltersDisplay = () => setShowFilters(!showFilters);
+
   const [filters, setFilters] = useState(initialFilters);
   const [sortMethod, setSortMethod] = useState("");
 
@@ -82,62 +90,72 @@ export const ProjectPage = (): JSX.Element => {
       <Container id="project-list">
         <Row className="mt-30">
           <Col md="3">
-            <div className="side-card">
-              <div className="d-flex justify-content-between mb-3">
-                <div className="bold">{formatMessage(projectMessages.filterTitle)}</div>
-                <div className="cursor-pointer text-color-main" onClick={onResetFilters}>
-                  {formatMessage(projectMessages.btnReset)} <BsArrowClockwise />
+            <div className="d-block d-sm-none">
+              <Button color="secondary" onClick={onChangeFiltersDisplay}>
+                {showFilters ? "Hide filters" : "Filter results" }
+              </Button> <br /> <br />
+            </div>
+            <Collapse isOpen={showFilters}>
+              <div className="side-card">
+                <div className="d-flex justify-content-between mb-3">
+                  <div className="bold">{formatMessage(projectMessages.filterTitle)}</div>
+                  <div className="cursor-pointer text-color-main" onClick={onResetFilters}>
+                    {formatMessage(projectMessages.btnReset)} <BsArrowClockwise />
+                  </div>
                 </div>
-              </div>
-              <Form>
-                <FormGroup>
-                  <Label className="font-weight-bold" htmlFor="title">
-                    {formatMessage(projectMessages.titleLabel)}
-                  </Label>
-                  <Input
-                    id="title"
-                    placeholder={formatMessage(projectMessages.titleHint)}
-                    type="text"
-                    value={projectTitle}
-                    onChange={onTitleChange}
-                  />
-                </FormGroup>
-
-                {!tagsLoading && !tagsError && (
+                <Form>
                   <FormGroup>
-                    <Label className="font-weight-bold" htmlFor="languages">
-                      {formatMessage(projectMessages.languageLabel)}
+                    <Label className="font-weight-bold" htmlFor="title">
+                      {formatMessage(projectMessages.titleLabel)}
                     </Label>
-                    <TagInput defaultValues={[]} suggestions={languageTags || []} onChange={onLanguageTagChange} />
+                    <Input
+                      id="title"
+                      placeholder={formatMessage(projectMessages.titleHint)}
+                      type="text"
+                      value={projectTitle}
+                      onChange={onTitleChange}
+                    />
                   </FormGroup>
-                )}
 
-                <FormGroup className="text-center pt-4">
-                  <Button color="primary" onClick={onFilterSubmit}>
-                    {formatMessage(projectMessages.btnFilter)}
-                  </Button>
-                </FormGroup>
-              </Form>
-            </div>
+                  {!tagsLoading && !tagsError && (
+                    <FormGroup>
+                      <Label className="font-weight-bold" htmlFor="languages">
+                        {formatMessage(projectMessages.languageLabel)}
+                      </Label>
+                      <TagInput defaultValues={[]} suggestions={languageTags || []} onChange={onLanguageTagChange} />
+                    </FormGroup>
+                  )}
 
-            <div className="side-card">
-              <ItemSortMethod onChange={onSelectSortMethod} />
-            </div>
+                  <FormGroup className="text-center pt-4">
+                    <Button color="primary" onClick={onFilterSubmit}>
+                      {formatMessage(projectMessages.btnFilter)}
+                    </Button>
+                  </FormGroup>
+                </Form>
+              </div>
+
+              <div className="side-card">
+                <ItemSortMethod onChange={onSelectSortMethod} />
+              </div>
+            </Collapse>
           </Col>
 
           <Col md="9">
             {/* eslint-disable-next-line no-nested-ternary */}
             {isLoading ? (
-              <> Loading.... </>
+              <Loader loading={isLoading} />
             ) : error ? (
-              <> Something Went Wrong </>
+              <NetworkError />
             ) : (
               <div id="project-row-content">
                 <Pagination
                   currentPage={currentPage}
-                  itemPerPage={ITEM_PER_PAGE}
+                  itemPerPage={
+                    (projects_data?.result.nbHits || 0) < ITEM_PER_PAGE ?
+                      projects_data?.result.nbHits || 0 : ITEM_PER_PAGE
+                  }
                   position="top"
-                  totalItems={(projects_data?.result.nbHits || 0) * ITEM_PER_PAGE}
+                  totalItems={(projects_data?.result.nbHits || 0)}
                   onPageChange={onPaginationChange}
                 />
                 {projects_data?.result.hits.map((project, i) => (
@@ -154,9 +172,12 @@ export const ProjectPage = (): JSX.Element => {
                 ))}
                 <Pagination
                   currentPage={currentPage}
-                  itemPerPage={ITEM_PER_PAGE}
+                  itemPerPage={
+                    (projects_data?.result.nbHits || 0) < ITEM_PER_PAGE ?
+                      projects_data?.result.nbHits || 0 : ITEM_PER_PAGE
+                  }
                   position="bottom"
-                  totalItems={(projects_data?.result.nbHits || 0) * ITEM_PER_PAGE}
+                  totalItems={(projects_data?.result.nbHits || 0)}
                   onPageChange={onPaginationChange}
                 />
               </div>
