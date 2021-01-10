@@ -52,6 +52,8 @@
   border-radius: 5px;
   margin: 25px 0 25px 0;
   position: relative;
+  min-width: 600px;
+  padding-bottom: 30px;
   .dev-detail-header {
     background: var(--dark-accent);
     width: 100%;
