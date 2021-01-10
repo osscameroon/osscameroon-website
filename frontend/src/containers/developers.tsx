@@ -13,10 +13,12 @@ import Developer from "../components/common/Developer";
 import DeveloperDetailModal from "../components/common/DeveloperDetailModal";
 import { ApiResponse, DeveloperQueryParams, GithubUser, PaginationChangeEventData } from "../utils/types";
 import { developerMessages, titleMessages } from "../locales/messages";
-import { searchDevelopers } from "../services/developers";
 import ItemSortMethod from "../components/common/ItemSortMethod";
+import useFetch from "../components/utils/useFetch";
+import { API_BASE_URL } from "../config";
 
 const showAdvancedFilter = false;
+const url = `${API_BASE_URL}/github/users/search`;
 
 const DeveloperPage = () => {
   const { formatMessage } = useIntl();
@@ -30,10 +32,14 @@ const DeveloperPage = () => {
   const [selectedDevId, setSelectedDevId] = React.useState("");
   const [showDevModal, setShowDevModal] = React.useState(false);
 
+  const { doFetch } = useFetch<ApiResponse<GithubUser[]>>();
+
   useEffect(() => {
-    searchDevelopers({}).then((response) => {
-      setDevelopersList(response.data);
-    });
+    const firstFetch = async () => {
+      const response = await doFetch(url, {});
+      setDevelopersList(response);
+    };
+    firstFetch();
   }, []);
 
   const openDevModal = () => setShowDevModal(true);
@@ -63,29 +69,26 @@ const DeveloperPage = () => {
 
   const buildDeveloperQueryParams = (overrides?: DeveloperQueryParams) => {
     return {
-      title: jobTitle,
-      tools: tools.map((value) => value.id).join(" "),
+      query: `${jobTitle} ${tools.map((value) => value.id).join(" ")}`.trim(),
       page: isSearchMode ? currentPage : 1,
-      sortType: sortMethod,
-      ossFilter: ossFilterChecked,
+      sort_type: sortMethod,
+      // ossFilter: ossFilterChecked ? 'yes' : 'no',
       ...overrides,
     };
   };
 
-  const onFilterSubmit = () => {
-    searchDevelopers(buildDeveloperQueryParams()).then((response) => {
-      setIsSearchMode(true);
-      setDevelopersList(response.data);
-    });
+  const onFilterSubmit = async () => {
+    const response = await doFetch(url, buildDeveloperQueryParams());
+    setIsSearchMode(true);
+    setDevelopersList(response);
   };
 
-  const onPaginationChange = (eventData: PaginationChangeEventData) => {
+  const onPaginationChange = async (eventData: PaginationChangeEventData) => {
     setCurrentPage(eventData.currentPage);
     const input = buildDeveloperQueryParams({ page: eventData.currentPage });
 
-    searchDevelopers(input).then((response) => {
-      setDevelopersList(response.data);
-    });
+    const response = await doFetch(url, input);
+    setDevelopersList(response);
   };
 
   const clearJobTitle = () => {
@@ -93,7 +96,7 @@ const DeveloperPage = () => {
     setCurrentPage(1);
   };
 
-  const onSearchResetClick = () => {
+  const onSearchResetClick = async () => {
     setIsSearchMode(false);
     setDevelopersList(undefined);
     setCurrentPage(1);
@@ -101,16 +104,16 @@ const DeveloperPage = () => {
     setOssFilterChecked(false);
     setJobTitle("");
     setSortMethod("");
-    searchDevelopers(buildDeveloperQueryParams({ page: 1 })).then((response) => {
-      setDevelopersList(response.data);
-    });
+
+    const response = await doFetch(url, buildDeveloperQueryParams({ page: 1 }));
+    setDevelopersList(response);
   };
 
-  const onSelectSortMethod = (method: string) => {
+  const onSelectSortMethod = async (method: string) => {
     setSortMethod(method);
-    searchDevelopers(buildDeveloperQueryParams({ sortType: method })).then((response) => {
-      setDevelopersList(response.data);
-    });
+
+    const response = await doFetch(url, buildDeveloperQueryParams({ sort_type: method }));
+    setDevelopersList(response);
   };
 
   return (

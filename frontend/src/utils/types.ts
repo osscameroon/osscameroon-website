@@ -161,6 +161,6 @@ export type DeveloperQueryParams = {
   page?: number;
   title?: string;
   tools?: string;
-  sortType?: string;
-  ossFilter?: boolean;
+  sort_type?: string;
+  ossFilter?: string;
 };
