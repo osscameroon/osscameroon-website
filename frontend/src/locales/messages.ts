@@ -38,7 +38,7 @@ export const commonMessages = defineMessages({
   },
   paginationText: {
     id: "app.common.paginationText",
-    defaultMessage: "{startResult} - {endResult} of more than {totalResults} results",
+    defaultMessage: "<b>{startResult}</b> - <b>{endResult}</b> of more than <b>{totalResults}</b> results",
   },
 });
 

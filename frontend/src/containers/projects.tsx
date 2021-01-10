@@ -154,6 +154,7 @@ export const ProjectPage = (): JSX.Element => {
             ) : (
               <div id="project-row-content">
                 <Pagination
+                  currentPage={currentPage}
                   itemPerPage={ITEM_PER_PAGE}
                   position="top"
                   totalItems={(projects_data?.result.nbHits || 0) * ITEM_PER_PAGE}
@@ -172,6 +173,7 @@ export const ProjectPage = (): JSX.Element => {
                   </Row>
                 ))}
                 <Pagination
+                  currentPage={currentPage}
                   itemPerPage={ITEM_PER_PAGE}
                   position="bottom"
                   totalItems={(projects_data?.result.nbHits || 0) * ITEM_PER_PAGE}

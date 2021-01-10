@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import { BsArrowClockwise, BsXCircle } from "react-icons/bs";
-import axios from "axios";
 import { useIntl } from "react-intl";
 
-import { AVAILABILITY, SUGGESTIONS, TAGS, YEAR_OF_EXPERIENCES } from "../fixtures/developers";
+import { AVAILABILITY, SUGGESTIONS, YEAR_OF_EXPERIENCES } from "../fixtures/developers";
 import Layout from "../components/layout/layout";
 import Breadcrumb from "../components/common/Breadcrumb";
 import TagInput, { TagInputData } from "../components/common/TagInput";
@@ -14,46 +13,25 @@ import Developer from "../components/common/Developer";
 import DeveloperDetailModal from "../components/common/DeveloperDetailModal";
 import { ApiResponse, GithubUser, PaginationChangeEventData } from "../utils/types";
 import { developerMessages, titleMessages } from "../locales/messages";
+import { searchDevelopers } from "../services/developers";
 
 const showAdvancedFilter = false;
 
-const getUsers = async (currentPage: number) => {
-  return axios.get(`${process.env.REACT_APP_API_BASE_URL}/github/users/search?page=${currentPage}`);
-};
-
-const defaultUserData: ApiResponse<GithubUser[]> = {
-  code: 200,
-  status: "success",
-  result: {
-    hits: [],
-    offset: 0,
-    limit: 20,
-    nbHits: 0,
-  },
-};
-
 const DeveloperPage = () => {
   const { formatMessage } = useIntl();
-  const [userData, setUserData] = useState<ApiResponse<GithubUser[]>>(defaultUserData);
   const [currentPage, setCurrentPage] = useState(1);
-
   const [jobTitle, setJobTitle] = useState("");
-  const [tools, setTools] = useState<TagInputData[]>(TAGS);
+  const [tools, setTools] = useState<TagInputData[]>([]);
   const [ossFilterChecked, setOssFilterChecked] = useState(false);
-
+  const [developersList, setDevelopersList] = useState<ApiResponse<GithubUser[]> | undefined>();
+  const [isSearchMode, setIsSearchMode] = useState(false);
   const [selectedDevId, setSelectedDevId] = React.useState("");
   const [showDevModal, setShowDevModal] = React.useState(false);
 
   useEffect(() => {
-    getUsers(currentPage)
-      .then((response) => {
-        // console.log(response);
-        setUserData(response.data);
-      })
-      .catch(() => {
-        // console.log(error);
-        setUserData(defaultUserData);
-      });
+    searchDevelopers(1, "", "").then((response) => {
+      setDevelopersList(response.data);
+    });
   }, []);
 
   const openDevModal = () => setShowDevModal(true);
@@ -65,39 +43,65 @@ const DeveloperPage = () => {
 
   const onTitleChange = (event: { target: { value: React.SetStateAction<string> } }) => {
     setJobTitle(event.target.value);
+    if (isSearchMode) setCurrentPage(1);
   };
 
   const onToolsListChange = (values: TagInputData[]) => {
-    // eslint-disable-next-line no-console
-    console.log("Tools : ", values);
     setTools(values);
+    if (isSearchMode) setCurrentPage(1);
   };
 
   const onExperienceFilterChange = (values: string[]) => {
-    // eslint-disable-next-line no-console
-    console.log("Experience : ", values);
+    values.toString();
   };
 
   const onAvailabilityFilterChange = (values: string[]) => {
-    // eslint-disable-next-line no-console
-    console.log("Availability : ", values);
+    values.toString();
   };
 
   const onFilterSubmit = () => {
     const input = {
       title: jobTitle,
-      tools: tools.map((value) => value.id),
+      tools: tools.map((value) => value.id).join(" "),
       ossFilter: ossFilterChecked,
     };
+    const page = isSearchMode ? currentPage : 1;
 
-    // eslint-disable-next-line no-console
-    console.log(input);
+    searchDevelopers(page, input.title, input.tools).then((response) => {
+      setIsSearchMode(true);
+      setDevelopersList(response.data);
+    });
   };
 
   const onPaginationChange = (eventData: PaginationChangeEventData) => {
-    // eslint-disable-next-line no-console
-    console.log("Pagination Page : ", eventData);
     setCurrentPage(eventData.currentPage);
+    const input = { title: "", tools: "", ossFilter: false };
+
+    if (isSearchMode) {
+      input.title = jobTitle;
+      input.tools = tools.map((value) => value.id).join(" ");
+      input.ossFilter = ossFilterChecked;
+    }
+    searchDevelopers(eventData.currentPage, input.title, input.tools).then((response) => {
+      setDevelopersList(response.data);
+    });
+  };
+
+  const clearJobTitle = () => {
+    setJobTitle("");
+    setCurrentPage(1);
+  };
+
+  const onSearchResetClick = () => {
+    setIsSearchMode(false);
+    setDevelopersList(undefined);
+    setCurrentPage(1);
+    setTools([]);
+    setOssFilterChecked(false);
+    setJobTitle("");
+    searchDevelopers(1, "", "").then((response) => {
+      setDevelopersList(response.data);
+    });
   };
 
   return (
@@ -109,16 +113,18 @@ const DeveloperPage = () => {
             <div className="side-card filter-section">
               <div className="d-flex justify-content-between">
                 <div className="bold">{formatMessage(developerMessages.filterTitle)}</div>
-                <div className="cursor-pointer text-color-main">
+                <div className="cursor-pointer text-color-main" onClick={onSearchResetClick}>
                   {formatMessage(developerMessages.btnReset)} <BsArrowClockwise />
                 </div>
               </div>
-              <div className="selected-title d-flex justify-content-between align-items-center mt-3 mb-3">
-                <div className="bold w-75">Full Stack Web Developer</div>
-                <div className="cursor-pointer font-weight-bold">
-                  <BsXCircle />
+              {isSearchMode && jobTitle && (
+                <div className="selected-title d-flex justify-content-between align-items-center mt-3 mb-3">
+                  <div className="bold w-75">{jobTitle}</div>
+                  <div className="cursor-pointer font-weight-bold" onClick={clearJobTitle}>
+                    <BsXCircle />
+                  </div>
                 </div>
-              </div>
+              )}
               <div className="dropdown-divider" />
               <Form>
                 <FormGroup>
@@ -137,7 +143,7 @@ const DeveloperPage = () => {
                   <Label className="filter-label" htmlFor="tools">
                     {formatMessage(developerMessages.languageLabel)}
                   </Label>
-                  <TagInput defaultValues={TAGS} suggestions={SUGGESTIONS} onChange={onToolsListChange} />
+                  <TagInput defaultValues={tools} suggestions={SUGGESTIONS} onChange={onToolsListChange} />
                 </FormGroup>
                 {showAdvancedFilter && (
                   <>
@@ -179,32 +185,36 @@ const DeveloperPage = () => {
             </div>
           </Col>
           <Col md="9">
-            <div style={{ margin: "0 15px 0 15px" }}>
-              {userData.result?.hits.length && (
-                <Pagination
-                  itemPerPage={userData.result.limit}
-                  position="top"
-                  totalItems={userData.result.nbHits}
-                  onPageChange={onPaginationChange}
-                />
-              )}
-              <Row className="developer-section">
-                {userData.result?.hits.length &&
-                  userData.result.hits.map((developer) => (
-                    <Col key={`develop${developer.id}`} md={4} style={{ marginTop: "20px", marginBottom: "20px" }} onClick={openDevModal}>
-                      <Developer developer={developer} />
-                    </Col>
-                  ))}
-              </Row>
-              {userData.result?.hits.length && (
-                <Pagination
-                  itemPerPage={userData.result.limit}
-                  position="bottom"
-                  totalItems={userData.result.nbHits}
-                  onPageChange={onPaginationChange}
-                />
-              )}
-            </div>
+            {developersList && (
+              <div style={{ margin: "0 15px 0 15px" }}>
+                {developersList.result?.hits.length && (
+                  <Pagination
+                    currentPage={currentPage}
+                    itemPerPage={developersList.result.limit}
+                    position="top"
+                    totalItems={developersList.result.nbHits}
+                    onPageChange={onPaginationChange}
+                  />
+                )}
+                <Row className="developer-section">
+                  {developersList.result?.hits.length &&
+                    developersList.result.hits.map((developer) => (
+                      <Col key={`develop${developer.id}`} md={4} style={{ marginTop: "20px", marginBottom: "20px" }} onClick={openDevModal}>
+                        <Developer developer={developer} />
+                      </Col>
+                    ))}
+                </Row>
+                {developersList.result?.hits.length && (
+                  <Pagination
+                    currentPage={currentPage}
+                    itemPerPage={developersList.result.limit}
+                    position="bottom"
+                    totalItems={developersList.result.nbHits}
+                    onPageChange={onPaginationChange}
+                  />
+                )}
+              </div>
+            )}
           </Col>
         </Row>
 
