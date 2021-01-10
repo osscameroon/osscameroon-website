@@ -6,24 +6,25 @@ import { NavLink } from "react-router-dom";
 import Layout from "../components/layout/layout";
 import Tweet from "../components/common/Tweet";
 import Project from "../components/common/Project";
-import { TWEETS } from "../fixtures/home";
 import { homeMessages, titleMessages } from "../locales/messages";
 
 import developer from "../assets/img/developer.svg";
 import search from "../assets/icons/search.svg";
 import { useQuery } from "react-query";
 import { searchProject } from "../services/projects";
+import {getTopTweets} from "../services/tweets";
 
 const HomePage = () => {
   const NB_TOP_PROJECTS = 6;
   const TOP_PROJECTS_PAGE = 1;
   const TOP_PROJECTS_SORT = "popularity";
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data: projects_data, error, isLoading } = useQuery(
+  const { data: projects_data } = useQuery(
     ["projects", { page: TOP_PROJECTS_PAGE, count: NB_TOP_PROJECTS, sortMethod: TOP_PROJECTS_SORT }],
     searchProject,
   );
+
+  const { data: tweets_data } = useQuery("tweets", getTopTweets);
 
   const { formatMessage } = useIntl();
 
@@ -102,22 +103,24 @@ const HomePage = () => {
             <h2> {formatMessage(homeMessages.topTweetTitle)} </h2>
             <Container>
               <Row style={{ margin: "40px 0 40px 0" }}>
-                {TWEETS.map((tweet, i) => (
+                {tweets_data?.result.statuses.map((tweet, i) => (
                   <Col key={i} md="4" style={{ margin: "20px 0 20px 0" }}>
                     <Tweet
-                      avatar={tweet.avatar}
-                      comments={tweet.comments}
-                      likes={tweet.likes}
-                      name={tweet.name}
-                      retweets={tweet.retweets}
+                      hashtags={tweet.entities.hashtags}
+                      likes={tweet.favorite_count}
+                      retweets={tweet.retweet_count}
                       text={tweet.text}
-                      username={tweet.username}
+                      urls={tweet.entities.urls}
+                      user={tweet.user}
+                      user_mentions={tweet.entities.user_mentions}
                     />
                   </Col>
                 ))}
               </Row>
             </Container>
-            <Button color="primary"> {formatMessage(homeMessages.btnViewMoreTweet)} </Button>
+            <a href="https://twitter.com/hashtag/caparledev" rel="noreferrer nofollow" target="_blank">
+              <Button color="primary"> {formatMessage(homeMessages.btnViewMoreTweet)} </Button>
+            </a>
           </div>
         </section>
       </div>
