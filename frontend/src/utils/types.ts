@@ -128,9 +128,9 @@ export type ResponseData<T> = {
     offset: number;
     limit: number;
     nbHits: number;
-    exhaustiveNbHits: boolean;
-    processingTimeMs: number;
-    query: string;
+    exhaustiveNbHits?: boolean;
+    processingTimeMs?: number;
+    query?: string;
   };
 };
 
@@ -142,7 +142,7 @@ export type ProjectFilters = {
 export type ProjectQueryFilter = {
   page: number;
   count: number;
-  filters: ProjectFilters;
+  filters?: ProjectFilters;
   sortMethod: string;
 };
 export type DeveloperQueryFilter = {
@@ -164,3 +164,42 @@ export type DeveloperQueryParams = {
   sort_type?: string;
   ossFilter?: string;
 };
+
+
+export type HashTag = {
+  text: string;
+  indices: number[];
+}
+
+export type TwitterUrl = {
+  url: string;
+  expended_url: string;
+  indices: number[];
+}
+
+export type TwitterUser = {
+  name: string;
+  screen_name: string;
+  profile_image_url_https: string;
+  url: string;
+}
+
+export type TwitterMention = {
+  screen_name: string;
+  name: string;
+}
+
+export type TweetList = {
+  statuses: {
+    id: number;
+    text: string;
+    entities: {
+      hashtags: HashTag[];
+      user_mentions: TwitterMention[];
+      urls: TwitterUrl[]
+    }
+    user: TwitterUser;
+    retweet_count: number;
+    favorite_count: number;
+  }[];
+}

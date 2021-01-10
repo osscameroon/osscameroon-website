@@ -12,6 +12,7 @@ import TagInput, { TagInputData } from "../components/common/TagInput";
 import { projectMessages, titleMessages } from "../locales/messages";
 import { PaginationChangeEventData, ProjectFilters } from "../utils/types";
 import { getLanguages, searchProject } from "../services/projects";
+import { DEFAULT_CACHE_OPTIONS } from "../config";
 import ItemSortMethod from "../components/common/ItemSortMethod";
 
 export const ProjectPage = (): JSX.Element => {
@@ -27,10 +28,10 @@ export const ProjectPage = (): JSX.Element => {
 
   const { data: projects_data, error, isLoading } = useQuery(
     ["projects", { page: currentPage, count: ITEM_PER_PAGE, filters, sortMethod }],
-    searchProject,
+    searchProject, DEFAULT_CACHE_OPTIONS
   );
 
-  const { data: languageListData, error: tagsError, isLoading: tagsLoading } = useQuery("tags", getLanguages);
+  const { data: languageListData, error: tagsError, isLoading: tagsLoading } = useQuery("tags", getLanguages, DEFAULT_CACHE_OPTIONS);
   const languageTags = languageListData?.result.map((value) => ({ id: value, name: value }));
 
   const [projectTitle, setProjectTitle] = useState("");
@@ -142,7 +143,7 @@ export const ProjectPage = (): JSX.Element => {
                 {projects_data?.result.hits.map((project, i) => (
                   <Row className="project-row" key={i}>
                     <Project
-                      description={project.description}
+                      description={project.description || ""}
                       language={project.language}
                       link={project.html_url}
                       name={project.name}
