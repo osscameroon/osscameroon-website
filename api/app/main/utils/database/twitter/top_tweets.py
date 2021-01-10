@@ -5,7 +5,7 @@ from app.main.utils.helpers.commons import get_trace
 import json
 
 
-def top_tweets(cache):
+def top_tweets(cache: object, count: int) -> tuple(bool, str):
     """
     This method will return top-tweets
     comming from the request or just the cache
@@ -35,14 +35,14 @@ def top_tweets(cache):
     return True, cache.get("top-tweets")
 
 
-def get_top_tweets(cache):
+def get_top_tweets(cache: object, count: int) -> object:
     """
     This method will check the return of top-tweet and send
     the appropriate status code for the request
 
     """
 
-    results = top_tweets(cache)
+    results = top_tweets(cache, count)
 
     if results[0]:
         payload = json.loads(results[1])
@@ -63,3 +63,4 @@ def get_top_tweets(cache):
             "code": 500,
             "status": "error"
         }
+
