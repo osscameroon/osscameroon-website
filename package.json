@@ -1,3 +1,4 @@
+
 {
   "name": "caparledev-website",
   "version": "1.0.0",
@@ -8,16 +9,11 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "@types/axios": "^0.14.0",
     "husky": "^4.3.6"
   },
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
-  },
-  "dependencies": {
-    "axios": "^0.21.1",
-    "react-query": "^3.5.11"
   }
 }

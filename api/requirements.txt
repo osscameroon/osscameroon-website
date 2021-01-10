@@ -30,3 +30,5 @@ meilisearch
 requests
 requests_oauthlib
 
+# deployment
+uwsgi
