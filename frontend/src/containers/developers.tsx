@@ -9,8 +9,8 @@ import Breadcrumb from "../components/common/Breadcrumb";
 import TagInput, { TagInputData } from "../components/common/TagInput";
 import CheckboxList from "../components/common/CheckboxList";
 import Pagination from "../components/common/Pagination";
-import Developer from "../components/common/Developer";
-import DeveloperDetailModal from "../components/common/DeveloperDetailModal";
+import Developer from "../components/common/developer/Developer";
+import DeveloperDetailModal from "../components/common/developer/DeveloperDetailModal";
 import { ApiResponse, DeveloperQueryParams, GithubUser, PaginationChangeEventData } from "../utils/types";
 import { developerMessages, titleMessages } from "../locales/messages";
 import ItemSortMethod from "../components/common/ItemSortMethod";
@@ -31,8 +31,7 @@ const DeveloperPage = () => {
   const [sortMethod, setSortMethod] = useState("");
   const [developersList, setDevelopersList] = useState<ApiResponse<GithubUser[]> | undefined>();
   const [isSearchMode, setIsSearchMode] = useState(false);
-  const [selectedDevId, setSelectedDevId] = React.useState("");
-  const [showDevModal, setShowDevModal] = React.useState(false);
+  const [selectedDeveloper, setSelectedDeveloper] = React.useState<GithubUser | undefined>();
 
   const { doFetch, error, loading } = useFetch<ApiResponse<GithubUser[]>>();
 
@@ -44,11 +43,10 @@ const DeveloperPage = () => {
     firstFetch();
   }, []);
 
-  const openDevModal = () => setShowDevModal(true);
+  const onSelectDeveloper = (developer: GithubUser) => setSelectedDeveloper(developer);
 
-  const closeDevModal = () => {
-    setSelectedDevId("");
-    setShowDevModal(false);
+  const closeModal = () => {
+    setSelectedDeveloper(undefined);
   };
 
   const onTitleChange = (event: { target: { value: React.SetStateAction<string> } }) => {
@@ -217,7 +215,12 @@ const DeveloperPage = () => {
                 <Row className="developer-section">
                   {developersList.result?.hits.length &&
                     developersList.result.hits.map((developer) => (
-                      <Col key={`develop${developer.id}`} md={4} style={{ marginTop: "20px", marginBottom: "20px" }} onClick={openDevModal}>
+                      <Col
+                        key={`develop${developer.id}`}
+                        md={4}
+                        style={{ marginTop: "20px", marginBottom: "20px" }}
+                        onClick={() => onSelectDeveloper(developer)}
+                      >
                         <Developer developer={developer} />
                       </Col>
                     ))}
@@ -237,7 +240,7 @@ const DeveloperPage = () => {
           </Col>
         </Row>
 
-        <DeveloperDetailModal devId={selectedDevId} visible={showDevModal} onClose={closeDevModal} />
+        <DeveloperDetailModal developer={selectedDeveloper} visible={!!selectedDeveloper} onClose={closeModal} />
       </Container>
     </Layout>
   );
