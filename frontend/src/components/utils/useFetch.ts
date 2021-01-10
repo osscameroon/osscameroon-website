@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import qs from "querystring";
 
-const useFetch = <T>() => {
+type UseFetchProps = {
+  waitForSeconds?: number;
+};
+
+const useFetch = <T>({ waitForSeconds }: UseFetchProps = {}) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -14,9 +18,19 @@ const useFetch = <T>() => {
     return `${url}?${qs.stringify(filteredParams)}`;
   };
 
+  const sleep = (nbSeconds: number) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(nbSeconds);
+      }, nbSeconds);
+    });
+  };
+
   const doFetch = async (url: string, params: Record<string, string | number | undefined>): Promise<T | undefined> => {
     setLoading(true);
+    setError(null);
     try {
+      if (waitForSeconds) await sleep(waitForSeconds);
       const res = await axios.get(buildUrlWithQueryParams(url, params));
       setLoading(false);
       return res.data;

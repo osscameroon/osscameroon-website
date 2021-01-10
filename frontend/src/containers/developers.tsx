@@ -16,6 +16,8 @@ import { developerMessages, titleMessages } from "../locales/messages";
 import ItemSortMethod from "../components/common/ItemSortMethod";
 import useFetch from "../components/utils/useFetch";
 import { API_BASE_URL } from "../config";
+import Loader from "../components/common/Loader";
+import NetworkError from "../components/common/NetworkError";
 
 const showAdvancedFilter = false;
 const url = `${API_BASE_URL}/github/users/search`;
@@ -32,7 +34,7 @@ const DeveloperPage = () => {
   const [selectedDevId, setSelectedDevId] = React.useState("");
   const [showDevModal, setShowDevModal] = React.useState(false);
 
-  const { doFetch } = useFetch<ApiResponse<GithubUser[]>>();
+  const { doFetch, error, loading } = useFetch<ApiResponse<GithubUser[]>>();
 
   useEffect(() => {
     const firstFetch = async () => {
@@ -200,6 +202,7 @@ const DeveloperPage = () => {
             </div>
           </Col>
           <Col md="9">
+            {error && <NetworkError />}
             {developersList && (
               <div style={{ margin: "0 15px 0 15px" }}>
                 {developersList.result?.hits.length && (
@@ -230,6 +233,7 @@ const DeveloperPage = () => {
                 )}
               </div>
             )}
+            <Loader loading={loading} />
           </Col>
         </Row>
 
