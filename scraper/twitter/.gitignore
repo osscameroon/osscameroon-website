@@ -11,3 +11,4 @@ config.txt
 config.ini
 .secrets/*
 *.sh
+venv/*
