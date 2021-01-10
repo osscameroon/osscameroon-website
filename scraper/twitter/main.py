@@ -46,9 +46,7 @@ def store_tweet(tweet_data: dict):
     client.put(data)
 
 
-def fetch_tweets(api_url, parameters):
-    for param in parameters:
-        api_url += f"&{param}={parameters[param]}"
+def fetch_tweets(api_url):
     print(">> Requesting:", api_url, headers)
     response = requests.get(api_url, headers=headers)
     results = response.json()
@@ -61,19 +59,31 @@ def fetch_tweets(api_url, parameters):
 
 try:
     # Default query url for api
-    api_url = "https://api.twitter.com/2/"
-    "tweets/search/recent?query=%23caparledev"
-    # Configure the api.twitter.com paramaters
-    parameters = {"max_results": 100}
+
+    # Twitter 2.0
+    # api_url = "https://api.twitter.com/2/tweets/search/recent?query=%23caparledev"
+
+    # Twitter 1.1
+    api_url = "https://api.twitter.com/1.1/search/tweets.json?q=%23caparledev%20-filter%3Aretweets"
 
     try:
-        results = fetch_tweets(api_url, parameters)
-        while "next_token" in results["meta"]:
-            parameters["next_token"] = results["meta"]["next_token"]
-            results = fetch_tweets(api_url, parameters)
-            res_len = len(results["data"])
+        results = fetch_tweets(api_url)
+        print(results['search_metadata'])
+        while "next_results" in results["search_metadata"]:
+            # print( results["search_metadata"])
+            api_url_mini = "https://api.twitter.com/1.1/search/tweets.json"
+            api_url_mini += results["search_metadata"]["next_results"]
+            # print( api_url_mini )
+
+            results = fetch_tweets(api_url_mini)
+
+            # print(results["statuses"])
+            res_len = len(results["statuses"])
             for i in tqdm(range(res_len), desc="Storing in GCP..."):
-                store_tweet(results["data"][i])
+                store_tweet(results["statuses"][i])
+                # print(results["statuses"][i])
+                # input("")
+
 
     except ValueError as value_error:
         print(">> Error requesting from API:", value_error)
