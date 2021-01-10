@@ -101,7 +101,7 @@ export const developerMessages = defineMessages({
   },
   availability: {
     id: "app.developer.modal.availability",
-    defaultMessage: "Availability:",
+    defaultMessage: "Open for opportunities:",
   },
 });
 

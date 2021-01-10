@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardBody, CardImg, CardSubtitle, CardTitle } from "reactstrap";
 
-import { GithubUser } from "../../utils/types";
+import { GithubUser } from "../../../utils/types";
 
 type DeveloperProps = {
   developer: GithubUser;
