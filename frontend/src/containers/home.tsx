@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useState, ChangeEvent} from "react";
 import { Input, InputGroup, InputGroupAddon, Button, Container, Row, Col } from "reactstrap";
 import { useIntl } from "react-intl";
-import { NavLink } from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 
 import Layout from "../components/layout/layout";
 import Tweet from "../components/common/Tweet";
@@ -10,21 +10,35 @@ import { homeMessages, titleMessages } from "../locales/messages";
 
 import developer from "../assets/img/developer.svg";
 import search from "../assets/icons/search.svg";
-import { useQuery } from "react-query";
+import {useQuery} from "react-query";
 import { searchProject } from "../services/projects";
 import {getTopTweets} from "../services/tweets";
+import {DEFAULT_CACHE_OPTIONS} from "../config";
 
 const HomePage = () => {
+  const history = useHistory();
+
   const NB_TOP_PROJECTS = 6;
   const TOP_PROJECTS_PAGE = 1;
   const TOP_PROJECTS_SORT = "popularity";
 
   const { data: projects_data } = useQuery(
     ["projects", { page: TOP_PROJECTS_PAGE, count: NB_TOP_PROJECTS, sortMethod: TOP_PROJECTS_SORT }],
-    searchProject,
+    searchProject, DEFAULT_CACHE_OPTIONS
   );
 
-  const { data: tweets_data } = useQuery("tweets", getTopTweets);
+  const [searchKey, setSearchKey] = useState("");
+  const onSearchKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchKey(e.target.value);
+  };
+
+  const onSearch = () => {
+    if(searchKey.trim() !== "") {
+      history.push(`/developers?keyword=${searchKey}`);
+    }
+  };
+
+  const { data: tweets_data } = useQuery("tweets", getTopTweets, DEFAULT_CACHE_OPTIONS);
 
   const { formatMessage } = useIntl();
 
@@ -55,9 +69,9 @@ const HomePage = () => {
             <form className="search-form">
               <div>
                 <InputGroup>
-                  <Input className="search-input" placeholder="ex: Full Stack Web Developer" />
+                  <Input className="search-input" placeholder="ex: Full Stack Web Developer" onChange={onSearchKeyChange}/>
                   <InputGroupAddon addonType="append">
-                    <Button className="search-button">
+                    <Button className="search-button" onClick={onSearch}>
                       <img alt="search button" src={search} />
                     </Button>
                   </InputGroupAddon>

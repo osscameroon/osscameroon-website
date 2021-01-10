@@ -13,6 +13,7 @@ import TagInput, { TagInputData } from "../components/common/TagInput";
 import { projectMessages, titleMessages } from "../locales/messages";
 import { PaginationChangeEventData, ProjectFilters } from "../utils/types";
 import { getLanguages, searchProject } from "../services/projects";
+import { DEFAULT_CACHE_OPTIONS } from "../config";
 
 type OrderOption = {
   value: string;
@@ -38,10 +39,10 @@ export const ProjectPage = (): JSX.Element => {
 
   const { data: projects_data, error, isLoading } = useQuery(
     ["projects", { page: currentPage, count: ITEM_PER_PAGE, filters, sortMethod }],
-    searchProject,
+    searchProject, DEFAULT_CACHE_OPTIONS
   );
 
-  const { data: languageListData, error: tagsError, isLoading: tagsLoading } = useQuery("tags", getLanguages);
+  const { data: languageListData, error: tagsError, isLoading: tagsLoading } = useQuery("tags", getLanguages, DEFAULT_CACHE_OPTIONS);
   const languageTags = languageListData?.result.map((value) => ({ id: value, name: value }));
 
   const [projectTitle, setProjectTitle] = useState("");

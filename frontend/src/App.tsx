@@ -17,13 +17,21 @@ import HomePage from "./containers/home";
 import DeveloperPage from "./containers/developers";
 import ProjectPage from "./containers/projects";
 import NotFound from "./containers/notFound";
+import {QUERY_CACHE_TIME, QUERY_STALE_TIME} from "./config";
 
 const messages = {
   en: messages_en,
   fr: messages_fr,
 };
 
-export const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: QUERY_STALE_TIME,
+      cacheTime: QUERY_CACHE_TIME
+    }
+  }
+});
 
 const App = () => {
   return (
