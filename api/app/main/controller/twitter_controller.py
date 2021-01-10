@@ -30,4 +30,3 @@ class ApidtoTopTweets(Resource):
         result = get_top_tweets(cache, count)
 
         return result, result["code"]
-

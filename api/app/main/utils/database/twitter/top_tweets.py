@@ -5,7 +5,6 @@ from app.main.utils.helpers.commons import get_trace
 import json
 
 
-
 def top_tweets(cache: object, count: int):
     """
     This method will return top-tweets
@@ -67,4 +66,3 @@ def get_top_tweets(cache: object, count: int):
             "code": 500,
             "status": "error"
         }
-
