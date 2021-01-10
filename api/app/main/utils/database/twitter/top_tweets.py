@@ -20,7 +20,7 @@ def top_tweets(cache):
             # to the twitter api
             print(">> Hitting twitter api...")
             tweets = requests.get(
-                "https://api.twitter.com/1.1/search/tweets.json?q=%23caparledev&result_type=popular",
+                "https://api.twitter.com/1.1/search/tweets.json?q=%23caparledev%20-filter%3Aretweets",
                 auth=OAuth1(API_KEY, API_SECRET_KEY)
             ).content.decode()
             # and we cache it as json string
