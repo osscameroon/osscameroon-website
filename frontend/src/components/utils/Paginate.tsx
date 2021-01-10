@@ -99,10 +99,6 @@ const Paginate = ({ currentPage = 1, onPageChanged, pageLimit = 30, pageNeighbou
 
   const totalPages = Math.ceil(totalRecords / pageLimit);
 
-  useEffect(() => {
-    gotoPage(1);
-  }, []);
-
   const gotoPage = (page: number) => {
     const currentPage = Math.max(0, Math.min(page, totalPages));
 
