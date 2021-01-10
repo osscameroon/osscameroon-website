@@ -9,6 +9,9 @@
   "app.common.joinUs": "REJOIGNEZ NOUS",
   "app.common.language": "Langage",
   "app.common.paginationText": "<b>{startResult}</b> - <b>{endResult}</b> sur plus de <b>{totalResults}</b> résultats",
+  "app.common.loading": "Chargement...",
+  "app.common.error.title": "Oups",
+  "app.common.error.message": "Une erreur s'est produite lors du traitement de la demande.",
 
   "app.developer.filterTitle": "Filtres",
   "app.developer.btnReset": "Effacer",
