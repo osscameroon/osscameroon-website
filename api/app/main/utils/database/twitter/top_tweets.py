@@ -5,6 +5,7 @@ from app.main.utils.helpers.commons import get_trace
 import json
 
 
+
 def top_tweets(cache: object, count: int):
     """
     This method will return top-tweets
@@ -19,8 +20,10 @@ def top_tweets(cache: object, count: int):
             # we make another request
             # to the twitter api
             print(">> Hitting twitter api...")
+
+            search_twitter_host = "https://api.twitter.com/1.1/search/tweets.json"
             tweets = requests.get(
-                "https://api.twitter.com/1.1/search/tweets.json?q=%23caparledev%20-filter%3Aretweets&count={}".format(str(count)),
+                "{}?q=%23caparledev%20-filter%3Aretweets&count={}".format(search_twitter_host, str(count)),
                 auth=OAuth1(API_KEY, API_SECRET_KEY)
             ).content.decode()
 
