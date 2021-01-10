@@ -11,11 +11,16 @@ import CheckboxList from "../components/common/CheckboxList";
 import Pagination from "../components/common/Pagination";
 import Developer from "../components/common/Developer";
 import DeveloperDetailModal from "../components/common/DeveloperDetailModal";
-import { ApiResponse, GithubUser, PaginationChangeEventData } from "../utils/types";
+import { ApiResponse, DeveloperQueryParams, GithubUser, PaginationChangeEventData } from "../utils/types";
 import { developerMessages, titleMessages } from "../locales/messages";
-import { searchDevelopers } from "../services/developers";
+import ItemSortMethod from "../components/common/ItemSortMethod";
+import useFetch from "../components/utils/useFetch";
+import { API_BASE_URL } from "../config";
+import Loader from "../components/common/Loader";
+import NetworkError from "../components/common/NetworkError";
 
 const showAdvancedFilter = false;
+const url = `${API_BASE_URL}/github/users/search`;
 
 const DeveloperPage = () => {
   const { formatMessage } = useIntl();
@@ -23,15 +28,20 @@ const DeveloperPage = () => {
   const [jobTitle, setJobTitle] = useState("");
   const [tools, setTools] = useState<TagInputData[]>([]);
   const [ossFilterChecked, setOssFilterChecked] = useState(false);
+  const [sortMethod, setSortMethod] = useState("");
   const [developersList, setDevelopersList] = useState<ApiResponse<GithubUser[]> | undefined>();
   const [isSearchMode, setIsSearchMode] = useState(false);
   const [selectedDevId, setSelectedDevId] = React.useState("");
   const [showDevModal, setShowDevModal] = React.useState(false);
 
+  const { doFetch, error, loading } = useFetch<ApiResponse<GithubUser[]>>();
+
   useEffect(() => {
-    searchDevelopers(1, "", "").then((response) => {
-      setDevelopersList(response.data);
-    });
+    const firstFetch = async () => {
+      const response = await doFetch(url, {});
+      setDevelopersList(response);
+    };
+    firstFetch();
   }, []);
 
   const openDevModal = () => setShowDevModal(true);
@@ -59,32 +69,28 @@ const DeveloperPage = () => {
     values.toString();
   };
 
-  const onFilterSubmit = () => {
-    const input = {
-      title: jobTitle,
-      tools: tools.map((value) => value.id).join(" "),
-      ossFilter: ossFilterChecked,
+  const buildDeveloperQueryParams = (overrides?: DeveloperQueryParams) => {
+    return {
+      query: `${jobTitle} ${tools.map((value) => value.id).join(" ")}`.trim(),
+      page: isSearchMode ? currentPage : 1,
+      sort_type: sortMethod,
+      // ossFilter: ossFilterChecked ? 'yes' : 'no',
+      ...overrides,
     };
-    const page = isSearchMode ? currentPage : 1;
-
-    searchDevelopers(page, input.title, input.tools).then((response) => {
-      setIsSearchMode(true);
-      setDevelopersList(response.data);
-    });
   };
 
-  const onPaginationChange = (eventData: PaginationChangeEventData) => {
-    setCurrentPage(eventData.currentPage);
-    const input = { title: "", tools: "", ossFilter: false };
+  const onFilterSubmit = async () => {
+    const response = await doFetch(url, buildDeveloperQueryParams());
+    setIsSearchMode(true);
+    setDevelopersList(response);
+  };
 
-    if (isSearchMode) {
-      input.title = jobTitle;
-      input.tools = tools.map((value) => value.id).join(" ");
-      input.ossFilter = ossFilterChecked;
-    }
-    searchDevelopers(eventData.currentPage, input.title, input.tools).then((response) => {
-      setDevelopersList(response.data);
-    });
+  const onPaginationChange = async (eventData: PaginationChangeEventData) => {
+    setCurrentPage(eventData.currentPage);
+    const input = buildDeveloperQueryParams({ page: eventData.currentPage });
+
+    const response = await doFetch(url, input);
+    setDevelopersList(response);
   };
 
   const clearJobTitle = () => {
@@ -92,16 +98,24 @@ const DeveloperPage = () => {
     setCurrentPage(1);
   };
 
-  const onSearchResetClick = () => {
+  const onSearchResetClick = async () => {
     setIsSearchMode(false);
     setDevelopersList(undefined);
     setCurrentPage(1);
     setTools([]);
     setOssFilterChecked(false);
     setJobTitle("");
-    searchDevelopers(1, "", "").then((response) => {
-      setDevelopersList(response.data);
-    });
+    setSortMethod("");
+
+    const response = await doFetch(url, buildDeveloperQueryParams({ page: 1 }));
+    setDevelopersList(response);
+  };
+
+  const onSelectSortMethod = async (method: string) => {
+    setSortMethod(method);
+
+    const response = await doFetch(url, buildDeveloperQueryParams({ sort_type: method }));
+    setDevelopersList(response);
   };
 
   return (
@@ -183,8 +197,12 @@ const DeveloperPage = () => {
                 </div>
               </Form>
             </div>
+            <div className="side-card">
+              <ItemSortMethod onChange={onSelectSortMethod} />
+            </div>
           </Col>
           <Col md="9">
+            {error && <NetworkError />}
             {developersList && (
               <div style={{ margin: "0 15px 0 15px" }}>
                 {developersList.result?.hits.length && (
@@ -215,6 +233,7 @@ const DeveloperPage = () => {
                 )}
               </div>
             )}
+            <Loader loading={loading} />
           </Col>
         </Row>
 

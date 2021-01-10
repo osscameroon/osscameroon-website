@@ -40,6 +40,18 @@ export const commonMessages = defineMessages({
     id: "app.common.paginationText",
     defaultMessage: "<b>{startResult}</b> - <b>{endResult}</b> of more than <b>{totalResults}</b> results",
   },
+  loading: {
+    id: "app.common.loading",
+    defaultMessage: "Loading...",
+  },
+  errorTitle: {
+    id: "app.common.error.title",
+    defaultMessage: "Oops",
+  },
+  errorMessage: {
+    id: "app.common.error.message",
+    defaultMessage: "An error occurred while processing the request.",
+  },
 });
 
 export const developerMessages = defineMessages({

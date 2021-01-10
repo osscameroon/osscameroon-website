@@ -42,7 +42,7 @@ const Breadcrumb = ({ links }: BreadcrumbProps) => {
             return <span key={index}> / {link.title}</span>;
           }
           return (
-            <NavLink to="#" key={index}>
+            <NavLink key={index} to="#">
               <span style={style.a}> / {link.title} </span>
             </NavLink>
           );

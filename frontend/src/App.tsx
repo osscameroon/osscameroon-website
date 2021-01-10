@@ -5,8 +5,6 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import "@formatjs/intl-relativetimeformat/polyfill";
 import "@formatjs/intl-relativetimeformat/dist/include-aliases";
 import "@formatjs/intl-relativetimeformat/dist/locale-data/en";
-import "@formatjs/intl-relativetimeformat/dist/locale-data/de";
-import "@formatjs/intl-relativetimeformat/dist/locale-data/es";
 import "@formatjs/intl-relativetimeformat/dist/locale-data/fr";
 
 import messages_en from "./locales/en.json";
@@ -40,10 +38,10 @@ const App = () => {
         <LocaleProvider messages={messages}>
           <BrowserRouter>
             <Switch>
-              <Route exact={true} path="/" name="Login Page" component={HomePage} />
-              <Route exact={true} path="/developers" name="Register Page" component={DeveloperPage} />
-              <Route exact={true} path="/projects" name="Register Page" component={ProjectPage} />
-              <Route name="Page 404" component={NotFound} />
+              <Route component={HomePage} exact={true} name="Login Page" path="/" />
+              <Route component={DeveloperPage} exact={true} name="Register Page" path="/developers" />
+              <Route component={ProjectPage} exact={true} name="Register Page" path="/projects" />
+              <Route component={NotFound} name="Page 404" />
             </Switch>
           </BrowserRouter>
         </LocaleProvider>

@@ -44,7 +44,7 @@ const Pagination = ({ currentPage, itemPerPage, onPageChange, position, totalIte
         />
       </Col>
       <Col className="text-right pr-0">
-        <Paginate pageLimit={itemPerPage} pageNeighbours={1} totalRecords={totalItems} onPageChanged={onPageChange} />
+        <Paginate currentPage={currentPage} pageLimit={itemPerPage} pageNeighbours={1} totalRecords={totalItems} onPageChanged={onPageChange} />
       </Col>
     </Row>
   );

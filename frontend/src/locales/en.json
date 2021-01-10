@@ -9,6 +9,9 @@
   "app.common.joinUs": "JOIN US",
   "app.common.language": "Language",
   "app.common.paginationText": "<b>{startResult}</b> - <b>{endResult}</b> of more than <b>{totalResults}</b> results",
+  "app.common.loading": "Loading...",
+  "app.common.error.title": "Oops",
+  "app.common.error.message": "An error occurred while processing the request.",
 
   "app.developer.filterTitle": "Filters",
   "app.developer.btnReset": "Reset",

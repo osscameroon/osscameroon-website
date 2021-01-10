@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Form, Button, FormGroup, Input, Label, Container, Row, Col } from "reactstrap";
-import Select from "react-select";
 import { BsArrowClockwise } from "react-icons/bs";
 import { useIntl } from "react-intl";
 import { useQuery } from "react-query";
@@ -14,17 +13,7 @@ import { projectMessages, titleMessages } from "../locales/messages";
 import { PaginationChangeEventData, ProjectFilters } from "../utils/types";
 import { getLanguages, searchProject } from "../services/projects";
 import { DEFAULT_CACHE_OPTIONS } from "../config";
-
-type OrderOption = {
-  value: string;
-  label: keyof typeof projectMessages;
-};
-
-const orderOptions: OrderOption[] = [
-  { value: "popularity", label: "mostPopularOption" },
-  { value: "most_recent", label: "mostRecentOption" },
-  { value: "alphabetic", label: "alphabeticalOption" },
-];
+import ItemSortMethod from "../components/common/ItemSortMethod";
 
 export const ProjectPage = (): JSX.Element => {
   const initialFilters: ProjectFilters = {
@@ -48,11 +37,6 @@ export const ProjectPage = (): JSX.Element => {
   const [projectTitle, setProjectTitle] = useState("");
   const [languages, setLanguages] = useState<TagInputData[]>([] as TagInputData[]);
   const { formatMessage } = useIntl();
-
-  const translatedOrderOptions = orderOptions.map((option) => ({
-    ...option,
-    label: formatMessage(projectMessages[option.label]),
-  }));
 
   const onPaginationChange = (eventData: PaginationChangeEventData) => {
     setCurrentPage(eventData.currentPage);
@@ -87,8 +71,8 @@ export const ProjectPage = (): JSX.Element => {
     }));
   };
 
-  const onSelectSortMethod = (e: any) => {
-    setSortMethod(e.value);
+  const onSelectSortMethod = (sortMethod: string) => {
+    setSortMethod(sortMethod);
   };
 
   return (
@@ -137,12 +121,7 @@ export const ProjectPage = (): JSX.Element => {
             </div>
 
             <div className="side-card">
-              <h4 className="bold">{formatMessage(projectMessages.sortTitle)}</h4>
-              <Form>
-                <FormGroup>
-                  <Select options={translatedOrderOptions} onChange={onSelectSortMethod} />
-                </FormGroup>
-              </Form>
+              <ItemSortMethod onChange={onSelectSortMethod} />
             </div>
           </Col>
 
