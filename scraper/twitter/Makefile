@@ -5,8 +5,9 @@
 VENVPATH=venv
 PYTHON=$(VENVPATH)/bin/python3
 
-install: 
+virtualenv_activate:
 	test -d venv || virtualenv $(VENVPATH)
+install: virtualenv_activate
 	. venv/bin/activate; pip install -Ur requirements.txt
 	touch venv/touchfile
 
