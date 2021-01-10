@@ -126,9 +126,9 @@ export type ResponseData<T> = {
     offset: number;
     limit: number;
     nbHits: number;
-    exhaustiveNbHits: boolean;
-    processingTimeMs: number;
-    query: string;
+    exhaustiveNbHits?: boolean;
+    processingTimeMs?: number;
+    query?: string;
   };
 };
 
