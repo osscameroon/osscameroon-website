@@ -25,7 +25,7 @@ const LocaleProvider: FC<ILocaleProviderProps> = ({ children, messages }: ILocal
   const { locale } = LocaleSwitcher.useContainer();
 
   return (
-    <IntlProvider locale={locale} key={locale} messages={messages[locale]}>
+    <IntlProvider key={locale} locale={locale} messages={messages[locale]}>
       {React.Children.only(children)}
     </IntlProvider>
   );

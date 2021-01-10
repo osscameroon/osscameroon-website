@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Button } from "reactstrap";
 import { useIntl } from "react-intl";
 
@@ -54,7 +54,7 @@ const Project = ({ description, language, link, name, stars, type }: ProjectProp
         {isBig ? (
           <div className="col-2 item-center">
             {" "}
-            <a href={link} target="_blank" rel="noreferrer">
+            <a href={link} rel="noreferrer" target="_blank">
               <Button color="primary"> {formatMessage(projectMessages.buttonView)} </Button>{" "}
             </a>{" "}
           </div>

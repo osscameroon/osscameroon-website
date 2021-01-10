@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect } from "react";
 import { PaginationChangeEventData } from "../../utils/types";
 
 type PaginateProps = {
@@ -6,6 +6,7 @@ type PaginateProps = {
   pageLimit: number;
   pageNeighbours: number;
   onPageChanged: (page: PaginationChangeEventData) => void;
+  currentPage: number;
 };
 const LEFT_PAGE = "LEFT";
 const RIGHT_PAGE = "RIGHT";
@@ -88,12 +89,11 @@ const fetchPageNumbers = (totalPages: number, currentPage: number, pageNeighbour
 
   return range(1, totalPages);
 };
+
 /**
  * @see https://www.digitalocean.com/community/tutorials/how-to-build-custom-pagination-with-react
  */
-const Paginate = ({ onPageChanged, pageLimit = 30, pageNeighbours = 0, totalRecords = 0 }: PaginateProps) => {
-  const [currentPage, setCurrentPage] = useState(1);
-
+const Paginate = ({ currentPage = 1, onPageChanged, pageLimit = 30, pageNeighbours = 0, totalRecords = 0 }: PaginateProps) => {
   // pageNeighbours can be: 0, 1 or 2
   const pageNeighboursValue = Math.max(0, Math.min(pageNeighbours, 2));
 
@@ -113,7 +113,6 @@ const Paginate = ({ onPageChanged, pageLimit = 30, pageNeighbours = 0, totalReco
       totalRecords,
     };
 
-    setCurrentPage(currentPage);
     onPageChanged(paginationData);
   };
 
@@ -144,7 +143,7 @@ const Paginate = ({ onPageChanged, pageLimit = 30, pageNeighbours = 0, totalReco
             if (page === LEFT_PAGE)
               return (
                 <li className="page-item" key={index}>
-                  <a aria-label="Previous" className="page-link" href="#" onClick={handleMoveLeft}>
+                  <a aria-label="Previous" className="page-link" href="/" onClick={handleMoveLeft}>
                     <span aria-hidden="true">&laquo;</span>
                     <span className="sr-only">Previous</span>
                   </a>
@@ -154,7 +153,7 @@ const Paginate = ({ onPageChanged, pageLimit = 30, pageNeighbours = 0, totalReco
             if (page === RIGHT_PAGE)
               return (
                 <li className="page-item" key={index}>
-                  <a aria-label="Next" className="page-link" href="#" onClick={handleMoveRight}>
+                  <a aria-label="Next" className="page-link" href="/" onClick={handleMoveRight}>
                     <span aria-hidden="true">&raquo;</span>
                     <span className="sr-only">Next</span>
                   </a>
@@ -163,7 +162,7 @@ const Paginate = ({ onPageChanged, pageLimit = 30, pageNeighbours = 0, totalReco
 
             return (
               <li className={`page-item${currentPage === page ? " active" : ""}`} key={index}>
-                <a className="page-link" href="#" onClick={handleClick(page)}>
+                <a className="page-link" href="/" onClick={handleClick(page)}>
                   {page}
                 </a>
               </li>

@@ -11,6 +11,12 @@
     }
   }
   .developer-section {
+    .col-md-4:nth-child(3n + 1) {
+      padding-left: 0;
+    }
+    .col-md-4:nth-child(3n + 3) {
+      padding-right: 0;
+    }
     .developer-item {
       box-shadow: var(--border-shadow);
       border-radius: 5px;
