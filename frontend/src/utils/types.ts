@@ -165,29 +165,28 @@ export type DeveloperQueryParams = {
   ossFilter?: string;
 };
 
-
 export type HashTag = {
   text: string;
   indices: number[];
-}
+};
 
 export type TwitterUrl = {
   url: string;
   expended_url: string;
   indices: number[];
-}
+};
 
 export type TwitterUser = {
   name: string;
   screen_name: string;
   profile_image_url_https: string;
   url: string;
-}
+};
 
 export type TwitterMention = {
   screen_name: string;
   name: string;
-}
+};
 
 export type TweetList = {
   statuses: {
@@ -196,10 +195,10 @@ export type TweetList = {
     entities: {
       hashtags: HashTag[];
       user_mentions: TwitterMention[];
-      urls: TwitterUrl[]
-    }
+      urls: TwitterUrl[];
+    };
     user: TwitterUser;
     retweet_count: number;
     favorite_count: number;
   }[];
-}
+};

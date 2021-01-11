@@ -3,13 +3,13 @@ import { Row, Col } from "reactstrap";
 
 import tweetLikeIcon from "../../assets/icons/like.svg";
 import retweetIcon from "../../assets/icons/retweet.svg";
-import {TwitterUrl, TwitterUser, HashTag, TwitterMention} from "../../utils/types";
+import { TwitterUrl, TwitterUser, HashTag, TwitterMention } from "../../utils/types";
 
 type TweetProps = {
   user: TwitterUser;
   user_mentions: TwitterMention[];
   hashtags: HashTag[];
-  urls: TwitterUrl[]
+  urls: TwitterUrl[];
   text: string;
   retweets: number;
   likes: number;
@@ -20,18 +20,18 @@ const Tweet = ({ hashtags, likes, retweets, text, urls, user, user_mentions }: T
 
   let formattedText = text;
 
-  for(const hashtag of hashtags) {
+  for (const hashtag of hashtags) {
     const tag = `#${hashtag.text}`;
     const link = `<a href="https://twitter.com/hashtag/${hashtag.text}" rel="noreferrer nofollow" target="_blank"> #${hashtag.text} </a>`;
     formattedText = formattedText.replace(tag, link);
   }
 
-  for(const url of urls) {
+  for (const url of urls) {
     const link = `<a href="${url.url}" rel="noreferrer nofollow" target="_blank"> ${url.url} </a>`;
     formattedText = formattedText.replace(url.url, link);
   }
 
-  for(const mention of user_mentions) {
+  for (const mention of user_mentions) {
     const username = `@${mention.screen_name}`;
     const link = `
         <a href="https://twitter.com/${mention.screen_name}" 
@@ -52,11 +52,11 @@ const Tweet = ({ hashtags, likes, retweets, text, urls, user, user_mentions }: T
       </Col>
       <Col className="text-left" md="10" xs="10">
         <div>
-          <a href={userUrl} rel="noreferrer nofollow" style={{color: "var(--light-color)"}} target="_blank">
+          <a href={userUrl} rel="noreferrer nofollow" style={{ color: "var(--light-color)" }} target="_blank">
             <strong>{user.name}</strong> <span style={{ fontWeight: 100 }}>&ensp; @{user.screen_name}</span>
           </a>
         </div>
-        <p dangerouslySetInnerHTML={{__html: `${formattedText}`}} />
+        <p dangerouslySetInnerHTML={{ __html: `${formattedText}` }} />
         <div>
           <ul className="inline-ul">
             {/*

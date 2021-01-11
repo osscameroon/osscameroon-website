@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
-
 import "@formatjs/intl-relativetimeformat/polyfill";
 import "@formatjs/intl-relativetimeformat/dist/include-aliases";
 import "@formatjs/intl-relativetimeformat/dist/locale-data/en";
@@ -15,7 +14,8 @@ import HomePage from "./containers/home";
 import DeveloperPage from "./containers/developers";
 import ProjectPage from "./containers/projects";
 import NotFound from "./containers/notFound";
-import {QUERY_CACHE_TIME, QUERY_STALE_TIME} from "./config";
+import { QUERY_CACHE_TIME, QUERY_STALE_TIME } from "./config";
+import AppHeader from "./components/appHeader";
 
 const messages = {
   en: messages_en,
@@ -26,9 +26,9 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: QUERY_STALE_TIME,
-      cacheTime: QUERY_CACHE_TIME
-    }
-  }
+      cacheTime: QUERY_CACHE_TIME,
+    },
+  },
 });
 
 const App = () => {
@@ -37,6 +37,7 @@ const App = () => {
       <LocaleSwitcher.Provider>
         <LocaleProvider messages={messages}>
           <BrowserRouter>
+            <AppHeader />
             <Switch>
               <Route component={HomePage} exact={true} name="Login Page" path="/" />
               <Route component={DeveloperPage} exact={true} name="Register Page" path="/developers" />

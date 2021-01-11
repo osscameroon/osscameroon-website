@@ -1,7 +1,7 @@
-import React, {useState, ChangeEvent} from "react";
+import React, { useState, ChangeEvent } from "react";
 import { Input, InputGroup, InputGroupAddon, Button, Container, Row, Col } from "reactstrap";
 import { useIntl } from "react-intl";
-import {NavLink, useHistory} from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 import Layout from "../components/layout/layout";
 import Tweet from "../components/common/Tweet";
@@ -10,10 +10,10 @@ import { homeMessages, titleMessages } from "../locales/messages";
 
 import developer from "../assets/img/developer.svg";
 import search from "../assets/icons/search.svg";
-import {useQuery} from "react-query";
+import { useQuery } from "react-query";
 import { searchProject } from "../services/projects";
-import {getTopTweets} from "../services/tweets";
-import {DEFAULT_CACHE_OPTIONS} from "../config";
+import { getTopTweets } from "../services/tweets";
+import { DEFAULT_CACHE_OPTIONS } from "../config";
 
 const HomePage = () => {
   const history = useHistory();
@@ -24,7 +24,8 @@ const HomePage = () => {
 
   const { data: projects_data } = useQuery(
     ["projects", { page: TOP_PROJECTS_PAGE, count: NB_TOP_PROJECTS, sortMethod: TOP_PROJECTS_SORT }],
-    searchProject, DEFAULT_CACHE_OPTIONS
+    searchProject,
+    DEFAULT_CACHE_OPTIONS,
   );
 
   const [searchKey, setSearchKey] = useState("");
@@ -33,7 +34,7 @@ const HomePage = () => {
   };
 
   const onSearch = () => {
-    if(searchKey.trim() !== "") {
+    if (searchKey.trim() !== "") {
       history.push(`/developers?keyword=${searchKey}`);
     }
   };
@@ -69,7 +70,7 @@ const HomePage = () => {
             <form className="search-form">
               <div>
                 <InputGroup>
-                  <Input className="search-input" placeholder="ex: Full Stack Web Developer" onChange={onSearchKeyChange}/>
+                  <Input className="search-input" placeholder="ex: Full Stack Web Developer" onChange={onSearchKeyChange} />
                   <InputGroupAddon addonType="append">
                     <Button className="search-button" onClick={onSearch}>
                       <img alt="search button" src={search} />

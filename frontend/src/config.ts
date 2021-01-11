@@ -5,5 +5,5 @@ export const QUERY_CACHE_TIME = 1000 * 120; // 2 minutes
 
 export const DEFAULT_CACHE_OPTIONS = {
   staleTime: QUERY_STALE_TIME,
-  cacheTime: QUERY_CACHE_TIME
+  cacheTime: QUERY_CACHE_TIME,
 };

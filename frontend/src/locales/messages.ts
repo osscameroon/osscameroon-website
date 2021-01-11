@@ -12,6 +12,10 @@ export const localeMessages = defineMessages({
 });
 
 export const commonMessages = defineMessages({
+  appName: {
+    id: "app.common.appName",
+    defaultMessage: "OSS Cameroon",
+  },
   home: {
     id: "app.common.home",
     defaultMessage: "Home",
