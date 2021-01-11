@@ -28,7 +28,8 @@ export const ProjectPage = (): JSX.Element => {
 
   const { data: projects_data, error, isLoading } = useQuery(
     ["projects", { page: currentPage, count: ITEM_PER_PAGE, filters, sortMethod }],
-    searchProject, DEFAULT_CACHE_OPTIONS
+    searchProject,
+    DEFAULT_CACHE_OPTIONS,
   );
 
   const { data: languageListData, error: tagsError, isLoading: tagsLoading } = useQuery("tags", getLanguages, DEFAULT_CACHE_OPTIONS);

@@ -1,14 +1,17 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
-const Helmet = () => {
+const AppHeader = () => {
   return (
     <Helmet>
       <html lang="en" />
-      <title>React Helmet Tutorial</title>
-      <meta content="Tutorial for React Helmet" name="description" />
+      <title>OSS Cameroon</title>
+      <meta content="initial-scale=1.0, width=device-width" name="viewport" />
+      <meta content="Open Source Software in Cameroon" name="description" />
       <meta content="#E6E6FA" name="theme-color" />
+      <link href="/favicon.ico" rel="icon" />
     </Helmet>
   );
 };
 
-export default Helmet;
+export default AppHeader;
