@@ -17,7 +17,6 @@ import ItemSortMethod from "../components/common/ItemSortMethod";
 import Loader from "../components/common/Loader";
 import NetworkError from "../components/common/NetworkError";
 
-
 export const ProjectPage = (): JSX.Element => {
   const initialFilters: ProjectFilters = {
     title: "",
@@ -93,8 +92,9 @@ export const ProjectPage = (): JSX.Element => {
           <Col md="3">
             <div className="d-block d-sm-none">
               <Button color="secondary" onClick={onChangeFiltersDisplay}>
-                {showFilters ? "Hide filters" : "Filter results" }
-              </Button> <br /> <br />
+                {showFilters ? "Hide filters" : "Filter results"}
+              </Button>{" "}
+              <br /> <br />
             </div>
             <Collapse isOpen={showFilters}>
               <div className="side-card">
@@ -151,12 +151,9 @@ export const ProjectPage = (): JSX.Element => {
               <div id="project-row-content">
                 <Pagination
                   currentPage={currentPage}
-                  itemPerPage={
-                    (projects_data?.result.nbHits || 0) < ITEM_PER_PAGE ?
-                      projects_data?.result.nbHits || 0 : ITEM_PER_PAGE
-                  }
+                  itemPerPage={(projects_data?.result.nbHits || 0) < ITEM_PER_PAGE ? projects_data?.result.nbHits || 0 : ITEM_PER_PAGE}
                   position="top"
-                  totalItems={(projects_data?.result.nbHits || 0)}
+                  totalItems={projects_data?.result.nbHits || 0}
                   onPageChange={onPaginationChange}
                 />
                 {projects_data?.result.hits.map((project, i) => (
@@ -173,12 +170,9 @@ export const ProjectPage = (): JSX.Element => {
                 ))}
                 <Pagination
                   currentPage={currentPage}
-                  itemPerPage={
-                    (projects_data?.result.nbHits || 0) < ITEM_PER_PAGE ?
-                      projects_data?.result.nbHits || 0 : ITEM_PER_PAGE
-                  }
+                  itemPerPage={(projects_data?.result.nbHits || 0) < ITEM_PER_PAGE ? projects_data?.result.nbHits || 0 : ITEM_PER_PAGE}
                   position="bottom"
-                  totalItems={(projects_data?.result.nbHits || 0)}
+                  totalItems={projects_data?.result.nbHits || 0}
                   onPageChange={onPaginationChange}
                 />
               </div>

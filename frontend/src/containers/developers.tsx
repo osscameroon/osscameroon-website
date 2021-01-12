@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import { BsArrowClockwise, BsXCircle } from "react-icons/bs";
 import { useIntl } from "react-intl";
+import { useQuery } from "react-query";
 
 import { AVAILABILITY, SUGGESTIONS, YEAR_OF_EXPERIENCES } from "../fixtures/developers";
 import Layout from "../components/layout/layout";
@@ -11,37 +12,36 @@ import CheckboxList from "../components/common/CheckboxList";
 import Pagination from "../components/common/Pagination";
 import Developer from "../components/common/developer/Developer";
 import DeveloperDetailModal from "../components/common/developer/DeveloperDetailModal";
-import { ApiResponse, DeveloperQueryParams, GithubUser, PaginationChangeEventData } from "../utils/types";
+import { DeveloperQueryFilter, GithubUser, PaginationChangeEventData } from "../utils/types";
 import { developerMessages, titleMessages } from "../locales/messages";
 import ItemSortMethod from "../components/common/ItemSortMethod";
-import useFetch from "../components/utils/useFetch";
-import { API_BASE_URL } from "../config";
+import { DEFAULT_CACHE_OPTIONS } from "../config";
 import Loader from "../components/common/Loader";
 import NetworkError from "../components/common/NetworkError";
+import { searchDevelopers } from "../services/developers";
 
 const showAdvancedFilter = false;
-const url = `${API_BASE_URL}/github/users/search`;
+
+const initialFilters: Partial<DeveloperQueryFilter> = {
+  tools: "",
+  title: "",
+};
 
 const DeveloperPage = () => {
   const { formatMessage } = useIntl();
   const [currentPage, setCurrentPage] = useState(1);
+  const [filters, setFilters] = useState<Partial<DeveloperQueryFilter>>(initialFilters);
   const [jobTitle, setJobTitle] = useState("");
   const [tools, setTools] = useState<TagInputData[]>([]);
   const [ossFilterChecked, setOssFilterChecked] = useState(false);
   const [sortMethod, setSortMethod] = useState("");
-  const [developersList, setDevelopersList] = useState<ApiResponse<GithubUser[]> | undefined>();
-  const [isSearchMode, setIsSearchMode] = useState(false);
   const [selectedDeveloper, setSelectedDeveloper] = React.useState<GithubUser | undefined>();
 
-  const { doFetch, error, loading } = useFetch<ApiResponse<GithubUser[]>>();
-
-  useEffect(() => {
-    const firstFetch = async () => {
-      const response = await doFetch(url, {});
-      setDevelopersList(response);
-    };
-    firstFetch();
-  }, []);
+  const { data: developersList, error, isLoading } = useQuery(
+    ["developers", { page: currentPage, count: 20, sortType: sortMethod, ...filters }],
+    searchDevelopers,
+    DEFAULT_CACHE_OPTIONS,
+  );
 
   const onSelectDeveloper = (developer: GithubUser) => setSelectedDeveloper(developer);
 
@@ -51,12 +51,10 @@ const DeveloperPage = () => {
 
   const onTitleChange = (event: { target: { value: React.SetStateAction<string> } }) => {
     setJobTitle(event.target.value);
-    if (isSearchMode) setCurrentPage(1);
   };
 
   const onToolsListChange = (values: TagInputData[]) => {
     setTools(values);
-    if (isSearchMode) setCurrentPage(1);
   };
 
   const onExperienceFilterChange = (values: string[]) => {
@@ -67,28 +65,19 @@ const DeveloperPage = () => {
     values.toString();
   };
 
-  const buildDeveloperQueryParams = (overrides?: DeveloperQueryParams) => {
-    return {
-      query: `${jobTitle} ${tools.map((value) => value.id).join(" ")}`.trim(),
-      page: isSearchMode ? currentPage : 1,
-      sort_type: sortMethod,
-      // ossFilter: ossFilterChecked ? 'yes' : 'no',
-      ...overrides,
-    };
-  };
-
   const onFilterSubmit = async () => {
-    const response = await doFetch(url, buildDeveloperQueryParams());
-    setIsSearchMode(true);
-    setDevelopersList(response);
+    const newFilters: Partial<DeveloperQueryFilter> = {
+      title: jobTitle,
+      tools: tools.map((value) => value.id).join(" "),
+    };
+
+    setCurrentPage(1); // Return to page 1
+
+    setFilters(newFilters);
   };
 
   const onPaginationChange = async (eventData: PaginationChangeEventData) => {
     setCurrentPage(eventData.currentPage);
-    const input = buildDeveloperQueryParams({ page: eventData.currentPage });
-
-    const response = await doFetch(url, input);
-    setDevelopersList(response);
   };
 
   const clearJobTitle = () => {
@@ -97,23 +86,16 @@ const DeveloperPage = () => {
   };
 
   const onSearchResetClick = async () => {
-    setIsSearchMode(false);
-    setDevelopersList(undefined);
     setCurrentPage(1);
     setTools([]);
     setOssFilterChecked(false);
     setJobTitle("");
     setSortMethod("");
-
-    const response = await doFetch(url, buildDeveloperQueryParams({ page: 1 }));
-    setDevelopersList(response);
+    setFilters(initialFilters);
   };
 
   const onSelectSortMethod = async (method: string) => {
     setSortMethod(method);
-
-    const response = await doFetch(url, buildDeveloperQueryParams({ sort_type: method }));
-    setDevelopersList(response);
   };
 
   return (
@@ -129,7 +111,7 @@ const DeveloperPage = () => {
                   {formatMessage(developerMessages.btnReset)} <BsArrowClockwise />
                 </div>
               </div>
-              {isSearchMode && jobTitle && (
+              {jobTitle && (
                 <div className="selected-title d-flex justify-content-between align-items-center mt-3 mb-3">
                   <div className="bold w-75">{jobTitle}</div>
                   <div className="cursor-pointer font-weight-bold" onClick={clearJobTitle}>
@@ -203,18 +185,18 @@ const DeveloperPage = () => {
             {error && <NetworkError />}
             {developersList && (
               <div style={{ margin: "0 15px 0 15px" }}>
-                {developersList.result?.hits.length && (
+                {developersList.data?.result?.hits.length && (
                   <Pagination
                     currentPage={currentPage}
-                    itemPerPage={developersList.result.limit}
+                    itemPerPage={developersList.data.result.limit}
                     position="top"
-                    totalItems={developersList.result.nbHits}
+                    totalItems={developersList.data.result.nbHits}
                     onPageChange={onPaginationChange}
                   />
                 )}
                 <Row className="developer-section">
-                  {developersList.result?.hits.length &&
-                    developersList.result.hits.map((developer) => (
+                  {developersList.data?.result?.hits.length &&
+                    developersList.data.result.hits.map((developer) => (
                       <Col
                         key={`develop${developer.id}`}
                         md={4}
@@ -225,18 +207,18 @@ const DeveloperPage = () => {
                       </Col>
                     ))}
                 </Row>
-                {developersList.result?.hits.length && (
+                {developersList.data?.result?.hits.length && (
                   <Pagination
                     currentPage={currentPage}
-                    itemPerPage={developersList.result.limit}
+                    itemPerPage={developersList.data.result.limit}
                     position="bottom"
-                    totalItems={developersList.result.nbHits}
+                    totalItems={developersList.data.result.nbHits}
                     onPageChange={onPaginationChange}
                   />
                 )}
               </div>
             )}
-            <Loader loading={loading} />
+            <Loader loading={isLoading} />
           </Col>
         </Row>
 

@@ -148,6 +148,9 @@ export type ProjectQueryFilter = {
 export type DeveloperQueryFilter = {
   page: number;
   count: number;
+  title: string;
+  tools: string;
+  sortType: string;
 };
 
 export type OrderOption = {
@@ -156,6 +159,7 @@ export type OrderOption = {
 };
 
 export type ProjectQueryKey = [string | undefined, ProjectQueryFilter];
+export type DeveloperQueryKey = [string | undefined, DeveloperQueryFilter];
 
 export type DeveloperQueryParams = {
   page?: number;

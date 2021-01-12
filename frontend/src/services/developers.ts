@@ -1,10 +1,12 @@
 import axios from "axios";
 import qs from "querystring";
+import { QueryFunctionContext } from "react-query";
 
 import { API_BASE_URL } from "../config";
-import { ApiResponse, DeveloperQueryParams, GithubUser } from "../utils/types";
+import { ApiResponse, DeveloperQueryKey, GithubUser } from "../utils/types";
 
-export const searchDevelopers = ({ page = 1, sort_type = "", title = "", tools = "" }: DeveloperQueryParams) => {
+export const searchDevelopers = ({ queryKey }: QueryFunctionContext<DeveloperQueryKey>) => {
+  const [, { page = 1, sortType = "", title = "", tools = "" }] = queryKey;
   const searchQuery = `${title} ${tools}`;
   const queryParams: any = {
     page,
@@ -12,8 +14,8 @@ export const searchDevelopers = ({ page = 1, sort_type = "", title = "", tools =
   if (searchQuery.trim()) {
     queryParams.query = searchQuery;
   }
-  if (sort_type) {
-    queryParams.sort_type = sort_type;
+  if (sortType) {
+    queryParams.sort_type = sortType;
   }
 
   return axios.get<ApiResponse<GithubUser[]>>(`${API_BASE_URL}/github/users/search?${qs.stringify(queryParams)}`);
