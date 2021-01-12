@@ -36,9 +36,9 @@
   "app.footer.copyright": "Tous droits reservés",
   "app.footer.joinUs": "Rejoignez nous",
   "app.footer.aboutTitle": "A propos",
-  "app.footer.aboutText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis leo nibh, nec consectetur ligula sollicitudin ac. Duis eu lorem venenatis, feugiat erat eget, bibendum massa. Sed ac ipsum eget libero faucibus tincidunt sed eu massa.",
+  "app.footer.aboutText": "En tant que communauté, nous voulons apporter l'habitude de la contribution open source parmi les développeurs camerounais utilisant et construisant des technologies gratuites et open source pour améliorer la vie dans notre société. En favorisant le mentorat, la collaboration et le partage des connaissances, nous veillons à offrir un environnement joyeux aux développeurs pour mettre leurs meilleures compétences au service de la société.",
 
-  "app.home.mainTitle": "Lorem ipsum dolor sit amet, consectetur adipscing elit.",
+  "app.home.mainTitle": "Communauté Open Source par des développeurs camerounais.",
   "app.home.btnToProject": "PROJETS DE COMMUNAUTÉ",
   "app.home.searchTitle": "Vous recherchez des développeurs expérimentés?",
   "app.home.btnAdvancedSearch": "Recherche avancée",
