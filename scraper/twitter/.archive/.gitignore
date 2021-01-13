@@ -7,8 +7,3 @@ out.json
 *.html
 config.txt
 *.json
-*.sw*
-config.ini
-.secrets/*
-*.sh
-venv/*
