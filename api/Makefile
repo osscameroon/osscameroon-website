@@ -15,18 +15,18 @@ $(CONFIG_FILE):
 	echo "adding config file..."
 	cp example.config.txt $(CONFIG_FILE)
 
-##venv: setup your dev environment
-install: venv $(CONFIG_FILE)
+##install-deps: setup your dev environment
+install-deps: venv $(CONFIG_FILE)
 
 ##run: run the api locally
-run: install
+run: install-deps
 	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) manage.py run
 
 lint: venv
 	$(PYTHON) -m flake8 . --show-source --statistics
 
 ##test: test your code
-test: install lint
+test: install-deps lint
 	$(PYTHON) -m pytest
 
 clean:
@@ -36,4 +36,4 @@ clean:
 help : Makefile
 	@sed -n 's/^##//p' $<
 
-.PHONY : help venv install test lint
+.PHONY : help venv install-deps test lint
