@@ -21,9 +21,11 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Install pakages
+      - name: Install dependencies
         run: |
-          sudo apt-get install virtualenv
+          python -m pip install --upgrade pip
+          pip install virtualenv
+          make install-deps
 
       - name: Run unit tests
         run: |

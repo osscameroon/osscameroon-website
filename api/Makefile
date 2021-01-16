@@ -1,7 +1,6 @@
 .DEFAULT_GOAL=help
 
 CONFIG_FILE=./config.txt
-PAGES=2
 VENVPATH=venv
 PYTHON=$(VENVPATH)/bin/python3
 
@@ -19,18 +18,12 @@ $(CONFIG_FILE):
 ##install-deps: setup your dev environment
 install-deps: venv $(CONFIG_FILE)
 
-##run: run the scraper and accepts the number of PAGES as argument
-## 		example: make run PAGES=5
-run4users: install-deps
-	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) -m app.cli -p $(PAGES) users
-run4projects: install-deps
-	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) -m app.cli projects
+##run: run the api locally
+run: install-deps
+	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) manage.py run
 
 lint: venv
 	$(PYTHON) -m flake8 . --show-source --statistics
-
-deploy: test
-	cd deploy && ./deploy.sh
 
 ##test: test your code
 test: install-deps lint
