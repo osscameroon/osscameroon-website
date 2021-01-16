@@ -28,7 +28,6 @@ run4projects: install
 
 lint: venv
 	$(PYTHON) -m flake8 . --show-source --statistics
-	$(PYTHON) -m flake8 ./ --statistics
 
 deploy: test
 	cd deploy && ./deploy.sh
