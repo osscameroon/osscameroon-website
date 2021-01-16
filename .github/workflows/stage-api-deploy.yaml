@@ -1,0 +1,36 @@
+name: api stage deployment
+
+on:
+  push:
+    paths:
+      - .github/workflows/stage-api-deploy.yaml
+      - api/**
+    branches:
+      - main
+      - add-api-stage-deployment-action
+
+jobs:
+    build:
+      runs-on: ubuntu-latest
+      defaults:
+        run:
+          working-directory: scraper/github
+      steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+          python -m pip install --upgrade pip
+          pip install virtualenv
+          make install-deps
+
+      - name: Executing remote  command
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_DEPLOY_USERNAME }}
+          key: ${{ secrets.DROPLET_DEPLOY_SSHKEY }}
+          script: cd /home/deploy/caparledev-website/stage/caparledev-website/ && git stash && git pull --rebase origin main && git stash apply && sudo systemctl restart stage-osscameroon-api
