@@ -1,0 +1,14 @@
+[Unit]
+Description=uWSGI instance to serve stage.osscameroon.com
+After=network.target
+
+[Service]
+User=deploy
+Group=deploy
+WorkingDirectory=/home/deploy/caparledev-website/stage/caparledev-website/api
+Environment="PATH=/home/deploy/caparledev-website/stage/caparledev-website/api/venv/bin"
+Environment="GOOGLE_APPLICATION_CREDENTIALS=/home/deploy/caparledev-website/stage/caparledev-website/api/.secrets/service-account.json"
+ExecStart=/home/deploy/caparledev-website/stage/caparledev-website/api/venv/bin/uwsgi --ini api.ini
+
+[Install]
+WantedBy=multi-user.target
