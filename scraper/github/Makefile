@@ -16,14 +16,14 @@ $(CONFIG_FILE):
 	echo "adding config file..."
 	cp example.config.txt $(CONFIG_FILE)
 
-##venv: setup your dev environment
-install: venv $(CONFIG_FILE)
+##install-deps: setup your dev environment
+install-deps: venv $(CONFIG_FILE)
 
 ##run: run the scraper and accepts the number of PAGES as argument
 ## 		example: make run PAGES=5
-run4users: install
+run4users: install-deps
 	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) -m app.cli -p $(PAGES) users
-run4projects: install
+run4projects: install-deps
 	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) -m app.cli projects
 
 lint: venv
@@ -33,7 +33,7 @@ deploy: test
 	cd deploy && ./deploy.sh
 
 ##test: test your code
-test: install lint
+test: install-deps lint
 	$(PYTHON) -m pytest
 
 clean:
@@ -43,4 +43,4 @@ clean:
 help : Makefile
 	@sed -n 's/^##//p' $<
 
-.PHONY : help venv install test lint
+.PHONY : help venv install-deps test lint
