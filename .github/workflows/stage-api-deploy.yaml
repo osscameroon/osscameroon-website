@@ -7,7 +7,6 @@ on:
       - api/**
     branches:
       - main
-      - add-api-stage-deployment-action
 
 jobs:
     build:
