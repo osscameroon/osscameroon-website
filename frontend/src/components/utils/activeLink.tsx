@@ -8,7 +8,6 @@ type ActiveLinkProps = {
 const ActiveLink = ({ children, href }: PropsWithChildren<ActiveLinkProps>) => {
   const location = useLocation();
   const style = {
-    marginRight: 10,
     color: location.pathname.includes(href) ? "#2f80ed" : "black",
   };
 
