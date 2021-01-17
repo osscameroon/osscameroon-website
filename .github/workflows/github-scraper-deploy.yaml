@@ -7,7 +7,6 @@ on:
       - scraper/github/**
     branches:
       - main
-      - add-cron-action-for-twitter-scraper
 
 jobs:
     build:
