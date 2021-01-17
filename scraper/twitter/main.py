@@ -6,6 +6,7 @@ from google.cloud import datastore
 from tqdm import tqdm
 import requests
 import configparser
+import json
 
 CONFIGS = configparser.ConfigParser(interpolation=None)
 CONFIGS.read("config.ini")
@@ -41,9 +42,25 @@ def store_tweet(tweet_data: dict):
 
     client = __get_client()
     key = client.key(KIND_PROJECT, tweet_data["id"])
+
     data = datastore.Entity(key)
     data.update(tweet_data)
     client.put(data)
+
+
+def change_data_structure(data: dict):
+    """
+        Restructure data to a format that can handled by the datastore
+    """
+    tweet_data = data
+
+    # This needs to be done because for some reason I don't understand
+    # protobuf used by the datastore return this error
+    # google.api_core.exceptions.InvalidArgument: 400 list_value cannot contain a Value containing another list_value.
+    if "place" in tweet_data:
+        tweet_data["place"] = json.dumps(tweet_data["place"])
+
+    return tweet_data
 
 
 def fetch_tweets(api_url):
@@ -80,9 +97,8 @@ try:
             # print(results["statuses"])
             res_len = len(results["statuses"])
             for i in tqdm(range(res_len), desc="Storing in GCP..."):
-                store_tweet(results["statuses"][i])
-                # print(results["statuses"][i])
-                # input("")
+                data = change_data_structure(results["statuses"][i])
+                store_tweet(data)
 
 
     except ValueError as value_error:
