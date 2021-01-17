@@ -27,6 +27,7 @@ const TagInput = ({ defaultValues, onChange, suggestions: defaultSuggestions }: 
   };
 
   const onDelete = (position: number) => {
+    if (position < 0) return;
     const tagsClone = tags.slice(0);
     const updatedSuggestions = suggestions.slice().concat([tagsClone[position]]);
 
@@ -37,8 +38,18 @@ const TagInput = ({ defaultValues, onChange, suggestions: defaultSuggestions }: 
     onChange(tagsClone);
   };
 
-  // @ts-ignore
-  return <ReactTags placeholderText="" ref={reactTags.current} suggestions={suggestions} tags={tags} onAddition={onAddition} onDelete={onDelete} />;
+  return (
+    <ReactTags
+      minQueryLength={1}
+      // @ts-ignore
+      placeholderText=""
+      ref={reactTags.current}
+      suggestions={suggestions}
+      tags={tags}
+      onAddition={onAddition}
+      onDelete={onDelete}
+    />
+  );
 };
 
 export default TagInput;

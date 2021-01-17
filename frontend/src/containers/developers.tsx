@@ -19,6 +19,8 @@ import { DEFAULT_CACHE_OPTIONS } from "../config";
 import Loader from "../components/common/Loader";
 import NetworkError from "../components/common/NetworkError";
 import { searchDevelopers } from "../services/developers";
+import { useQueryString } from "../utils/useQueryString";
+import { EmptyData } from "../components/common/EmptyData";
 
 const showAdvancedFilter = false;
 
@@ -27,11 +29,18 @@ const initialFilters: Partial<DeveloperQueryFilter> = {
   title: "",
 };
 
+type QueryParams = {
+  keyword?: string;
+};
+
 const DeveloperPage = () => {
   const { formatMessage } = useIntl();
+  const queryParams = useQueryString<QueryParams>();
+  const title = queryParams.keyword || "";
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [filters, setFilters] = useState<Partial<DeveloperQueryFilter>>(initialFilters);
-  const [jobTitle, setJobTitle] = useState("");
+  const [filters, setFilters] = useState<Partial<DeveloperQueryFilter>>({ ...initialFilters, title });
+  const [jobTitle, setJobTitle] = useState(title);
   const [tools, setTools] = useState<TagInputData[]>([]);
   const [ossFilterChecked, setOssFilterChecked] = useState(false);
   const [sortMethod, setSortMethod] = useState("");
@@ -157,19 +166,20 @@ const DeveloperPage = () => {
                         <CheckboxList defaultValues={[]} options={AVAILABILITY} onChange={onAvailabilityFilterChange} />
                       </FormGroup>
                     </div>
+                    <div className="mt-1">
+                      <Label className="filter-label" htmlFor="oss">
+                        {formatMessage(developerMessages.hasOssLabel)}
+                      </Label>
+                      <FormGroup check>
+                        <Label check>
+                          <Input checked={ossFilterChecked} type="checkbox" onChange={() => setOssFilterChecked(!ossFilterChecked)} />
+                          {formatMessage(developerMessages.hasOssValue)}
+                        </Label>
+                      </FormGroup>
+                    </div>
                   </>
                 )}
-                <div className="mt-1">
-                  <Label className="filter-label" htmlFor="oss">
-                    {formatMessage(developerMessages.hasOssLabel)}
-                  </Label>
-                  <FormGroup check>
-                    <Label check>
-                      <Input checked={ossFilterChecked} type="checkbox" onChange={() => setOssFilterChecked(!ossFilterChecked)} />
-                      {formatMessage(developerMessages.hasOssValue)}
-                    </Label>
-                  </FormGroup>
-                </div>
+
                 <div className="d-flex justify-content-center mt-4 mb-3">
                   <Button className="pl-4 pr-4" color="primary" type="button" onClick={onFilterSubmit}>
                     {formatMessage(developerMessages.btnFilter)}
@@ -185,7 +195,7 @@ const DeveloperPage = () => {
             {error && <NetworkError />}
             {developersList && (
               <div style={{ margin: "0 15px 0 15px" }}>
-                {developersList.data?.result?.hits.length && (
+                {developersList.data?.result?.hits.length > 0 && (
                   <Pagination
                     currentPage={currentPage}
                     itemPerPage={developersList.data.result.limit}
@@ -195,7 +205,7 @@ const DeveloperPage = () => {
                   />
                 )}
                 <Row className="developer-section">
-                  {developersList.data?.result?.hits.length &&
+                  {developersList.data?.result?.hits.length > 0 &&
                     developersList.data.result.hits.map((developer) => (
                       <Col
                         key={`develop${developer.id}`}
@@ -207,7 +217,7 @@ const DeveloperPage = () => {
                       </Col>
                     ))}
                 </Row>
-                {developersList.data?.result?.hits.length && (
+                {developersList.data?.result?.hits.length > 0 && (
                   <Pagination
                     currentPage={currentPage}
                     itemPerPage={developersList.data.result.limit}
@@ -218,6 +228,7 @@ const DeveloperPage = () => {
                 )}
               </div>
             )}
+            {developersList?.data.result.hits.length === 0 && <EmptyData />}
             <Loader loading={isLoading} />
           </Col>
         </Row>

@@ -13,6 +13,7 @@
   "app.common.loading": "Chargement...",
   "app.common.error.title": "Oups",
   "app.common.error.message": "Une erreur s'est produite lors du traitement de la demande.",
+  "app.common.list.empty": "Aucun résultat trouvé",
 
   "app.developer.filterTitle": "Filtres",
   "app.developer.btnReset": "Effacer",

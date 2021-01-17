@@ -13,6 +13,7 @@
   "app.common.loading": "Loading...",
   "app.common.error.title": "Oops",
   "app.common.error.message": "An error occurred while processing the request.",
+  "app.common.list.empty": "No result found",
 
   "app.developer.filterTitle": "Filters",
   "app.developer.btnReset": "Reset",

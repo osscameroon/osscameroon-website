@@ -56,6 +56,10 @@ export const commonMessages = defineMessages({
     id: "app.common.error.message",
     defaultMessage: "An error occurred while processing the request.",
   },
+  listEmpty: {
+    id: "app.common.list.empty",
+    defaultMessage: "No result found",
+  },
 });
 
 export const developerMessages = defineMessages({
