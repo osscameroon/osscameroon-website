@@ -1,7 +1,0 @@
-Makefile
-requirements.txt
-app
-deploy
-example.config.ini
-main.py
-__init__.py

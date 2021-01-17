@@ -46,7 +46,7 @@ jobs:
           cat ./deploy/target.txt >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
 
-          tar -cvf build.tar $(cat deploy/files.txt)
+          tar -cvf build.tar $(find ./* -maxdepth 0 | grep -vf ./deploy/excluded_files.txt)
 
       - name: Copy file via scp
         uses: appleboy/scp-action@master
