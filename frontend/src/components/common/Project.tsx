@@ -40,7 +40,7 @@ const Project = ({ description, language, link, name, stars, type }: ProjectProp
     },
   };
 
-  const displayDescription = description.length <= 150 ? description : `${description.slice(0, 150)}...`;
+  const displayDescription = description.length <= 110 ? description : `${description.slice(0, 110)}...`;
   const defaultLanguage = "Docs"; // The repo contains only docs
 
   return (
