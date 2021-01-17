@@ -10,5 +10,4 @@ config.txt
 *.sw*
 config.ini
 .secrets/*
-*.sh
 venv/*
