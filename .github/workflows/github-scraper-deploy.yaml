@@ -61,4 +61,4 @@ jobs:
           host: ${{ secrets.DROPLET_HOST }}
           username: ${{ secrets.DROPLET_DEPLOY_USERNAME }}
           key: ${{ secrets.DROPLET_DEPLOY_SSHKEY }}
-          script: cd ${{ env.SCP_TARGET }}/scraper/github && tar -xvf ${{ env.ARCHIVE }} && rm -rf ${{ env.ARCHIVE }} && crontab deploy/cron.txt
+          script: cd ${{ env.SCP_TARGET }}/scraper/github && tar -xvf ${{ env.ARCHIVE }} && rm -rf ${{ env.ARCHIVE }}
