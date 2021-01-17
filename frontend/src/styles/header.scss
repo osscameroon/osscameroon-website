@@ -18,5 +18,13 @@ header {
       height: 32px;
       font-size: 0.775rem;
     }
+
+    @media screen and (max-width: 700px) {
+      .nav-item {
+        width: 100%;
+        padding: 5px 0 5px 0;
+        text-align: left;
+      }
+    }
   }
 }

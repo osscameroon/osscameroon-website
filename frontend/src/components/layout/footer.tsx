@@ -70,7 +70,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="https://telegram.org" rel="noreferrer" target="_blank">
+                <a href="https://t.me/joinchat/UpKZh_T3W02LsGvQ" rel="noreferrer" target="_blank">
                   <img alt="telegram Logo" src={telegramIcon} />{" "}
                 </a>
               </li>
