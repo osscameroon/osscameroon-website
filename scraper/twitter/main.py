@@ -100,7 +100,6 @@ try:
                 data = change_data_structure(results["statuses"][i])
                 store_tweet(data)
 
-
     except ValueError as value_error:
         print(">> Error requesting from API:", value_error)
 
