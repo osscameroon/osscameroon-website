@@ -28,9 +28,10 @@ jobs:
           pip install virtualenv
           make install-deps
 
-      - name: Run unit tests
-        run: |
-          make test
+# uncomment when we add tests
+#       - name: Run unit tests
+#         run: |
+#           make test
 
       - name: Setup env variables
 # multistring env variables check this out
