@@ -21,7 +21,7 @@ jobs:
           node-version: '12'
 
       - name: Build website
-        run: yarn install && yarn build
+        run: yarn install && REACT_APP_API_BASE_URL=https://api.stage.osscameroon.com yarn build
 
       - name: Create archive
 # multistring env variables check this out
