@@ -4,15 +4,13 @@ from app.utils.database.projects import fetch_all_projects
 import json
 import sys
 import os
+from app.settings import MEILISEARCH_MASTER_KEY, MEILISEARCH_HOST
 import meilisearch
-
-HOST = "http://127.0.0.1:7700"
-
 
 def create_github_users_index():
     ret = fetch_all_users()
 
-    client = meilisearch.Client(HOST, os.getenv("MEILISEARCH_MASTER_KEY"))
+    client = meilisearch.Client(MEILISEARCH_HOST, MEILISEARCH_MASTER_KEY)
     try:
         index = client.create_index(storage.KIND_USERS, {"primaryKey": "id"})
     except Exception as e:
@@ -26,7 +24,7 @@ def create_github_users_index():
 def create_github_projects_index():
     ret = fetch_all_projects()
 
-    client = meilisearch.Client(HOST, os.getenv("MEILISEARCH_MASTER_KEY"))
+    client = meilisearch.Client(MEILISEARCH_HOST, MEILISEARCH_MASTER_KEY)
     try:
         index = client.create_index(storage.KIND_PROJECTS, {"primaryKey": "id"})
     except Exception as e:
