@@ -1,0 +1,58 @@
+name: frontend stage deployment
+
+on:
+  push:
+    paths:
+      - .github/workflows/frontend-stage-deploy.yaml
+      - frontend/**
+    branches:
+      - main
+
+jobs:
+    build:
+      runs-on: ubuntu-latest
+      defaults:
+        run:
+          working-directory: frontend/
+      steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+
+      - name: Build website
+        run: yarn install && yarn build
+
+      - name: Create archive
+# multistring env variables check this out
+# https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#multiline-strings
+        run: |
+          tar -cvf build.tar build
+
+      - name: Remove current deployment
+        uses: appleboy/ssh-action@master
+        continue-on-error: true
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_DEPLOY_USERNAME }}
+          key: ${{ secrets.DROPLET_DEPLOY_SSHKEY }}
+          script: cd /home/deploy/caparledev-website/frontend-stage && mv build build_old
+
+      - name: Copy file via scp
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_DEPLOY_USERNAME }}
+          key: ${{ secrets.DROPLET_DEPLOY_SSHKEY }}
+          source: frontend/build.tar
+          target: /home/deploy/caparledev-website/frontend-stage
+          strip_components: 1
+          overwrite: true
+
+      - name: Executing remote  command
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_DEPLOY_USERNAME }}
+          key: ${{ secrets.DROPLET_DEPLOY_SSHKEY }}
+          script: cd /home/deploy/caparledev-website/frontend-stage && tar -xvf build.tar && rm -rf build.tar
