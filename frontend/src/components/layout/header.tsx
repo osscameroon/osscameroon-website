@@ -14,12 +14,12 @@ const Header = () => {
   const { formatMessage } = useIntl();
 
   return (
-    <header style={{borderTop: "5px solid var(--primary-color)"}}>
+    <header style={{ borderTop: "5px solid var(--primary-color)" }}>
       <Container>
         <Navbar color="white" expand="md" light>
           <NavLink className="navbar-brand cursor-pointer" to="/">
             <img alt="OSS logo" src={logo} />
-            <span className="d-sm-none d-inline-block" style={{marginLeft: "8px", verticalAlign: "middle", fontSize: "1.2rem"}}>
+            <span className="d-sm-none d-inline-block" style={{ marginLeft: "8px", verticalAlign: "middle", fontSize: "1.2rem" }}>
               OSS
             </span>
           </NavLink>
@@ -41,7 +41,11 @@ const Header = () => {
             <div className="nav-item item-center">
               <a
                 className="btn-join-us btn btn-primary"
-                color="primary" href="https://t.me/joinchat/UpKZh_T3W02LsGvQ" rel="noreferrer" target="_blank">
+                color="primary"
+                href="https://t.me/joinchat/UpKZh_T3W02LsGvQ"
+                rel="noreferrer"
+                target="_blank"
+              >
                 {formatMessage(commonMessages.joinUs)}
               </a>
             </div>

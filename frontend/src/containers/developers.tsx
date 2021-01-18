@@ -52,6 +52,8 @@ const DeveloperPage = () => {
     DEFAULT_CACHE_OPTIONS,
   );
 
+  const hasNoData = developersList?.data.result.hits.length === 0;
+
   const onSelectDeveloper = (developer: GithubUser) => setSelectedDeveloper(developer);
 
   const closeModal = () => {
@@ -228,7 +230,7 @@ const DeveloperPage = () => {
                 )}
               </div>
             )}
-            {developersList?.data.result.hits.length === 0 && <EmptyData />}
+            {hasNoData && <EmptyData />}
             <Loader loading={isLoading} />
           </Col>
         </Row>
