@@ -7,7 +7,6 @@ on:
       - frontend/**
     branches:
       - main
-      - add-frontend-stage-deploy-action # test branch
 
 jobs:
     build:
