@@ -13,9 +13,13 @@ const DeveloperDetailModal = ({ developer, onClose, visible }: DeveloperDetailMo
   return (
     <>
       {visible && (
-        <div id="developer-modal">
-          <DeveloperDetail data={developer} onClose={onClose} />
-        </div>
+        <>
+          <div id="developer-modal-layer" onClick={onClose}>
+            <div id="developer-modal">
+              <DeveloperDetail data={developer} onClose={onClose} />
+            </div>
+          </div>
+        </>
       )}
     </>
   );
