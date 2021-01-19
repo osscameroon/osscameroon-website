@@ -10,7 +10,6 @@ on:
       - tools/meilisearch-index-generator/**
     branches:
       - main
-      - add-meilisearch-index-generator-deploy-action
   pull_request:
     paths:
       - .github/workflows/meilisearch-index-generator-unit-test.yaml

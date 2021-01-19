@@ -7,7 +7,6 @@ on:
       - tools/meilisearch-index-generator/**
     branches:
       - main
-      - add-meilisearch-index-generator-deploy-action
 
 jobs:
     build:
