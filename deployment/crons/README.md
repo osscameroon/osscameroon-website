@@ -2,6 +2,15 @@
 
 The cron configuration folder contains cron job specification for several applications
 
+## Sync
+
+To sync your cron on the deployment server run
+
+```sh
+cd ./scripts
+./sync_crons.sh
+```
+
 ## Setup
 
 To **check** what cron jobs are installed on a user account run
