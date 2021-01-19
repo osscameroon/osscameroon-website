@@ -1,0 +1,7 @@
+venv
+__pycache__
+.secrets
+config.ini
+config.txt
+pytest
+build.tar
