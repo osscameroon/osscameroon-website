@@ -12,11 +12,11 @@ $(VENVPATH)/bin/activate: requirements.txt
 
 
 ##venv: setup your dev environment
-install: venv
+install-deps: venv
 
 ##run: run the scraper and accepts the number of PAGES as argument
 ## 		example: make run
-run: install
+run: install-deps
 	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) -m app.cli
 
 lint: venv
@@ -24,7 +24,7 @@ lint: venv
 	$(PYTHON) -m flake8 ./ --statistics
 
 ##test: test your code
-test: install lint
+test: install-deps lint
 	$(PYTHON) -m pytest
 
 clean:
@@ -34,4 +34,4 @@ clean:
 help : Makefile
 	@sed -n 's/^##//p' $<
 
-.PHONY : help venv install test lint
+.PHONY : help venv install-deps test lint
