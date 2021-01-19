@@ -11,4 +11,4 @@
 
 ## meilisearch index creator job
 # this cron runs every 1 hour
-0 * * * * (cd /home/deploy/caparledev-website/crons/scraper/tools/deploy && ./run.sh) >> cron.log 2>&1
+0 * * * * (cd /home/deploy/caparledev-website/crons/tools/meilisearch-index-generator/deploy && ./run.sh) >> cron.log 2>&1
