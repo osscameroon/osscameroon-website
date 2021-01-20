@@ -4,6 +4,12 @@
 
 # OssCameroon
 
+## Communty Chat
+
+- Telegram : https://t.me/joinchat/UpKZh_T3W02LsGvQ
+- Spectrum : https://spectrum.chat/osscameroon/osscameroon-website/join/e0e11b05-5eda-48df-925b-3ff2318e8f4a
+
+
 ## Frontend
 Here is the part responsible to serve the page the users will interact with. The main feature
 - Browse the list of developers registered on GitHub
