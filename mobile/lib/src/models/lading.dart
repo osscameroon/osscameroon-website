@@ -1,3 +1,0 @@
-class LadingWalk {
-  String img;
-}
