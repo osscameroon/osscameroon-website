@@ -14,6 +14,8 @@ import { useQuery } from "react-query";
 import { searchProject } from "../services/projects";
 import { getTopTweets } from "../services/tweets";
 import { DEFAULT_CACHE_OPTIONS } from "../config";
+import Loader from "../components/common/Loader";
+import NetworkError from "../components/common/NetworkError";
 
 const HomePage = () => {
   const history = useHistory();
@@ -22,7 +24,7 @@ const HomePage = () => {
   const TOP_PROJECTS_PAGE = 1;
   const TOP_PROJECTS_SORT = "popularity";
 
-  const { data: projects_data } = useQuery(
+  const { data: projects_data, error: projectsError, isLoading: projectsLoading } = useQuery(
     ["projects", { page: TOP_PROJECTS_PAGE, count: NB_TOP_PROJECTS, sortMethod: TOP_PROJECTS_SORT }],
     searchProject,
     DEFAULT_CACHE_OPTIONS,
@@ -39,7 +41,7 @@ const HomePage = () => {
     }
   };
 
-  const { data: tweets_data } = useQuery("tweets", getTopTweets, DEFAULT_CACHE_OPTIONS);
+  const { data: tweets_data, error: tweetsError, isLoading: tweetsLoading } = useQuery("tweets", getTopTweets, DEFAULT_CACHE_OPTIONS);
 
   const { formatMessage } = useIntl();
 
@@ -93,18 +95,24 @@ const HomePage = () => {
             <h2> {formatMessage(homeMessages.topProjectTitle)} </h2>
             <Container>
               <Row style={{ margin: "40px 0 40px 0" }}>
-                {projects_data?.result.hits.map((project, i) => (
-                  <Col key={i} md="4" style={{ margin: "20px 0 20px 0" }}>
-                    <Project
-                      description={project.description}
-                      language={project.language}
-                      link={project.html_url}
-                      name={project.name}
-                      stars={project.stargazers_count}
-                      type="small"
-                    />
-                  </Col>
-                ))}
+                {projectsLoading && <Loader loading={projectsLoading} />}
+
+                {!projectsLoading && projectsError && <NetworkError />}
+
+                {!projectsLoading &&
+                  !projectsError &&
+                  projects_data?.result.hits.map((project, i) => (
+                    <Col key={i} md="4" style={{ margin: "20px 0 20px 0" }}>
+                      <Project
+                        description={project.description}
+                        language={project.language}
+                        link={project.html_url}
+                        name={project.name}
+                        stars={project.stargazers_count}
+                        type="small"
+                      />
+                    </Col>
+                  ))}
               </Row>
             </Container>
             <NavLink to="/projects">
@@ -118,19 +126,25 @@ const HomePage = () => {
             <h2> {formatMessage(homeMessages.topTweetTitle)} </h2>
             <Container>
               <Row style={{ margin: "40px 0 40px 0" }}>
-                {tweets_data?.result.statuses.map((tweet, i) => (
-                  <Col key={i} md="4" style={{ margin: "20px 0 20px 0" }}>
-                    <Tweet
-                      hashtags={tweet.entities.hashtags}
-                      likes={tweet.favorite_count}
-                      retweets={tweet.retweet_count}
-                      text={tweet.text}
-                      urls={tweet.entities.urls}
-                      user={tweet.user}
-                      user_mentions={tweet.entities.user_mentions}
-                    />
-                  </Col>
-                ))}
+                {tweetsLoading && <Loader loading={tweetsLoading} />}
+
+                {!tweetsLoading && tweetsError && <NetworkError />}
+
+                {!tweetsLoading &&
+                  !tweetsError &&
+                  tweets_data?.result.statuses.map((tweet, i) => (
+                    <Col key={i} md="4" style={{ margin: "20px 0 20px 0" }}>
+                      <Tweet
+                        hashtags={tweet.entities.hashtags}
+                        likes={tweet.favorite_count}
+                        retweets={tweet.retweet_count}
+                        text={tweet.text}
+                        urls={tweet.entities.urls}
+                        user={tweet.user}
+                        user_mentions={tweet.entities.user_mentions}
+                      />
+                    </Col>
+                  ))}
               </Row>
             </Container>
             <a href="https://twitter.com/hashtag/caparledev" rel="noreferrer nofollow" target="_blank">
