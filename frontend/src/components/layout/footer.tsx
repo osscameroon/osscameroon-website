@@ -11,6 +11,7 @@ import twitterIcon from "../../assets/icons/twitter-30-px.svg";
 import telegramIcon from "../../assets/icons/telegram-30-px.svg";
 import githubIcon from "../../assets/icons/github-30-px.svg";
 import { LocaleSwitcher } from "../localeProvider";
+import DarkModeSwitch from "components/utils/DarkModeBtn";
 
 const getFlag = (locale: string) => {
   return locale === "fr" ? frenchFlagIcon : englishFlagIcon;
@@ -75,6 +76,7 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
+            <DarkModeSwitch />
             <div>
               <Nav className="locale-selector" navbar>
                 <UncontrolledDropdown inNavbar nav>

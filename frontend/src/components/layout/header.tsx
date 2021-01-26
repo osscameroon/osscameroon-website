@@ -7,7 +7,6 @@ import ActiveLink from "../../components/utils/activeLink";
 import { commonMessages } from "../../locales/messages";
 
 import logo from "../../assets/icons/oss.svg";
-import DarkModeSwitch from "components/utils/DarkModeBtn";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +16,7 @@ const Header = () => {
   return (
     <header style={{ borderTop: "5px solid var(--primary-color)" }}>
       <Container>
-        <Navbar color="white" expand="md" light>
+        <Navbar expand="md">
           <NavLink className="navbar-brand cursor-pointer" to="/">
             <img alt="OSS logo" src={logo} />
             <span className="d-sm-none d-inline-block" style={{ marginLeft: "8px", verticalAlign: "middle", fontSize: "1.2rem" }}>
@@ -34,13 +33,12 @@ const Header = () => {
                 <ActiveLink href="/projects">{formatMessage(commonMessages.projects)}</ActiveLink>
               </NavItem>
               <NavItem className="nav-item item-center">
-                <a className="text-dark" href="https://twitter.com/caparledev" rel="noreferrer" target="_blank">
+                <a className="txt-dark" href="https://twitter.com/caparledev" rel="noreferrer" target="_blank">
                   {formatMessage(commonMessages.tweets)}
                 </a>
               </NavItem>
             </Nav>
             <div className="nav-item item-center">
-              <DarkModeSwitch />
               <a
                 className="btn-join-us btn btn-primary"
                 color="primary"
