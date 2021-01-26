@@ -7,6 +7,7 @@ import ActiveLink from "../../components/utils/activeLink";
 import { commonMessages } from "../../locales/messages";
 
 import logo from "../../assets/icons/oss.svg";
+import DarkModeSwitch from "components/utils/DarkModeBtn";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,6 +40,7 @@ const Header = () => {
               </NavItem>
             </Nav>
             <div className="nav-item item-center">
+              <DarkModeSwitch />
               <a
                 className="btn-join-us btn btn-primary"
                 color="primary"

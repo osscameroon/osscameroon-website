@@ -29,6 +29,9 @@
           height: 62px;
           overflow-y: hidden;
         }
+        .card-body{
+          background-color: var(--card-bg);
+        }
       }
     }
   }
@@ -49,7 +52,7 @@
 
 #developer-detail {
   box-shadow: var(--border-shadow);
-  background-color: var(--white);
+  background-color: var(--card-bg);
   border-radius: 5px;
   margin: 25px 0 25px 0;
   position: relative;

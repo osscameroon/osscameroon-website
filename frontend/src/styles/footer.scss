@@ -1,6 +1,6 @@
 .footer {
-  background-color: var(--dark-color);
-  color: var(--light-color);
+  background-color: var(--footer-bg);
+  color: var(--footer-txt-color);
   padding: 50px 0 30px 0;
   ul {
     list-style: none;
@@ -29,7 +29,7 @@
   .site a {
     display: inline-block;
     margin-bottom: 10px;
-    color: var(--light-color);
+    color: var(--white);
     text-decoration: none;
     font-size: 1.125rem;
   }

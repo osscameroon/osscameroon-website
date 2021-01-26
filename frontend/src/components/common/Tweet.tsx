@@ -52,7 +52,7 @@ const Tweet = ({ hashtags, likes, retweets, text, urls, user, user_mentions }: T
       </Col>
       <Col className="text-left" md="10" xs="10">
         <div>
-          <a href={userUrl} rel="noreferrer nofollow" style={{ color: "var(--light-color)" }} target="_blank">
+          <a href={userUrl} rel="noreferrer nofollow" style={{ color: "var(--white)" }} target="_blank">
             <strong>{user.name}</strong> <span style={{ fontWeight: 100 }}>&ensp; @{user.screen_name}</span>
           </a>
         </div>

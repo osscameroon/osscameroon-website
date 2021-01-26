@@ -13,7 +13,7 @@ const style = {
   breadcrumb: {
     display: "flex",
     alignItems: "center",
-    background: "var(--dark-color)",
+    background: "var(--dark)",
     color: "var(--white)",
     height: "70px",
   },
