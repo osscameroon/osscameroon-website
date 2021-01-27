@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <header style={{ borderTop: "5px solid var(--primary-color)" }}>
       <Container>
-        <Navbar color="white" expand="md" light>
+        <Navbar expand="md">
           <NavLink className="navbar-brand cursor-pointer" to="/">
             <img alt="OSS logo" src={logo} />
             <span className="d-sm-none d-inline-block" style={{ marginLeft: "8px", verticalAlign: "middle", fontSize: "1.2rem" }}>
@@ -33,7 +33,7 @@ const Header = () => {
                 <ActiveLink href="/projects">{formatMessage(commonMessages.projects)}</ActiveLink>
               </NavItem>
               <NavItem className="nav-item item-center">
-                <a className="text-dark" href="https://twitter.com/caparledev" rel="noreferrer" target="_blank">
+                <a className="txt-dark" href="https://twitter.com/caparledev" rel="noreferrer" target="_blank">
                   {formatMessage(commonMessages.tweets)}
                 </a>
               </NavItem>

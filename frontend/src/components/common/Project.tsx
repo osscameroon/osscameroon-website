@@ -28,6 +28,7 @@ const Project = ({ description, language, link, name, stars, type }: ProjectProp
       borderRadius: "5px",
       height: isBig ? "160px" : "180px",
       width: "100%",
+      backgroundColor: "var(--card-bg)",
     },
     h1: {
       fontSize: "1.125rem",

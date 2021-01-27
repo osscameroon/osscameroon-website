@@ -1,5 +1,5 @@
 header {
-  background-color: #fff;
+  background-color: var(--header-bg);
   box-shadow: var(--border-shadow);
   .navbar {
     a:hover {
@@ -14,9 +14,12 @@ header {
     .navbar-nav:first-child {
       margin-left: 15px;
     }
-    .btn-join-us {
+    .btn-join-us, .btn-dark-mode {
       height: 32px;
       font-size: 0.775rem;
+    }
+    .btn-dark-mode{
+      background-color: var(--btn-dark-mode);
     }
 
     @media screen and (max-width: 700px) {
@@ -32,4 +35,7 @@ header {
       }
     }
   }
+
+  
+
 }

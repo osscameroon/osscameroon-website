@@ -7,6 +7,7 @@
     h1 {
       font-size: 1.75rem;
       margin: 55px 0 25px 0;
+      color: var(--dark);
     }
     .main-text a {
       font-size: 1rem;
@@ -17,7 +18,7 @@
   }
   #tweets {
     background-color: var(--dark-accent);
-    color: var(--light-color);
+    color: var(--white);
   }
   #search {
     background-color: var(--light-color);
