@@ -5,9 +5,10 @@ import { API_BASE_URL } from "../config";
 import { ApiResponse, DeveloperQueryKey, GithubUser } from "../utils/types";
 
 export const searchDevelopers = ({ queryKey }: QueryFunctionContext<DeveloperQueryKey>) => {
-  const [, { page = 1, sortType = "", title = "", tools = "" }] = queryKey;
+  const [, { count = 21, page = 1, sortType = "", title = "", tools = "" }] = queryKey;
   const searchQuery = `${title} ${tools}`;
   const requestBody: any = {
+    count,
     page,
   };
   if (searchQuery.trim()) {
