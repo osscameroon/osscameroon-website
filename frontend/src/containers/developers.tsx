@@ -47,7 +47,7 @@ const DeveloperPage = () => {
   const [selectedDeveloper, setSelectedDeveloper] = React.useState<GithubUser | undefined>();
 
   const { data: developersList, error, isLoading } = useQuery(
-    ["developers", { page: currentPage, count: 20, sortType: sortMethod, ...filters }],
+    ["developers", { page: currentPage, count: 21, sortType: sortMethod, ...filters }],
     searchDevelopers,
     DEFAULT_CACHE_OPTIONS,
   );
