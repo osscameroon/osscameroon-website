@@ -32,6 +32,11 @@ export const commonMessages = defineMessages({
     id: "app.common.tweets",
     defaultMessage: "Tweets",
   },
+  blog: {
+    id: "app.common.blog",
+    defaultMessage: "Blog",
+  },
+
   joinUs: {
     id: "app.common.joinUs",
     defaultMessage: "JOIN US",

@@ -37,6 +37,11 @@ const Header = () => {
                   {formatMessage(commonMessages.tweets)}
                 </a>
               </NavItem>
+              <NavItem className="nav-item item-center">
+                <a className="txt-dark" href="https://blog.osscameroon.com" rel="noreferrer" target="_blank">
+                  {formatMessage(commonMessages.blog)}
+                </a>
+              </NavItem>
             </Nav>
             <div className="nav-item item-center">
               <a
