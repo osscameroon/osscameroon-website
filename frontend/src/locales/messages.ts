@@ -127,6 +127,10 @@ export const footerMessages = defineMessages({
     id: "app.footer.developers",
     defaultMessage: "Developers",
   },
+  blog: {
+    id: "app.footer.blog",
+    defaultMessage: "Blog",
+  },
   projects: {
     id: "app.footer.projects",
     defaultMessage: "Projects",
