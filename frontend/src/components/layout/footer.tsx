@@ -46,6 +46,11 @@ const Footer = () => {
                 </NavLink>
               </li>
               <li>
+                <a className="txt-dark" href="https://blog.osscameroon.com" rel="noreferrer" target="_blank">
+                  {formatMessage(footerMessages.blog)}
+                </a>
+              </li>
+              <li>
                 <NavLink to="/privacy">
                   <span>{formatMessage(footerMessages.privacy)}</span>
                 </NavLink>
