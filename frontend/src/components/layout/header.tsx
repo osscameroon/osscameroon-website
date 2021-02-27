@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Collapse, Navbar, NavbarToggler, Nav, NavItem, Container } from "reactstrap";
 import { useIntl } from "react-intl";
 import { NavLink } from "react-router-dom";
@@ -7,23 +7,25 @@ import ActiveLink from "../../components/utils/activeLink";
 import { commonMessages } from "../../locales/messages";
 
 import logo from "../../assets/icons/oss.svg";
+import { ThemeContext, DARK, LIGHT } from "../utils/ThemeProvider";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const { formatMessage } = useIntl();
+  const themeContext = useContext(ThemeContext);
 
   return (
     <header style={{ borderTop: "5px solid var(--primary-color)" }}>
       <Container>
-        <Navbar expand="md">
+        <Navbar expand="md" dark={themeContext.theme === DARK} light={themeContext.theme === LIGHT}>
           <NavLink className="navbar-brand cursor-pointer" to="/">
             <img alt="OSS logo" src={logo} />
             <span className="d-sm-none d-inline-block" style={{ marginLeft: "8px", verticalAlign: "middle", fontSize: "1.2rem" }}>
               OSS
             </span>
           </NavLink>
-          <NavbarToggler onClick={toggle} />
+          <NavbarToggler onClick={toggle} color="dark" />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar>
               <NavItem className="nav-item item-center">

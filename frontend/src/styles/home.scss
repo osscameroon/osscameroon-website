@@ -3,11 +3,10 @@
     padding: 50px 0 50px 0;
   }
   #banner {
-    background: url("../assets/img/banner-background.svg") center no-repeat;
     h1 {
       font-size: 1.75rem;
       margin: 55px 0 25px 0;
-      color: var(--dark);
+      color: var(--dark-color);
     }
     .main-text a {
       font-size: 1rem;

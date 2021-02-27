@@ -14,12 +14,9 @@ header {
     .navbar-nav:first-child {
       margin-left: 15px;
     }
-    .btn-join-us, .btn-dark-mode {
+    .btn-join-us {
       height: 32px;
       font-size: 0.775rem;
-    }
-    .btn-dark-mode{
-      background-color: var(--btn-dark-mode);
     }
 
     @media screen and (max-width: 700px) {

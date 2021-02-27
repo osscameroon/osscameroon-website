@@ -16,6 +16,7 @@ import ProjectPage from "./containers/projects";
 import NotFound from "./containers/notFound";
 import { QUERY_CACHE_TIME, QUERY_STALE_TIME } from "./config";
 import AppHeader from "./components/appHeader";
+import ThemeProvider from "./components/utils/ThemeProvider";
 
 const messages = {
   en: messages_en,
@@ -37,13 +38,15 @@ const App = () => {
       <LocaleSwitcher.Provider>
         <LocaleProvider messages={messages}>
           <BrowserRouter>
-            <AppHeader />
-            <Switch>
-              <Route component={HomePage} exact={true} name="Login Page" path="/" />
-              <Route component={DeveloperPage} exact={true} name="Register Page" path="/developers" />
-              <Route component={ProjectPage} exact={true} name="Register Page" path="/projects" />
-              <Route component={NotFound} name="Page 404" />
-            </Switch>
+            <ThemeProvider>
+              <AppHeader />
+              <Switch>
+                <Route component={HomePage} exact={true} name="Login Page" path="/" />
+                <Route component={DeveloperPage} exact={true} name="Register Page" path="/developers" />
+                <Route component={ProjectPage} exact={true} name="Register Page" path="/projects" />
+                <Route component={NotFound} name="Page 404" />
+              </Switch>
+            </ThemeProvider>
           </BrowserRouter>
         </LocaleProvider>
       </LocaleSwitcher.Provider>

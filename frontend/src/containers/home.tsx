@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useContext } from "react";
 import { Input, InputGroup, InputGroupAddon, Button, Container, Row, Col } from "reactstrap";
 import { useIntl } from "react-intl";
 import { NavLink, useHistory } from "react-router-dom";
@@ -16,9 +16,13 @@ import { getTopTweets } from "../services/tweets";
 import { DEFAULT_CACHE_OPTIONS } from "../config";
 import Loader from "../components/common/Loader";
 import NetworkError from "../components/common/NetworkError";
+import BannerBackgroundLight from "../assets/img/banner-background.svg";
+import BannerBackgroundDark from "../assets/img/banner-background-alt.svg";
+import { ThemeContext, LIGHT } from "../components/utils/ThemeProvider";
 
 const HomePage = () => {
   const history = useHistory();
+  const themeContext = useContext(ThemeContext);
 
   const NB_TOP_PROJECTS = 6;
   const TOP_PROJECTS_PAGE = 1;
@@ -45,10 +49,14 @@ const HomePage = () => {
 
   const { formatMessage } = useIntl();
 
+  const BannerStyle = {
+    background: `url(${themeContext.theme === LIGHT ? BannerBackgroundLight : BannerBackgroundDark}) center no-repeat`,
+  };
+
   return (
     <Layout title={formatMessage(titleMessages.home)}>
       <div className="home-page">
-        <section id="banner">
+        <section id="banner" style={BannerStyle}>
           <Container>
             <Row>
               <Col md="6">
