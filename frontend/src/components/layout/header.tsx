@@ -18,14 +18,14 @@ const Header = () => {
   return (
     <header style={{ borderTop: "5px solid var(--primary-color)" }}>
       <Container>
-        <Navbar expand="md" dark={themeContext.theme === DARK} light={themeContext.theme === LIGHT}>
+        <Navbar dark={themeContext.theme === DARK} expand="md" light={themeContext.theme === LIGHT}>
           <NavLink className="navbar-brand cursor-pointer" to="/">
             <img alt="OSS logo" src={logo} />
             <span className="d-sm-none d-inline-block" style={{ marginLeft: "8px", verticalAlign: "middle", fontSize: "1.2rem" }}>
               OSS
             </span>
           </NavLink>
-          <NavbarToggler onClick={toggle} color="dark" />
+          <NavbarToggler color="dark" onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar>
               <NavItem className="nav-item item-center">
