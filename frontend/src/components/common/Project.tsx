@@ -4,6 +4,9 @@ import { useIntl } from "react-intl";
 
 import { projectMessages } from "../../locales/messages";
 import starIcon from "../../assets/icons/star.svg";
+import starLightIcon from "../../assets/icons/star-light.svg";
+import { useContext } from "react";
+import { ThemeContext, DARK } from "../utils/ThemeProvider";
 
 type ProjectProps = {
   name: string;
@@ -16,6 +19,7 @@ type ProjectProps = {
 
 const Project = ({ description, language, link, name, stars, type }: ProjectProps) => {
   const { formatMessage } = useIntl();
+  const themeContext = useContext(ThemeContext);
 
   const windowWidth = window.innerWidth;
 
@@ -58,7 +62,8 @@ const Project = ({ description, language, link, name, stars, type }: ProjectProp
           <div className="d-flex">
             <div className="project-language">{language || defaultLanguage}</div>
             <div className="d-flex justify-content-start align-items-center">
-              <img alt="star icon" src={starIcon} />
+              <img alt="star icon" src={themeContext.theme === DARK ? starLightIcon : starIcon} />
+              &ensp;
               <span className="font-weight-bold">{stars}</span>
             </div>
           </div>
