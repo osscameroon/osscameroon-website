@@ -10,7 +10,6 @@ import json
 from twitter.utils import rate_tweet
 
 
-
 CONFIGS = configparser.ConfigParser(interpolation=None)
 CONFIGS.read("config.ini")
 
