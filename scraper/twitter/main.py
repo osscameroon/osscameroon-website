@@ -7,6 +7,9 @@ from tqdm import tqdm
 import requests
 import configparser
 import json
+from twitter.utils import rate_tweet
+
+
 
 CONFIGS = configparser.ConfigParser(interpolation=None)
 CONFIGS.read("config.ini")
@@ -42,6 +45,9 @@ def store_tweet(tweet_data: dict):
 
     client = __get_client()
     key = client.key(KIND_PROJECT, tweet_data["id"])
+
+    # We set the key for the top_coef here
+    tweet_data["top_coef"] = rate_tweet(tweet_data)
 
     data = datastore.Entity(key)
     data.update(tweet_data)
