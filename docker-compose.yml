@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  meilisearch:
+    image: getmeili/meilisearch
+    volumes:
+      - ./data.ms:/data.ms
+
+  api:
+    build: ./api
+    depends_on:
+      - meilisearch
+    environment:
+      MEILISEARCH_HOST: http://meilisearch:7700
+    ports:
+      - 8811:8811
+
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - api
+    environment:
+      REACT_APP_API_BASE_URL: http://api:8811
+      REACT_ENV: development
+    ports:
+      - 3000:3000
