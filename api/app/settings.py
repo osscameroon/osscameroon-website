@@ -17,7 +17,9 @@ def get_conf(context: str, key: str) -> str:
     params : context, key
     return : value
     """
-    value = conf.get(context, key)
+    value = ""
+    if context in conf:
+        value = conf.get(context, key, fallback="")
     if value == "":
         value = os.environ.get(key)
     return value
