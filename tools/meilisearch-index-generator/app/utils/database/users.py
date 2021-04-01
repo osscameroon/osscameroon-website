@@ -43,6 +43,9 @@ def fetch_all_users(on_pageloaded_success=None):
 
     while next_cursor:
         page, next_cursor = get_one_page_of_users(cursor=next_cursor)
+        if not page:
+            break
+
         if on_pageloaded_success:
             on_pageloaded_success(page)
         pages += page

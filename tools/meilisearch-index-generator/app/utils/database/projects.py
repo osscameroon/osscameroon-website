@@ -42,6 +42,9 @@ def fetch_all_projects(on_pageloaded_success=None):
 
     while next_cursor:
         page, next_cursor = get_one_page_of_projects(cursor=next_cursor)
+        if not page:
+            break
+
         if on_pageloaded_success:
             on_pageloaded_success(page)
         pages += page
