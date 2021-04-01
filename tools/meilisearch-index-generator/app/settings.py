@@ -5,10 +5,10 @@ import os
 
 # we read configuration from the config.txt file
 conf = cf.RawConfigParser()
-conf.read(r'config.txt')
+conf.read(r"config.txt")
 
 
-def get_conf(context: str, key: str) -> str:
+def get_conf(context: str, key: str, fallback: str = "") -> str:
     """
     A simple method to get a configuration parameter
     from the configuration file
@@ -17,12 +17,18 @@ def get_conf(context: str, key: str) -> str:
     params : context, key
     return : value
     """
-    value = conf.get(context, key)
+    value = ""
+    if context in conf:
+        value = conf.get(context, key, fallback="")
     if value == "":
-        value = os.environ.get(key)
+        value = os.environ.get(key, default="")
+    if value == "":
+        return fallback
     return value
 
 
 # meili configurations
-MEILISEARCH_HOST = get_conf("meilisearch", "MEILISEARCH_HOST")
+MEILISEARCH_HOST = get_conf(
+    "meilisearch", "MEILISEARCH_HOST", fallback="http://127.0.0.1:7700"
+)
 MEILISEARCH_MASTER_KEY = get_conf("meilisearch", "MEILISEARCH_MASTER_KEY")
