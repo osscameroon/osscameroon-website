@@ -1,6 +1,22 @@
 version: '3'
 
 services:
+  #find a way to tear this down after the init scripts has worked
+  setup-datastore:
+    build: ./scripts/setup-datastore
+    working_dir: /app
+    command: make run
+    depends_on:
+      - datastore
+    environment:
+      MEILISEARCH_HOST: http://meilisearch:7700
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/key/creds.json
+      GCLOUD_PROJECT: pname
+      DATASTORE_EMULATOR_HOST: datastore:8000
+      DATASTORE_PROJECT_ID: pname
+    volumes:
+      - ./scripts/setup-datastore:/app
+
   meilisearch:
     image: getmeili/meilisearch
     volumes:
@@ -8,14 +24,27 @@ services:
     ports:
       - 7700:7700
 
+  datastore:
+    image: google/cloud-sdk
+    command: gcloud beta emulators datastore start --project=pname --host-port 0.0.0.0:8000 --no-store-on-disk
+    ports:
+      - 8000:8000
+
   api:
     build: ./api
     depends_on:
       - meilisearch
+      - datastore
     environment:
       MEILISEARCH_HOST: http://meilisearch:7700
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/key/creds.json
+      GCLOUD_PROJECT: pname
+      DATASTORE_EMULATOR_HOST: datastore:8000
+      DATASTORE_PROJECT_ID: pname
     ports:
       - 8811:8811
+    volumes:
+      - ./fixtures/service-account.json:/tmp/key/creds.json:ro
 
 
   frontend:
