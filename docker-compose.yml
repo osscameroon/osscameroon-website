@@ -34,7 +34,7 @@ services:
     build: ./api
     depends_on:
       - meilisearch
-      - datastore
+      - setup-datastore
     environment:
       MEILISEARCH_HOST: http://meilisearch:7700
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/key/creds.json
