@@ -17,6 +17,23 @@ services:
     volumes:
       - ./scripts/setup-datastore:/app
 
+  #find a way to tear this down after the init scripts has worked
+  setup-meilisearch:
+    build: ./scripts/setup-datastore
+    working_dir: /app
+    command: make run-with-emulator
+    depends_on:
+      - setup-datastore
+      - meilisearch
+    environment:
+      MEILISEARCH_HOST: http://meilisearch:7700
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/key/creds.json
+      GCLOUD_PROJECT: pname
+      DATASTORE_EMULATOR_HOST: datastore:8000
+      DATASTORE_PROJECT_ID: pname
+    volumes:
+      - ./tools/meilisearch-index-generator:/app
+
   meilisearch:
     image: getmeili/meilisearch
     volumes:
@@ -33,7 +50,7 @@ services:
   api:
     build: ./api
     depends_on:
-      - meilisearch
+      - setup-meilisearch
       - setup-datastore
     environment:
       MEILISEARCH_HOST: http://meilisearch:7700
