@@ -13,12 +13,14 @@ $(VENVPATH)/bin/activate: requirements.txt
 ##install-deps: setup your dev environment
 install-deps: venv
 
-##run: populate gcloud datastore emulator
-## 		example: make run PAGES=5
-run: install-deps
+##run-with-emulator: populate gcloud datastore emulator
+## 		example: make run-with-emulator
+run-with-emulator: install-deps
 	$(PYTHON) -m app.cli
 
-runwithcreds: install-deps
+##run: populate gcloud datastore emulator
+## 		example: make run
+run: install-deps
 	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) -m app.cli
 
 lint: venv

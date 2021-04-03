@@ -3,9 +3,7 @@ version: '3'
 services:
   #find a way to tear this down after the init scripts has worked
   setup-datastore:
-    build: ./scripts/setup-datastore
-    working_dir: /app
-    command: make run
+    build: ./scripts/setup-datastore/
     depends_on:
       - datastore
     environment:
@@ -14,14 +12,10 @@ services:
       GCLOUD_PROJECT: pname
       DATASTORE_EMULATOR_HOST: datastore:8000
       DATASTORE_PROJECT_ID: pname
-    volumes:
-      - ./scripts/setup-datastore:/app
 
   #find a way to tear this down after the init scripts has worked
   setup-meilisearch:
-    build: ./scripts/setup-datastore
-    working_dir: /app
-    command: make run-with-emulator
+    build: ./tools/meilisearch-index-generator/
     depends_on:
       - setup-datastore
       - meilisearch
@@ -31,8 +25,6 @@ services:
       GCLOUD_PROJECT: pname
       DATASTORE_EMULATOR_HOST: datastore:8000
       DATASTORE_PROJECT_ID: pname
-    volumes:
-      - ./tools/meilisearch-index-generator:/app
 
   meilisearch:
     image: getmeili/meilisearch
@@ -60,8 +52,6 @@ services:
       DATASTORE_PROJECT_ID: pname
     ports:
       - 8811:8811
-    volumes:
-      - ./fixtures/service-account.json:/tmp/key/creds.json:ro
 
 
   frontend:
