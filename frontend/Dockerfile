@@ -2,10 +2,10 @@ FROM node:lts-buster-slim
 
 RUN mkdir /code
 WORKDIR /code
-ADD ./package.json /code
-ADD ./yarn.lock /code
+ADD ./package.json ./
+ADD ./yarn.lock ./
 
-RUN --mount=target=/code/node_modules,type=cache yarn install
+RUN yarn install
 
 COPY . /code
 
