@@ -40,7 +40,9 @@ services:
       - 7700:7700
 
   datastore:
-    image: google/cloud-sdk
+    build:
+      context: ./gcloud-emulator/
+      dockerfile: Dockerfile-datastore
     command: gcloud beta emulators datastore start --project=pname --host-port 0.0.0.0:8000 --no-store-on-disk
     ports:
       - 8000:8000
