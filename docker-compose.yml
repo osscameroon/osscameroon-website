@@ -4,6 +4,7 @@ services:
   #find a way to tear this down after the init scripts has worked
   setup-datastore:
     build: ./scripts/setup-datastore/
+    command: ["/wait-for-it/wait-for-it.sh", "datastore:8000", "--", "make", "run-with-emulator"]
     depends_on:
       - datastore
     environment:
@@ -12,10 +13,13 @@ services:
       GCLOUD_PROJECT: pname
       DATASTORE_EMULATOR_HOST: datastore:8000
       DATASTORE_PROJECT_ID: pname
+    volumes:
+      - ./scripts/wait-for-it/:/wait-for-it
 
   #find a way to tear this down after the init scripts has worked
   setup-meilisearch:
     build: ./tools/meilisearch-index-generator/
+    command: ["/wait-for-it/wait-for-it.sh", "meilisearch:7700", "--", "make", "run-with-emulator"]
     depends_on:
       - setup-datastore
       - meilisearch
@@ -25,6 +29,8 @@ services:
       GCLOUD_PROJECT: pname
       DATASTORE_EMULATOR_HOST: datastore:8000
       DATASTORE_PROJECT_ID: pname
+    volumes:
+      - ./scripts/wait-for-it/:/wait-for-it
 
   meilisearch:
     image: getmeili/meilisearch
