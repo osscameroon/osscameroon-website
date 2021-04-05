@@ -67,7 +67,7 @@ services:
     depends_on:
       - api
     environment:
-      REACT_APP_API_BASE_URL: http://api:8811
+      REACT_APP_API_BASE_URL: http://localhost:8811
       REACT_ENV: development
     ports:
       - 3000:3000
