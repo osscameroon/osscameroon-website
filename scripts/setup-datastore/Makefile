@@ -10,23 +10,24 @@ $(VENVPATH)/bin/activate: requirements.txt
 	pip install -r requirements.txt; \
 	touch $(VENVPATH)/bin/activate;
 
-
-##venv: setup your dev environment
+##install-deps: setup your dev environment
 install-deps: venv
 
-##run: run the indexer
+##run-with-emulator: populate gcloud datastore emulator
+## 		example: make run-with-emulator
+run-with-emulator: install-deps
+	$(PYTHON) -m app.cli
+
+##run: populate gcloud datastore emulator
 ## 		example: make run
 run: install-deps
 	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) -m app.cli
 
-##run-with-emulator: to run the indexer with the gcloud datastore emulator
-##      example: make run-with-emulator
-run-with-emulator: install-deps
-	$(PYTHON) -m app.cli
-
 lint: venv
 	$(PYTHON) -m flake8 . --show-source --statistics
-	$(PYTHON) -m flake8 ./ --statistics
+
+deploy: test
+	cd deploy && ./deploy.sh
 
 ##test: test your code
 test: install-deps lint

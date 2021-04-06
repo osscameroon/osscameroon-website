@@ -55,3 +55,6 @@ app.*.map.json
 config.txt
 
 node_modules
+
+#meilisearch
+data.ms
