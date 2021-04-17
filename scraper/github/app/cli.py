@@ -1,5 +1,3 @@
-import sys
-sys.path.append("/home/jefcolbi/Projets/Community/osscameroon-website/scraper/github")
 import argparse
 from app.scrape_users import scrape_users
 from app.scrape_projects import scrape_projects

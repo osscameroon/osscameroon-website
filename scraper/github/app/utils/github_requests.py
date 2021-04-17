@@ -3,12 +3,12 @@
 
 import requests
 import json
-from typing import List, Dict, Tuple, Optional, Union, Callable
-import  logging
-logging.basicConfig(level=logging.DEBUG)
+from typing import List, Dict, Tuple, Union, Callable
+import logging
 from app.settings import GITHUB_API, GITHUB_TOKEN
-import time
-from datetime import  date
+from datetime import date
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 class GithubClient:
@@ -19,19 +19,19 @@ class GithubClient:
     def __init__(self):
         self.GITHUB_API = GITHUB_API
         self.GITHUB_TOKEN = GITHUB_TOKEN
-        self.session:requests.Session = requests.Session()
+        self.session: requests.Session = requests.Session()
         self.session.headers.update({"Authorization": f"token {self.GITHUB_TOKEN}"})
         self.logger = logging.getLogger("")
 
         # configure a console handler
-        #console = logging.StreamHandler()
-        #console.setLevel(logging.INFO)
-        #self.logger.addHandler(console)
+        # console = logging.StreamHandler()
+        # console.setLevel(logging.INFO)
+        # self.logger.addHandler(console)
 
-    def request_failed(self, ret:Dict) -> bool:
+    def request_failed(self, ret: Dict) -> bool:
         return ret and "status" in ret and ret["status"] == "error"
 
-    def status_check(self, r:requests.Response) -> Tuple[bool, Dict]:
+    def status_check(self, r: requests.Response) -> Tuple[bool, Dict]:
         """
 
         Just return a message when the request's status is not 200
@@ -56,8 +56,8 @@ class GithubClient:
         else:
             return True, {}
 
-    def get_users(self, pagination_limit: int = 2, on_pageloaded_success:Callable[[List[Dict]], None]=None,
-                  on_pageloaded_error:Callable[[Dict], None]=None) -> Union[List[Dict], Dict]:
+    def get_users(self, pagination_limit: int = 2, on_pageloaded_success: Callable[[List[Dict]], None] = None,  # noqa: C901
+                  on_pageloaded_error: Callable[[Dict], None] = None) -> Union[List[Dict], Dict]:
         """
 
         This method will just fetch users from
@@ -79,8 +79,8 @@ class GithubClient:
             # We set our query
             # .format() is slow let's use f-string
             self.logger.info(f"Fetching page={page}, last_date={last_date}")
-            query = f"created:<{last_date}+sort:joined-desc+location:%22cameroon%22+location:%22cameroun%22&page={page}" \
-                    f"&per_page={per_page}"
+            query = f"created:<{last_date}+sort:joined-desc+location:%22cameroon%22+location:%22cameroun%22" \
+                    f"&page={page}&per_page={per_page}"
 
             # a simple request to the api
             r = self.session.get(f"{self.GITHUB_API}/search/users?q={query}")
@@ -89,10 +89,10 @@ class GithubClient:
             if not schk[0]:
                 # we check if on_pageloaded_error is a function
                 error_code = schk[1]["code"]
-                if error_code == 422: # we hit 1000 limit, downgrading the date
-                    last_user:dict = users[-1]
+                if error_code == 422:  # we hit 1000 limit, downgrading the date
+                    last_user: dict = users[-1]
                     last_user = self.get_user(last_user["login"])
-                    updated_at:str = last_user["updated_at"]
+                    updated_at: str = last_user["updated_at"]
                     if updated_at:
                         last_date = updated_at.split("T")[0]
                         page = 1
@@ -131,8 +131,8 @@ class GithubClient:
                 break
 
             page += 1
-            pagination_limit -= 1 # ensure we respect the pagination
-            #time.sleep(1) # we sleep 1 seconds to no flood the api
+            pagination_limit -= 1  # ensure we respect the pagination
+            # time.sleep(1) # we sleep 1 seconds to no flood the api
 
         self.logger.info(f"We found a total of {len(users)} users")
         return users
