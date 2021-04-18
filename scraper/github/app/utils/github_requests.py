@@ -2,8 +2,7 @@
 # github requests functions
 
 import requests
-import json
-from typing import List, Dict, Tuple, Union, Callable
+from typing import List, Dict, Tuple, Union, Callable, Any
 import logging
 from app.settings import GITHUB_API, GITHUB_TOKEN
 from datetime import date
@@ -22,11 +21,6 @@ class GithubClient:
         self.session: requests.Session = requests.Session()
         self.session.headers.update({"Authorization": f"token {self.GITHUB_TOKEN}"})
         self.logger = logging.getLogger("")
-
-        # configure a console handler
-        # console = logging.StreamHandler()
-        # console.setLevel(logging.INFO)
-        # self.logger.addHandler(console)
 
     def request_failed(self, ret: Dict) -> bool:
         return ret and "status" in ret and ret["status"] == "error"
@@ -48,7 +42,7 @@ class GithubClient:
                 {
                     "status": "error",
                     "url": r.url,
-                    "payload": json.loads(r.content),
+                    "payload": r.json(),
                     "message": "Something went wrong with the request",
                     "code": r.status_code,
                 },
@@ -56,8 +50,8 @@ class GithubClient:
         else:
             return True, {}
 
-    def get_users(self, pagination_limit: int = 2, on_pageloaded_success: Callable[[List[Dict]], None] = None,  # noqa: C901
-                  on_pageloaded_error: Callable[[Dict], None] = None) -> Union[List[Dict], Dict]:
+    def get_users(self, pagination_limit: int = 2, on_pageloaded_success: Callable[[Any, List[Dict]], None] = None,  # noqa: C901
+                  on_pageloaded_error: Callable[[Any, Dict], None] = None) -> Union[List[Dict], Dict]:
         """
 
         This method will just fetch users from
@@ -76,15 +70,14 @@ class GithubClient:
                          f" per_page={per_page}, last_updated_date={last_date}")
 
         while pagination_limit:
-            # We set our query
-            # .format() is slow let's use f-string
             self.logger.info(f"Fetching page={page}, last_date={last_date}")
+            # we set the query, fetch users created before last_date, sort them by join date desc
+            # located in cameroon or cameroun
             query = f"created:<{last_date}+sort:joined-desc+location:%22cameroon%22+location:%22cameroun%22" \
                     f"&page={page}&per_page={per_page}"
 
-            # a simple request to the api
             r = self.session.get(f"{self.GITHUB_API}/search/users?q={query}")
-            # We check the status of the requet and return a predefined error message
+            # We check the status of the request and return a predefined error message
             schk = self.status_check(r)
             if not schk[0]:
                 # we check if on_pageloaded_error is a function
@@ -99,7 +92,7 @@ class GithubClient:
                         continue
 
                 if callable(on_pageloaded_error):
-                    on_pageloaded_error(schk[1])
+                    on_pageloaded_error(self, schk[1])
                 else:
                     self.logger.warning(f"on_pageloaded_error is passed but it is not callable {on_pageloaded_error}")
                 return schk[1]
@@ -119,11 +112,11 @@ class GithubClient:
                 users_ids.add(item["id"])
 
             if callable(on_pageloaded_success):
-                on_pageloaded_success(unique_items)
+                on_pageloaded_success(self, unique_items)
             else:
                 self.logger.warning(f"on_pageloaded_success is passed but it is not callable {on_pageloaded_success}")
 
-            # We append or merge by ensuring uniciting
+            # We append or merge by ensuring unicity
             users.extend(unique_items)
 
             # if we get less than per_page there is no more result
@@ -132,7 +125,6 @@ class GithubClient:
 
             page += 1
             pagination_limit -= 1  # ensure we respect the pagination
-            # time.sleep(1) # we sleep 1 seconds to no flood the api
 
         self.logger.info(f"We found a total of {len(users)} users")
         return users

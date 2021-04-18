@@ -2,8 +2,6 @@ from app.utils.github_requests import GithubClient
 from datetime import datetime
 from app.utils.storage import store_user
 
-github_cli = GithubClient()
-
 
 def convert_time_fields_to_date_time(user):
     d = user["created_at"]
@@ -15,7 +13,7 @@ def convert_time_fields_to_date_time(user):
     user["updated_at"] = d
 
 
-def store_users(users):
+def store_users(github_cli: GithubClient, users):
     """
 
     This callback stores user data in our gcp datastore database
@@ -45,7 +43,7 @@ def store_users(users):
     print("Page user data stored.")
 
 
-def on_pageloaded_error(ret):
+def on_pageloaded_error(github_cli: GithubClient, ret):
     if github_cli.request_failed(ret):
         print("Failed to save user data: {} .".format(ret))
         return
@@ -53,6 +51,7 @@ def on_pageloaded_error(ret):
 
 
 def scrape_users(prs):
+    github_cli = GithubClient()
     if prs.user_name != "":
         print("[+] Getting dev information about: {}".format(prs.user_name))
         user = github_cli.get_user(prs.user_name)
