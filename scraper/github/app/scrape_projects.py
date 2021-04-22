@@ -1,7 +1,8 @@
-from app.utils.github_requests import get_user_repos, request_failed
+from app.utils.github_requests import GithubClient
 from app.utils.storage import fetch_all_users, store_project
 from datetime import datetime
 import time
+
 
 def convert_time_fields_to_date_time(repo):
     d = repo["created_at"]
@@ -11,6 +12,7 @@ def convert_time_fields_to_date_time(repo):
     d = repo["updated_at"]
     d = datetime.strptime(d, "%Y-%m-%dT%H:%M:%SZ")
     repo["updated_at"] = d
+
 
 def filter_relevant_repos(repos):
     ret = []
@@ -24,12 +26,15 @@ def filter_relevant_repos(repos):
         ret.append(r)
     return ret
 
+
 def on_pageloaded_success(page):
+    github_cli = GithubClient()
+
     for u in page:
         user_name = u["login"]
         print("fetching user {} repositories...".format(user_name))
-        repos = get_user_repos(user_name)
-        if request_failed(repos):
+        repos = github_cli.get_user_repos(user_name)
+        if github_cli.request_failed(repos):
             print("Error: {}: failed to get user {} repositories.".format(repos, user_name))
             return
         print("user {} repositories successfully fetched!".format(user_name))
@@ -53,6 +58,7 @@ def on_pageloaded_success(page):
     print("Waiting for {} seconds".format(pause_time))
     time.sleep(pause_time)
     print("End page process !\n")
+
 
 def scrape_projects(prs):
     print("[+] Getting devs from cameroun/cameroon...")
