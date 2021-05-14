@@ -104,7 +104,7 @@ export const ProjectPage = (): JSX.Element => {
                     {formatMessage(projectMessages.btnReset)} <BsArrowClockwise />
                   </div>
                 </div>
-                <Form>
+                <Form onSubmit={onFilterSubmit}>
                   <FormGroup>
                     <Label className="font-weight-bold" htmlFor="title">
                       {formatMessage(projectMessages.titleLabel)}
@@ -128,7 +128,7 @@ export const ProjectPage = (): JSX.Element => {
                   )}
 
                   <FormGroup className="text-center pt-4">
-                    <Button color="primary" onClick={onFilterSubmit}>
+                    <Button color="primary" type="submit" onClick={onFilterSubmit}>
                       {formatMessage(projectMessages.btnFilter)}
                     </Button>
                   </FormGroup>

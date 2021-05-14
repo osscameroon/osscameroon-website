@@ -131,7 +131,7 @@ const DeveloperPage = () => {
                 </div>
               )}
               <div className="dropdown-divider" />
-              <Form>
+              <Form onSubmit={onFilterSubmit}>
                 <FormGroup>
                   <Label className="filter-label" htmlFor="title">
                     {formatMessage(developerMessages.jobTitleLabel)}
@@ -183,7 +183,7 @@ const DeveloperPage = () => {
                 )}
 
                 <div className="d-flex justify-content-center mt-4 mb-3">
-                  <Button className="pl-4 pr-4" color="primary" type="button" onClick={onFilterSubmit}>
+                  <Button className="pl-4 pr-4" color="primary" type="submit" onClick={onFilterSubmit}>
                     {formatMessage(developerMessages.btnFilter)}
                   </Button>
                 </div>
