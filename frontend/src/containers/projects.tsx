@@ -58,7 +58,8 @@ export const ProjectPage = (): JSX.Element => {
     setLanguages(values);
   };
 
-  const onFilterSubmit = () => {
+  const onFilterSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
     const input = {
       title: projectTitle,
       tools: languages.map((value) => value.id),
@@ -128,7 +129,7 @@ export const ProjectPage = (): JSX.Element => {
                   )}
 
                   <FormGroup className="text-center pt-4">
-                    <Button color="primary" type="submit" onClick={onFilterSubmit}>
+                    <Button color="primary" type="submit">
                       {formatMessage(projectMessages.btnFilter)}
                     </Button>
                   </FormGroup>
