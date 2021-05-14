@@ -76,7 +76,8 @@ const DeveloperPage = () => {
     values.toString();
   };
 
-  const onFilterSubmit = async () => {
+  const onFilterSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
     const newFilters: Partial<DeveloperQueryFilter> = {
       title: jobTitle,
       tools: tools.map((value) => value.id).join(" "),
@@ -131,7 +132,7 @@ const DeveloperPage = () => {
                 </div>
               )}
               <div className="dropdown-divider" />
-              <Form>
+              <Form onSubmit={onFilterSubmit}>
                 <FormGroup>
                   <Label className="filter-label" htmlFor="title">
                     {formatMessage(developerMessages.jobTitleLabel)}
@@ -183,7 +184,7 @@ const DeveloperPage = () => {
                 )}
 
                 <div className="d-flex justify-content-center mt-4 mb-3">
-                  <Button className="pl-4 pr-4" color="primary" type="button" onClick={onFilterSubmit}>
+                  <Button className="pl-4 pr-4" color="primary" type="submit">
                     {formatMessage(developerMessages.btnFilter)}
                   </Button>
                 </div>
