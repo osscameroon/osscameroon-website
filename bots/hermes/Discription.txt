@@ -1,3 +1,0 @@
-This is a telegram bot that will help to sort projects in the 
-osscameroon and give recommendations on weekly basis
-on the verious osscameroon platforms such as telegram 
