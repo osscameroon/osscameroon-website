@@ -1,4 +1,5 @@
 import React from "react";
+import { setHttp } from "../../utils/absoluteLink";
 
 type DeveloperItemLinkProps = {
   alt: string;
@@ -9,7 +10,7 @@ type DeveloperItemLinkProps = {
 
 const DeveloperItemLink = ({ alt, link, picture, text }: DeveloperItemLinkProps) => {
   return (
-    <a className="dark-color" href={link} rel="noreferrer" target="_blank">
+    <a className="dark-color" href={setHttp(link)} rel="noreferrer" target="_blank">
       <img alt={alt} src={picture} /> {text || link}
     </a>
   );
