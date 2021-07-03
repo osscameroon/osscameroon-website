@@ -113,6 +113,7 @@ const HomePage = () => {
                     <Col key={i} md="4" style={{ margin: "20px 0 20px 0" }}>
                       <Project
                         description={project.description}
+                        issues={project.open_issues_count}
                         language={project.language}
                         link={project.html_url}
                         name={project.name}

@@ -161,6 +161,7 @@ export const ProjectPage = (): JSX.Element => {
                   <Row className="project-row" key={i}>
                     <Project
                       description={project.description || ""}
+                      issues={project.open_issues_count}
                       language={project.language}
                       link={project.html_url}
                       name={project.name}

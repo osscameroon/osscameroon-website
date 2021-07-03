@@ -99,6 +99,7 @@ export type PaginationChangeEventData = {
 };
 
 export type GithubProject = {
+  open_issues_count: number;
   id: number;
   name: string;
   stargazers_count: number;
