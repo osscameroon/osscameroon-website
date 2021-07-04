@@ -17,7 +17,7 @@ const Developer = ({ developer }: DeveloperProps) => {
       <Card>
         <CardImg alt="Dev picture" src={picture} top />
         <CardBody>
-          <CardTitle tag="h5">{developer.name}</CardTitle>
+          <CardTitle tag="h5">{developer.name ? developer.name : developer.login}</CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
             {developer.company}
           </CardSubtitle>
