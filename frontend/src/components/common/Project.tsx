@@ -11,13 +11,14 @@ import { ThemeContext, DARK } from "../utils/ThemeProvider";
 type ProjectProps = {
   name: string;
   description: string;
+  issues: number;
   language: string;
   stars: number;
   link: string;
   type: "small" | "big";
 };
 
-const Project = ({ description, language, link, name, stars, type }: ProjectProps) => {
+const Project = ({ description, issues, language, link, name, stars, type }: ProjectProps) => {
   const { formatMessage } = useIntl();
   const themeContext = useContext(ThemeContext);
 
@@ -61,6 +62,7 @@ const Project = ({ description, language, link, name, stars, type }: ProjectProp
           <p style={style.p}>{displayDescription}</p>
           <div className="d-flex">
             <div className="project-language">{language || defaultLanguage}</div>
+            <div className="project-language"> Issues {issues}</div>
             <div className="d-flex justify-content-start align-items-center">
               <img alt="star icon" src={themeContext.theme === DARK ? starLightIcon : starIcon} />
               &ensp;

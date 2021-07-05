@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, useContext } from "react";
-import { Input, InputGroup, InputGroupAddon, Button, Container, Row, Col } from "reactstrap";
+import { Form, Input, InputGroup, InputGroupAddon, Button, Container, Row, Col } from "reactstrap";
 import { useIntl } from "react-intl";
 import { NavLink, useHistory } from "react-router-dom";
 
@@ -77,18 +77,18 @@ const HomePage = () => {
         <section className="item-center" id="search">
           <div className="text-center">
             <h2>{formatMessage(homeMessages.searchTitle)}</h2>
-            <form className="search-form">
+            <Form className="search-form" onSubmit={onSearch}>
               <div>
                 <InputGroup>
                   <Input className="search-input" placeholder="ex: Full Stack Web Developer" onChange={onSearchKeyChange} />
                   <InputGroupAddon addonType="append">
-                    <Button className="search-button" onClick={onSearch}>
+                    <Button className="search-button">
                       <img alt="search button" src={search} />
                     </Button>
                   </InputGroupAddon>
                 </InputGroup>
               </div>
-            </form>
+            </Form>
             {/*
             <a href="#">
               <img alt="circle down arrow" src="/static/icons/circle-down-arrow.svg" /> <br />
@@ -113,6 +113,7 @@ const HomePage = () => {
                     <Col key={i} md="4" style={{ margin: "20px 0 20px 0" }}>
                       <Project
                         description={project.description}
+                        issues={project.open_issues_count}
                         language={project.language}
                         link={project.html_url}
                         name={project.name}

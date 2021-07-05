@@ -7,7 +7,7 @@ protobuf==3.14.0
 requests==2.25.1
 six==1.15.0
 tqdm==4.54.1
-urllib3==1.26.2
+urllib3==1.26.5
 google-cloud-datastore==2.1.0
 flake8
 pytest
