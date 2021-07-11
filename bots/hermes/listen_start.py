@@ -1,14 +1,12 @@
 '''
 # This code is intended to listen to /start command and register chats, should be once in the database
 '''
+import config
 import logging
+import dbstore
 from telegram.ext import (Updater, CommandHandler)
 
-import dbstore
-
-
-updater = Updater(
-    token='TOKEN', use_context=True)
+updater = Updater(token=config.get_config()['Telegram']['token'], use_context=True)
 
 dispatcher = updater.dispatcher
 
