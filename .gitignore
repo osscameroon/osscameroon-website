@@ -58,3 +58,5 @@ node_modules
 
 #meilisearch
 data.ms
+bots/hermes/config.ini
+bots/hermes/config.txt
