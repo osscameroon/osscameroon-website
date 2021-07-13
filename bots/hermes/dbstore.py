@@ -78,3 +78,4 @@ def get_chats():
     query = client.query(kind=KIND_HERMES_CHATS)
 
     return list(query.fetch())
+    
