@@ -1,2 +1,17 @@
-telegram
-google.cloud
+# For the bot 
+telegrambot
+logging 
+
+
+#For data storage 
+google-cloud-datastore
+
+
+#For configuration 
+configparser
+
+
+# For the rest 
+datetime 
+
+
