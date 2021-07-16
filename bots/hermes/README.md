@@ -16,7 +16,7 @@ python -m venv <venv name>
 source <venv name>/bin/activate
 ```
 
-- Install requirements:
+- install requirements:
 ```shell 
 pip install -r requirements.txt
 ```
@@ -29,5 +29,5 @@ To register a group or channel, run gcloud credentials with listen_start.py
 
 ### read data from a db
 ```shell
-un gcloud credentials cron_script.py 
+Run gcloud credentials cron_script.py 
 ```

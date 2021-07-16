@@ -2,16 +2,11 @@
 telegrambot
 logging 
 
-
 #For data storage 
 google-cloud-datastore
-
 
 #For configuration 
 configparser
 
-
 # For the rest 
 datetime 
-
-
