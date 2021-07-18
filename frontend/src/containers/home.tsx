@@ -74,7 +74,7 @@ const HomePage = () => {
           </Container>
         </section>
 
-        <section className="item-center" id="search">
+        <section className="item-center pb-1 pt-3" id="search">
           <div className="text-center">
             <h2>{formatMessage(homeMessages.searchTitle)}</h2>
             <Form className="search-form" onSubmit={onSearch}>
@@ -87,6 +87,11 @@ const HomePage = () => {
                     </Button>
                   </InputGroupAddon>
                 </InputGroup>
+              </div>
+              <div className="item-center mt-4">
+                <a href="https://opencollective.com/webpack/donate" target="_blank">
+                  <img src="https://opencollective.com/webpack/donate/button@2x.png?color=white" width={300} />
+                </a>
               </div>
             </Form>
             {/*
