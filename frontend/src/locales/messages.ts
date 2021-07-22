@@ -36,6 +36,10 @@ export const commonMessages = defineMessages({
     id: "app.common.blog",
     defaultMessage: "Blog",
   },
+  yotas: {
+    id: "app.common.yotas",
+    defaultMessage: "Shop",
+  },
 
   joinUs: {
     id: "app.common.joinUs",
@@ -138,6 +142,10 @@ export const footerMessages = defineMessages({
   tweets: {
     id: "app.footer.tweets",
     defaultMessage: "Tweets",
+  },
+  yotas: {
+    id: "app.common.yotas",
+    defaultMessage: "Shop",
   },
   privacy: {
     id: "app.footer.privacy",
