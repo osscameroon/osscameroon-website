@@ -61,22 +61,16 @@ const HomePage = () => {
             <Row>
               <Col md="6">
                 <h1>{formatMessage(homeMessages.mainTitle)}</h1>
-                <Row>
-                  <Col sm="6">
-                    <p className="main-text">
-                      <NavLink to="/projects">
-                        <span className="navbar-brand cursor-pointer btn btn-outline-primary btn-sm">{formatMessage(homeMessages.btnToProject)}</span>
-                      </NavLink>
-                    </p>
-                  </Col>
-                  <Col>
-                    <p className="main-text">
-                      <a href="https://opencollective.com/osscameroon/donate" rel="noreferrer" target="_blank">
-                        <span className="navbar-brand cursor-pointer btn-primary btn-sm">{formatMessage(homeMessages.btnToSupport)}</span>
-                      </a>
-                    </p>
-                  </Col>
-                </Row>
+                <p className="main-text">
+                  <NavLink to="/projects">
+                    <span className="navbar-brand cursor-pointer btn btn-outline-primary btn-sm">{formatMessage(homeMessages.btnToProject)}</span>
+                  </NavLink>
+                </p>
+                <p className="main-text">
+                  <a href="https://opencollective.com/osscameroon/donate" rel="noreferrer" target="_blank">
+                    <span className="navbar-brand cursor-pointer btn-primary btn-sm">{formatMessage(homeMessages.btnToSupport)}</span>
+                  </a>
+                </p>
               </Col>
               <Col className="text-right" md="6">
                 <img alt="developer illustration" className="d-none d-md-block" src={developer} style={{ marginTop: "30px" }} />
