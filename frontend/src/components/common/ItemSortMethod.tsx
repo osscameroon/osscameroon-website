@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useIntl } from "react-intl";
 import { Form, FormGroup } from "reactstrap";
 import Select from "react-select";
 
 import { projectMessages } from "../../locales/messages";
 import { OrderOption } from "../../utils/types";
+import { ThemeContext, LIGHT } from "../utils/ThemeProvider";
 
 const orderOptions: OrderOption[] = [
   { value: "popularity", label: "mostPopularOption" },
@@ -18,6 +19,22 @@ type ItemSortMethodProps = {
 
 const ItemSortMethod = ({ onChange }: ItemSortMethodProps) => {
   const { formatMessage } = useIntl();
+  const themeContext = useContext(ThemeContext);
+
+  const customStyles = {
+    menu: (styles: any) => ({
+      ...styles,
+      background: `${themeContext.theme === LIGHT ? "#ffffff" : "var(--dark)"}`,
+    }),
+    option: (styles: any) => ({
+      ...styles,
+      background: `${themeContext.theme === LIGHT ? null : "var(--dark)"}`,
+      ":hover": {
+        background: `${themeContext.theme === LIGHT ? null : "#ffffff"}`,
+        color: `${themeContext.theme === LIGHT ? null : "#000000"}`,
+      },
+    }),
+  };
 
   const translatedOrderOptions = orderOptions.map((option) => ({
     ...option,
@@ -29,7 +46,7 @@ const ItemSortMethod = ({ onChange }: ItemSortMethodProps) => {
       <h4 className="bold">{formatMessage(projectMessages.sortTitle)}</h4>
       <Form>
         <FormGroup>
-          <Select options={translatedOrderOptions} onChange={(e) => onChange(e?.value || "")} />
+          <Select options={translatedOrderOptions} styles={customStyles} onChange={(e) => onChange(e?.value || "")} />
         </FormGroup>
       </Form>
     </>
