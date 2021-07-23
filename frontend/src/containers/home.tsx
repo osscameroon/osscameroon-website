@@ -62,7 +62,7 @@ const HomePage = () => {
               <Col md="6">
                 <h1>{formatMessage(homeMessages.mainTitle)}</h1>
                 <Row>
-                  <Col sm="5">
+                  <Col sm="6">
                     <p className="main-text">
                       <NavLink to="/projects">
                         <span className="navbar-brand cursor-pointer btn btn-outline-primary btn-sm">{formatMessage(homeMessages.btnToProject)}</span>
@@ -71,7 +71,7 @@ const HomePage = () => {
                   </Col>
                   <Col>
                     <p className="main-text">
-                      <a href="https://opencollective.com/osscameroon/donate" target="_blank">
+                      <a href="https://opencollective.com/osscameroon/donate" rel="noreferrer" target="_blank">
                         <span className="navbar-brand cursor-pointer btn-primary btn-sm">{formatMessage(homeMessages.btnToSupport)}</span>
                       </a>
                     </p>
