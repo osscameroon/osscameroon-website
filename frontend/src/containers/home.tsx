@@ -85,7 +85,7 @@ const HomePage = () => {
           </Container>
         </section>
 
-        <section className="item-center pb-1 pt-3" id="search">
+        <section className="item-center" id="search">
           <div className="text-center">
             <h2>{formatMessage(homeMessages.searchTitle)}</h2>
             <Form className="search-form" onSubmit={onSearch}>
