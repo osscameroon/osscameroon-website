@@ -5,7 +5,6 @@ import Select from "react-select";
 
 import { projectMessages } from "../../locales/messages";
 import { OrderOption } from "../../utils/types";
-
 import { ThemeContext, LIGHT } from "../utils/ThemeProvider";
 
 const orderOptions: OrderOption[] = [
