@@ -61,11 +61,22 @@ const HomePage = () => {
             <Row>
               <Col md="6">
                 <h1>{formatMessage(homeMessages.mainTitle)}</h1>
-                <p className="main-text">
-                  <NavLink to="/projects">
-                    <span className="navbar-brand cursor-pointer btn btn-outline-primary btn-sm">{formatMessage(homeMessages.btnToProject)}</span>
-                  </NavLink>
-                </p>
+                <Row>
+                  <Col sm="5">
+                    <p className="main-text">
+                      <NavLink to="/projects">
+                        <span className="navbar-brand cursor-pointer btn btn-outline-primary btn-sm">{formatMessage(homeMessages.btnToProject)}</span>
+                      </NavLink>
+                    </p>
+                  </Col>
+                  <Col>
+                    <p className="main-text">
+                      <a href="https://opencollective.com/osscameroon/donate" target="_blank">
+                        <span className="navbar-brand cursor-pointer btn-primary btn-sm">{formatMessage(homeMessages.btnToSupport)}</span>
+                      </a>
+                    </p>
+                  </Col>
+                </Row>
               </Col>
               <Col className="text-right" md="6">
                 <img alt="developer illustration" className="d-none d-md-block" src={developer} style={{ marginTop: "30px" }} />
@@ -87,11 +98,6 @@ const HomePage = () => {
                     </Button>
                   </InputGroupAddon>
                 </InputGroup>
-              </div>
-              <div className="item-center mt-4">
-                <a href="https://opencollective.com/webpack/donate" target="_blank">
-                  <img src="https://opencollective.com/webpack/donate/button@2x.png?color=white" width={300} />
-                </a>
               </div>
             </Form>
             {/*
