@@ -44,6 +44,11 @@ const Header = () => {
                   {formatMessage(commonMessages.blog)}
                 </a>
               </NavItem>
+              <NavItem className="nav-item item-center">
+                <a className="txt-dark" href="https://miniyotas.osscameroon.com/shop" rel="noreferrer" target="_blank">
+                  {formatMessage(commonMessages.yotas)}
+                </a>
+              </NavItem>
             </Nav>
             <div className="nav-item item-center">
               <a
