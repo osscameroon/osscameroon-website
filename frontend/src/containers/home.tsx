@@ -66,6 +66,11 @@ const HomePage = () => {
                     <span className="navbar-brand cursor-pointer btn btn-outline-primary btn-sm">{formatMessage(homeMessages.btnToProject)}</span>
                   </NavLink>
                 </p>
+                <p className="main-text">
+                  <a href="https://opencollective.com/osscameroon/donate" rel="noreferrer" target="_blank">
+                    <span className="navbar-brand cursor-pointer btn-primary btn-sm">{formatMessage(homeMessages.btnToSupport)}</span>
+                  </a>
+                </p>
               </Col>
               <Col className="text-right" md="6">
                 <img alt="developer illustration" className="d-none d-md-block" src={developer} style={{ marginTop: "30px" }} />

@@ -182,6 +182,10 @@ export const homeMessages = defineMessages({
     id: "app.home.btnToProject",
     defaultMessage: "COMMUNITY PROJECTS",
   },
+  btnToSupport: {
+    id: "app.home.btnToSupport",
+    defaultMessage: "SUPPORT THE COMMUNITY",
+  },
   searchTitle: {
     id: "app.home.searchTitle",
     defaultMessage: "Looking for experienced developers?",
