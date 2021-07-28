@@ -19,6 +19,20 @@ type ItemSortMethodProps = {
 const ItemSortMethod = ({ onChange }: ItemSortMethodProps) => {
   const { formatMessage } = useIntl();
 
+  const customStyles = {
+    menu: (styles: any) => ({
+      ...styles,
+      background: "var(--light-color)",
+    }),
+    option: (styles: any) => ({
+      ...styles,
+      ":hover": {
+        background: "var(--option-color)",
+        color: "var(--hover-color)",
+      },
+    }),
+  };
+
   const translatedOrderOptions = orderOptions.map((option) => ({
     ...option,
     label: formatMessage(projectMessages[option.label]),
@@ -29,7 +43,7 @@ const ItemSortMethod = ({ onChange }: ItemSortMethodProps) => {
       <h4 className="bold">{formatMessage(projectMessages.sortTitle)}</h4>
       <Form>
         <FormGroup>
-          <Select options={translatedOrderOptions} onChange={(e) => onChange(e?.value || "")} />
+          <Select options={translatedOrderOptions} styles={customStyles} onChange={(e) => onChange(e?.value || "")} />
         </FormGroup>
       </Form>
     </>
