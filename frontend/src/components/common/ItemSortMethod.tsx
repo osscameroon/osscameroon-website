@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import { Form, FormGroup } from "reactstrap";
 import Select from "react-select";
 
 import { projectMessages } from "../../locales/messages";
 import { OrderOption } from "../../utils/types";
-import { ThemeContext, LIGHT } from "../utils/ThemeProvider";
 
 const orderOptions: OrderOption[] = [
   { value: "popularity", label: "mostPopularOption" },
@@ -19,19 +18,17 @@ type ItemSortMethodProps = {
 
 const ItemSortMethod = ({ onChange }: ItemSortMethodProps) => {
   const { formatMessage } = useIntl();
-  const themeContext = useContext(ThemeContext);
 
   const customStyles = {
     menu: (styles: any) => ({
       ...styles,
-      background: `${themeContext.theme === LIGHT ? "#ffffff" : "var(--dark)"}`,
+      background: "var(--light-color)",
     }),
     option: (styles: any) => ({
       ...styles,
-      background: `${themeContext.theme === LIGHT ? null : "var(--dark)"}`,
       ":hover": {
-        background: `${themeContext.theme === LIGHT ? null : "#ffffff"}`,
-        color: `${themeContext.theme === LIGHT ? null : "#000000"}`,
+        background: "var(--option-color)",
+        color: "var(--hover-color)",
       },
     }),
   };
