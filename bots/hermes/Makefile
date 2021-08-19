@@ -1,61 +1,43 @@
+# we need shell to source the venv
 SHELL := /bin/bash
 .DEFAULT_GOAL=help
 
+CONFIG_FILE=./config.ini
 VENVPATH=venv
 PYTHON=$(VENVPATH)/bin/python3
 
-export GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json
-
-##venv-activate: Activate the virtual environment
-##
-venv-activate:
-	source $(VENVPATH)/bin/activate
-
-##venv: setup and install requirements in your dev environment
-##
-install: 
+venv: 
 	test -d $(VENVPATH) || virtualenv -p python3 $(VENVPATH)
-	chmod a+x $(VENVPATH)/bin/activate
 	source $(VENVPATH)/bin/activate
-	pip install -r requirements.txt
+	pip3 install -r requirements.txt
+	
 
-##gen_requirements: Generate the requirements file
-##
-gen_requirements: venv-activate
-	pip freeze > requirements.txt
+CONFIG_FILE:
+	echo "adding config file..."
+	cp example.config.ini $(CONFIG_FILE)
 
-##uninstall: uninstall all requirements
-##
-uninstall:
+##install-deps: setup your dev environment
+install-deps: venv
+
+##run: run the bot locally
+run: install-deps
+	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) cron_script.py
+
+start: install-deps
+	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) listen_start.py
+
+lint: venv
+	$(PYTHON) -m flake8 . --show-source --statistics
+
+##test: test your code
+test: install-deps lint
+	$(PYTHON) -m pytest
+
+clean:
 	rm -rf $(VENVPATH)
 
-##run: run the cron script
-##  example: make run
-##
-run: venv-activate
-	python cron_script.py
-
-##start: Run start script to listen for /start commands
-##  example: make start
-##
-start: venv-activate
-	python listen_start.py
-
-##lint: lint code, TODO
-##
-lint: venv-activate
-
-##test: test code, TODO
-##
-test: venv-activate
-
-##clean: clean up code
-##
-clean: uninstall
-
 ##help: show help
-##
 help : Makefile
 	@sed -n 's/^##//p' $<
 
-.PHONY: help venv-activate install gen_requirements uninstall run start test lint
+.PHONY : help venv install-deps test lint run start
