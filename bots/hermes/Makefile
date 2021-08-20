@@ -6,18 +6,20 @@ CONFIG_FILE=./config.ini
 VENVPATH=venv
 PYTHON=$(VENVPATH)/bin/python3
 
-venv: 
-	test -d $(VENVPATH) || virtualenv -p python3 $(VENVPATH)
-	source $(VENVPATH)/bin/activate
-	pip3 install -r requirements.txt
+venv: $(VENVPATH)/bin/activate
+$(VENVPATH)/bin/activate: requirements.txt
+	test -d $(VENVPATH) || virtualenv -p python3 $(VENVPATH); \
+	. $(VENVPATH)/bin/activate; \
+	pip install -r requirements.txt; \
+	touch $(VENVPATH)/bin/activate;
 	
 
-CONFIG_FILE:
+$(CONFIG_FILE):
 	echo "adding config file..."
 	cp example.config.ini $(CONFIG_FILE)
 
 ##install-deps: setup your dev environment
-install-deps: venv
+install-deps: venv $(CONFIG_FILE)
 
 ##run: run the bot locally
 run: install-deps
