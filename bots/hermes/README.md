@@ -6,20 +6,14 @@
 - pip (21.1.2)
 - Bearer Token from @bot father intelegram 
 
-### Setting up a python virtualenv
+### Setting up a python virtualenv and reading data from database
 
 - Set up your virtualenv and install requirements: 
 ```shell
-make install
+make run
 ```
 
 ### get token from telegram api @bot father and start your bot
 ```shell
-To register a group or channel, run gcloud credentials with listen_start.py 
+To register a group or channel, make start
 which is run only once
-```
-
-### read data from a db
-```shell
-Run gcloud credentials cron_script.py 
-```
