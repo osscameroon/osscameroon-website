@@ -22,10 +22,10 @@ client = datastore.Client()
 
 
 def get_project():
-
+    """ Get a list of all projects """
     projects = list(client.query(kind=KIND_PROJECTS).fetch())
     notified = list(client.query(kind=KIND_HERMES_NOTIFIED).fetch())
-    print(len(projects))
+    
     if len(notified) == len(projects):
         return
 
