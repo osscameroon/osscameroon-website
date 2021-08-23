@@ -1,22 +1,23 @@
 #project-list {
-  #project-row-content {
-    margin: 0 15px 0 15px;
-    .project-row {
-      margin-top: 20px;
-      margin-bottom: 20px;
-      > div {
-        background-color: var(--card-bg);
-      }
+    #project-row-content {
+        margin: 0 15px 0 15px;
+        .project-row {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            >div {
+                background-color: var(--card-bg);
+            }
+        }
     }
-  }
 }
 
 .project-language {
-  background: #fff;
-  border: 1px solid #333333;
-  box-sizing: border-box;
-  border-radius: 20px;
-  color: #333333;
-  padding: 2px 15px;
-  margin-right: 10px;
+    background: #fff;
+    margin-bottom: 5px;
+    border: 1px solid #333333;
+    box-sizing: border-box;
+    border-radius: 20px;
+    color: #333333;
+    padding: 2px 15px;
+    margin-right: 10px;
 }
