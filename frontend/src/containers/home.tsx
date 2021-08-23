@@ -115,7 +115,7 @@ const HomePage = () => {
                 {!projectsLoading &&
                   !projectsError &&
                   projects_data?.result.hits.map((project, i) => (
-                    <Col key={i} md="4" style={{ margin: "20px 0 20px 0" }}>
+                    <Col key={i} md="6" style={{ margin: "20px 0 20px 0" }} xl="4">
                       <Project
                         description={project.description}
                         issues={project.open_issues_count}
