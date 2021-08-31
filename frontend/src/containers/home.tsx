@@ -5,8 +5,9 @@ import { NavLink, useHistory } from "react-router-dom";
 
 import Layout from "../components/layout/layout";
 import Tweet from "../components/common/Tweet";
+import OtherCommunitie from "../components/common/OtherCommunitie";
 import Project from "../components/common/Project";
-import { homeMessages, titleMessages } from "../locales/messages";
+import { homeMessages, titleMessages, othersOpenSourceCommunities } from "../locales/messages";
 
 import developer from "../assets/img/developer.svg";
 import search from "../assets/icons/search.svg";
@@ -164,6 +165,33 @@ const HomePage = () => {
             <a href="https://twitter.com/hashtag/caparledev" rel="noreferrer nofollow" target="_blank">
               <Button color="primary"> {formatMessage(homeMessages.btnViewMoreTweet)} </Button>
             </a>
+          </div>
+        </section>
+
+        <section className="item-center" id="projects">
+          <div className="text-center">
+            <h2> {formatMessage(homeMessages.othersOpenSourceCommunities)} </h2>
+            <Container>
+              <Row style={{ margin: "40px 0 40px 0" }}>
+                {othersOpenSourceCommunities.map((other_communitie, i) => (
+                  <Col key={i} md="4" style={{ margin: "20px 0 20px 0" }}>
+                    <OtherCommunitie
+                      description={other_communitie.description}
+                      github_account={other_communitie.github_account}
+                      image={other_communitie.image}
+                      name={other_communitie.name}
+                      others_link={other_communitie.others_link}
+                      telegram={other_communitie.telegram}
+                      twitter={other_communitie.twitter}
+                      website={other_communitie.website}
+                    />
+                  </Col>
+                ))}
+              </Row>
+            </Container>
+            {/* <a href="https://twitter.com/hashtag/caparledev" rel="noreferrer nofollow" target="_blank">
+              <Button color="primary"> {formatMessage(homeMessages.btnViewMoreTweet)} </Button>
+            </a> */}
           </div>
         </section>
       </div>
