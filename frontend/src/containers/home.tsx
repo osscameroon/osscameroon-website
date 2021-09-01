@@ -5,7 +5,7 @@ import { NavLink, useHistory } from "react-router-dom";
 
 import Layout from "../components/layout/layout";
 import Tweet from "../components/common/Tweet";
-import OtherCommunitie from "../components/common/OtherCommunitie";
+import OtherCommunity from "../components/common/Community";
 import Project from "../components/common/Project";
 import { homeMessages, titleMessages, otherOpenSourceCommunities } from "../locales/messages";
 
@@ -169,18 +169,18 @@ const HomePage = () => {
         </section>
 
         <section className="item-center" id="projects">
-          <div className="text-center">
-            <h2> {formatMessage(homeMessages.othersOpenSourceCommunities)} </h2>
+          <div className="text-center" style={{ minWidth: "400px" }}>
+            <h2> {formatMessage(homeMessages.otherOpenSourceCommunities)} </h2>
             <Container>
-              <Row style={{ margin: "40px 0 40px 0" }}>
-                {othersOpenSourceCommunities.map((other_communitie, i) => (
-                  <Col key={i} md="4" style={{ margin: "20px 0 20px 0" }}>
-                    <OtherCommunitie
+              <Row style={{ display: "flex", gap: "10px" }}>
+                {otherOpenSourceCommunities.map((other_communitie, i) => (
+                  <Col key={i}>
+                    <OtherCommunity
                       description={other_communitie.description}
                       github_account={other_communitie.github_account}
                       image={other_communitie.image}
                       name={other_communitie.name}
-                      others_link={other_communitie.others_link}
+                      other_links={other_communitie.other_links}
                       telegram={other_communitie.telegram}
                       twitter={other_communitie.twitter}
                       website={other_communitie.website}

@@ -12,7 +12,7 @@ type OtherCommunitieProps = {
   other_links: { name: string; link: string }[];
 };
 
-const OtherCommunitie = ({ description, github_account, image, name, other_links, telegram, twitter, website }: OtherCommunitieProps) => {
+const OtherCommunity = ({ description, github_account, image, name, other_links, telegram, twitter, website }: OtherCommunitieProps) => {
   return (
     <Row className="row">
       <Card style={{ width: "19rem" }}>
@@ -51,4 +51,4 @@ const OtherCommunitie = ({ description, github_account, image, name, other_links
   );
 };
 
-export default OtherCommunitie;
+export default OtherCommunity;
