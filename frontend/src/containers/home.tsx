@@ -7,7 +7,7 @@ import Layout from "../components/layout/layout";
 import Tweet from "../components/common/Tweet";
 import OtherCommunitie from "../components/common/OtherCommunitie";
 import Project from "../components/common/Project";
-import { homeMessages, titleMessages, othersOpenSourceCommunities } from "../locales/messages";
+import { homeMessages, titleMessages, otherOpenSourceCommunities } from "../locales/messages";
 
 import developer from "../assets/img/developer.svg";
 import search from "../assets/icons/search.svg";
