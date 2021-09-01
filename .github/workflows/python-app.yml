@@ -44,7 +44,7 @@ jobs:
       - name: Copy file via scp
         uses: appleboy/scp-action@master
         with:
-          host: ${{ secrets.DROPLET_HOST }}
+          host: ${{ secrets.EXP_DROPLET_HOST }}
           username: ${{ secrets.EXP_DROPLET_DEPLOY_USERNAME }}
           key: ${{ secrets.EXP_DROPLET_DEPLOY_USERNAME_SSHKEY }}
           source: ${{ env.SCP_FILES }}
@@ -53,7 +53,7 @@ jobs:
       - name: Executing remote  command
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.DROPLET_HOST }}
+          host: ${{ secrets.EXP_DROPLET_HOST }}
           username: ${{ secrets.EXP_DROPLET_DEPLOY_USERNAME }}
           key: ${{ secrets.EXP_DROPLET_DEPLOY_USERNAME_SSHKEY }}
           script: cd ${{ env.SCP_TARGET }}/bots/hermes/github && tar -xvf ${{ env.ARCHIVE }} && rm -rf ${{ env.ARCHIVE }}
