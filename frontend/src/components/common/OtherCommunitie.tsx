@@ -9,7 +9,7 @@ type OtherCommunitieProps = {
   telegram: string;
   description: string;
   github_account: string;
-  others_link: { name: string; link: string }[];
+  other_links: { name: string; link: string }[];
 };
 
 const OtherCommunitie = ({ description, github_account, image, name, others_link, telegram, twitter, website }: OtherCommunitieProps) => {
