@@ -282,7 +282,7 @@ export const titleMessages = defineMessages({
   },
 });
 
-export const othersOpenSourceCommunities = [
+export const otherOpenSourceCommunities = [
   {
     name: "Python Cameroun",
     website: "#",
@@ -292,7 +292,7 @@ export const othersOpenSourceCommunities = [
     // eslint-disable-next-line max-len
     description: "The cameroon based python community organization.",
     github_account: "https://github.com/Python-Cameroun",
-    others_link: [
+    other_links: [
       {
         name: "medium",
         link: "https://medium.com/python-cameroun",
@@ -310,7 +310,7 @@ export const othersOpenSourceCommunities = [
     description:
       "Bienvenue sur le site de la communauté des développeurs PHP et Laravel du Cameroun, le plus gros rassemblement de développeurs au Cameroun.",
     github_account: "https://github.com/laravelcm",
-    others_link: [
+    other_links: [
       {
         name: "Slack",
         link: "https://laravel.cm/join-slack",
@@ -335,24 +335,7 @@ export const othersOpenSourceCommunities = [
     // eslint-disable-next-line max-len
     description: "#Flutter Cameroon is a community of #Dart and Flutter developers from #Cameroon.",
     github_account: "#",
-    others_link: [
-      {
-        name: "",
-        link: "",
-      },
-    ],
-  },
-
-  {
-    name: "Flutter Cameroun",
-    website: "#",
-    twitter: "https://twitter.com/fluttercm",
-    telegram: "#",
-    image: "https://pbs.twimg.com/profile_images/1360487810998931461/EG68zQjb_400x400.jpg",
-    // eslint-disable-next-line max-len
-    description: "#Flutter Cameroon is a community of #Dart and Flutter developers from #Cameroon.",
-    github_account: "#",
-    others_link: [
+    other_links: [
       {
         name: "",
         link: "",
