@@ -210,7 +210,7 @@ export const homeMessages = defineMessages({
     id: "app.home.btnViewMoreTweet",
     defaultMessage: "VIEW MORE TWEETS",
   },
-  othersOpenSourceCommunities: {
+  otherOpenSourceCommunities: {
     id: "app.home.otherOpenSourceCommunities",
     defaultMessage: "OTHER OPEN SOURCE COMMUNITIES",
   },
