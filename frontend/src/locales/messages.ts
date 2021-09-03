@@ -210,6 +210,10 @@ export const homeMessages = defineMessages({
     id: "app.home.btnViewMoreTweet",
     defaultMessage: "VIEW MORE TWEETS",
   },
+  otherOpenSourceCommunities: {
+    id: "app.home.otherOpenSourceCommunities",
+    defaultMessage: "OTHER OPEN SOURCE COMMUNITIES",
+  },
 });
 
 export const projectMessages = defineMessages({
@@ -277,3 +281,65 @@ export const titleMessages = defineMessages({
     defaultMessage: "Projects",
   },
 });
+
+export const otherOpenSourceCommunities = [
+  {
+    name: "Python Cameroun",
+    website: "#",
+    twitter: "#",
+    telegram: "#",
+    image: "https://avatars.githubusercontent.com/u/45235342?s=200&v=4",
+    // eslint-disable-next-line max-len
+    description: "The cameroon based python community organization.",
+    github_account: "https://github.com/Python-Cameroun",
+    other_links: [
+      {
+        name: "medium",
+        link: "https://medium.com/python-cameroun",
+      },
+    ],
+  },
+
+  {
+    name: "Laravel Cameroun",
+    website: "https://laravel.cm/",
+    twitter: "https://twitter.com/laravelcm",
+    telegram: "https://t.me/joinchat/FzwEmhVrJcOnxQdG6ETtCA",
+    image: "https://10000codeurs.com/wp-content/uploads/2020/06/logo-laravel-cameroun.png",
+    // eslint-disable-next-line max-len
+    description:
+      "Bienvenue sur le site de la communauté des développeurs PHP et Laravel du Cameroun, le plus gros rassemblement de développeurs au Cameroun.",
+    github_account: "https://github.com/laravelcm",
+    other_links: [
+      {
+        name: "Slack",
+        link: "https://laravel.cm/join-slack",
+      },
+      {
+        name: "Facebook",
+        link: "https://facebook.com/laravelcm",
+      },
+      {
+        name: "Youtube",
+        link: "https://www.youtube.com/channel/UCbQPQ8q31uQmuKtyRnATLSw",
+      },
+    ],
+  },
+
+  {
+    name: "Flutter Cameroun",
+    website: "#",
+    twitter: "https://twitter.com/fluttercm",
+    telegram: "#",
+    image: "https://pbs.twimg.com/profile_images/1360487810998931461/EG68zQjb_400x400.jpg",
+    // eslint-disable-next-line max-len
+    description: "#Flutter Cameroon is a community of #Dart and Flutter developers from #Cameroon.",
+    github_account: "#",
+    other_links: [
+      {
+        name: "",
+        link: "",
+      },
+    ],
+  },
+];
