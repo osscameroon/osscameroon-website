@@ -26,9 +26,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install virtualenv
           make install-deps
-      - name: Run unit tests
+      - name: Run unit tests #F821
         run: |
-          make test
+          make test #F821
       - name: Setup env variables
 # multistring env variables check this out
 # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#multiline-strings
