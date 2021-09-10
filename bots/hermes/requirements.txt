@@ -1,5 +1,5 @@
-configparser==5.0.2
-flake8==3.9.2
-google-cloud-datastore==2.1.6
-python-telegram-bot==13.7
-pytest==6.2.4
+configparser
+flake8
+google-cloud-datastore
+python-telegram-bot
+pytest
