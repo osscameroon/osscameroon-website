@@ -33,9 +33,6 @@ lint: venv
 
 ##test: test your code
 test: install-deps lint
-	$(PYTHON) -m pytest
-
-clean:
 	rm -rf $(VENVPATH)
 
 ##help: show help
