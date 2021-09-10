@@ -1,5 +1,5 @@
 [flake8]
-ignore = E501
+ignore = E501, E302, W292, E711, W293
 max-line-length = 160
 exclude = tests/*,./venv/*
 max-complexity = 10
