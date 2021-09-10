@@ -35,7 +35,7 @@ jobs:
 #
 
         run: |
-          echo 'SCP_FILES=bots/hermes/github/build.tar' >> $GITHUB_ENV
+          echo 'SCP_FILES=bots/hermes/build.tar' >> $GITHUB_ENV
           echo 'ARCHIVE=build.tar' >> $GITHUB_ENV
           echo 'SCP_TARGET<<EOF' >> $GITHUB_ENV
           cat ./deploy/target.txt >> $GITHUB_ENV
