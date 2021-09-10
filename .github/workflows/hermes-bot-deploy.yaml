@@ -3,8 +3,8 @@ name: github hermes-bot deploy
 on:
   push:
     paths:
-      - .github/workflows/github-bots/hermes-deploy.yaml
-      - bots/hermes/github/**
+      - .github/workflows/hermes-bot-deploy.yaml
+      - bots/hermes/**
     branches:
       - main
 
@@ -56,4 +56,4 @@ jobs:
           host: ${{ secrets.DROPLET_HOST }}
           username: ${{ secrets.EXP_DROPLET_DEPLOY_USERNAME }}
           key: ${{ secrets.EXP_DROPLET_DEPLOY_USERNAME_SSHKEY }}
-          script: cd ${{ env.SCP_TARGET }}/bots/hermes/github && tar -xvf ${{ env.ARCHIVE }} && rm -rf ${{ env.ARCHIVE }}
+          script: cd ${{ env.SCP_TARGET }}/bots/hermes/** && tar -xvf ${{ env.ARCHIVE }} && rm -rf ${{ env.ARCHIVE }}
