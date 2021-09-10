@@ -3,13 +3,13 @@ name: github hermes-bot deploy
 on:
   push:
     paths:
-      - .github/workflows/github-bots/hermes-deploy.yaml
+      - .github/workflows/bots/hermes-deploy.yaml
       - bots/hermes/github/**
     branches:
       - main
 
 jobs:
-    build:
+    build-tmp:
       runs-on: ubuntu-latest
       defaults:
         run:
