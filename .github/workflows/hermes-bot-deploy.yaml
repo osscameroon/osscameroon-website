@@ -13,7 +13,7 @@ jobs:
       runs-on: ubuntu-latest
       defaults:
         run:
-          working-directory: /bots/hermes
+          working-directory: bots/hermes
       steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.8
