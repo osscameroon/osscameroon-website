@@ -1,0 +1,27 @@
+name: notify of pull_request creation
+on:
+  pull_request:
+    types: [ opened ]
+    branches:
+      - main
+
+jobs:
+  notify:
+    defaults:
+      run:
+        working-directory: ./.github/workflows/notify_on_pull_request_open
+
+    name: notify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: notify telegram when pull request is a created
+        shell: bash
+        run: |
+          ./build_pull_request_notification.sh $GITHUB_EVENT_PATH > notify_on_pull_request_open_message
+      - name: send contribution report to osscameroon channel
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_OSSCAMEROON_CHANNEL_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          message_file: ./.github/workflows/notify_on_pull_request_open/notify_on_pull_request_open_message
