@@ -335,11 +335,6 @@ export const otherOpenSourceCommunities = [
     // eslint-disable-next-line max-len
     description: "#Flutter Cameroon is a community of #Dart and Flutter developers from #Cameroon.",
     github_account: "#",
-    other_links: [
-      {
-        name: "",
-        link: "",
-      },
-    ],
+    other_links: [],
   },
 ];
