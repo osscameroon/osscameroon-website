@@ -54,8 +54,7 @@ const Project = ({ description, issues, language, link, name, stars, type }: Pro
         <div className={isBig ? "col-10" : "col"}>
           <h1 style={style.h1}>
             <a href={link} rel="noreferrer" target="_blank">
-              {" "}
-              {name}{" "}
+              {name}
             </a>
           </h1>
           <p style={style.p}>{displayDescription}</p>
