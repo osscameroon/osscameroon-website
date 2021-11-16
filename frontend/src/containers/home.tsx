@@ -169,21 +169,21 @@ const HomePage = () => {
         </section>
 
         <section className="item-center" id="projects">
-          <div className="text-center" style={{ minWidth: "400px" }}>
-            <h2> {formatMessage(homeMessages.otherOpenSourceCommunities)} </h2>
+          <Row style={{ minWidth: "400px" }}>
+            <h2 className="mx-auto"> {formatMessage(homeMessages.otherOpenSourceCommunities)} </h2>
             <Container>
               <Row style={{ display: "flex", gap: "10px" }}>
-                {otherOpenSourceCommunities.map((other_communitie, i) => (
+                {otherOpenSourceCommunities.map((community, i) => (
                   <Col key={i}>
                     <OtherCommunity
-                      description={other_communitie.description}
-                      github_account={other_communitie.github_account}
-                      image={other_communitie.image}
-                      name={other_communitie.name}
-                      other_links={other_communitie.other_links}
-                      telegram={other_communitie.telegram}
-                      twitter={other_communitie.twitter}
-                      website={other_communitie.website}
+                      description={community.description}
+                      github_account={community.github_account}
+                      image={community.image}
+                      name={community.name}
+                      other_links={community.other_links}
+                      telegram={community.telegram}
+                      twitter={community.twitter}
+                      website={community.website}
                     />
                   </Col>
                 ))}
@@ -192,7 +192,7 @@ const HomePage = () => {
             {/* <a href="https://twitter.com/hashtag/caparledev" rel="noreferrer nofollow" target="_blank">
               <Button color="primary"> {formatMessage(homeMessages.btnViewMoreTweet)} </Button>
             </a> */}
-          </div>
+          </Row>
         </section>
       </div>
     </Layout>
