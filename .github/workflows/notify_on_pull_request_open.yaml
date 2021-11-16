@@ -20,7 +20,7 @@ jobs:
         run: |
           ./build_pull_request_notification.sh $GITHUB_EVENT_PATH > notify_on_pull_request_open_message
       - name: send contribution report to osscameroon channel
-        uses: appleboy/telegram-action@master
+        uses: appleboy/telegram-action@v0.1.1
         with:
           to: ${{ secrets.TELEGRAM_OSSCAMEROON_CHANNEL_ID }}
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
