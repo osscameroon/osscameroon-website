@@ -1,11 +1,21 @@
-# CaParleDev WebSite Backend
+# Oss Cameroon WebSite Backend
 
-## How to install
 
-- virtualenv -p python3 venv
-- source venv/bin/activate
-- pip install -r requirements.txt
+## Requirements
 
-## How to launch
+- python (3.x)
+- make
 
-- python manage.py run
+## How to install/launch
+
+```bash
+make run
+# this will set your virtual env `make venv`
+# this will install dependencies `make install-deps`
+# and then run the backend...
+```
+
+Note : 
+This will start the api, and it will be available on http://127.0.0.1:8811/
+HOWEVER, some endpoints may not work properly because this api run with google-cloud and we can not share that,
+so to do some reals tests, you can use our stage version online : https://api.stage.osscameroon.com/
