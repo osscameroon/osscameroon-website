@@ -89,6 +89,7 @@ const DeveloperPage = () => {
   };
 
   const onPaginationChange = async (eventData: PaginationChangeEventData) => {
+    window.scrollTo(0, 0);
     setCurrentPage(eventData.currentPage);
   };
 
