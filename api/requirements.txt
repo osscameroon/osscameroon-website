@@ -1,34 +1,56 @@
-# For tests in the application
-pytest
-
-# flake8
-flake8
-
-# For data storage
-google-cloud-datastore
-
-# For the rest-api
-flask>=0.12.3
-Flask-Bcrypt==0.7.1
-Flask-Cors==3.0.9
-Flask-Migrate==2.1.1
-flask-restplus==0.10.1
+aniso8601==9.0.1
+attrs==21.2.0
+cachetools==4.2.4
+certifi==2021.10.8
+charset-normalizer==2.0.9
+click==7.1.2
+configparser==5.2.0
+flake8==4.0.1
+Flask==1.1.4
+Flask-Cors==3.0.10
+flask-restplus==0.13.0
 Flask-Script==2.0.6
-Flask-SocketIO==2.9.3
-Flask-SQLAlchemy==2.3.2
-Flask-Testing==0.7.1
-
-werkzeug==0.16.1
-
-# For configurations
-configparser
-
-# meilisearch
-meilisearch
-
-# for requests
-requests
-requests_oauthlib
-
-# deployment
-uwsgi
+google-api-core==2.3.0
+google-auth==2.3.3
+google-cloud-core==2.2.1
+google-cloud-datastore==2.4.0
+googleapis-common-protos==1.54.0
+grpcio==1.42.0
+grpcio-status==1.42.0
+idna==3.3
+importlib-resources==5.4.0
+iniconfig==1.1.1
+itsdangerous==1.1.0
+Jinja2==2.11.3
+jsonschema==4.2.1
+libcst==0.3.23
+MarkupSafe==2.0.1
+mccabe==0.6.1
+meilisearch==0.17.0
+mypy-extensions==0.4.3
+oauthlib==3.1.1
+packaging==21.3
+pluggy==1.0.0
+proto-plus==1.19.8
+protobuf==3.19.1
+py==1.11.0
+pyasn1==0.4.8
+pyasn1-modules==0.2.8
+pycodestyle==2.8.0
+pyflakes==2.4.0
+pyparsing==3.0.6
+pyrsistent==0.18.0
+pytest==6.2.5
+pytz==2021.3
+PyYAML==6.0
+requests==2.26.0
+requests-oauthlib==1.3.0
+rsa==4.8
+six==1.16.0
+toml==0.10.2
+typing-extensions==4.0.1
+typing-inspect==0.7.1
+urllib3==1.26.7
+uWSGI==2.0.20
+Werkzeug==0.16.1
+zipp==3.6.0
