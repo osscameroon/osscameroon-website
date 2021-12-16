@@ -169,23 +169,21 @@ const HomePage = () => {
         </section>
 
         <section className="item-center" id="projects">
-          <div className="text-center" style={{ minWidth: "400px" }}>
-            <h2> {formatMessage(homeMessages.otherOpenSourceCommunities)} </h2>
+          <div>
+            <h2 className="text-center mb-4"> <strong>{formatMessage(homeMessages.otherOpenSourceCommunities)}</strong> </h2>
             <Container>
-              <Row style={{ display: "flex", gap: "10px" }}>
+              <Row>
                 {otherOpenSourceCommunities.map((other_communitie, i) => (
-                  <Col key={i}>
-                    <OtherCommunity
-                      description={other_communitie.description}
-                      github_account={other_communitie.github_account}
-                      image={other_communitie.image}
-                      name={other_communitie.name}
-                      other_links={other_communitie.other_links}
-                      telegram={other_communitie.telegram}
-                      twitter={other_communitie.twitter}
-                      website={other_communitie.website}
-                    />
-                  </Col>
+                  <OtherCommunity
+                    description={other_communitie.description}
+                    github_account={other_communitie.github_account}
+                    image={other_communitie.image}
+                    name={other_communitie.name}
+                    other_links={other_communitie.other_links}
+                    telegram={other_communitie.telegram}
+                    twitter={other_communitie.twitter}
+                    website={other_communitie.website}
+                  />
                 ))}
               </Row>
             </Container>

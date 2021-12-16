@@ -1,8 +1,9 @@
 /* ensure all pages have Bootstrap CSS */
 
-/*Find variables to override in this file: node_modules/bootstrap/scss/_variables.scss */
-$primary: #2f80ed;
 
+/*Find variables to override in this file: node_modules/bootstrap/scss/_variables.scss */
+
+$primary: #2f80ed;
 @import "node_modules/bootstrap/scss/bootstrap";
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
 @import "paginate";
@@ -13,87 +14,88 @@ $primary: #2f80ed;
 @import "developers";
 @import "reactTags";
 @import "projects";
-
 :root {
-  --primary-color: #2f80ed;
-  --dark-color: #333333;
-  --light-color: #f2f2f2;
-  --dark-accent: #15202b;
-  --white: #ffffff;
-  --dark: #333333;
-  --border-shadow: 0 0 4px rgba(51, 51, 51, 0.35);
-  --main-font: "Source Sans Pro", sans-serif;
-  --header-bg: #fff;
-  --bg-white: #fff;
-  --txt-dark: #343a40;
-  --active-link: #2f80ed;
-  --body-bg: #fff;
-  --card-bg: #fff;
-  --footer-bg: #333333;
-  --footer-txt-color: #f2f2f2;
-  font-size: 16px;
-  --option-color: #2f80ed;
-  --hover-color: #ffffff;
+    --primary-color: #2f80ed;
+    --dark-color: #333333;
+    --light-color: #f2f2f2;
+    --dark-accent: #15202b;
+    --white: #ffffff;
+    --dark: #333333;
+    --border-shadow: 0 0 4px rgba(51, 51, 51, 0.35);
+    --main-font: "Source Sans Pro", sans-serif;
+    --header-bg: #fff;
+    --bg-white: #fff;
+    --txt-dark: #343a40;
+    --active-link: #2f80ed;
+    --body-bg: #fff;
+    --card-bg: #fff;
+    --footer-bg: #333333;
+    --footer-txt-color: #f2f2f2;
+    font-size: 16px;
+    --option-color: #2f80ed;
+    --hover-color: #ffffff;
+    --community-card-background: #f2f2f2;
 }
 
 :root.dark {
-  --primary-color: #2f80ed;
-  --dark-color: #ffffff;
-  --light-color: #333333;
-  --dark-accent: #15202b;
-  --white: #ffffff;
-  --dark: #555555;
-  --border-shadow: 0 0 4px rgba(255, 255, 255, 0.35);
-  --main-font: "Source Sans Pro", sans-serif;
-  --header-bg: #333333;
-  --bg-white: #333333;
-  --txt-dark: #ffffff;
-  --active-link: #2f80ed;
-  --body-bg: #444;
-  --card-bg: #333333;
-  --footer-bg: #333333;
-  --footer-txt-color: #f2f2f2;
-  --option-color: #ffffff;
-  --hover-color: #555555;
+    --primary-color: #2f80ed;
+    --dark-color: #ffffff;
+    --light-color: #333333;
+    --dark-accent: #15202b;
+    --white: #ffffff;
+    --dark: #555555;
+    --border-shadow: 0 0 4px rgba(255, 255, 255, 0.35);
+    --main-font: "Source Sans Pro", sans-serif;
+    --header-bg: #333333;
+    --bg-white: #333333;
+    --txt-dark: #ffffff;
+    --active-link: #2f80ed;
+    --body-bg: #444;
+    --card-bg: #333333;
+    --footer-bg: #333333;
+    --footer-txt-color: #f2f2f2;
+    --option-color: #ffffff;
+    --hover-color: #555555;
+    --community-card-background: #2f2f2f;
 }
 
 body {
-  font-family: var(--main-font);
-  color: var(--txt-dark);
-  background-color: var(--body-bg);
+    font-family: var(--main-font);
+    color: var(--txt-dark);
+    background-color: var(--body-bg);
 }
 
 .item-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .side-card {
-  border-radius: 5px 5px 0 0;
-  border-top: 5px var(--primary-color) solid;
-  padding: 15px 10px 10px 10px;
-  margin-bottom: 25px;
-  box-shadow: var(--border-shadow);
-  background-color: var(--card-bg);
+    border-radius: 5px 5px 0 0;
+    border-top: 5px var(--primary-color) solid;
+    padding: 15px 10px 10px 10px;
+    margin-bottom: 25px;
+    box-shadow: var(--border-shadow);
+    background-color: var(--card-bg);
 }
 
 .bold {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .cursor-pointer {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .text-color-main {
-  color: var(--primary-color);
+    color: var(--primary-color);
 }
 
 .text-size-20 {
-  font-size: 20px;
+    font-size: 20px;
 }

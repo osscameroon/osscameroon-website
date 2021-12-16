@@ -1,42 +1,44 @@
 .app-container {
-  width: 100%;
-  .content {
-    min-height: 500px;
-  }
+    width: 100%;
+    .content {
+        min-height: 500px;
+    }
 }
 
 .inline-ul {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 .inline-ul li {
-  display: inline-block;
-  margin-right: 10px;
+    display: inline-block;
+    margin-right: 10px;
 }
 
 .mt-30 {
-  margin-top: 30px;
+    margin-top: 30px;
 }
 
 .mt-20 {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 .mt-70 {
-  margin-top: 70px;
-}
-
-.rounded-avatar {
+    margin-top: 70px;
 }
 
 .dark-color {
-  color: var(--dark-color);
+    color: var(--dark-color);
 }
 
 .bg-white {
-  background-color: var(--bg-white);
+    background-color: var(--bg-white);
 }
+
 .txt-dark {
-  color: var(--txt-dark);
+    color: var(--txt-dark);
+}
+
+.image-cover {
+    object-fit: cover;
 }
