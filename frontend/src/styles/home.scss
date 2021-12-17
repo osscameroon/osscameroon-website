@@ -64,6 +64,7 @@
     border-color: var(--community-card-background);
     .card-img {
         background-color: var(--community-card-background);
+        border-bottom: 1px var(--divider-colors) solid;
     }
     .card-link {
         color: var(--dark-color);

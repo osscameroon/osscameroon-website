@@ -174,16 +174,18 @@ const HomePage = () => {
             <Container>
               <Row>
                 {otherOpenSourceCommunities.map((other_communitie, i) => (
-                  <OtherCommunity
-                    description={other_communitie.description}
-                    github_account={other_communitie.github_account}
-                    image={other_communitie.image}
-                    name={other_communitie.name}
-                    other_links={other_communitie.other_links}
-                    telegram={other_communitie.telegram}
-                    twitter={other_communitie.twitter}
-                    website={other_communitie.website}
-                  />
+                  <Col className="mb-3" key={i} lg="4" md="6">
+                    <OtherCommunity
+                      description={other_communitie.description}
+                      github_account={other_communitie.github_account}
+                      image={other_communitie.image}
+                      name={other_communitie.name}
+                      other_links={other_communitie.other_links}
+                      telegram={other_communitie.telegram}
+                      twitter={other_communitie.twitter}
+                      website={other_communitie.website}
+                    />
+                  </Col>
                 ))}
               </Row>
             </Container>
