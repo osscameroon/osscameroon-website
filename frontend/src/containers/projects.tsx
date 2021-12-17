@@ -47,6 +47,7 @@ export const ProjectPage = (): JSX.Element => {
   const { formatMessage } = useIntl();
 
   const onPaginationChange = (eventData: PaginationChangeEventData) => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setCurrentPage(eventData.currentPage);
   };
 
