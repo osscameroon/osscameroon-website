@@ -59,9 +59,9 @@ const Project = ({ description, issues, language, link, name, stars, type }: Pro
             </a>
           </h1>
           <p style={style.p}>{displayDescription}</p>
-          <div className="d-flex flex-column flex-sm-row justify-content-start justify-content-lg-center flex-wrap">
-            <div className="project-language">{language || defaultLanguage}</div>
-            <div className="project-language"> Issues {issues}</div>
+          <div className="d-flex flex-column flex-sm-row justify-content-start flex-wrap">
+            <div className="project-language my-auto">{language || defaultLanguage}</div>
+            <div className="project-language my-auto"> Issues {issues}</div>
             <div className="d-flex justify-content-start align-items-center">
               <img alt="star icon" src={themeContext.theme === DARK ? starLightIcon : starIcon} />
               &ensp;
