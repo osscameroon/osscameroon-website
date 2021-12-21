@@ -1,5 +1,23 @@
 import React from "react";
-import { Row, Card, CardImg, CardBody, CardTitle, CardText, CardLink, Button } from "reactstrap";
+import { Card, CardImg, CardBody, CardTitle, CardText, Button } from "reactstrap";
+
+import githubDarkIcon from "../../assets/icons/github-dark.svg";
+import facebookDarkIcon from "../../assets/icons/facebook-dark.svg";
+import linkedinDarkIcon from "../../assets/icons/linkedin.svg";
+import mediumDarkIcon from "../../assets/icons/medium-dark.svg";
+import slackDarkIcon from "../../assets/icons/slack-dark.svg";
+import telegramDarkIcon from "../../assets/icons/telegram-dark.svg";
+import twitterDarkIcon from "../../assets/icons/twitter-dark.svg";
+import websiteDarkIcon from "../../assets/icons/globe-dark.svg";
+import youtubeDarkIcon from "../../assets/icons/youtube-dark.svg";
+
+const otherLinksImages: { [key: string]: string } = {
+  youtube: youtubeDarkIcon,
+  medium: mediumDarkIcon,
+  slack: slackDarkIcon,
+  linkedin: linkedinDarkIcon,
+  facebook: facebookDarkIcon,
+};
 
 type OtherCommunitieProps = {
   name: string;
@@ -14,40 +32,49 @@ type OtherCommunitieProps = {
 
 const OtherCommunity = ({ description, github_account, image, name, other_links, telegram, twitter, website }: OtherCommunitieProps) => {
   return (
-    <Row className="row">
-      <Card style={{ width: "19rem" }}>
-        <CardImg src={image} variant="top" />
-        <CardBody>
-          <CardTitle tag="h3">{name}</CardTitle>
-          <CardText style={{ color: "#00000" }}>{description}</CardText>
-        </CardBody>
-
-        <CardBody>
-          <Button color="primary" href={website} target="_blank">
+    <Card style={{ width: "19rem", borderRadius: "16px" }}>
+      <CardImg className="img-fluid" src={image} style={{ height: "14rem" }} variant="top" />
+      <CardBody className="border-top">
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }} className="mb-3">
+          <CardTitle className="d-inline my-auto" style={{ fontWeight: "bold" }} tag="h5">
+            {name}
+          </CardTitle>
+          <Button
+            className="float-right"
+            color="primary"
+            href={website}
+            style={{ width: "85px", height: "32px", padding: "2px 4px" }}
+            target="_blank"
+          >
             Join Us
           </Button>
-        </CardBody>
-        <CardBody>
-          <CardLink href={website} target="_blank">
-            website
-          </CardLink>
-          <CardLink href={github_account} target="_blank">
-            Github
-          </CardLink>
-          <CardLink href={telegram} target="_blank">
-            telegram
-          </CardLink>
-          <CardLink href={twitter} target="_blank">
-            twitter
-          </CardLink>
-          {other_links.map((other, i) => (
-            <CardLink href={other.link} key={i} target="_blank">
-              {other.name}
-            </CardLink>
-          ))}
-        </CardBody>
-      </Card>
-    </Row>
+        </div>
+        <CardText className="text-left mb-3" style={{ height: "100px", textOverflow: "ellipsis", overflow: "hidden", lineHeight: "1.5" }}>
+          {description}
+        </CardText>
+        <div className="pb-1" style={{ height: "70px", display: "flex", justifyContent: "left" }}>
+          <a className="mr-3" href={website} rel="noreferrer" target="_blank">
+            <img alt="Website icon" src={websiteDarkIcon} />
+          </a>
+          <a className="mr-3" href={github_account} rel="noreferrer" target="_blank">
+            <img alt="Github icon" src={githubDarkIcon} />
+          </a>
+          <a className="mr-3" href={telegram} rel="noreferrer" target="_blank">
+            <img alt="Telegram icon" src={telegramDarkIcon} />
+          </a>
+          <a className="mr-3" href={twitter} rel="noreferrer" target="_blank">
+            <img alt="Twitter icon" src={twitterDarkIcon} />
+          </a>
+          {other_links.map((other, i) =>
+            otherLinksImages[other.name.toLowerCase()] ? (
+              <a className="mr-3" href={other.link} key={i} rel="noreferrer" target="_blank">
+                <img alt={other.name + ` icon`} src={otherLinksImages[other.name.toLowerCase()]} />
+              </a>
+            ) : null,
+          )}
+        </div>
+      </CardBody>
+    </Card>
   );
 };
 

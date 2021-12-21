@@ -171,7 +171,7 @@ const HomePage = () => {
         <section className="item-center" id="projects">
           <div className="text-center" style={{ minWidth: "400px" }}>
             <h2> {formatMessage(homeMessages.otherOpenSourceCommunities)} </h2>
-            <Container>
+            <Container className="mt-5">
               <Row style={{ display: "flex", gap: "10px" }}>
                 {otherOpenSourceCommunities.map((other_communitie, i) => (
                   <Col key={i}>
