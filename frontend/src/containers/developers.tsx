@@ -89,6 +89,7 @@ const DeveloperPage = () => {
   };
 
   const onPaginationChange = async (eventData: PaginationChangeEventData) => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setCurrentPage(eventData.currentPage);
   };
 
