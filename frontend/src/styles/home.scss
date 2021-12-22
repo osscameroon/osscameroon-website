@@ -1,66 +1,75 @@
 .home-page {
-  section {
-    padding: 50px 0 50px 0;
-  }
-  #banner {
-    h1 {
-      font-size: 1.75rem;
-      margin: 55px 0 25px 0;
-      color: var(--dark-color);
+    section {
+        padding: 50px 0 50px 0;
     }
-    .main-text a {
-      font-size: 1rem;
+    #banner {
+        h1 {
+            font-size: 1.75rem;
+            margin: 55px 0 25px 0;
+            color: var(--dark-color);
+        }
+        .main-text a {
+            font-size: 1rem;
+        }
     }
-  }
-  #project {
-    background-color: var(--white);
-  }
-  #tweets {
-    background-color: var(--dark-accent);
-    color: var(--white);
-  }
-  #search {
-    background-color: var(--light-color);
-    .search-input {
-      height: 50px;
-      width: 615px;
-      border-radius: 40px 0 0 40px;
-      border: none;
-      box-shadow: var(--border-shadow);
-      padding-left: 25px;
-      outline: none;
+    #project {
+        background-color: var(--white);
     }
-    .search-button {
-      height: 50px;
-      width: 50px;
-      border-radius: 0 40px 40px 0;
-      border: none;
-      box-shadow: var(--border-shadow);
-      background-color: var(--white);
-      outline: none;
+    #tweets {
+        background-color: var(--dark-accent);
+        color: var(--white);
     }
-    .search-form {
-      margin: 25px;
+    #search {
+        background-color: var(--light-color);
+        .search-input {
+            height: 50px;
+            width: 615px;
+            border-radius: 40px 0 0 40px;
+            border: none;
+            box-shadow: var(--border-shadow);
+            padding-left: 25px;
+            outline: none;
+        }
+        .search-button {
+            height: 50px;
+            width: 50px;
+            border-radius: 0 40px 40px 0;
+            border: none;
+            box-shadow: var(--border-shadow);
+            background-color: var(--white);
+            outline: none;
+        }
+        .search-form {
+            margin: 25px;
+        }
     }
-  }
 }
 
 @media screen and (max-width: 720px) {
-  .home-page {
-    #search .search-input {
-      width: 60%;
+    .home-page {
+        #search .search-input {
+            width: 60%;
+        }
+        #banner {
+            background: none;
+            h1 {
+                margin: 0px 0 25px 0;
+            }
+        }
     }
-
-    #banner {
-      background: none;
-
-      h1 {
-        margin: 0px 0 25px 0;
-      }
-    }
-  }
 }
 
 .card {
-  background-color: var(--light-color);
+    background-color: var(--community-card-background);
+    border-color: var(--community-card-background);
+    .card-img {
+        background-color: var(--community-card-background);
+        border-bottom: 1px var(--divider-colors) solid;
+    }
+    .card-link {
+        color: var(--dark-color);
+        &:hover {
+            color: var(--active-link);
+        }
+    }
 }
