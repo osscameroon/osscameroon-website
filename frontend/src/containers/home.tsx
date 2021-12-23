@@ -9,7 +9,10 @@ import OtherCommunity from "../components/common/Community";
 import Project from "../components/common/Project";
 import { homeMessages, titleMessages, otherOpenSourceCommunities } from "../locales/messages";
 
-import developer from "../assets/img/developer.svg";
+// import developer from "../assets/img/developer.svg";
+import lightDeveloper from "../assets/img/light-developer.svg";
+import darkDeveloper from "../assets/img/dark-developer.svg";
+
 import search from "../assets/icons/search.svg";
 import { useQuery } from "react-query";
 import { searchProject } from "../services/projects";
@@ -20,6 +23,13 @@ import NetworkError from "../components/common/NetworkError";
 import BannerBackgroundLight from "../assets/img/banner-background.svg";
 import BannerBackgroundDark from "../assets/img/banner-background-alt.svg";
 import { ThemeContext, LIGHT } from "../components/utils/ThemeProvider";
+
+// Merry Christmas Images
+import starsImage from "../assets/img/merry_christmas/stars.png";
+import moonImage from "../assets/img/merry_christmas/moon.png";
+import sunImage from "../assets/img/merry_christmas/sun.png";
+import lightningImage from "../assets/img/merry_christmas/lightning.png";
+import { HomeStyles, Lightning } from "./home.styles";
 
 const HomePage = () => {
   const history = useHistory();
@@ -56,9 +66,17 @@ const HomePage = () => {
 
   return (
     <Layout title={formatMessage(titleMessages.home)}>
+      <HomeStyles />
       <div className="home-page">
         <section id="banner" style={BannerStyle}>
           <Container>
+            <div className="decorative-wrapper">
+              <img className="stars" src={starsImage} alt="stars" />
+              <img className="stars right" src={starsImage} alt="stars" />
+              {themeContext.theme === LIGHT ? <img className="sun" src={sunImage} alt="sun" /> : <img className="moon" src={moonImage} alt="moon" />}
+              <Lightning animated={themeContext.theme !== LIGHT} src={lightningImage} alt="lightning" />
+            </div>
+
             <Row>
               <Col md="6">
                 <h1>{formatMessage(homeMessages.mainTitle)}</h1>
@@ -74,7 +92,12 @@ const HomePage = () => {
                 </p>
               </Col>
               <Col className="text-right" md="6">
-                <img alt="developer illustration" className="d-none d-md-block" src={developer} style={{ marginTop: "30px" }} />
+                <img
+                  alt="developer illustration"
+                  className="d-none d-md-block"
+                  src={themeContext.theme === LIGHT ? lightDeveloper : darkDeveloper}
+                  style={{ marginTop: "30px" }}
+                />
               </Col>
             </Row>
           </Container>
@@ -170,7 +193,10 @@ const HomePage = () => {
 
         <section className="item-center" id="projects">
           <div>
-            <h2 className="text-center mb-4"> <strong>{formatMessage(homeMessages.otherOpenSourceCommunities)}</strong> </h2>
+            <h2 className="text-center mb-4">
+              {" "}
+              <strong>{formatMessage(homeMessages.otherOpenSourceCommunities)}</strong>{" "}
+            </h2>
             <Container>
               <Row>
                 {otherOpenSourceCommunities.map((other_communitie, i) => (

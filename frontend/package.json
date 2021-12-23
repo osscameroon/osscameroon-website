@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@formatjs/intl-relativetimeformat": "^2.8.1",
+    "@types/styled-components": "^5.1.18",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
     "dotenv": "8.2.0",
@@ -52,6 +53,7 @@
     "react-select": "^3.1.1",
     "react-tag-autocomplete": "^6.1.0",
     "reactstrap": "^8.8.1",
+    "styled-components": "^5.3.3",
     "unstated-next": "^1.1.0",
     "web-vitals": "^0.2.4"
   },

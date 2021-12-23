@@ -23,19 +23,17 @@ const style = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-  }
+  },
 };
 
 const OtherCommunity = ({ description, github_account, image, name, other_links, telegram, twitter, website }: OtherCommunitieProps) => {
-
   const getIcon = (name: string) => {
-
     // Register missed icons here
-    const icons: {[index: string]: any} = {
-      "facebook": <Facebook />,
-      "youtube": <Youtube />,
-      "slack": <Slack />,
-      "medium": <Medium />
+    const icons: { [index: string]: any } = {
+      facebook: <Facebook />,
+      youtube: <Youtube />,
+      slack: <Slack />,
+      medium: <Medium />,
     };
 
     return icons[name.toLowerCase()] || name;
@@ -46,13 +44,17 @@ const OtherCommunity = ({ description, github_account, image, name, other_links,
       <CardImg className="image-cover" src={image} style={style.cardImage} />
       <CardBody>
         <CardTitle className="text-left" style={style.cardHeader}>
-          <h5><strong>{name}</strong></h5>
+          <h5>
+            <strong>{name}</strong>
+          </h5>
           <Button color="primary" href={website} size="sm" target="_blank">
             Join&nbsp;Us
           </Button>
         </CardTitle>
         <CardText style={{ color: "#00000", textAlign: "left" }}>
-          <div className="mb-3" style={{ height: "100px", overflowY: "auto" }}>{description}</div>
+          <div className="mb-3" style={{ height: "100px", overflowY: "auto" }}>
+            {description}
+          </div>
           <div className="text-dark">
             <CardLink href={website} target="_blank">
               <IoGlobeOutline />
