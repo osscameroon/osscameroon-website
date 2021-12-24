@@ -12,6 +12,16 @@ export const Lightning = styled.img`
   top: 385px;
   left: 0;
   transform: none;
+
+  @media (max-width: 768px) {
+    top: 300px;
+  }
+
+  @media (max-width: 400px) {
+    width: 50px;
+    top: 370px;
+    left: -10px;
+  }
 `;
 
 export const HomeStyles = createGlobalStyle`
@@ -19,7 +29,6 @@ export const HomeStyles = createGlobalStyle`
         width: 100%;
         top: -50px;
         position: relative;
-        background-color: red; // <<<<<<------------
     }
 
     .stars {
@@ -30,6 +39,14 @@ export const HomeStyles = createGlobalStyle`
         height: auto;
         opacity: 0.9;
         animation: balance 4s linear infinite;
+
+        @media (max-width: 768px) {
+            width: 50px;
+        }
+
+        @media (max-width: 400px) {
+            width: 40px;
+        }
     }
 
     .stars.right {
@@ -44,6 +61,15 @@ export const HomeStyles = createGlobalStyle`
         width: 600px;
         height: auto;
         opacity: 0.9;
+
+        @media (max-width: 768px) {
+            right: 0px;
+        }
+
+        @media (max-width: 400px) {
+            right: -100px;
+            top: -150px;
+        }
     }
 
     .sun {
@@ -58,23 +84,6 @@ export const HomeStyles = createGlobalStyle`
         right: 400px;
         top: 200px;
         z-index: 1;
-    }
-
-    .lightning {
-        position: absolute;
-        width: 100px;
-        height: auto;
-        top: 55px;
-        left: 30%;
-        transform: rotate(16deg);
-        animation: fadeInOut 3s linear infinite;
-    }
-
-    .lightning.left {
-        width: 70px;
-        top: 385px;
-        left: 0;
-        transform: none;
     }
 
     @keyframes fadeInOut {

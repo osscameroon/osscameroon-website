@@ -71,10 +71,10 @@ const HomePage = () => {
         <section id="banner" style={BannerStyle}>
           <Container>
             <div className="decorative-wrapper">
-              <img className="stars" src={starsImage} alt="stars" />
-              <img className="stars right" src={starsImage} alt="stars" />
-              {themeContext.theme === LIGHT ? <img className="sun" src={sunImage} alt="sun" /> : <img className="moon" src={moonImage} alt="moon" />}
-              <Lightning animated={themeContext.theme !== LIGHT} src={lightningImage} alt="lightning" />
+              <img alt="stars" className="stars" src={starsImage} />
+              <img alt="stars" className="stars right" src={starsImage} />
+              {themeContext.theme === LIGHT ? <img alt="sun" className="sun" src={sunImage} /> : <img alt="moon" className="moon" src={moonImage} />}
+              <Lightning alt="lightning" animated={themeContext.theme !== LIGHT} src={lightningImage} />
             </div>
 
             <Row>
