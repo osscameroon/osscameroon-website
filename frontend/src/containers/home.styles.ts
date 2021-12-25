@@ -63,12 +63,7 @@ export const HomeStyles = createGlobalStyle`
         opacity: 0.9;
 
         @media (max-width: 768px) {
-            right: 0px;
-        }
-
-        @media (max-width: 400px) {
-            right: -100px;
-            top: -150px;
+            display: none;
         }
     }
 
