@@ -9,6 +9,9 @@ token = config.get_config()['Telegram']['token']
 if token == "":
     token = os.getenv('TELEGRAM_TOKEN')
 
+
+telegram_channel_id = os.getenv('TELEGRAM_CHANNEL_ID')
+
 bot = Bot(token=token)
 
 
@@ -28,4 +31,7 @@ if len(chats) != 0:
             bot.send_message(
                 chat_id=chat['id'], parse_mode='HTML', text=get_project_text(project))
 
+        if telegram_channel_id != "":
+            bot.send_message(
+                chat_id=telegram_channel_id, parse_mode='HTML', text=get_project_text(project))
         dbstore.save_notify(project['id'])
