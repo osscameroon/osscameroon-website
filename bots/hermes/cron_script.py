@@ -1,10 +1,15 @@
 import config
 import dbstore
+import os
 from telegram import Bot
 
 ''' Script to be run from a cron job, to fetch recent projects and send to registed 'chats' '''
 
-bot = Bot(token=config.get_config()['Telegram']['token'])
+token = config.get_config()['Telegram']['token']
+if token == "":
+    token = os.getenv('TELEGRAM_TOKEN')
+
+bot = Bot(token=token)
 
 
 def get_project_text(project):

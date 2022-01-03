@@ -4,9 +4,14 @@
 import config
 import logging
 import dbstore
+import os
 from telegram.ext import (Updater, CommandHandler)
 
-updater = Updater(token=config.get_config()['Telegram']['token'], use_context=True)
+token = config.get_config()['Telegram']['token']
+if token == "":
+    token = os.getenv('TELEGRAM_TOKEN')
+
+updater = Updater(token=token, use_context=True)
 
 dispatcher = updater.dispatcher
 
