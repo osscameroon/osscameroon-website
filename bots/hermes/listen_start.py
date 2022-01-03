@@ -21,10 +21,8 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 def start(update, context):
     chat = update.message.chat
-
     # get user id, type (group, channel)
-    if chat['type'] == 'group' or chat['type'] == 'channel':
-        dbstore.save_chat({'id': chat['id'], 'type': chat['type']})
+    dbstore.save_chat({'id': chat['id'], 'type': chat['type']})
 
     context.bot.send_message(
         chat_id=update.effective_chat.id, text="Welcome to OSS Cameroon Projects, do well to visit this verious amazing hardwork of our contributors and give them a helping hand!")
