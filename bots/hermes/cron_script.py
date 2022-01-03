@@ -10,7 +10,7 @@ bot = Bot(token=config.get_config()['Telegram']['token'])
 def get_project_text(project):
     ''' Returns project as a nicely formatted string '''
 
-    return f"<b>Name</b>: <u>{project['name']}</u>\n\n<b>Description</b>: {project['description']}\n\n<b>Link</b>: {project['html_url']}"
+    return f"Please checkout this Cameroonian open source project\n\n<b>Name</b>: <u>{project['name']}</u>\n\nBy <b>{project['owner']['login']}</b>\n\n<b>Description</b>: {project['description']}\n\n<b>Link</b>: {project['html_url']}"
 
 
 chats = dbstore.get_chats()

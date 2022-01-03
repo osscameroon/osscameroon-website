@@ -4,11 +4,16 @@
 
 - Python (3.x.x recommended)
 - pip (21.1.2)
-- Bearer Token from @bot father intelegram 
+- Bearer Token from @bot father intelegram
 
 ### Setting up a python virtualenv and reading data from database
 
-- Set up your virtualenv and install requirements: 
+- register your bot to hermes
+```shell
+make start
+```
+
+- Set up your virtualenv and install requirements:
 ```shell
 make run
 ```
