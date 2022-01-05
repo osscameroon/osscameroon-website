@@ -4,10 +4,10 @@ import os
 from telegram import Bot
 import tweepy
 
-consumer_key = os.getenv("consumer_key")
-consumer_secret = os.getenv("consumer_secret")
-api_key = os.getenv("api_key")
-api_secret = os.getenv("api_secret")
+consumer_key = os.getenv("CONSUMER_KEY")
+consumer_secret = os.getenv("CONSUMER_SECRET")
+api_key = os.getenv("API_KEY")
+api_secret = os.getenv("API_SECRET")
 
 
 def post_tweet(api, text):
