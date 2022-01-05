@@ -1,3 +1,9 @@
+ENVFILE=.secrets-env
+ifneq ("$(wildcard $(ENVFILE))","")
+	include $(ENVFILE)
+	export $(shell sed 's/=.*//' $(ENVFILE))
+endif
+
 # we need shell to source the venv
 SHELL := /bin/bash
 .DEFAULT_GOAL=help
@@ -12,7 +18,7 @@ $(VENVPATH)/bin/activate: requirements.txt
 	. $(VENVPATH)/bin/activate; \
 	pip install -r requirements.txt; \
 	touch $(VENVPATH)/bin/activate;
-	
+
 
 $(CONFIG_FILE):
 	echo "adding config file..."

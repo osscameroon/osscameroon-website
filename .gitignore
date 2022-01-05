@@ -5,6 +5,7 @@
 *.pyc
 *venv
 .secrets
+.secrets-env
 
 #vim
 .*sw*
