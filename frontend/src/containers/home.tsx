@@ -9,7 +9,7 @@ import OtherCommunity from "../components/common/Community";
 import Project from "../components/common/Project";
 import { homeMessages, titleMessages, otherOpenSourceCommunities } from "../locales/messages";
 
-// import developer from "../assets/img/developer.svg";
+import developer from "../assets/img/developer.svg";
 import lightDeveloper from "../assets/img/light-developer.svg";
 import darkDeveloper from "../assets/img/dark-developer.svg";
 
@@ -64,18 +64,31 @@ const HomePage = () => {
     background: `url(${themeContext.theme === LIGHT ? BannerBackgroundLight : BannerBackgroundDark}) center no-repeat`,
   };
 
+  const getDeveloperImage = () => {
+    if (!themeContext.isChristmas) {
+      return developer;
+    }
+    return themeContext.theme === LIGHT ? lightDeveloper : darkDeveloper;
+  };
+
   return (
     <Layout title={formatMessage(titleMessages.home)}>
-      <HomeStyles />
+      {themeContext.isChristmas && <HomeStyles />}
       <div className="home-page">
         <section id="banner" style={BannerStyle}>
           <Container>
-            <div className="decorative-wrapper">
-              <img alt="stars" className="stars" src={starsImage} />
-              <img alt="stars" className="stars right" src={starsImage} />
-              {themeContext.theme === LIGHT ? <img alt="sun" className="sun" src={sunImage} /> : <img alt="moon" className="moon" src={moonImage} />}
-              <Lightning alt="lightning" animated={themeContext.theme !== LIGHT} src={lightningImage} />
-            </div>
+            {themeContext.isChristmas && (
+              <div className="decorative-wrapper">
+                <img alt="stars" className="stars" src={starsImage} />
+                <img alt="stars" className="stars right" src={starsImage} />
+                {themeContext.theme === LIGHT ? (
+                  <img alt="sun" className="sun" src={sunImage} />
+                ) : (
+                  <img alt="moon" className="moon" src={moonImage} />
+                )}
+                <Lightning alt="lightning" animated={themeContext.theme !== LIGHT} src={lightningImage} />
+              </div>
+            )}
 
             <Row>
               <Col md="6">
@@ -92,12 +105,7 @@ const HomePage = () => {
                 </p>
               </Col>
               <Col className="text-right" md="6">
-                <img
-                  alt="developer illustration"
-                  className="d-none d-md-block"
-                  src={themeContext.theme === LIGHT ? lightDeveloper : darkDeveloper}
-                  style={{ marginTop: "30px" }}
-                />
+                <img alt="developer illustration" className="d-none d-md-block" src={getDeveloperImage()} style={{ marginTop: "30px" }} />
               </Col>
             </Row>
           </Container>

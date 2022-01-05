@@ -5,11 +5,13 @@ export const DARK = "dark";
 
 type ThemeContextType = {
   theme: string;
+  isChristmas: boolean;
   toggle?: () => void;
 };
 
 const themeContextInit: ThemeContextType = {
   theme: localStorage.getItem("theme") || LIGHT,
+  isChristmas: false,
 };
 
 export const ThemeContext = React.createContext(themeContextInit);
@@ -29,7 +31,7 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
     setTheme(newTheme);
   };
 
-  return <ThemeContext.Provider value={{ theme, toggle }}> {children} </ThemeContext.Provider>;
+  return <ThemeContext.Provider value={{ theme, toggle, isChristmas: themeContextInit.isChristmas }}> {children} </ThemeContext.Provider>;
 };
 
 export default ThemeProvider;
