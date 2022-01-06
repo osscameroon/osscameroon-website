@@ -43,7 +43,7 @@ def get_twitter_text(project):
     return f"""
 Please checkout this Cameroonian open source project by {project['owner']['login']},
 
-desctiption: {truncated_description}
+description: {truncated_description}
 
 find out more: {project['html_url']}
 
