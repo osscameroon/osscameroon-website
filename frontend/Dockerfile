@@ -1,4 +1,4 @@
-FROM node:lts-buster-slim
+FROM node:12.22.9-buster-slim
 
 RUN mkdir /code
 WORKDIR /code
