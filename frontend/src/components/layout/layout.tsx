@@ -6,6 +6,7 @@ import Header from "./header";
 import Footer from "./footer";
 import { commonMessages } from "../../locales/messages";
 import { IS_PRODUCTION } from "../../config";
+import { ThemeContext } from "../utils/ThemeProvider";
 
 type LayoutProps = {
   title: string;
@@ -13,9 +14,11 @@ type LayoutProps = {
 
 const Layout = ({ children, title }: PropsWithChildren<LayoutProps>) => {
   const { formatMessage } = useIntl();
+  const themeContext = React.useContext(ThemeContext);
   return (
     <div>
       <Helmet>
+        {themeContext.isChristmas && <link href="/merry-christmas-oss.ico" rel="shortcut icon" />}
         <title>{`${formatMessage(commonMessages.appName)} - ${title}`}</title>
         {IS_PRODUCTION && <script src="https://www.googletagmanager.com/gtag/js?id=G-74NJSCWW8W" async />}
         {IS_PRODUCTION && (

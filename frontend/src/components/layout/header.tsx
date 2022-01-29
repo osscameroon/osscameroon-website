@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import ActiveLink from "../../components/utils/activeLink";
 import { commonMessages } from "../../locales/messages";
 
-// import logo from "../../assets/icons/oss.svg";
+import logo from "../../assets/icons/oss.svg";
 import darkLogo from "../../assets/icons/dark-logo.svg";
 import lightLogo from "../../assets/icons/light-logo.svg";
 import { ThemeContext, DARK, LIGHT } from "../utils/ThemeProvider";
@@ -17,12 +17,19 @@ const Header = () => {
   const { formatMessage } = useIntl();
   const themeContext = useContext(ThemeContext);
 
+  const getLogo = () => {
+    if (!themeContext.isChristmas) {
+      return logo;
+    }
+    return themeContext.theme === LIGHT ? lightLogo : darkLogo;
+  };
+
   return (
     <header style={{ borderTop: "5px solid var(--primary-color)" }}>
       <Container>
         <Navbar dark={themeContext.theme === DARK} expand="md" light={themeContext.theme === LIGHT}>
           <NavLink className="navbar-brand cursor-pointer" to="/">
-            <img alt="OSS logo" src={themeContext.theme === LIGHT ? lightLogo : darkLogo} />
+            <img alt="OSS logo" src={getLogo()} />
             <span className="d-sm-none d-inline-block" style={{ marginLeft: "8px", verticalAlign: "middle", fontSize: "1.2rem" }}>
               OSS
             </span>
