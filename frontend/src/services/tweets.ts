@@ -7,7 +7,7 @@ export const getTopTweets = async (): Promise<Response<TweetList>> => {
   try {
     const response = await axios.get<any>(TOP_TWEETS_URL);
     return response.data;
-  } catch (e) {
+  } catch (e: any) {
     throw new Error(e);
   }
 };
