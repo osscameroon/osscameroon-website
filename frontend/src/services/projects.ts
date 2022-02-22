@@ -21,7 +21,7 @@ export const searchProject = async ({ queryKey }: QueryFunctionContext<ProjectQu
 
     const response = await axios.post<ResponseData<GithubProject>>(url, payload);
     return response.data;
-  } catch (e) {
+  } catch (e: any) {
     throw new Error(e);
   }
 };
@@ -30,7 +30,7 @@ export const getLanguages = async (): Promise<Response<string[]>> => {
   try {
     const response = await axios.get<Response<string[]>>(LANGUAGES_URL);
     return response.data;
-  } catch (e) {
+  } catch (e: any) {
     throw new Error(e);
   }
 };
