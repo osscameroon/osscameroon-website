@@ -75,6 +75,8 @@ if __name__ == "__main__":
     ''' Script to be run from a cron job, to fetch recent projects and send to registed 'chats' '''
     project = dbstore.get_project()
     if project:
-        handle_telegram_messages(project)
-        handle_twitter_messages(project)
-        dbstore.save_notify(project['id'])
+        try:
+            handle_telegram_messages(project)
+            handle_twitter_messages(project)
+        finally:
+            dbstore.save_notify(project['id'])
