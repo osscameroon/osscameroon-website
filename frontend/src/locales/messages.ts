@@ -147,6 +147,10 @@ export const footerMessages = defineMessages({
     id: "app.common.yotas",
     defaultMessage: "Shop",
   },
+  brandResources : {
+    id: "app.common.brandResources",
+    defaultMessage: "OSS brand resources",
+  },
   privacy: {
     id: "app.footer.privacy",
     defaultMessage: "Privacy policy",
