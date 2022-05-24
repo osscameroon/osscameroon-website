@@ -71,38 +71,12 @@ const HomePage = () => {
     return themeContext.theme === LIGHT ? lightDeveloper : darkDeveloper;
   };
 
-  const our_projects_data = [
-    {
-      description: "Make a contribution to any of OSS Cameroon GitHub project and earn some Yotas.",
-      name: "MiniYotas",
-      html_url: "https://miniyotas.osscameroon.com",
-    },
-    {
-      description: "blog for osscameroon",
-      name: "OssBlog",
-      html_url: "https://blog.osscameroon.com",
-    },
-    {
-      description: "Company ratings and salaries in Cameroon",
-      name: "Jobsika",
-      html_url: "https://jobsika.cm",
-    },
-    {
-      description: "camerapps lists useful applications, whatsapp, facebook, telegram groups or channel for Cameroonians.",
-      name: "CamerApps",
-      html_url: "https://camerapps.com",
-    },
-    {
-      description: "You are a cameroonian developer, please take this 3 minutes survey",
-      name: "Dev-Survey",
-      html_url: "http://devsurvey.osscameroon.com",
-    },
-    {
-      description: "Get information about programming languages through REST API or GraphQL.",
-      name: "ProLang-Api",
-      html_url: "https://www.prolanghistory.com",
-    },
-  ];
+  const [ourProjects, setOurProjects] = useState([]);
+  fetch("https://raw.githubusercontent.com/osscameroon/project-ideas/master/prod-projects.json")
+    .then((response) => response.json())
+    .then((data) => {
+      setOurProjects(data.slice(0, 5));
+    });
 
   return (
     <Layout title={formatMessage(titleMessages.home)}>
@@ -173,14 +147,14 @@ const HomePage = () => {
             <h2> {formatMessage(homeMessages.ourProjectTitle)} </h2>
             <Container>
               <Row style={{ margin: "40px 0 40px 0" }}>
-                {our_projects_data?.map((project, i) => (
+                {ourProjects?.map((project: any, i) => (
                   <Col key={i} md="6" style={{ margin: "20px 0 20px 0" }} xl="4">
                     <Project
-                      description={project.description}
+                      description={project?.description}
                       issues={0}
                       language=""
-                      link={project.html_url}
-                      name={project.name}
+                      link={project?.html_url}
+                      name={project?.name}
                       stars={0}
                       type="small"
                     />
