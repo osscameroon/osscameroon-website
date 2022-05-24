@@ -59,7 +59,7 @@ const Project = ({ description, issues, language, link, name, stars, type }: Pro
             </a>
           </h1>
           <p style={style.p}>{displayDescription}</p>
-          {language || issues > 0 || stars ? (
+          {language?.length > 0 && issues > 0 && stars > 0 ? (
             <div className="d-flex flex-column flex-sm-row justify-content-start flex-wrap">
               <div className="project-language my-auto">{language || defaultLanguage}</div>
               <div className="project-language my-auto"> Issues {issues}</div>

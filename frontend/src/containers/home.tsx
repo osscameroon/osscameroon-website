@@ -168,7 +168,7 @@ const HomePage = () => {
           </div>
         </section>
 
-        <section className="item-center" id="projects">
+        <section className="item-center" id="ourprojects">
           <div className="text-center">
             <h2> {formatMessage(homeMessages.ourProjectTitle)} </h2>
             <Container>
