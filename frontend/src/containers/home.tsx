@@ -15,7 +15,7 @@ import darkDeveloper from "../assets/img/dark-developer.svg";
 
 import search from "../assets/icons/search.svg";
 import { useQuery } from "react-query";
-import { searchProject } from "../services/projects";
+import { searchProject, getOurProject } from "../services/projects";
 import { getTopTweets } from "../services/tweets";
 import { DEFAULT_CACHE_OPTIONS } from "../config";
 import Loader from "../components/common/Loader";
@@ -70,13 +70,6 @@ const HomePage = () => {
     }
     return themeContext.theme === LIGHT ? lightDeveloper : darkDeveloper;
   };
-
-  const [ourProjects, setOurProjects] = useState([]);
-  fetch("https://raw.githubusercontent.com/osscameroon/project-ideas/master/prod-projects.json")
-    .then((response) => response.json())
-    .then((data) => {
-      setOurProjects(data.slice(0, 5));
-    });
 
   return (
     <Layout title={formatMessage(titleMessages.home)}>
@@ -147,12 +140,12 @@ const HomePage = () => {
             <h2> {formatMessage(homeMessages.ourProjectTitle)} </h2>
             <Container>
               <Row style={{ margin: "40px 0 40px 0" }}>
-                {ourProjects?.map((project: any, i) => (
+                {getOurProject().map((project: any, i) => (
                   <Col key={i} md="6" style={{ margin: "20px 0 20px 0" }} xl="4">
                     <Project
                       description={project?.description}
                       issues={0}
-                      language=""
+                      language="our-projects"
                       link={project?.html_url}
                       name={project?.name}
                       stars={0}
