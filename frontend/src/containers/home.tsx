@@ -15,7 +15,7 @@ import darkDeveloper from "../assets/img/dark-developer.svg";
 
 import search from "../assets/icons/search.svg";
 import { useQuery } from "react-query";
-import { searchProject } from "../services/projects";
+import { searchProject, getOurProject } from "../services/projects";
 import { getTopTweets } from "../services/tweets";
 import { DEFAULT_CACHE_OPTIONS } from "../config";
 import Loader from "../components/common/Loader";
@@ -132,6 +132,29 @@ const HomePage = () => {
               {t('home:btnAdvancedSearch')}
             </a>
             */}
+          </div>
+        </section>
+
+        <section className="item-center" id="ourprojects">
+          <div className="text-center">
+            <h2> {formatMessage(homeMessages.ourProjectTitle)} </h2>
+            <Container>
+              <Row style={{ margin: "40px 0 40px 0" }}>
+                {getOurProject().map((project: any, i) => (
+                  <Col key={i} md="6" style={{ margin: "20px 0 20px 0" }} xl="4">
+                    <Project
+                      description={project?.description}
+                      issues={0}
+                      language="our-projects"
+                      link={project?.html_url}
+                      name={project?.name}
+                      stars={0}
+                      type="small"
+                    />
+                  </Col>
+                ))}
+              </Row>
+            </Container>
           </div>
         </section>
 

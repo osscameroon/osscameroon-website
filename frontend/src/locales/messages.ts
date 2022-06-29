@@ -214,6 +214,10 @@ export const homeMessages = defineMessages({
     id: "app.home.otherOpenSourceCommunities",
     defaultMessage: "OTHER OPEN SOURCE COMMUNITIES",
   },
+  ourProjectTitle: {
+    id: "app.home.ourProjectTitle",
+    defaultMessage: "OUR PROJECTS",
+  },
 });
 
 export const projectMessages = defineMessages({
