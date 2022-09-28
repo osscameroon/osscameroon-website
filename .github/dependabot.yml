@@ -20,7 +20,7 @@ updates:
     allow:
       - dependency-type: "all"
     assignees:
-      - "sanix-darker"
+      - "Sanix-Darker"
     commit-message:
       prefix: "pip prod"
       prefix-development: "pip dev"
