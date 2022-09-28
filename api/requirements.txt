@@ -1,5 +1,5 @@
 aniso8601==9.0.1
-attrs==21.2.0
+attrs==22.1.0
 cachetools==4.2.4
 certifi==2022.9.24
 charset-normalizer==2.0.9
