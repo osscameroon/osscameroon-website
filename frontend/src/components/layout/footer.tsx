@@ -56,6 +56,11 @@ const Footer = () => {
                 </a>
               </li>
               <li>
+                <a className="txt-dark" href="https://github.com/osscameroon/Branding" rel="noreferrer" target="_blank">
+                  {formatMessage(footerMessages.brandResources)}
+                </a>
+              </li>
+              <li>
                 <NavLink to="/privacy">
                   <span>{formatMessage(footerMessages.privacy)}</span>
                 </NavLink>
