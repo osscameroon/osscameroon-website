@@ -1,0 +1,53 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "daily"
+    allow:
+      - dependency-type: "all"
+    assignees:
+      - "tericcabrel"
+    commit-message:
+      prefix: "yarn prod"
+      prefix-development: "yarn dev"
+      include: "scope"
+
+  - package-ecosystem: "pip"
+    directory: "/api"
+    schedule:
+      interval: "daily"
+    allow:
+      - dependency-type: "all"
+    assignees:
+      - "Sanix-Darker"
+    commit-message:
+      prefix: "pip prod"
+      prefix-development: "pip dev"
+      include: "scope"
+
+  - package-ecosystem: "pip"
+    directory: "/scraper/twitter"
+    schedule:
+      interval: "daily"
+    allow:
+      - dependency-type: "all"
+    assignees:
+      - "Sanix-Darker"
+    commit-message:
+      prefix: "pip prod"
+      prefix-development: "pip dev"
+      include: "scope"
+
+  - package-ecosystem: "pip"
+    directory: "/bots/hermes"
+    schedule:
+      interval: "daily"
+    allow:
+      - dependency-type: "all"
+    assignees:
+      - "elhmn"
+    commit-message:
+      prefix: "pip prod"
+      prefix-development: "pip dev"
+      include: "scope"
