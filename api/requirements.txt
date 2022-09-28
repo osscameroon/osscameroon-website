@@ -17,7 +17,7 @@ google-cloud-datastore==2.4.0
 googleapis-common-protos==1.54.0
 grpcio==1.49.1
 grpcio-status==1.42.0
-idna==3.3
+idna==3.4
 importlib-resources==5.4.0
 iniconfig==1.1.1
 itsdangerous==1.1.0
