@@ -1,7 +1,7 @@
 aniso8601==9.0.1
 attrs==21.2.0
 cachetools==4.2.4
-certifi==2021.10.8
+certifi==2022.9.24
 charset-normalizer==2.0.9
 click==7.1.2
 configparser==5.2.0
