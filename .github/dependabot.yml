@@ -25,3 +25,29 @@ updates:
       prefix: "pip prod"
       prefix-development: "pip dev"
       include: "scope"
+
+  - package-ecosystem: "pip"
+    directory: "/scraper/twitter"
+    schedule:
+      interval: "daily"
+    allow:
+      - dependency-type: "all"
+    assignees:
+      - "Sanix-Darker"
+    commit-message:
+      prefix: "pip prod"
+      prefix-development: "pip dev"
+      include: "scope"
+
+  - package-ecosystem: "pip"
+    directory: "/bots/hermes"
+    schedule:
+      interval: "daily"
+    allow:
+      - dependency-type: "all"
+    assignees:
+      - "elhmn"
+    commit-message:
+      prefix: "pip prod"
+      prefix-development: "pip dev"
+      include: "scope"
