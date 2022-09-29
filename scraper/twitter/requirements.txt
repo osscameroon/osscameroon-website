@@ -8,6 +8,6 @@ requests==2.25.1
 six==1.16.0
 tqdm==4.64.1
 urllib3==1.26.5
-google-cloud-datastore==2.1.0
+google-cloud-datastore==2.8.1
 flake8
 pytest
