@@ -1,13 +1,10 @@
-certifi==2022.9.24
-chardet==5.0.0
-configparser==5.3.0
-idna==3.4
+# prod deps
+requests==2.26.0
+google-cloud-datastore==2.4.0
 mysql-connector-python==8.0.22
-protobuf==3.18.3
-requests==2.25.1
-six==1.16.0
-tqdm==4.64.1
-urllib3==1.26.5
-google-cloud-datastore==2.1.0
-flake8
-pytest
+protobuf==3.19.1
+configparser==5.2.0
+
+# tests deps
+pytest==6.2.5
+flake8==4.0.1
