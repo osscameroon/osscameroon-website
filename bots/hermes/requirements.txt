@@ -5,7 +5,7 @@ cachetools==4.2.2
 certifi==2021.10.8
 charset-normalizer==2.0.9
 configparser==5.0.2
-flake8==3.9.2
+flake8==5.0.4
 google-api-core==2.3.2
 google-auth==2.3.3
 google-cloud-core==2.2.1
