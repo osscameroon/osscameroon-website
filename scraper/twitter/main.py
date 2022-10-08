@@ -2,6 +2,7 @@
 # Utilizes Twitter API 2.0
 
 from google.cloud import datastore
+from requests.exceptions import HTTPError
 
 from tqdm import tqdm
 import requests
@@ -10,6 +11,8 @@ import json
 
 CONFIGS = configparser.ConfigParser(interpolation=None)
 CONFIGS.read('config.ini')
+
+TWITTER_API_LINK = 'https://api.twitter.com/1.1/search/tweets.json'
 
 # For the gcloud auth to work properly this env variable should be set
 # GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json
@@ -39,7 +42,7 @@ def store_tweet(tweet_data: dict):
     """
 
     client = __get_client()
-    key = client.key('twitter', tweet_data['id'])
+    key = client.key('twitter', tweet_data.get('id', None))
 
     data = datastore.Entity(key)
     data.update(tweet_data)
@@ -68,30 +71,34 @@ def fetch_tweets(api_url: str) -> dict:
     print(f'>> Requesting: {api_url}, {headers}')
     response = requests.get(api_url, headers=headers)
     if response.status_code != 200:
-        raise ValueError(response)
+        raise HTTPError(response.text)
 
     results = response.json()
     return results
 
-# Default query url for api
-# Twitter 2.0
-# api_url = "https://api.twitter.com/2/tweets/search/recent?query=%23caparledev"
 
-# Twitter 1.1
-api_url = 'https://api.twitter.com/1.1/search/tweets.json?q=%23caparledev%20-filter%3Aretweets'
+def run_job():
+    # Default query url for api
+    # Twitter 2.0
+    # api_url = "https://api.twitter.com/2/tweets/search/recent?query=%23caparledev"
 
-try:
-    results = fetch_tweets(api_url)
-    print(results['search_metadata'])
-    while 'next_results' in results['search_metadata']:
-        api_url_mini = 'https://api.twitter.com/1.1/search/tweets.json'
-        api_url_mini += results['search_metadata']['next_results']
+    # Twitter 1.1
+    api_url = f'{TWITTER_API_LINK}/?q=%23caparledev%20-filter%3Aretweets'
 
-        results = fetch_tweets(api_url_mini)
+    try:
+        results = fetch_tweets(api_url)
+        print(results['search_metadata'])
+        while 'next_results' in results['search_metadata']:
+            results = fetch_tweets(
+                f"{TWITTER_API_LINK}/results['search_metadata']['next_results']"
+            )
+            res_len = len(results['statuses'])
+            for i in tqdm(range(res_len), desc='Storing in GCP...'):
+                data = change_data_structure(results['statuses'][i])
+                store_tweet(data)
+    except (ValueError, HTTPError, TypeError) as excp:
+        raise ValueError from excp
 
-        res_len = len(results['statuses'])
-        for i in tqdm(range(res_len), desc='Storing in GCP...'):
-            data = change_data_structure(results['statuses'][i])
-            store_tweet(data)
-except ValueError as excp:
-    raise ValueError from excp
+
+if __name__ == '__main__':
+    run_job()
