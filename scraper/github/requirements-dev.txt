@@ -2,3 +2,7 @@
 requests>=2.26.0
 configparser>=5.2.0
 pymongo>=4.3.3
+
+# for tests
+pytest>=6.2.5
+flake8>=4.0.1

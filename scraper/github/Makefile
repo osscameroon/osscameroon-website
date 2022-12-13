@@ -22,9 +22,9 @@ install-deps: venv $(CONFIG_FILE)
 ##run: run the scraper and accepts the number of PAGES as argument
 ## 		example: make run PAGES=5
 run4users: install-deps
-	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) -m app.cli -p $(PAGES) users
+	$(PYTHON) -m app.cli -p $(PAGES) users
 run4projects: install-deps
-	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) -m app.cli projects
+	$(PYTHON) -m app.cli projects
 
 lint: venv
 	$(PYTHON) -m flake8 . --show-source --statistics
