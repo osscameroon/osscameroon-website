@@ -1,25 +1,26 @@
 # settings.py
 # All settings/parameter for the application
 import configparser as cf
-import os
+from os import environ as os_env
 
-# we read configuration from the config.txt file
-conf = cf.RawConfigParser()
-conf.read(r'config.txt')
+_SCOPE = 'githubscraper'
 
-def get_github_token():
-    token = conf.get("githubscraper", "GITHUB_TOKEN")
-    if token == "":
-        token = os.environ.get("GITHUB_TOKEN")
-    return token
 
-def get_github_api():
-    api = conf.get("githubscraper", "GITHUB_API")
-    if api == "":
-        api = os.environ.get("GITHUB_API")
-    return api
+def get_key_env(scope: str, key: str) -> str | None:
+    # we read configuration from the config.txt file
+    conf = cf.RawConfigParser()
+    conf.read(r'config.txt')
+
+    if env := conf.get(scope, key):
+        return env
+
+    return os_env.get(key)
 
 
 # we get those secrets value
-GITHUB_API = get_github_api()
-GITHUB_TOKEN = get_github_token()
+GITHUB_API = get_key_env(_SCOPE, 'GITHUB_API')
+GITHUB_TOKEN = get_key_env(_SCOPE, 'GITHUB_TOKEN')
+
+# Some database envs
+MONGO_LINK = get_key_env(_SCOPE, 'MONGO_LINK')
+MONGO_DATABASE = get_key_env(_SCOPE, 'MONGO_DATABASE')
