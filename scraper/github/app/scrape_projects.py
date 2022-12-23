@@ -1,7 +1,8 @@
+import time
+from datetime import datetime
+
 from app.utils.github_requests import GithubClient
 from app.utils.storage import fetch_all_users, store_project
-from datetime import datetime
-import time
 
 
 def convert_time_fields_to_date_time(repo):

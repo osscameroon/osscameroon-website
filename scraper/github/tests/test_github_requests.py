@@ -1,5 +1,6 @@
-from app.utils.github_requests import GithubClient
 import requests
+
+from app.utils.github_requests import GithubClient
 
 
 def test_success_status_check():

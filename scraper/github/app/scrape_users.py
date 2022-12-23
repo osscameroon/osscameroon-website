@@ -1,5 +1,6 @@
-from app.utils.github_requests import GithubClient
 from datetime import datetime
+
+from app.utils.github_requests import GithubClient
 from app.utils.storage import store_user
 
 

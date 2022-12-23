@@ -1,21 +1,33 @@
-from google.cloud import datastore
-import json
 import datetime
+import json
+from app.settings import MONGO_DATABASE, MONGO_LINK
 
-# For the gcloud auth to work properly this env variable should be set
-# GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json
+from pymongo import MongoClient
 
-KIND_USERS = "github_users"
-KIND_PROJECTS = "github_projects"
+
+KIND_USERS = 'github_users'
+KIND_PROJECTS = 'github_projects'
 __CLIENT = None
+
 
 def __get_client():
     global __CLIENT
     if __CLIENT is None:
-        __CLIENT = datastore.Client()
+        __CLIENT = MongoClient(MONGO_LINK).get_database(MONGO_DATABASE)
     return __CLIENT
 
-def convert_datetime_fields_to_string(data: dict):
+
+def get_collection(collection_name: str):
+    """ Get a Mongo collection object from mongo """
+    global __CLIENT
+
+    if __CLIENT:
+        return __CLIENT.get_collection(collection_name)
+
+    raise Exception(f"No client set for the collection {collection_name}")
+
+
+def convert_datetime_fields_to_string(data: dict) -> dict:
     """
     this function converts top level field of type datetime
     to string
@@ -58,10 +70,12 @@ def store_user(user: dict):
         return
 
     client = __get_client()
-    key = client.key(KIND_USERS, user["id"])
-    data = datastore.Entity(key)
-    data.update(user)
-    client.put(data)
+
+    user_collection = client.get_collection(KIND_USERS)
+    if user_collection.find_one({'login': user['login']}) is not None:
+        user_collection.update_one({'login': user['login']}, user)
+
+    user_collection.insert_one(user)
 
 def store_project(repo: dict):
     """
@@ -74,10 +88,12 @@ def store_project(repo: dict):
         return
 
     client = __get_client()
-    key = client.key(KIND_PROJECTS, repo["id"])
-    data = datastore.Entity(key)
-    data.update(repo)
-    client.put(data)
+
+    user_project = client.get_collection(KIND_PROJECTS)
+    if user_project.find_one({'name': repo['name']}) is not None:
+        user_project.update_one({'name': repo['name']}, repo)
+
+    user_project.insert_one(repo)
 
 
 def get_one_page_of_users(cursor=None, limit: int = 20):

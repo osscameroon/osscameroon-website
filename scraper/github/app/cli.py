@@ -1,7 +1,7 @@
 import argparse
-from app.scrape_users import scrape_users
-from app.scrape_projects import scrape_projects
 
+from app.scrape_projects import scrape_projects
+from app.scrape_users import scrape_users
 
 if __name__ == "__main__":
     # Usage :

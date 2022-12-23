@@ -1,3 +1,8 @@
 [githubscraper]
+# github api stuffs
 GITHUB_API = https://api.github.com
-GITHUB_TOKEN = 
+GITHUB_TOKEN =
+
+# database creds
+MONGO_LINK =
+MONGO_DATABASE =

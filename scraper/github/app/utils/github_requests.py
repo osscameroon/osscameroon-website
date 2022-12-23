@@ -1,11 +1,13 @@
 # github_requests.py
 # github requests functions
 
-import requests
-from typing import List, Dict, Tuple, Union, Callable, Any
 import logging
-from app.settings import GITHUB_API, GITHUB_TOKEN
 from datetime import date
+from typing import Any, Callable, Dict, List, Tuple, Union
+
+import requests
+
+from app.settings import GITHUB_API, GITHUB_TOKEN
 
 logging.basicConfig(level=logging.DEBUG)
 
