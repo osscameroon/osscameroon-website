@@ -1,20 +1,21 @@
-# settings.py
-# All settings/parameter for the application
 import configparser as cf
 from os import environ as os_env
 
-_SCOPE = 'githubscraper'
 
+_SCOPE = 'githubscraper'
 
 def get_key_env(scope: str, key: str) -> str | None:
     # we read configuration from the config.txt file
     conf = cf.RawConfigParser()
     conf.read(r'config.txt')
 
-    if env := conf.get(scope, key):
-        return env
+    try:
+        if env := conf.get(scope, key):
+            return env
 
-    return os_env.get(key)
+        return os_env.get(key)
+    except cf.NoOptionError:
+        return ""
 
 
 # we get those secrets value
