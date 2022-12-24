@@ -76,7 +76,7 @@ const Footer = () => {
             <h3 className="font-weight-bold">{formatMessage(footerMessages.joinUs)}</h3>
             <ul className="join-us">
               <li>
-                <a href="https://twitter.com/caparledev" rel="noreferrer" target="_blank">
+                <a href="https://twitter.com/osscameroon" rel="noreferrer" target="_blank">
                   <img alt="Twitter logo" src={twitterIcon} />
                 </a>
               </li>
