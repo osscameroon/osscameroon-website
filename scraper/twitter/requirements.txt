@@ -1,6 +1,6 @@
 # prod deps
 requests==2.26.0
-google-cloud-datastore==2.4.0
+google-cloud-datastore==2.13.0
 mysql-connector-python==8.0.22
 protobuf==3.19.1
 configparser==5.2.0
