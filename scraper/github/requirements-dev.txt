@@ -3,7 +3,8 @@ requests>=2.26.0
 configparser>=5.2.0
 pymongo>=4.3.3
 
-# for tests
+# for lint and tests
+flake8
+black
 pytest>=6.2.5
-flake8>=4.0.1
 pytest-mock>=3.10.0

@@ -5,8 +5,8 @@ from app.settings import MONGO_DATABASE, MONGO_LINK
 from pymongo import MongoClient
 
 
-KIND_USERS = 'github_users'
-KIND_PROJECTS = 'github_projects'
+KIND_USERS = "github_users"
+KIND_PROJECTS = "github_projects"
 __CLIENT = None
 
 
@@ -18,7 +18,7 @@ def __get_client():
 
 
 def get_collection(collection_name: str):
-    """ Get a Mongo collection object from mongo """
+    """Get a Mongo collection object from mongo"""
     global __CLIENT
 
     if __CLIENT:
@@ -61,9 +61,9 @@ def sanitize_array_of_user_data(data_arr: list):
 
 def store_user(user: dict):
     """
-        Stores user data in our gcp datastore server
+    Stores user data in our gcp datastore server
 
-        @params : user data
+    @params : user data
     """
 
     if not user:
@@ -72,16 +72,17 @@ def store_user(user: dict):
     client = __get_client()
 
     user_collection = client.get_collection(KIND_USERS)
-    if user_collection.find_one({'login': user['login']}) is not None:
-        user_collection.update_one({'login': user['login']}, user)
+    if user_collection.find_one({"login": user["login"]}) is not None:
+        user_collection.update_one({"login": user["login"]}, user)
 
     user_collection.insert_one(user)
 
+
 def store_project(repo: dict):
     """
-        Stores open source project in our gcp datastore server
+    Stores open source project in our gcp datastore server
 
-        @params : open source repo
+    @params : open source repo
     """
 
     if not repo:
@@ -90,8 +91,8 @@ def store_project(repo: dict):
     client = __get_client()
 
     user_project = client.get_collection(KIND_PROJECTS)
-    if user_project.find_one({'name': repo['name']}) is not None:
-        user_project.update_one({'name': repo['name']}, repo)
+    if user_project.find_one({"name": repo["name"]}) is not None:
+        user_project.update_one({"name": repo["name"]}, repo)
 
     user_project.insert_one(repo)
 

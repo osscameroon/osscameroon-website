@@ -52,8 +52,12 @@ class GithubClient:
         else:
             return True, {}
 
-    def get_users(self, pagination_limit: int = 2, on_pageloaded_success: Callable[[Any, List[Dict]], None] = None,  # noqa: C901
-                  on_pageloaded_error: Callable[[Any, Dict], None] = None) -> Union[List[Dict], Dict]:
+    def get_users(
+        self,
+        pagination_limit: int = 2,
+        on_pageloaded_success: Callable[[Any, List[Dict]], None] = None,  # noqa: C901
+        on_pageloaded_error: Callable[[Any, Dict], None] = None,
+    ) -> Union[List[Dict], Dict]:
         """
 
         This method will just fetch users from
@@ -68,15 +72,19 @@ class GithubClient:
         per_page = 100
         last_date = str(date.today())
         page = 1
-        self.logger.info(f"Starting to fetch users in cameroon/cameroun, max_page={pagination_limit},"
-                         f" per_page={per_page}, last_updated_date={last_date}")
+        self.logger.info(
+            f"Starting to fetch users in cameroon/cameroun, max_page={pagination_limit},"
+            f" per_page={per_page}, last_updated_date={last_date}"
+        )
 
         while pagination_limit:
             self.logger.info(f"Fetching page={page}, last_date={last_date}")
             # we set the query, fetch users created before last_date, sort them by join date desc
             # located in cameroon or cameroun
-            query = f"created:<{last_date}+sort:joined-desc+location:%22cameroon%22+location:%22cameroun%22" \
-                    f"&page={page}&per_page={per_page}"
+            query = (
+                f"created:<{last_date}+sort:joined-desc+location:%22cameroon%22+location:%22cameroun%22"
+                f"&page={page}&per_page={per_page}"
+            )
 
             r = self.session.get(f"{self.GITHUB_API}/search/users?q={query}")
             # We check the status of the request and return a predefined error message
@@ -96,7 +104,9 @@ class GithubClient:
                 if callable(on_pageloaded_error):
                     on_pageloaded_error(self, schk[1])
                 else:
-                    self.logger.warning(f"on_pageloaded_error is passed but it is not callable {on_pageloaded_error}")
+                    self.logger.warning(
+                        f"on_pageloaded_error is passed but it is not callable {on_pageloaded_error}"
+                    )
                 return schk[1]
 
             items = r.json()["items"]
@@ -116,7 +126,9 @@ class GithubClient:
             if callable(on_pageloaded_success):
                 on_pageloaded_success(self, unique_items)
             else:
-                self.logger.warning(f"on_pageloaded_success is passed but it is not callable {on_pageloaded_success}")
+                self.logger.warning(
+                    f"on_pageloaded_success is passed but it is not callable {on_pageloaded_success}"
+                )
 
             # We append or merge by ensuring unicity
             users.extend(unique_items)
