@@ -43,8 +43,11 @@ clean:
 	rm -rf $(VENVPATH)
 	rm -rf __pycache__ */__pycache__ */*/__pycache__
 
+start-mongo:
+	docker run -d -p 27017:27017 --name mongo -h mongo --rm mongo:latest
+
 ##help: show help
 help : Makefile
 	@sed -n 's/^##//p' $<
 
-.PHONY : help venv install-deps test lint
+.PHONY : help venv install-deps test lint start-mongo clean deploy format
