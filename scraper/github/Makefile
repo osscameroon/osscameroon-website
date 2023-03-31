@@ -26,6 +26,9 @@ run4users: install-deps
 run4projects: install-deps
 	$(PYTHON) -m app.cli projects
 
+format:
+	$(PYTHON) -m black .
+
 lint: venv
 	$(PYTHON) -m flake8 . --show-source --statistics
 
@@ -33,8 +36,8 @@ deploy: test
 	cd deploy && ./deploy.sh
 
 ##test: test your code
-test: install-deps lint
-	$(PYTHON) -m pytest
+test:
+	$(PYTHON) -m pytest -s -vv --disable-pytest-warnings
 
 clean:
 	rm -rf $(VENVPATH)
