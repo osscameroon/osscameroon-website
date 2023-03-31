@@ -38,6 +38,7 @@ test: install-deps lint
 
 clean:
 	rm -rf $(VENVPATH)
+	rm -rf __pycache__ */__pycache__ */*/__pycache__
 
 ##help: show help
 help : Makefile
