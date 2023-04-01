@@ -22,9 +22,12 @@ install-deps: venv $(CONFIG_FILE)
 ##run: run the scraper and accepts the number of PAGES as argument
 ## 		example: make run PAGES=5
 run4users: install-deps
-	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) -m app.cli -p $(PAGES) users
+	$(PYTHON) -m app.cli -p $(PAGES) users
 run4projects: install-deps
-	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) -m app.cli projects
+	$(PYTHON) -m app.cli projects
+
+format:
+	$(PYTHON) -m black .
 
 lint: venv
 	$(PYTHON) -m flake8 . --show-source --statistics
@@ -33,14 +36,18 @@ deploy: test
 	cd deploy && ./deploy.sh
 
 ##test: test your code
-test: install-deps lint
-	$(PYTHON) -m pytest
+test:
+	$(PYTHON) -m pytest -s -vv --disable-pytest-warnings
 
 clean:
 	rm -rf $(VENVPATH)
+	rm -rf __pycache__ */__pycache__ */*/__pycache__
+
+start-mongo:
+	docker run -d -p 27017:27017 --name mongo -h mongo --rm mongo:latest
 
 ##help: show help
 help : Makefile
 	@sed -n 's/^##//p' $<
 
-.PHONY : help venv install-deps test lint
+.PHONY : help venv install-deps test lint start-mongo clean deploy format

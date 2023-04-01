@@ -1,83 +1,68 @@
-from google.cloud import datastore
-import json
 import datetime
+import json
+from app.settings import MONGO_DATABASE, MONGO_LINK
 
-# For the gcloud auth to work properly this env variable should be set
-# GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json
+from pymongo import MongoClient
+
 
 KIND_USERS = "github_users"
 KIND_PROJECTS = "github_projects"
 __CLIENT = None
 
+
 def __get_client():
     global __CLIENT
     if __CLIENT is None:
-        __CLIENT = datastore.Client()
+        __CLIENT = MongoClient(MONGO_LINK).get_database(MONGO_DATABASE)
     return __CLIENT
 
-def convert_datetime_fields_to_string(data: dict):
-    """
-    this function converts top level field of type datetime
-    to string
-    """
 
-    for key, val in data.items():
-        if isinstance(val, (datetime.date, datetime.datetime)):
-            data[key] = val.strftime("%Y-%m-%dT%H:%M:%SZ")
-    return data
+def get_collection(collection_name: str):
+    """Get a Mongo collection object from mongo"""
+    global __CLIENT
 
+    if __CLIENT:
+        return __CLIENT.get_collection(collection_name)
 
-def sanitize_user_data(data):
-    """
-    sanitize_user_data [prepare user data format]
-    @params: data
-    """
-
-    data = convert_datetime_fields_to_string(data)
-    return data
-
-
-def sanitize_array_of_user_data(data_arr: list):
-    """
-    sanitize_array_of_user_data [prepare array of user data format]
-    @params: data_arr
-    """
-    for data in data_arr:
-        data = sanitize_user_data(data)
-    return data_arr
+    raise Exception(f"No client set for the collection {collection_name}")
 
 
 def store_user(user: dict):
     """
-        Stores user data in our gcp datastore server
+    Stores user data in our gcp datastore server
 
-        @params : user data
+    @params : user data
     """
 
     if not user:
         return
 
     client = __get_client()
-    key = client.key(KIND_USERS, user["id"])
-    data = datastore.Entity(key)
-    data.update(user)
-    client.put(data)
+
+    user_collection = client.get_collection(KIND_USERS)
+    if user_collection.find_one({"login": user["login"]}) is not None:
+        user_collection.update_one({"login": user["login"]}, user)
+
+    user_collection.insert_one(user)
+
 
 def store_project(repo: dict):
     """
-        Stores open source project in our gcp datastore server
+    Stores open source project in our gcp datastore server
 
-        @params : open source repo
+    @params : open source repo
     """
 
     if not repo:
         return
 
     client = __get_client()
-    key = client.key(KIND_PROJECTS, repo["id"])
-    data = datastore.Entity(key)
-    data.update(repo)
-    client.put(data)
+
+    user_project = client.get_collection(KIND_PROJECTS)
+    if user_project.find_one({"name": repo["name"]}) is not None:
+        user_project.update_one({"name": repo["name"]}, repo)
+
+    user_project.insert_one(repo)
 
 
 def get_one_page_of_users(cursor=None, limit: int = 20):
@@ -87,7 +72,11 @@ def get_one_page_of_users(cursor=None, limit: int = 20):
     page = next(query_iter.pages)
 
     result = list(page)
-    result = sanitize_array_of_user_data(result)
+    # converts top level field of type datetime to string
+    for data in result:
+        for key, val in data.items():
+            if isinstance(val, (datetime.date, datetime.datetime)):
+                data[key] = val.strftime("%Y-%m-%dT%H:%M:%SZ")
 
     next_cursor = query_iter.next_page_token
     return result, next_cursor

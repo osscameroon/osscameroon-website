@@ -1,7 +1,8 @@
+import time
+from datetime import datetime
+
 from app.utils.github_requests import GithubClient
 from app.utils.storage import fetch_all_users, store_project
-from datetime import datetime
-import time
 
 
 def convert_time_fields_to_date_time(repo):
@@ -35,7 +36,11 @@ def on_pageloaded_success(page):
         print("fetching user {} repositories...".format(user_name))
         repos = github_cli.get_user_repos(user_name)
         if github_cli.request_failed(repos):
-            print("Error: {}: failed to get user {} repositories.".format(repos, user_name))
+            print(
+                "Error: {}: failed to get user {} repositories.".format(
+                    repos, user_name
+                )
+            )
             return
         print("user {} repositories successfully fetched!".format(user_name))
         # A relevant repositories is here indentified by criterias

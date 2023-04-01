@@ -1,5 +1,6 @@
-from app.utils.github_requests import GithubClient
 from datetime import datetime
+
+from app.utils.github_requests import GithubClient
 from app.utils.storage import store_user
 
 
@@ -63,5 +64,7 @@ def scrape_users(prs):
     else:
         print("[+] Getting devs from cameroun/cameroon...")
         print("[+] pagination_limit: {}".format(prs.pagination_limit))
-        users = github_cli.get_users(prs.pagination_limit, store_users, on_pageloaded_error)
+        users = github_cli.get_users(
+            prs.pagination_limit, store_users, on_pageloaded_error
+        )
         print(users)

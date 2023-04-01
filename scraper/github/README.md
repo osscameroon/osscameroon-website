@@ -7,7 +7,19 @@
 
 ### How to install
 
-- Set up your virtualenv : 
+### Using Makefile
+
+```bash
+# To install dev dependencies
+make install-dev-deps
+
+# To install prod dependencies
+make install-deps
+```
+
+### Manually
+
+- Set up your virtualenv :
 ```shell
 virtualenv -p python3 venv
 # activate it
@@ -16,6 +28,7 @@ source venv/bin/activate
 
 - Install requirements :
 ```shell
+# or requirements-dev.txt
 pip install -r requirements.txt
 ```
 
@@ -28,10 +41,10 @@ pip install -r requirements.txt
 ```shell
 # You need to provide the username parameter here
 # u or --user_name
-GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json python -m app.cli -u elhmn
+python -m app.cli -u elhmn
 ```
 
-- To get the list of devs from cameroun : 
+- To get the list of devs from cameroun :
 ```shell
 # You just need to provide the pagination
 # For example to get first 12 pages :
