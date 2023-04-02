@@ -4,6 +4,7 @@
 
 - make
 - `client_secrets.json` file that should contain your gcp creds
+- go (>=1.17 recommended)
 
 ## HOW TO INSTALL
 
@@ -15,6 +16,16 @@ make install
 
 ## HOW TO RUN
 
+- to export from gcp
+
 ```bash
 make export_data
+```
+
+- to import to postgres
+
+```bash
+# make sure to have a .env file available
+# cp .env.example .env
+make import_data
 ```
