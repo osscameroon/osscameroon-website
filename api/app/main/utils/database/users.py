@@ -1,7 +1,7 @@
 # database utils functions
 
-from app.main.utils.database import storage
 from app.main.utils import converters
+from app.main.utils.database import storage
 
 
 def sanitize_user_data(data):
@@ -27,7 +27,8 @@ def sanitize_array_of_user_data(data_arr: list):
 def get_users(count: int = 20):
     """
     get_users [this function fetch dev users from the database]
-    the count of items returned by this function can be limited to the size of data the datastore is able to return
+    the count of items returned by this function can be limited
+    to the size of data the datastore is able to return
 
     @params : count
     @returns : - code : the status code of the request

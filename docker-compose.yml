@@ -1,66 +1,53 @@
-version: '3'
+version: '3.9'
 
 services:
-  #find a way to tear this down after the init scripts has worked
-  setup-datastore:
-    build: ./scripts/setup-datastore/
-    command: ["/wait-for-it/wait-for-it.sh", "datastore:8000", "--", "make", "run-with-emulator"]
-    depends_on:
-      - datastore
-    environment:
-      MEILISEARCH_HOST: http://meilisearch:7700
-      GOOGLE_APPLICATION_CREDENTIALS: /tmp/key/creds.json
-      GCLOUD_PROJECT: pname
-      DATASTORE_EMULATOR_HOST: datastore:8000
-      DATASTORE_PROJECT_ID: pname
-    volumes:
-      - ./scripts/wait-for-it/:/wait-for-it
-
-  #find a way to tear this down after the init scripts has worked
-  setup-meilisearch:
-    build: ./tools/meilisearch-index-generator/
-    command: ["/wait-for-it/wait-for-it.sh", "meilisearch:7700", "--", "make", "run-with-emulator"]
-    depends_on:
-      - setup-datastore
-      - meilisearch
-    environment:
-      MEILISEARCH_HOST: http://meilisearch:7700
-      GOOGLE_APPLICATION_CREDENTIALS: /tmp/key/creds.json
-      GCLOUD_PROJECT: pname
-      DATASTORE_EMULATOR_HOST: datastore:8000
-      DATASTORE_PROJECT_ID: pname
-    volumes:
-      - ./scripts/wait-for-it/:/wait-for-it
-
-  meilisearch:
-    image: getmeili/meilisearch
-    volumes:
-      - ./data.ms:/data.ms
-    ports:
-      - 7700:7700
-
-  datastore:
-    build:
-      context: ./gcloud-emulator/
-      dockerfile: Dockerfile-datastore
-    command: gcloud beta emulators datastore start --project=pname --host-port 0.0.0.0:8000 --no-store-on-disk
-    ports:
-      - 8000:8000
 
   api:
     build: ./api
-    depends_on:
-      - setup-meilisearch
-      - setup-datastore
     environment:
-      MEILISEARCH_HOST: http://meilisearch:7700
-      GOOGLE_APPLICATION_CREDENTIALS: /tmp/key/creds.json
-      GCLOUD_PROJECT: pname
-      DATASTORE_EMULATOR_HOST: datastore:8000
-      DATASTORE_PROJECT_ID: pname
+      PGDATABASE: ossdb
+      PGHOST: localhost
+      PGPASSWORD: pwd
+      PGPORT: 5432
+      PGUSER: user
     ports:
       - 8811:8811
 
+  db:
+    image: postgres
+    container_name: postgres_container
+    restart: always
+    ports:
+      - 5432:5432
+    command: ["postgres", "-c", "log_statement=all"]
+    environment:
+      OSS_WEBSITE_APP_USER: ${OSS_WEBSITE_APP_USER}
+      OSS_WEBSITE_APP_PASSWORD: ${OSS_WEBSITE_APP_PASSWORD}
+      OSS_WEBSITE_APP_DATABASE: ${OSS_WEBSITE_APP_DATABASE}
+      POSTGRES_PASSWORD: "admin" # postgres admin password
+    volumes:
+      - ./scripts/initdb:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "psql", "postgresql://${OSS_WEBSITE_APP_USER}:${OSS_WEBSITE_APP_PASSWORD}@localhost/${OSS_WEBSITE_APP_DATABASE}"]
+      interval: 0.5s
+      timeout: 1s
+      retries: 4
+      start_period: 1s
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
 
   frontend:
     build: ./frontend

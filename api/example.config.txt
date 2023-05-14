@@ -1,8 +1,10 @@
-[meilisearch]
-MEILISEARCH_HOST = http://127.0.0.1:7700
-MEILISEARCH_MASTER_KEY =
+[postgres]
+OSS_WEBSITE_APP_DATABASE = ossdb
+OSS_WEBSITE_APP_HOST = localhost
+OSS_WEBSITE_APP_PASSWORD = pwd
+OSS_WEBSITE_APP_PORT = 5432
+OSS_WEBSITE_APP_USER = user
 
 [twitter]
 API_KEY = ----------
 API_SECRET_KEY = ----------
-

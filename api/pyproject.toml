@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "api"
+version = "0.0.1"
+description = "oss website api"
+authors = ["OssCameroon <osscameroon@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+# prod deps
+Fastapi = ">=0.95.2"
+uvicorn = { extras = ["standard"], version = "<1" }
+sqlalchemy = ">=2.0.13"
+asyncpg = ">=0.27.0"
+
+[tool.poetry.group.dev.dependencies]
+# test deps
+pytest = ">=6.2.5"
+requests = ">=2.26.0"
+requests-oauthlib = ">=1.3.0"
+pytest-mock = ">=3.10.0"
+ruff = ">=0.0.267"
+isort = ">=5.12.0"
+mypy = ">=1.3.0"
+libcst = ">=0.4.9"
+# typing stub libs
+types-requests = ">=2.30.0.0"
+mypy-extensions = ">=1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

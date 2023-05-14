@@ -1,3 +1,7 @@
+# for database as json files
+api/ossdb/users/data/
+api/ossdb/projects/data/
+
 .history
 .idea
 .vscode
@@ -6,6 +10,7 @@
 *venv
 .secrets
 .secrets-env
+.env
 
 #vim
 .*sw*

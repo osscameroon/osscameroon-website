@@ -1,297 +1,104 @@
-from flask_restplus import Resource, fields
-from flask import request
+from typing import Any
 
-# from app.main.utils.decorator import *
-from app.main.utils.dto import ApiDto
-from app.main.utils.database.users import get_users, get_user
-from app.main.utils.database.projects import get_projects, get_project
-from app.main.utils.database.search_projects import (
-    get_search_projects,
-    post_search_projects,
-)
-
-from app.main.utils.database.search_users import (
-    post_search_users,
-    get_search_users,
-)
+from fastapi import Request
 
 from app.main.utils.database.languages import get_languages
-
-
-api = ApiDto.github_api
+from app.main.utils.database.projects import get_project, get_projects
+from app.main.utils.database.search_projects import (get_search_projects,
+                                                     post_search_projects)
+from app.main.utils.database.search_users import (get_search_users,
+                                                  post_search_users)
+from app.main.utils.database.users import get_user, get_users
+from manage import app
 
 
 # Ex : /users?count=<count>
-@api.route("/users", methods=["GET"])
-class ApidtoUsers(Resource):
-    @api.doc(
-        "Get_all_users",
-        params={
-            "count": "item count",
-        },
-    )
-    def get(self):
-        """This method will return all github users with filter"""
-
-        count = request.args.get("count")
-        if count is not None:
-            count = int(count)
-        else:
-            count = 20
-
-        result = get_users(count=count)
-
-        return result, result["code"]
+@app.get("/users")
+async def all_users(count: int=20) -> dict :
+    """This method will return all github users with filter"""
+    return get_users(count)
 
 
 # Ex : /users/elhmne
-@api.route("/users/<user_name>", methods=["GET"])
-class ApidtoUser(Resource):
-    @api.doc("Get_user_infos")
-    def get(self, user_name):
-        """This method will return a github user with more informations"""
-
-        result = get_user(user_name)
-        return result, result["code"]
+@app.get("/users/<user_name>")
+async def user_infos_username(user_name: str) -> dict :
+    """This method will return a github user with more informations"""
+    return get_user(user_name)
 
 
 # Ex : /users/search?query=<query_string>&count=<element_per_page>&page=<page_number>
-@api.route("/users/search", methods=["GET", "POST"])
-class ApidtoSearch(Resource):
-    @api.doc(
-        "Get_search_infos",
-        params={
-            "query": "query string can be a user name",
-            "page": "page number",
-            "count": "item count",
-        },
-    )
-    def get(self):
-        """This request will return the list of users that match the query string"""
-        query = request.args.get("query")
-
-        count = request.args.get("count")
-        if count is not None:
-            count = int(count)
-        else:
-            count = 20
-
-        page = request.args.get("page")
-        if page is not None:
-            page = int(page)
-        else:
-            page = 1
-
-        result = get_search_users(query, count, page)
-        return result, result["code"]
-
-    user_model = api.model(
-        "User Model",
-        {
-            "query": fields.String(
-                description="search string",
-                help="Enter a search query string",
-                default="",
-            ),
-            "page": fields.Integer(
-                description="Page number",
-                default=1
-            ),
-            "count": fields.Integer(
-                description="count of elements per page",
-                default=20
-            ),
-            "sort_type": fields.String(
-                description="Sorting type [alphabetic, most_recent]",
-                help="Specify sorting type",
-                default="most_recent"
-            ),
-        },
+@app.get("/users/search")
+async def search_users(query: str, count: int=20, page: int=1) -> dict :
+    """
+    This request will return the list of users that
+    match the query string
+    """
+    return get_search_users(
+        query=query,
+        count=count,
+        page=page
     )
 
-    @api.expect(user_model)
-    @api.doc(
-        "Post_users_search_infos",
+
+@app.post("/users/search")
+async def user_search_infos(request: Request) -> dict :
+    """This request will return all github users that matches search query field"""
+    request_json: dict[str, Any] = await request.json() or {}
+
+    return post_search_users(
+        query=request_json.get("query", ""),
+        sort_type=request_json.get("sort_type", ""),
+        page=request_json.get("page", 1),
+        count=request_json.get("count", 20)
     )
-    def post(self):
-        """This request will return all github users that matches search query field"""
-        data = request.json
-
-        # get query
-        query = data.get("query")
-
-        # get count
-        count = data.get("count")
-        if count is not None:
-            count = int(count)
-        else:
-            count = 20
-
-        # get page
-        page = data.get("page")
-        if page is not None:
-            page = int(page)
-        else:
-            page = 1
-
-        # get sort_type
-        sort_type = data.get("sort_type")
-        if sort_type is None:
-            sort_type = ""
-
-        result = post_search_users(
-            query, sort_type=sort_type, page=page, count=count
-        )
-        return result, result["code"]
-
-
-# Ex : /projects/node-openerp
-@api.route("/projects/<project_name>", methods=["GET"])
-class ApidtoProject(Resource):
-    @api.doc("Get_user_infos")
-    def get(self, project_name):
-        """This request will return a github project by name"""
-
-        result = get_project(project_name)
-        return result, result["code"]
 
 
 # Ex : /projects?count=<count>
-@api.route("/projects", methods=["GET"])
-class ApidtoProjects(Resource):
-    @api.doc(
-        "Get_all_projects",
-        params={
-            "count": "item count",
-        },
-    )
-    def get(self):
-        """This request will return all github projects"""
+@app.get("/projects")
+async def all_projects(count: int=20) -> dict :
+    """This request will return all github projects"""
+    return get_projects(count)
 
-        count = request.args.get("count")
-        if count is not None:
-            count = int(count)
-        else:
-            count = 20
 
-        page = request.args.get("page")
-        if page is not None:
-            page = int(page)
-        else:
-            page = 1
-
-        result = get_projects(count=count)
-
-        return result, result["code"]
+@app.get("/projects")
+async def user_infos_project(project_name: str) -> dict :
+    """This request will return a github project by name"""
+    return get_project(project_name)
 
 
 # Ex : /projects/search?query=<query_string>&count=<element_per_page>&page=<page_number>
-@api.route("/projects/search", methods=["GET", "POST"])
-class ApidtoProjectsSearch(Resource):
-    @api.doc(
-        "Get_search_infos",
-        params={
-            "query": "query string",
-            "count": "item count",
-            "page": "page number",
-        },
-    )
-    def get(self):
-        """This request will return all github projects that matches search query field"""
-        query = request.args.get("query")
-
-        count = request.args.get("count")
-        if count is not None:
-            count = int(count)
-        else:
-            count = 20
-
-        page = request.args.get("page")
-        if page is not None:
-            page = int(page)
-        else:
-            page = 1
-
-        result = get_search_projects(query, count, page)
-        return result, result["code"]
-
-    project_model = api.model(
-        "Project Model",
-        {
-            "query": fields.String(
-                description="search string",
-                help="Enter a search query string",
-                default="",
-            ),
-            "page": fields.Integer(
-                description="Page number",
-                default=1
-            ),
-            "count": fields.Integer(
-                description="count of elements per page",
-                default=20
-            ),
-            "languages": fields.List(
-                cls_or_instance=fields.String,
-                description="list of languages",
-                help="Specify a list of languages",
-                default=["javascript", "java", "c", "c++"]
-            ),
-            "sort_type": fields.String(
-                description="Sorting type [alphabetic, popularity, most_recent]",
-                help="Specify sorting type",
-                default="most_recent"
-            ),
-        },
+@app.get("/projects/search")
+async def project_search(query: str, count: int=20, page: int=1) -> dict :
+    """
+    This request will return all github projects
+    that matches search query field
+    """
+    return get_search_projects(
+        query=query,
+        count=count,
+        page=page
     )
 
-    @api.expect(project_model)
-    @api.doc(
-        "Post_project_search_infos",
+
+@app.post("/projects/search")
+async def project_search_infos(request: Request) -> dict :
+    """
+    This request will return all github projects
+    that matches search query field
+    """
+    request_json = await request.json()
+
+    return post_search_projects(
+        query=request_json.get("query", ""),
+        sort_type=request_json.get("sort_type", ""),
+        languages=request_json.get("languages", []),
+        page=request_json.get("page", 1),
+        count=request_json.get("count", 20)
     )
-    def post(self):
-        """This request will return all github projects that matches search query field"""
-        data = request.json
-
-        # get query
-        query = data.get("query")
-
-        # get count
-        count = data.get("count")
-        if count is not None:
-            count = int(count)
-        else:
-            count = 20
-
-        # get page
-        page = data.get("page")
-        if page is not None:
-            page = int(page)
-        else:
-            page = 1
-
-        # get sort_type
-        sort_type = data.get("sort_type")
-        if sort_type is None:
-            sort_type = ""
-
-        # get languages
-        languages = data.get("languages")
-        if languages is None:
-            languages = []
-
-        result = post_search_projects(
-            query, sort_type=sort_type, languages=languages, page=page, count=count
-        )
-        return result, result["code"]
 
 
 # Ex : /languages
-@api.route("/languages", methods=["GET"])
-class ApidtoLanguages(Resource):
-    @api.doc("Get_github_languages")
-    def get(self):
-        """This request will return a list of github languages"""
-
-        result = get_languages()
-        return result, result["code"]
+@app.get("/languages")
+async def github_languages() -> dict :
+    """This request will return a list of github languages"""
+    return get_languages()

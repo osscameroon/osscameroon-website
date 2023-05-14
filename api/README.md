@@ -1,17 +1,20 @@
 # Oss Cameroon WebSite Backend
 
-
 ## Requirements
 
 - python (>2.7,<=3.8)
+- poetry (>1.4 recommended)
 - make
 
 ## How to install/launch
 
 ```bash
+# starts postgres server
+docker-compose up -d pgadmin
+
 make run
 # this will set your virtual env `make venv`
-# this will install dependencies `make install-deps`
+# this will install dependencies `make install`
 # and then run the backend...
 ```
 

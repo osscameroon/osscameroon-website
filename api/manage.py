@@ -1,20 +1,14 @@
-from flask_script import Manager
+import uvicorn
 
-from app import blueprint
 from app.main import create_app
-from app.main.config import app_port, app_host
 
-app = create_app('dev')
+app = create_app()
 
-app.register_blueprint(blueprint)
-app.app_context().push()
-
-manager = Manager(app)
-
-@manager.command
-def run():
-    app.run(host=app_host, port=app_port)
-
-
-if __name__ == '__main__':
-    manager.run()
+if __name__ == "__main__":
+    uvicorn.run(
+        "oss_website:app",
+        host="0.0.0.0",
+        port=8000,
+        log_level="info",
+        reload=True
+    )

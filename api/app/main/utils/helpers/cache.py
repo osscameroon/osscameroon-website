@@ -2,15 +2,16 @@
 # with expiration life
 
 import time
+from typing import Any
+
 
 class Cache(object):
-
     _cache_ = {}
     VALUE = 0
     EXPIRES = 1
 
     @classmethod
-    def get(cls, key):
+    def get(cls, key: str) -> Any:
         """Get the value from the cache stored with 'key' if it exists"""
         try:
             if cls._cache_[key][cls.EXPIRES] > time.time():
@@ -22,8 +23,11 @@ class Cache(object):
             return None
 
     @classmethod
-    def set(cls, key, value, duration=3600):
-        """Store/overwite a value in the cache with 'key' and an optional duration (seconds)"""
+    def set(cls, key, value, duration=3600) -> None:
+        """
+        Store/overwite a value in the cache with 'key' and an optional
+        duration (seconds)
+        """
         try:
             expires = time.time() + duration
         except TypeError:
@@ -33,22 +37,12 @@ class Cache(object):
         return cls.get(key)
 
     @classmethod
-    def clean(cls):
+    def clean(cls) -> None:
         """Remove all expired items from the cache"""
         for key in cls._cache_.keys():
             cls.get(key)  # Attempting to fetch an expired item deletes it
 
     @classmethod
-    def purge(cls):
+    def purge(cls) -> None:
         """Remove all items from the cache"""
         cls._cache_ = {}
-
-
-if __name__ == "__main__":
-    c = Cache()
-
-    c.set("key1", "value1", 30)
-    print(c.get("key1"))
-
-    c.clean()
-    c.purge()

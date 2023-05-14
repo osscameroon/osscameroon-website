@@ -1,7 +1,7 @@
 # database utils functions
 
-from app.main.utils.database import storage
 from app.main.utils import converters
+from app.main.utils.database import storage
 
 
 def sanitize_project_data(data):
@@ -39,8 +39,11 @@ def get_one_page_of_projects(cursor=None, limit: int = 20):
 
 def get_projects(count: int = 20):
     """
-    get_users [this function fetch open source projects from the database]
-    the count of items returned by this function can be limited to the size of data the datastore is able to return
+    get_users [this function fetch open
+    source projects from the database]
+    the count of items returned by this function
+    can be limited to the size of data
+    the datastore is able to return
 
     @params : count
     @returns : - code : the status code of the request

@@ -1,36 +1,25 @@
 # settings.py
 # All settings/parameter for the application
-import configparser as cf
 import os
-
-# we read configuration from the config.txt file
-conf = cf.RawConfigParser()
-conf.read(r"config.txt")
+from typing import Any
 
 
-def get_conf(context: str, key: str, fallback: str = "") -> str:
+def get_conf(key: str, fallback: Any = "") -> str:
     """
-    A simple method to get a configuration parameter
-    from the configuration file
-    or just pick it on the os environment
-
-    params : context, key
+    Get a conf .env param from OS or fallback on default
+    params : key
     return : value
     """
-    value = ""
-    if context in conf:
-        value = conf.get(context, key, fallback="")
-    if value == "":
-        value = os.environ.get(key, default="")
-    if value == "":
-        return fallback
-    return value
 
+    return os.environ.get(key, default=fallback)
 
-# meili configurations
-MEILISEARCH_HOST = get_conf("meilisearch", "MEILISEARCH_HOST")
-MEILISEARCH_MASTER_KEY = get_conf("meilisearch", "MEILISEARCH_MASTER_KEY")
+# database configurations
+OSS_WEBSITE_APP_DATABASE = get_conf('OSS_WEBSITE_APP_DATABASE', 'ossdb')
+OSS_WEBSITE_APP_HOST     = get_conf('OSS_WEBSITE_APP_HOST', "localhost")
+OSS_WEBSITE_APP_PORT     = get_conf('OSS_WEBSITE_APP_PORT', 5432)
+OSS_WEBSITE_APP_USER     = get_conf('OSS_WEBSITE_APP_USER', 'user')
+OSS_WEBSITE_APP_PASSWORD = get_conf('OSS_WEBSITE_APP_PASSWORD', 'pwd')
 
 # Twitter configurations
-API_KEY = get_conf("twitter", "API_KEY")
-API_SECRET_KEY = get_conf("twitter", "API_SECRET_KEY")
+TWITTER_API_KEY = get_conf("TWITTER_API_KEY")
+TWITTER_API_SECRET_KEY = get_conf("TWITTER_API_SECRET_KEY")

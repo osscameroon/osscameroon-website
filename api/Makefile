@@ -1,39 +1,63 @@
 .DEFAULT_GOAL=help
-
+SHELL := /bin/bash
 CONFIG_FILE=./config.txt
 VENVPATH=venv
-PYTHON=$(VENVPATH)/bin/python3
+PY3=python3.11
+PYTHON=$(VENVPATH)/bin/$(PY3)
+
+# some dev targets for the code quality
+RUFF=$(PYTHON) -m ruff app tests *.py
+ISORT=$(PYTHON) -m isort app tests *.py
+MYPY=$(PYTHON) -m mypy app tests *.py
 
 venv: $(VENVPATH)/bin/activate
-$(VENVPATH)/bin/activate: requirements.txt
-	test -d $(VENVPATH) || virtualenv -p python3 $(VENVPATH); \
+$(VENVPATH)/bin/activate: poetry.lock
+	test -d $(VENVPATH) || virtualenv -p $(PY3) $(VENVPATH); \
 	. $(VENVPATH)/bin/activate; \
-	pip install -r requirements.txt; \
+	poetry install; \
 	touch $(VENVPATH)/bin/activate;
 
 $(CONFIG_FILE):
-	echo "adding config file..."
+	echo "Adding config file..."
 	cp example.config.txt $(CONFIG_FILE)
 
-##install-deps: setup your dev environment
-install-deps: venv $(CONFIG_FILE)
+##install: setup your dev environment
+install: venv $(CONFIG_FILE)
 
 ##run: run the api locally
-run: install-deps
-	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) manage.py run
+run: install
+	$(PYTHON) manage.py run
 
+##format: Reformat project code.
+format: venv
+	${RUFF} --fix
+	${ISORT}
+
+##lint: Lint project code and check it with mypy
 lint: venv
-	$(PYTHON) -m flake8 . --show-source --statistics
+	${RUFF}
+	${ISORT} --check-only --df
+	${MYPY}
 
 ##test: test your code
-test: install-deps lint
+test: install lint
 	$(PYTHON) -m pytest
 
+##clean: remove the venv and residuals
 clean:
-	rm -rf $(VENVPATH)
+	rm -rf *.pyc
+	rm -rf {*/__pycache__,*/*__pycache__,*/*/*__pycache__}
 
 ##help: show help
 help : Makefile
 	@sed -n 's/^##//p' $<
 
-.PHONY : help venv install-deps test lint
+##lock: sync dependency tree between pyproject.toml and poetry.lock
+lock: poetry.lock
+	poetry lock --no-update
+
+##docker-build: build the api docker image
+docker-build:
+	docker build -t osswebsite:latest -f ./Dockerfile .
+
+.PHONY : help venv run install-deps test lint docker-build

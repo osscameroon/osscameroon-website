@@ -1,11 +1,14 @@
+from typing import Any
+
 import requests
 from requests_oauthlib import OAuth1
-from app.settings import API_KEY, API_SECRET_KEY
+
+from app.main.utils.helpers.cache import Cache
 from app.main.utils.helpers.commons import get_trace
-import json
+from app.settings import API_KEY, API_SECRET_KEY
 
 
-def top_tweets(cache: object, count: int):
+def top_tweets(cache: Cache, count: int) -> dict[str, Any] | None:
     """
     This method will return top-tweets
     comming from the request or just the cache
@@ -14,7 +17,8 @@ def top_tweets(cache: object, count: int):
     return boolean telling if everything went well [top-tweets] as string
     """
 
-    if cache.get("top-tweets") is None:
+    # nothing inside top_tweets key
+    if not cache.get("top-tweets"):
         try:
             # we make another request
             # to the twitter api
@@ -22,7 +26,10 @@ def top_tweets(cache: object, count: int):
 
             search_twitter_host = "https://api.twitter.com/1.1/search/tweets.json"
             tweets = requests.get(
-                "{}?q=%23caparledev%20-filter%3Aretweets&count={}".format(search_twitter_host, str(count)),
+                "{}?q=%23caparledev%20-filter%3Aretweets&count={}".format(
+                    search_twitter_host,
+                    str(count)
+                ),
                 auth=OAuth1(API_KEY, API_SECRET_KEY)
             ).content.decode()
 
@@ -31,14 +38,11 @@ def top_tweets(cache: object, count: int):
         except Exception:
             # We just print the trace-back here
             get_trace()
-            return (False, cache.get("top-tweets"))
-    else:
-        print("<< Getting from cache...")
 
-    return (True, cache.get("top-tweets"))
+    return cache.get("top-tweets")
 
 
-def get_top_tweets(cache: object, count: int):
+def get_top_tweets(cache: Cache, count: int) -> dict[str, Any]:
     """
     This method will check the return of top-tweet and send
     the appropriate status code for the request
@@ -46,23 +50,10 @@ def get_top_tweets(cache: object, count: int):
     """
 
     results = top_tweets(cache, count)
+    error = True if results is None or "errors" in results else False
 
-    if results[0]:
-        payload = json.loads(results[1])
-        if "errors" in payload:
-            return {
-                "code": 500,
-                "status": "error",
-                "result": payload
-            }
-        else:
-            return {
-                "code": 200,
-                "status": "success",
-                "result": payload
-            }
-    else:
-        return {
-            "code": 500,
-            "status": "error"
-        }
+    return {
+        "code": 500 if error else 200,
+        "status": "error" if error else "success",
+        "result": results if not error else {}
+    }
