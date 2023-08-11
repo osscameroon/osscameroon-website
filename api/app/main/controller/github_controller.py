@@ -32,7 +32,7 @@ async def search_users(query: str, count: int=20, page: int=1) -> dict :
     This request will return the list of users that
     match the query string
     """
-    return get_search_users(
+    return await get_search_users(
         query=query,
         count=count,
         page=page
@@ -44,7 +44,7 @@ async def user_search_infos(request: Request) -> dict :
     """This request will return all github users that matches search query field"""
     request_json: dict[str, Any] = await request.json() or {}
 
-    return post_search_users(
+    return await post_search_users(
         query=request_json.get("query", ""),
         sort_type=request_json.get("sort_type", ""),
         page=request_json.get("page", 1),
@@ -72,7 +72,7 @@ async def project_search(query: str, count: int=20, page: int=1) -> dict :
     This request will return all github projects
     that matches search query field
     """
-    return get_search_projects(
+    return await get_search_projects(
         query=query,
         count=count,
         page=page
@@ -87,7 +87,7 @@ async def project_search_infos(request: Request) -> dict :
     """
     request_json = await request.json()
 
-    return post_search_projects(
+    return await post_search_projects(
         query=request_json.get("query", ""),
         sort_type=request_json.get("sort_type", ""),
         languages=request_json.get("languages", []),

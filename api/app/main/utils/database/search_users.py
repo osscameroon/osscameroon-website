@@ -18,13 +18,11 @@ async def get_search_users(query: str, count: int = 20, page: int = 1):
     if not ret or len(ret) < 1:
         return {"code": 400, "reason": "nothing found"}
 
-    response = {
+    return {
         "code": 200,
         "status": "success",
         "result": ret,
     }
-
-    return response
 
 async def post_search_users(
     query: str,
@@ -60,10 +58,8 @@ async def post_search_users(
     if not ret or len(ret) < 1:
         return {"code": 400, "reason": "nothing found"}
 
-    response = {
+    return {
         "code": 200,
         "status": "success",
         "result": ret,
     }
-
-    return response

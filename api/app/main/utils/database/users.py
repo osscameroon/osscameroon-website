@@ -45,13 +45,11 @@ def get_users(count: int = 20) -> dict[str, Any]:
 
     result = sanitize_array_of_user_data(result)
 
-    response = {
+    return {
         "code": 200,
         "status": "success",
         "result": result,
     }
-
-    return response
 
 
 def get_user(user_name: str) -> dict[str, Any]:
@@ -74,6 +72,4 @@ def get_user(user_name: str) -> dict[str, Any]:
 
     result = sanitize_user_data(result[0])
 
-    response = {"code": 200, "status": "success", "result": result}
-
-    return response
+    return {"code": 200, "status": "success", "result": result}

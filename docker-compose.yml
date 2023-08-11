@@ -22,7 +22,7 @@ services:
     volumes:
       - ./scripts/initdb:/docker-entrypoint-initdb.d
     healthcheck:
-      test: ["CMD", "psql", "postgresql://${OSS_WEBSITE_APP_USER}:${OSS_WEBSITE_APP_PASSWORD}@localhost/${OSS_WEBSITE_APP_DATABASE}"]
+      test: ["CMD", "psql", "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost/${POSTGRES_DB}"]
       interval: 0.5s
       timeout: 1s
       retries: 4

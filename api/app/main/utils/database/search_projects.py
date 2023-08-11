@@ -1,4 +1,5 @@
 # database utils functions
+
 from app.settings import create_connection
 
 
@@ -17,13 +18,11 @@ async def get_search_projects(query: str, count: int = 20, page: int = 1):
     if not ret or len(ret) < 1:
         return {"code": 400, "reason": "nothing found"}
 
-    response = {
+    return {
         "code": 200,
         "status": "success",
         "result": ret,
     }
-
-    return response
 
 async def post_search_projects(
     query: str,
@@ -66,10 +65,8 @@ async def post_search_projects(
     if not ret or len(ret) < 1:
         return {"code": 400, "reason": "nothing found"}
 
-    response = {
+    return {
         "code": 200,
         "status": "success",
         "result": ret,
     }
-
-    return response
