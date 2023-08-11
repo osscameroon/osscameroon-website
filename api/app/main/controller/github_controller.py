@@ -1,37 +1,40 @@
 from typing import Any
 
-from fastapi import Request
+from fastapi import APIRouter, Request
 
 from app.main.utils.database.languages import get_languages
-from app.main.utils.database.projects import get_project, get_projects
+# from app.main.utils.database.projects import get_project, get_projects
 from app.main.utils.database.search_projects import (get_search_projects,
                                                      post_search_projects)
 from app.main.utils.database.search_users import (get_search_users,
                                                   post_search_users)
-from app.main.utils.database.users import get_user, get_users
-from manage import app
+# from app.main.utils.database.users import get_user, get_users
+
+github_router = APIRouter(prefix='/api/v1/github')
 
 # Ex : /users?count=<count>
-@app.get("/users")
-async def all_users(count: int=20) -> dict :
-    """This method will return all github users with filter"""
-    return get_users(count)
+# @github_router.get("/users")
+# async def all_users(count: int=20) -> dict :
+#     """This method will return all github users with filter"""
+#     return get_users(count)
 
 
-# Ex : /users/elhmne
-@app.get("/users/<user_name>")
-async def user_infos_username(user_name: str) -> dict :
-    """This method will return a github user with more informations"""
-    return get_user(user_name)
+# # Ex : /users/elhmne
+# @github_router.get("/users/<user_name>")
+# async def user_infos_username(user_name: str) -> dict :
+#     """This method will return a github user with more informations"""
+#     return get_user(user_name)
 
 
 # Ex : /users/search?query=<query_string>&count=<element_per_page>&page=<page_number>
-@app.get("/users/search")
+@github_router.get("/users/search")
 async def search_users(query: str, count: int=20, page: int=1) -> dict :
     """
     This request will return the list of users that
     match the query string
     """
+
+    raise Exception("NOOOOOOOOOOOOOOOOOOOOOO2")
     return await get_search_users(
         query=query,
         count=count,
@@ -39,7 +42,7 @@ async def search_users(query: str, count: int=20, page: int=1) -> dict :
     )
 
 
-@app.post("/users/search")
+@github_router.post("/users/search")
 async def user_search_infos(request: Request) -> dict :
     """This request will return all github users that matches search query field"""
     request_json: dict[str, Any] = await request.json() or {}
@@ -53,20 +56,20 @@ async def user_search_infos(request: Request) -> dict :
 
 
 # Ex : /projects?count=<count>
-@app.get("/projects")
-async def all_projects(count: int=20) -> dict :
-    """This request will return all github projects"""
-    return get_projects(count)
+# @github_router.get("/projects")
+# async def all_projects(count: int=20) -> dict :
+#     """This request will return all github projects"""
+#     return get_projects(count)
 
 
-@app.get("/projects")
-async def user_infos_project(project_name: str) -> dict :
-    """This request will return a github project by name"""
-    return get_project(project_name)
+# @github_router.get("/projects")
+# async def user_infos_project(project_name: str) -> dict :
+#     """This request will return a github project by name"""
+#     return get_project(project_name)
 
 
 # Ex : /projects/search?query=<query_string>&count=<element_per_page>&page=<page_number>
-@app.get("/projects/search")
+@github_router.get("/projects/search")
 async def project_search(query: str, count: int=20, page: int=1) -> dict :
     """
     This request will return all github projects
@@ -79,7 +82,7 @@ async def project_search(query: str, count: int=20, page: int=1) -> dict :
     )
 
 
-@app.post("/projects/search")
+@github_router.post("/projects/search")
 async def project_search_infos(request: Request) -> dict :
     """
     This request will return all github projects
@@ -97,7 +100,7 @@ async def project_search_infos(request: Request) -> dict :
 
 
 # Ex : /languages
-@app.get("/languages")
+@github_router.get("/languages")
 async def github_languages() -> dict :
     """This request will return a list of github languages"""
     return get_languages()

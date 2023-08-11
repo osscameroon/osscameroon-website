@@ -354,5 +354,4 @@ def get_languages():
     get_languages[this method returns github languages]
     """
 
-    response = {"code": 200, "status": "success", "result": languages}
-    return response
+    return {"code": 200, "status": "success", "result": languages}

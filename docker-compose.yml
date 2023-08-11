@@ -7,13 +7,13 @@ services:
       context: ../osscameroon-website/api/
       dockerfile: ./Dockerfile
     image: oss-api:latest
-    container_name: oss-api-container
+    container_name: oss-api
     ports:
       - 8811:8811
 
   db:
     image: postgres
-    container_name: postgres_container
+    container_name: postgres
     restart: always
     ports:
       - 5432:5432
