@@ -60,6 +60,9 @@ lock: poetry.lock
 docker-build:
 	docker build -t oss-api:latest -f ./Dockerfile .
 
+import-db:
+	# ....
+
 compose-run:
 	docker-compose run api
 

@@ -18,11 +18,7 @@ services:
     ports:
       - 5432:5432
     command: ["postgres", "-c", "log_statement=all"]
-    environment:
-      OSS_WEBSITE_APP_USER: ${OSS_WEBSITE_APP_USER}
-      OSS_WEBSITE_APP_PASSWORD: ${OSS_WEBSITE_APP_PASSWORD}
-      OSS_WEBSITE_APP_DATABASE: ${OSS_WEBSITE_APP_DATABASE}
-      POSTGRES_PASSWORD: "admin" # postgres admin password
+    env_file: ./api/.env
     volumes:
       - ./scripts/initdb:/docker-entrypoint-initdb.d
     healthcheck:

@@ -11,7 +11,6 @@ from app.main.utils.database.search_users import (get_search_users,
 from app.main.utils.database.users import get_user, get_users
 from manage import app
 
-
 # Ex : /users?count=<count>
 @app.get("/users")
 async def all_users(count: int=20) -> dict :

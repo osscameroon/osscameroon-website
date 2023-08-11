@@ -4,7 +4,7 @@ json_file="user_page_1.json"
 db_host="localhost"
 db_name="ossdb"
 db_user="user"
-db_password="pwd"
+db_password="pass"
 
 
 _import() {

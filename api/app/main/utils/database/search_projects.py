@@ -1,23 +1,10 @@
 # database utils functions
-import asyncpg
-
-from app.settings import (OSS_WEBSITE_APP_DATABASE, OSS_WEBSITE_APP_HOST,
-                          OSS_WEBSITE_APP_PASSWORD, OSS_WEBSITE_APP_PORT,
-                          OSS_WEBSITE_APP_USER)
+from app.settings import create_connection
 
 
-async def create_pool():
-    return await asyncpg.create_pool(
-        user=OSS_WEBSITE_APP_USER,
-        password=OSS_WEBSITE_APP_PASSWORD,
-        database=OSS_WEBSITE_APP_DATABASE,
-        host=OSS_WEBSITE_APP_HOST,
-        port=OSS_WEBSITE_APP_PORT
-    )
-
-async def get_search_projects(pool, query: str, count: int = 20, page: int = 1):
+async def get_search_projects(query: str, count: int = 20, page: int = 1):
     offset = (page - 1) * count
-    conn = await pool.acquire()
+    conn = await create_connection()
 
     try:
         ret = await conn.fetch(
@@ -25,7 +12,7 @@ async def get_search_projects(pool, query: str, count: int = 20, page: int = 1):
             f"%{query}%", count, offset
         )
     finally:
-        await pool.release(conn)
+        await conn.close()
 
     if not ret or len(ret) < 1:
         return {"code": 400, "reason": "nothing found"}
@@ -39,7 +26,6 @@ async def get_search_projects(pool, query: str, count: int = 20, page: int = 1):
     return response
 
 async def post_search_projects(
-    pool,
     query: str,
     languages: list[str] = [],
     sort_type: str = "",
@@ -47,7 +33,7 @@ async def post_search_projects(
     page: int = 1
 ):
     offset = (page - 1) * count
-    conn = await pool.acquire()
+    conn = await create_connection()
 
     try:
         if sort_type == 'alphabetic':
@@ -75,7 +61,7 @@ async def post_search_projects(
                 f"%{query}%", languages, count, offset
             )
     finally:
-        await pool.release(conn)
+        await conn.close()
 
     if not ret or len(ret) < 1:
         return {"code": 400, "reason": "nothing found"}
