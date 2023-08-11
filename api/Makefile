@@ -60,4 +60,7 @@ lock: poetry.lock
 docker-build:
 	docker build -t oss-api:latest -f ./Dockerfile .
 
+compose-run:
+	docker-compose run api
+
 .PHONY : help venv run install-deps test lint docker-build

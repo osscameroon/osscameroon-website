@@ -8,12 +8,6 @@ services:
       dockerfile: ./Dockerfile
     image: oss-api:latest
     container_name: oss-api-container
-    environment:
-      PGDATABASE: ossdb
-      PGHOST: localhost
-      PGPASSWORD: pwd
-      PGPORT: 5432
-      PGUSER: user
     ports:
       - 8811:8811
 

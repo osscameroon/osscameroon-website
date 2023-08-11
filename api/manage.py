@@ -6,9 +6,9 @@ app = create_app()
 
 if __name__ == "__main__":
     uvicorn.run(
-        "oss_website:app",
+        "manage:app",
         host="0.0.0.0",
-        port=8000,
+        port=8811,
         log_level="info",
         reload=True
     )
