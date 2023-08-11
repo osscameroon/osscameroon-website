@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.10.11,<3.11"
 # prod deps
 Fastapi = ">=0.95.2"
 uvicorn = { extras = ["standard"], version = "<1" }
