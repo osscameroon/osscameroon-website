@@ -3,7 +3,11 @@ version: '3.9'
 services:
 
   api:
-    build: ./api
+    build:
+      context: ../osscameroon-website/api/
+      dockerfile: ./Dockerfile
+    image: oss-api:latest
+    container_name: oss-api-container
     environment:
       PGDATABASE: ossdb
       PGHOST: localhost
@@ -51,6 +55,7 @@ services:
 
   frontend:
     build: ./frontend
+    container_name: oss-front
     depends_on:
       - api
     environment:
@@ -58,3 +63,7 @@ services:
       REACT_ENV: development
     ports:
       - 3000:3000
+
+
+volumes:
+  pgadmin-data:

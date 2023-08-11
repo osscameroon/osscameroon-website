@@ -58,6 +58,6 @@ lock: poetry.lock
 
 ##docker-build: build the api docker image
 docker-build:
-	docker build -t osswebsite:latest -f ./Dockerfile .
+	docker build -t oss-api:latest -f ./Dockerfile .
 
 .PHONY : help venv run install-deps test lint docker-build

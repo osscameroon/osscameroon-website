@@ -1,5 +1,6 @@
 # database utils functions
 
+from typing import Any
 from app.main.utils import converters
 from app.main.utils.database import storage
 
@@ -10,8 +11,7 @@ def sanitize_user_data(data):
     @params: data
     """
 
-    data = converters.convert_datetime_fields_to_string(data)
-    return data
+    return converters.convert_datetime_fields_to_string(data)
 
 
 def sanitize_array_of_user_data(data_arr: list):
@@ -24,7 +24,7 @@ def sanitize_array_of_user_data(data_arr: list):
     return data_arr
 
 
-def get_users(count: int = 20):
+def get_users(count: int = 20) -> dict[str, Any]:
     """
     get_users [this function fetch dev users from the database]
     the count of items returned by this function can be limited
@@ -54,7 +54,7 @@ def get_users(count: int = 20):
     return response
 
 
-def get_user(user_name: str):
+def get_user(user_name: str) -> dict[str, Any]:
     """
     get_user[this method fetch dev user's information
     from the database]
