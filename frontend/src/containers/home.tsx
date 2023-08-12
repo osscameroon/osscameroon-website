@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import { NavLink, useHistory } from "react-router-dom";
 
 import Layout from "../components/layout/layout";
-import Tweet from "../components/common/Tweet";
 import OtherCommunity from "../components/common/Community";
 import Project from "../components/common/Project";
 import { homeMessages, titleMessages, otherOpenSourceCommunities } from "../locales/messages";
@@ -16,7 +15,6 @@ import darkDeveloper from "../assets/img/dark-developer.svg";
 import search from "../assets/icons/search.svg";
 import { useQuery } from "react-query";
 import { searchProject, getOurProject } from "../services/projects";
-import { getTopTweets } from "../services/tweets";
 import { DEFAULT_CACHE_OPTIONS } from "../config";
 import Loader from "../components/common/Loader";
 import NetworkError from "../components/common/NetworkError";
@@ -55,8 +53,6 @@ const HomePage = () => {
       history.push(`/developers?keyword=${searchKey}`);
     }
   };
-
-  const { data: tweets_data, error: tweetsError, isLoading: tweetsLoading } = useQuery("tweets", getTopTweets, DEFAULT_CACHE_OPTIONS);
 
   const { formatMessage } = useIntl();
 
@@ -187,38 +183,6 @@ const HomePage = () => {
             <NavLink to="/projects">
               <Button color="primary">{formatMessage(homeMessages.btnViewMoreProject)}</Button>
             </NavLink>
-          </div>
-        </section>
-
-        <section className="item-center" id="tweets">
-          <div className="text-center">
-            <h2> {formatMessage(homeMessages.topTweetTitle)} </h2>
-            <Container>
-              <Row style={{ margin: "40px 0 40px 0" }}>
-                {tweetsLoading && <Loader loading={tweetsLoading} />}
-
-                {!tweetsLoading && tweetsError && <NetworkError />}
-
-                {!tweetsLoading &&
-                  !tweetsError &&
-                  tweets_data?.result.statuses.map((tweet, i) => (
-                    <Col key={i} md="4" style={{ margin: "20px 0 20px 0" }}>
-                      <Tweet
-                        hashtags={tweet.entities.hashtags}
-                        likes={tweet.favorite_count}
-                        retweets={tweet.retweet_count}
-                        text={tweet.text}
-                        urls={tweet.entities.urls}
-                        user={tweet.user}
-                        user_mentions={tweet.entities.user_mentions}
-                      />
-                    </Col>
-                  ))}
-              </Row>
-            </Container>
-            <a href="https://twitter.com/hashtag/caparledev" rel="noreferrer nofollow" target="_blank">
-              <Button color="primary"> {formatMessage(homeMessages.btnViewMoreTweet)} </Button>
-            </a>
           </div>
         </section>
 
