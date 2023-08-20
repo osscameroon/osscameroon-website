@@ -1,10 +1,10 @@
 # database utils functions
 
-from app.settings import create_connection, get_connection
+from app.settings import get_connection
 
 
 async def get_user(username: str) -> dict:
-    conn = await create_connection()
+    conn = await get_connection()
 
     try:
         ret = await conn.fetch(
@@ -19,8 +19,9 @@ async def get_user(username: str) -> dict:
     return ret
 
 async def get_users(count: int) -> dict:
+    conn = await get_connection()
     try:
-        ret = await get_connection().fetch(
+        ret = conn.fetch(
             'SELECT * FROM users LIMIT $1', count
         )
     finally:
@@ -34,7 +35,7 @@ async def get_users(count: int) -> dict:
 
 async def get_search_users(query: str, count: int = 20, page: int = 1):
     offset = (page - 1) * count
-    conn = await create_connection()
+    conn = await get_connection()
 
     try:
         ret = await conn.fetch(
@@ -57,7 +58,7 @@ async def post_search_users(
     page: int = 1
 ):
     offset = (page - 1) * count
-    conn = await create_connection()
+    conn = await get_connection()
 
     try:
         if sort_type == 'alphabetic':

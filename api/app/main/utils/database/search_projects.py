@@ -1,11 +1,11 @@
 # database utils functions
 
-from app.settings import create_connection
+from app.settings import get_connection
 
 
 async def get_search_projects(query: str, count: int = 20, page: int = 1):
     offset = (page - 1) * count
-    conn = await create_connection()
+    conn = await get_connection()
 
     try:
         ret = conn.fetch(
@@ -32,7 +32,7 @@ async def post_search_projects(
     page: int = 1
 ):
     offset = (page - 1) * count
-    conn = await create_connection()
+    conn = await get_connection()
 
     try:
         if sort_type == 'alphabetic':

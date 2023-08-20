@@ -2,6 +2,7 @@
 
 from app.main.utils import converters
 
+
 def sanitize_user_data(data):
     """
     sanitize_user_data [prepare user data format]
