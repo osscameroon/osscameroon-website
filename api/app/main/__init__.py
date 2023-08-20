@@ -1,12 +1,24 @@
-from flask import Flask
-from flask_cors import CORS
+from typing import Any
 
-from app.main.config import config_by_name
+from fastapi import FastAPI
+
+from app.main.controller.github_controller import github_router
 
 
-def create_app(config_name):
-    app = Flask(__name__)
-    CORS(app)
-    app.config.from_object(config_by_name[config_name])
+async def status() -> dict[str, Any]:
+    return {
+        "status": "ok",
+        "version": "1.0",
+        "apis": [
+            {"path": "api/v1"}
+        ]
+    }
+
+def create_app():
+    app =  FastAPI(title='OssCameroon API', version="0.1")
+    app.include_router(github_router)
+
+    # Add middleware/event_handler and everything else
+    app.get("/")(status)
 
     return app
