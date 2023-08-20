@@ -19,7 +19,6 @@ def create_app():
     app.include_router(github_router)
 
     # Add middleware/event_handler and everything else
-
     app.get("/")(status)
 
     return app

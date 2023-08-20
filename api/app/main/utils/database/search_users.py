@@ -16,7 +16,11 @@ async def get_user(username: str) -> dict:
     if not ret or len(ret) < 1:
         return {"code": 400, "reason": "nothing found"}
 
-    return ret
+    return {
+        "code": 200,
+        "status": "success",
+        "result": ret,
+    }
 
 async def get_users(count: int) -> dict:
     conn = await get_connection()
@@ -30,7 +34,11 @@ async def get_users(count: int) -> dict:
     if not ret or len(ret) < 1:
         return {"code": 400, "reason": "nothing found"}
 
-    return ret
+    return {
+        "code": 200,
+        "status": "success",
+        "result": ret,
+    }
 
 
 async def get_search_users(query: str, count: int = 20, page: int = 1):
@@ -48,7 +56,11 @@ async def get_search_users(query: str, count: int = 20, page: int = 1):
     if not ret or len(ret) < 1:
         return {"code": 400, "reason": "nothing found"}
 
-    return ret
+    return {
+        "code": 200,
+        "status": "success",
+        "result": ret,
+    }
 
 
 async def post_search_users(
@@ -85,4 +97,8 @@ async def post_search_users(
     if not ret or len(ret) < 1:
         return {"code": 400, "reason": "nothing found"}
 
-    return ret
+    return {
+        "code": 200,
+        "status": "success",
+        "result": ret,
+    }
