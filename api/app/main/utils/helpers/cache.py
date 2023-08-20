@@ -6,7 +6,7 @@ from typing import Any
 
 
 class Cache(object):
-    _cache_ = {}
+    _cache_: dict = {}
     VALUE = 0
     EXPIRES = 1
 

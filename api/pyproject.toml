@@ -27,6 +27,7 @@ libcst = ">=0.4.9"
 # typing stub libs
 types-requests = ">=2.30.0.0"
 mypy-extensions = ">=1.0.0"
+asyncpg-stubs = "^0.28.0"
 
 
 [build-system]
