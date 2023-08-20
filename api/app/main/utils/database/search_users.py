@@ -5,7 +5,7 @@ from app.settings import create_connection
 
 async def get_search_users(query: str, count: int = 20, page: int = 1):
     offset = (page - 1) * count
-    raise Exception("NOOOOOOOOOOOOOOOOOOOOOO1")
+    # raise Exception("NOOOOOOOOOOOOOOOOOOOOOO1")
     conn = await create_connection()
 
     try:

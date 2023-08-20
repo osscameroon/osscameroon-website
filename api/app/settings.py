@@ -2,6 +2,7 @@
 # All settings/parameter for the application
 import os
 from typing import Any
+
 import asyncpg
 
 
@@ -22,7 +23,7 @@ OSS_WEBSITE_APP_HOST     = get_conf('DB_HOST', "localhost")
 OSS_WEBSITE_APP_PORT     = get_conf('DB_PORT', 5432)
 
 async def create_connection():
-    raise Exception('NOT WORKINGGGGGG !!')
+    # raise Exception('NOT WORKINGGGGGG !!')
     return await asyncpg.connect(
         user=OSS_WEBSITE_APP_USER,
         password=OSS_WEBSITE_APP_PASSWORD,
