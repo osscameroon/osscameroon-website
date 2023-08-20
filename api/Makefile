@@ -1,6 +1,5 @@
 .DEFAULT_GOAL=help
 SHELL := /bin/bash
-CONFIG_FILE=./config.txt
 VENVPATH=venv
 PY3=python3.11
 PYTHON=$(VENVPATH)/bin/$(PY3)
@@ -17,12 +16,8 @@ $(VENVPATH)/bin/activate: poetry.lock
 	poetry install; \
 	touch $(VENVPATH)/bin/activate;
 
-$(CONFIG_FILE):
-	echo "Adding config file..."
-	cp example.config.txt $(CONFIG_FILE)
-
 ##install: setup your dev environment
-install: venv $(CONFIG_FILE)
+install: venv
 
 ##run: run the api locally
 run: install

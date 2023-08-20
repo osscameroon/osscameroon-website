@@ -1,6 +1,7 @@
 # for database as json files
 api/ossdb/users/data/
 api/ossdb/projects/data/
+Session.vim
 
 .history
 .idea

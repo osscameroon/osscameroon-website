@@ -1,5 +1,7 @@
 from typing import Any
+
 from fastapi import FastAPI
+
 from app.main.controller.github_controller import github_router
 
 
