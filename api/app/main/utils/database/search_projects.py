@@ -7,8 +7,6 @@ async def get_search_projects(query: str, count: int = 20, page: int = 1):
     offset = (page - 1) * count
     conn = await get_connection()
 
-    assert conn is not None
-
     try:
         ret = conn.fetch(
             'SELECT * FROM projects WHERE name LIKE $1 LIMIT $2 OFFSET $3',

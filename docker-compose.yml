@@ -21,12 +21,12 @@ services:
     env_file: ./api/.env
     volumes:
       - ./scripts/initdb:/docker-entrypoint-initdb.d
-    healthcheck:
-      test: ["CMD", "psql", "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost/${POSTGRES_DB}"]
-      interval: 0.5s
-      timeout: 1s
-      retries: 4
-      start_period: 1s
+    # healthcheck:
+    #   test: ["CMD", "psql", "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost/${POSTGRES_DB}"]
+    #   interval: 0.5s
+    #   timeout: 1s
+    #   retries: 4
+    #   start_period: 1s
 
   frontend:
     build: ./frontend

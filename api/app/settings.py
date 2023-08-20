@@ -1,6 +1,7 @@
 # settings.py
 # All settings/parameter for the application
 import os
+from functools import lru_cache
 from typing import Any
 
 import asyncpg
@@ -16,18 +17,18 @@ def get_conf(key: str, fallback: Any = "") -> str:
 
     return os.environ.get(key, default=fallback)
 
+@lru_cache(maxsize=1)
 async def get_connection():
-    global __PG_CONNECTION
+    user=get_conf('POSTGRES_USER', 'user')
+    password=get_conf('POSTGRES_PASSWORD', 'pass')
+    database=get_conf('POSTGRES_DB', 'ossdb')
+    host=get_conf('DB_HOST', 'localhost')
+    port=get_conf('DB_PORT', 5432)
 
-    if __PG_CONNECTION is None:
-        __PG_CONNECTION = await asyncpg.connect(
-            user=get_conf('POSTGRES_USER', 'user'),
-            password=get_conf('POSTGRES_PASSWORD', 'pwd'),
-            database=get_conf('POSTGRES_DB', 'ossdb'),
-            host=get_conf('DB_HOST', 'localhost'),
-            port=get_conf('DB_PORT', 5432)
-        )
-    try:
-        yield __PG_CONNECTION
-    finally:
-        await __PG_CONNECTION.close() #type:ignore
+    return await asyncpg.connect(
+        user=        user,
+        password=        password,
+        database=        database,
+        host=        host,
+        port=        port,
+    )
