@@ -1,16 +1,44 @@
 # database utils functions
 
-from app.settings import create_connection
+from app.settings import create_connection, get_connection
 
 
-async def get_search_users(query: str, count: int = 20, page: int = 1):
-    offset = (page - 1) * count
-    # raise Exception("NOOOOOOOOOOOOOOOOOOOOOO1")
+async def get_user(username: str) -> dict:
     conn = await create_connection()
 
     try:
         ret = await conn.fetch(
-            'SELECT * FROM users WHERE name LIKE $1 LIMIT $2 OFFSET $3',
+            'SELECT * FROM users WHERE login LIKE $1', username
+        )
+    finally:
+        await conn.close()
+
+    if not ret or len(ret) < 1:
+        return {"code": 400, "reason": "nothing found"}
+
+    return ret
+
+async def get_users(count: int) -> dict:
+    try:
+        ret = await get_connection().fetch(
+            'SELECT * FROM users LIMIT $1', count
+        )
+    finally:
+        await conn.close()
+
+    if not ret or len(ret) < 1:
+        return {"code": 400, "reason": "nothing found"}
+
+    return ret
+
+
+async def get_search_users(query: str, count: int = 20, page: int = 1):
+    offset = (page - 1) * count
+    conn = await create_connection()
+
+    try:
+        ret = await conn.fetch(
+            'SELECT * FROM users WHERE login LIKE $1 LIMIT $2 OFFSET $3',
             f"%{query}%", count, offset
         )
     finally:
@@ -19,11 +47,8 @@ async def get_search_users(query: str, count: int = 20, page: int = 1):
     if not ret or len(ret) < 1:
         return {"code": 400, "reason": "nothing found"}
 
-    return {
-        "code": 200,
-        "status": "success",
-        "result": ret,
-    }
+    return ret
+
 
 async def post_search_users(
     query: str,
@@ -37,19 +62,19 @@ async def post_search_users(
     try:
         if sort_type == 'alphabetic':
             ret = conn.fetch(
-                'SELECT * FROM users WHERE name LIKE $1 '
-                'ORDER BY name LIMIT $2 OFFSET $3',
+                'SELECT * FROM users WHERE login LIKE $1 '
+                'ORDER BY login LIMIT $2 OFFSET $3',
                 f"%{query}%", count, offset
             )
         elif sort_type == 'most_recent':
             ret = conn.fetch(
-                'SELECT * FROM users WHERE name LIKE $1 '
+                'SELECT * FROM users WHERE login LIKE $1 '
                 'ORDER BY created_at DESC LIMIT $2 OFFSET $3',
                 f"%{query}%", count, offset
             )
         else:
             ret = conn.fetch(
-                'SELECT * FROM users WHERE name LIKE $1 '
+                'SELECT * FROM users WHERE login LIKE $1 '
                 'LIMIT $2 OFFSET $3',
                 f"%{query}%", count, offset
             )
@@ -59,8 +84,4 @@ async def post_search_users(
     if not ret or len(ret) < 1:
         return {"code": 400, "reason": "nothing found"}
 
-    return {
-        "code": 200,
-        "status": "success",
-        "result": ret,
-    }
+    return ret

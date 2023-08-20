@@ -5,13 +5,30 @@ from fastapi import APIRouter, Request
 from app.main.utils.database.languages import get_languages
 from app.main.utils.database.search_projects import (get_search_projects,
                                                      post_search_projects)
-from app.main.utils.database.search_users import (get_search_users,
-                                                  post_search_users)
+from app.main.utils.database.search_users import (get_search_users, get_user,
+                                                  get_users, post_search_users)
 
 github_router = APIRouter(prefix='/api/v1/github')
 
-# Ex : /users/search?query=<query_string>&count=<element_per_page>&page=<page_number>
-@github_router.get("/users/search")
+
+# Ex : /users?count=<count>
+@github_router.get("/users")
+async def all_users(count: int=20) -> dict :
+    """This method will return all github users with filter"""
+    return await get_users(count)
+
+
+# Ex : /users/elhmne
+@github_router.get("/users/<user_name>")
+async def user_infos_username(user_name: str) -> dict :
+    """This method will return a github user with more informations"""
+    return await get_user(user_name)
+
+
+@github_router.get(
+    "/users/search",
+    description="/users/search?query=<query_string>&count=<element_per_page>&page=<page_number>"
+)
 async def search_users(query: str, count: int=20, page: int=1) -> dict :
     """
     This request will return the list of users that
@@ -30,7 +47,6 @@ async def user_search_infos(request: Request) -> dict :
     request_json: dict[str, Any] = await request.json() or {}
 
     assert "query" in request_json, "query is required for search/filtering"
-
     return await post_search_users(
         query=request_json["query"],
         sort_type=request_json.get("sort_type", ""),
@@ -62,7 +78,6 @@ async def project_search_infos(request: Request) -> dict :
     request_json = await request.json()
 
     assert "query" in request_json, "query is required for search/filtering"
-
     return await post_search_projects(
         query=request_json["query"],
         sort_type=request_json.get("sort_type", ""),
