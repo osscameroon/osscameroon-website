@@ -127,4 +127,8 @@ model users {
   hireable            Boolean
   followers_url       String
   projects            projects[]
+
+  @@index([name])
+  @@index([bio])
+  @@index([company])
 }
