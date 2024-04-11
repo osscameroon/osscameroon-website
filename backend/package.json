@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon --watch \"*.ts\" --exec \"ts-node\" ./src/index.ts",
-    "eslint:fix": "eslint --fix"
+    "eslint:fix": "eslint --fix",
+    "db:start": "docker run -d --rm -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=secret -e POSTGRES_DB=oss-cameroon --name oss-cameroon-db -p 5433:5432 postgres:14.11",
+    "db:stop": "docker kill oss-cameroon-db"
   },
   "devDependencies": {
     "@types/express": "4.17.21",
@@ -19,10 +21,12 @@
     "eslint-plugin-sort-destructure-keys": "1.5.0",
     "nodemon": "3.1.0",
     "prettier": "3.2.5",
+    "prisma": "^5.12.1",
     "ts-node": "10.9.2",
     "typescript": "5.4.5"
   },
   "dependencies": {
+    "@prisma/client": "5.12.1",
     "dotenv": "16.4.5",
     "express": "4.19.2"
   }

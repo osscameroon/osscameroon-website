@@ -1,0 +1,130 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model licenses {
+  id       String     @id
+  url      String?
+  key      String
+  name     String
+  spdxId   String
+  projects projects[]
+}
+
+model projects {
+  id                Int       @id
+  name              String
+  fullName          String    @unique
+  milestones_url    String
+  assignees_url     String
+  subscribers_url   String
+  issue_events_url  String
+  teams_url         String
+  issues_url        String
+  has_projects      Boolean
+  contents_url      String
+  created_at        DateTime  @default(now())
+  updated_at        DateTime
+  has_downloads     Boolean
+  is_disabled       Boolean
+  watchers_count    Int
+  node_id           String    @unique
+  description       String?
+  merges_url        String
+  homepage          String?
+  forks_count       Int
+  permissions       Json      @db.Json
+  keys_url          String
+  forks_url         String
+  open_issues_count Int
+  comments_url      String
+  language          String?
+  has_pages         Boolean
+  trees_url         String
+  branches_url      String
+  is_archived       Boolean
+  subscription_url  String
+  labels_url        String
+  has_issues        Boolean
+  git_refs_url      String
+  issue_comment_url String
+  size              Int
+  languages_url     String
+  blobs_url         String
+  html_url          String
+  ssh_url           String
+  contributors_url  String
+  has_wiki          Boolean
+  releases_url      String
+  git_commits_url   String
+  defaultBranch     String
+  is_fork           Boolean
+  compare_url       String
+  mirror_url        String?
+  commits_url       String
+  git_tags_url      String
+  archive_url       String
+  clone_url         String
+  svn_url           String
+  tags_url          String
+  events_url        String
+  statuses_url      String
+  url               String
+  stargazers_url    String
+  downloads_url     String
+  is_private        Boolean
+  stargazers_count  Int
+  deployments_url   String
+  git_url           String
+  collaborators_url String
+  pushed_at         DateTime
+  hooks_url         String
+  pulls_url         String
+  allow_forking     Boolean
+  visibility        String
+  is_template       Boolean
+  topics            String[]
+  owner_id          Int
+  license_id        String?
+  licenses          licenses? @relation(fields: [license_id], references: [id])
+  users             users     @relation(fields: [owner_id], references: [id])
+}
+
+model users {
+  id                  Int        @id @default(autoincrement())
+  avatar_url          String
+  name                String?
+  email               String?
+  login               String     @unique
+  company             String?
+  followingCount      Int
+  bio                 String?
+  nodeId              String     @unique
+  following_url       String
+  url                 String
+  type                String
+  starred_url         String
+  followers_count     Int
+  site_admin          Boolean
+  location            String?
+  twitter_handle      String?
+  organizations_url   String
+  public_gists_count  Int
+  repos_url           String
+  received_events_url String
+  html_url            String
+  public_repos_count  Int
+  subscriptions_url   String
+  blog_url            String?
+  gravatar_id         String?
+  gists_url           String?
+  events_url          String?
+  hireable            Boolean
+  followers_url       String
+  projects            projects[]
+}
