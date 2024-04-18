@@ -8,7 +8,8 @@
     "start": "nodemon --watch \"*.ts\" --exec \"ts-node\" ./src/index.ts",
     "eslint:fix": "eslint --fix",
     "db:start": "docker run -d --rm -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=secret -e POSTGRES_DB=oss-cameroon --name oss-cameroon-db -p 5433:5432 postgres:14.11",
-    "db:stop": "docker kill oss-cameroon-db"
+    "db:stop": "docker kill oss-cameroon-db",
+    "db:migrate": "prisma migrate dev"
   },
   "devDependencies": {
     "@types/express": "4.17.21",
