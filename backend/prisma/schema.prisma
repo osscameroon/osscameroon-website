@@ -7,19 +7,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model licenses {
-  id       String     @id
+model License {
+  id       String    @id
   url      String?
   key      String
   name     String
   spdxId   String
-  projects projects[]
+  projects Project[]
+
+  @@map("licenses")
 }
 
-model projects {
-  id                Int       @id
+model Project {
+  id                Int      @id
   name              String
-  fullName          String    @unique
+  fullName          String   @unique
   milestones_url    String
   assignees_url     String
   subscribers_url   String
@@ -28,17 +30,17 @@ model projects {
   issues_url        String
   has_projects      Boolean
   contents_url      String
-  created_at        DateTime  @default(now())
+  created_at        DateTime @default(now())
   updated_at        DateTime
   has_downloads     Boolean
   is_disabled       Boolean
   watchers_count    Int
-  node_id           String    @unique
+  node_id           String   @unique
   description       String?
   merges_url        String
   homepage          String?
   forks_count       Int
-  permissions       Json      @db.Json
+  permissions       Json     @db.Json
   keys_url          String
   forks_url         String
   open_issues_count Int
@@ -91,20 +93,22 @@ model projects {
   topics            String[]
   owner_id          Int
   license_id        String?
-  licenses          licenses? @relation(fields: [license_id], references: [id])
-  users             users     @relation(fields: [owner_id], references: [id])
+  licenses          License? @relation(fields: [license_id], references: [id])
+  users             User     @relation(fields: [owner_id], references: [id])
+
+  @@map("projects")
 }
 
-model users {
-  id                  Int        @id @default(autoincrement())
+model User {
+  id                  Int       @id @default(autoincrement())
   avatar_url          String
   name                String?
   email               String?
-  login               String     @unique
+  login               String    @unique
   company             String?
   followingCount      Int
   bio                 String?
-  nodeId              String     @unique
+  nodeId              String    @unique
   following_url       String
   url                 String
   type                String
@@ -126,9 +130,10 @@ model users {
   events_url          String?
   hireable            Boolean
   followers_url       String
-  projects            projects[]
+  projects            Project[]
 
   @@index([name])
   @@index([bio])
   @@index([company])
+  @@map("users")
 }

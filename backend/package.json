@@ -1,34 +1,46 @@
 {
   "name": "backend-api",
   "version": "1.0.0",
-  "description": "Node project starter with Typescript, ESLint and Prettier",
+  "description": "Node project starter with TypeScript, ESLint and Prettier",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "start": "nodemon --watch \"*.ts\" --exec \"ts-node\" ./src/index.ts",
-    "eslint:fix": "eslint --fix",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "db:start": "docker run -d --rm -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=secret -e POSTGRES_DB=oss-cameroon --name oss-cameroon-db -p 5433:5432 postgres:14.11",
     "db:stop": "docker kill oss-cameroon-db",
-    "db:migrate": "prisma migrate dev"
-  },
-  "devDependencies": {
-    "@types/express": "4.17.21",
-    "@types/node": "20.12.7",
-    "@typescript-eslint/eslint-plugin": "7.6.0",
-    "@typescript-eslint/parser": "7.6.0",
-    "eslint": "9.0.0",
-    "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-prettier": "5.1.3",
-    "eslint-plugin-sort-destructure-keys": "1.5.0",
-    "nodemon": "3.1.0",
-    "prettier": "3.2.5",
-    "prisma": "^5.12.1",
-    "ts-node": "10.9.2",
-    "typescript": "5.4.5"
+    "db:migrate": "prisma migrate dev",
+    "test": "jest"
   },
   "dependencies": {
-    "@prisma/client": "5.12.1",
+    "@prisma/client": "5.13.0",
+    "@types/jest": "29.5.12",
     "dotenv": "16.4.5",
-    "express": "4.19.2"
+    "express": "4.19.2",
+    "jest": "29.7.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.2.0",
+    "@types/express": "4.17.21",
+    "@types/node": "20.12.10",
+    "@typescript-eslint/eslint-plugin": "7.8.0",
+    "@typescript-eslint/parser": "7.8.0",
+    "axios": "1.6.8",
+    "eslint": "9.2.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-jest": "28.5.0",
+    "eslint-plugin-prettier": "5.1.3",
+    "eslint-plugin-sort-destructure-keys": "2.0.0",
+    "eslint-plugin-sort-keys-fix": "1.1.2",
+    "eslint-plugin-typescript-sort-keys": "3.2.0",
+    "nodemon": "3.1.0",
+    "prettier": "3.2.5",
+    "prettier-2": "npm:prettier@2",
+    "prisma": "5.13.0",
+    "ts-jest": "29.1.2",
+    "ts-node": "10.9.2",
+    "typescript": "5.4.5",
+    "typescript-eslint": "7.8.0"
   }
 }
