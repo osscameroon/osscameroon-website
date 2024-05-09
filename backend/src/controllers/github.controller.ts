@@ -7,11 +7,15 @@ const DEFAULT_MAX_ITEMS = 30;
 export const getUsers = async (req: Request, res: Response, _next: NextFunction) => {
   const { count, page, query, sort_type } = req.query as unknown as GetUsersRequestParameter;
   const pageValue = page ? +page : 1;
+  const maxItems = count ? Math.min(+count, DEFAULT_MAX_ITEMS) : DEFAULT_MAX_ITEMS;
 
-  if (!query) {
+  const hasNoQueryParameter = !count && !page && !query && !sort_type;
+
+  if (hasNoQueryParameter) {
     const users = await prismaClient.user.findMany({
+      orderBy: { name: 'asc' },
       skip: (pageValue - 1) * DEFAULT_MAX_ITEMS,
-      take: count ? Math.min(+count, DEFAULT_MAX_ITEMS) : DEFAULT_MAX_ITEMS,
+      take: maxItems,
     });
 
     const allUsers = await prismaClient.user.findMany();
@@ -19,45 +23,66 @@ export const getUsers = async (req: Request, res: Response, _next: NextFunction)
     return res.json({
       result: {
         hits: users,
-        limit: DEFAULT_MAX_ITEMS,
+        limit: maxItems,
         nbHits: allUsers.length,
         page: pageValue,
-        totalPages: Math.ceil(allUsers.length / DEFAULT_MAX_ITEMS),
+        totalPages: Math.ceil(allUsers.length / maxItems),
+      },
+    });
+  }
+
+  if (pageValue < 0) {
+    return res.json({
+      result: {
+        hits: [],
+        limit: maxItems,
+        nbHits: 0,
+        page: 0,
+        totalPages: 0,
       },
     });
   }
 
   const users = await prismaClient.user.findMany({
     orderBy: {
-      ...(sort_type === 'alphabetic' ? { name: 'asc' } : {}),
       ...(sort_type === 'popularity' ? { followers_count: 'desc' } : {}),
       ...(sort_type === 'most_recent' ? { id: 'desc' } : {}),
+      ...(sort_type !== 'popularity' && sort_type !== 'most_recent' ? { name: 'asc' } : {}), // it means sort_type === 'alphabetic' by default
     },
-    skip: (pageValue - 1) * DEFAULT_MAX_ITEMS,
-    take: count ? Math.min(+count, DEFAULT_MAX_ITEMS) : DEFAULT_MAX_ITEMS,
-    where: {
-      OR: [{ name: { contains: query } }, { login: { contains: query } }, { company: { contains: query } }, { bio: { contains: query } }],
-    },
+    skip: (pageValue - 1) * maxItems,
+    take: maxItems,
+    where: query
+      ? {
+          OR: [
+            { name: { contains: query, mode: 'insensitive' } },
+            { login: { contains: query, mode: 'insensitive' } },
+            { company: { contains: query, mode: 'insensitive' } },
+            { bio: { contains: query, mode: 'insensitive' } },
+          ],
+        }
+      : undefined,
   });
 
   const allUsers = await prismaClient.user.findMany({
-    orderBy: {
-      ...(sort_type === 'alphabetic' ? { name: 'asc' } : {}),
-      ...(sort_type === 'popularity' ? { followers_count: 'desc' } : {}),
-      ...(sort_type === 'most_recent' ? { id: 'desc' } : {}),
-    },
-    where: {
-      OR: [{ name: { contains: query } }, { login: { contains: query } }, { company: { contains: query } }, { bio: { contains: query } }],
-    },
+    where: query
+      ? {
+          OR: [
+            { name: { contains: query, mode: 'insensitive' } },
+            { login: { contains: query, mode: 'insensitive' } },
+            { company: { contains: query, mode: 'insensitive' } },
+            { bio: { contains: query, mode: 'insensitive' } },
+          ],
+        }
+      : undefined,
   });
 
   return res.json({
     result: {
       hits: users,
-      limit: DEFAULT_MAX_ITEMS,
+      limit: maxItems,
       nbHits: allUsers.length,
-      page: 1,
-      totalPages: Math.ceil(allUsers.length / DEFAULT_MAX_ITEMS),
+      page: pageValue,
+      totalPages: Math.ceil(allUsers.length / maxItems),
     },
   });
 };
@@ -69,34 +94,18 @@ export const getProjects = async (req: Request, res: Response, _next: NextFuncti
   console.log({ count, languages, page, query, sort_type });
 
   const languageFilter = languages ? languages.split(',') : [];
-
   const maxItems = count ? Math.min(+count, DEFAULT_MAX_ITEMS) : DEFAULT_MAX_ITEMS;
 
   if (!query) {
-    console.log({ languageFilter });
     const projects = await prismaClient.project.findMany({
       orderBy: {
-        ...(sort_type === 'alphabetic' ? { name: 'asc' } : {}),
-        ...(sort_type === 'popularity' ? { stargazers_count: 'desc' } : {}),
-        ...(sort_type === 'most_recent' ? { id: 'desc' } : {}),
+        stargazers_count: 'desc',
       },
       skip: (pageValue - 1) * maxItems,
       take: maxItems,
-      where: {
-        language: languageFilter.length > 0 ? { in: languageFilter, mode: 'insensitive' } : undefined,
-      },
     });
 
-    const allProjects = await prismaClient.project.findMany({
-      orderBy: {
-        ...(sort_type === 'alphabetic' ? { name: 'asc' } : {}),
-        ...(sort_type === 'popularity' ? { stargazers_count: 'desc' } : {}),
-        ...(sort_type === 'most_recent' ? { id: 'desc' } : {}),
-      },
-      where: {
-        language: languageFilter.length > 0 ? { in: languageFilter, mode: 'insensitive' } : undefined,
-      },
-    });
+    const allProjects = await prismaClient.project.findMany();
 
     return res.json({
       result: {

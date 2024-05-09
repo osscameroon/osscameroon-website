@@ -1,6 +1,6 @@
 #!/usr/bin/env zx
 
-import 'zx/globals';
+import { $, sleep } from 'zx';
 
 const PG_DATABASE = 'oss-cameroon';
 const CONTAINER_NAME = 'oss-cameroon-test-db';

@@ -1,6 +1,8 @@
-import express from 'express';
 import * as http from 'node:http';
+import express from 'express';
 import dotenv from 'dotenv';
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import { PrismaClient } from '@prisma/client';
 
 dotenv.config({
   path: '.env.test',
@@ -8,9 +10,12 @@ dotenv.config({
 
 import { prismaClient } from '../config/database';
 import { setupRoutes } from '../config/routes';
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 
-export type TestInstance = { apiClient: AxiosInstance; httpServer: http.Server };
+export type TestInstance = {
+  apiClient: AxiosInstance;
+  dbClient: PrismaClient;
+  httpServer: http.Server;
+};
 
 const getAxiosResponseData = (response: AxiosResponse) => response.data;
 
@@ -30,7 +35,7 @@ export const setupTestServer = () => {
   setupRoutes(app);
 
   return new Promise<http.Server>((resolve, _reject) => {
-    const httpServer = app.listen(4500, async () => {
+    const httpServer = app.listen(45000, async () => {
       await prismaClient.$connect();
 
       const originalClose = httpServer.close.bind(httpServer);
@@ -41,8 +46,6 @@ export const setupTestServer = () => {
           originalClose(resolveClose);
         });
       };
-
-      console.log(`Application started on fort test URL`);
 
       return resolve(httpServer);
     });
@@ -58,7 +61,7 @@ const initializeServerAndApiClient = async (): Promise<TestInstance> => {
 
   apiClient.interceptors.response.use(getAxiosResponseData, handleAxiosRequestFailure);
 
-  return { apiClient, httpServer };
+  return { apiClient, dbClient: prismaClient, httpServer };
 };
 
 export { initializeServerAndApiClient, resolveAxiosError };

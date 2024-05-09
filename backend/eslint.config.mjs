@@ -6,7 +6,7 @@ import eslintJest from 'eslint-plugin-jest';
 import eslintSortKeys from 'eslint-plugin-typescript-sort-keys';
 import eslintSortKeysFix from 'eslint-plugin-sort-keys-fix';
 import sortDestructureKeys from 'eslint-plugin-sort-destructure-keys';
-
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 const ignores = [
     'build',
@@ -56,21 +56,11 @@ export default tsEslint.config(
             'no-use-before-define': 'error',
             'max-len': [
                 'warn',
-                120,
+                100,
                 {
                     ignoreComments: true,
                     ignoreStrings: true,
                     ignoreTemplateLiterals: true,
-                },
-            ],
-            'sort-imports': [
-                'error',
-                {
-                    ignoreCase: false,
-                    ignoreDeclarationSort: true,
-                    ignoreMemberSort: false,
-                    memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
-                    allowSeparatedGroups: true,
                 },
             ],
             'sort-keys': 'error',
@@ -198,4 +188,5 @@ export default tsEslint.config(
         },
         rules: eslintSortKeys.configs.recommended.rules,
     },
+    eslintConfigPrettier
 );
