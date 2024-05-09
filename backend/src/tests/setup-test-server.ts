@@ -1,5 +1,11 @@
 import express from 'express';
 import * as http from 'node:http';
+import dotenv from 'dotenv';
+
+dotenv.config({
+  path: '.env.test',
+});
+
 import { prismaClient } from '../config/database';
 import { setupRoutes } from '../config/routes';
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';

@@ -6,7 +6,6 @@ const prismaClient = new PrismaClient({
       url: process.env.DATABASE_URL,
     },
   },
-  log: process.env.NODE_ENV === 'test' ? [] : ['query'],
 });
 
 export { prismaClient };

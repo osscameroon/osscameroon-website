@@ -10,8 +10,9 @@
     "lint:fix": "eslint --fix",
     "db:start": "docker run -d --rm -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=secret -e POSTGRES_DB=oss-cameroon --name oss-cameroon-db -p 5433:5432 postgres:14.11",
     "db:stop": "docker kill oss-cameroon-db",
+    "db:test:stop": "docker kill oss-cameroon-test-db",
     "db:migrate": "prisma migrate dev",
-    "test": "jest"
+    "test": "NODE_ENV=test zx src/tests/setup-db.mjs && jest"
   },
   "dependencies": {
     "@prisma/client": "5.13.0",
@@ -41,6 +42,7 @@
     "ts-jest": "29.1.2",
     "ts-node": "10.9.2",
     "typescript": "5.4.5",
-    "typescript-eslint": "7.8.0"
+    "typescript-eslint": "7.8.0",
+    "zx": "8.0.2"
   }
 }
