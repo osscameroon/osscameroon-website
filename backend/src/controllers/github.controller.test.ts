@@ -1,14 +1,15 @@
-import { User } from '@prisma/client';
+import { Project, User } from '@prisma/client';
 
 import { TestInstance, initializeServerAndApiClient } from '../tests/setup-test-server';
 import { HttpResponseData } from '../types/controller';
-import { cleanDatabase, insertUsers } from '../tests/utils';
+import { cleanDatabase, insertLicenses, insertProjects, insertUsers } from '../tests/utils';
 
 describe('Test GitHub endpoints', () => {
   let testInstance: TestInstance;
 
   beforeAll(async () => {
     testInstance = await initializeServerAndApiClient();
+    await insertLicenses(testInstance.dbClient)();
   });
 
   afterEach(async () => {
@@ -446,6 +447,80 @@ describe('Test GitHub endpoints', () => {
             expect.objectContaining({ company: 'Lition Corp', name: 'Sala Rina' }),
             expect.objectContaining({ login: 'rational-mf95', name: 'Tata Mino' }),
           ],
+          limit: 30,
+          nbHits: 4,
+          page: 1,
+          totalPages: 1,
+        },
+      });
+    });
+  });
+
+  describe.only('Test endpoint GET /github/projects/search', () => {
+    test('return all projects in the system', async () => {
+      // GIVEN
+      await insertProjects(testInstance.dbClient)({ count: 2, overrides: [{ name: 'Project One' }, { name: 'Project Two' }] });
+
+      // WHEN
+      const response: HttpResponseData<User> = await testInstance.apiClient.get('/github/projects/search');
+
+      // THEN
+      expect(response).toMatchObject<HttpResponseData<Project>>({
+        result: {
+          hits: [expect.objectContaining({ name: 'Project One' }), expect.objectContaining({ name: 'Project Two' })],
+          limit: 30,
+          nbHits: 2,
+          page: 1,
+          totalPages: 1,
+        },
+      });
+    });
+
+    test('changing the number of projects to retrieve per page to 2 will returns 2 projects per page', async () => {
+      // GIVEN
+      await insertProjects(testInstance.dbClient)({
+        count: 4,
+        overrides: [{ name: 'Project One' }, { name: 'Project Two' }, { name: 'Project Three' }, { name: 'Project Four' }],
+      });
+      const queryParams: Record<string, string> = {
+        count: '2',
+      };
+      const queryString = new URLSearchParams(queryParams);
+
+      // WHEN
+      const response: HttpResponseData<Project> = await testInstance.apiClient.get(`/github/projects/search?${queryString}`);
+
+      // THEN
+      expect(response).toMatchObject<HttpResponseData<Project>>({
+        result: {
+          hits: [expect.objectContaining({ name: 'Project One' }), expect.objectContaining({ name: 'Project Two' })],
+          limit: 2,
+          nbHits: 4,
+          page: 1,
+          totalPages: 2,
+        },
+      });
+    });
+
+    test.only('changing the number of users to retrieve per page to a higher value than the max value (30) will return at most 30 users', async () => {
+      // GIVEN
+      await insertProjects(testInstance.dbClient)({
+        count: 4,
+        overrides: [{ name: 'Project One' }, { name: 'Project Two' }, { name: 'Project Three' }, { name: 'Project Four' }],
+      });
+      const queryParams: Record<string, string> = {
+        count: '50',
+      };
+      const queryString = new URLSearchParams(queryParams);
+
+      // WHEN
+      const response: HttpResponseData<Project> = await testInstance.apiClient.get(`/github/projects/search?${queryString}`);
+
+      console.log(response);
+      // THEN
+      expect(response).toMatchObject<HttpResponseData<Project>>({
+        result: {
+          hits: [expect.objectContaining({ name: 'Project One' }), expect.objectContaining({ name: 'Project Two' })],
           limit: 30,
           nbHits: 4,
           page: 1,
