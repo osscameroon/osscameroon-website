@@ -1,12 +1,15 @@
-FROM python:3.8-slim-buster
+FROM python:3.10.11-slim-buster
 
-RUN apt update && apt install git gcc -y
-ENV PYHTONUNBUFFERED 1
-RUN mkdir /code
-WORKDIR /code
-ADD ./requirements.txt ./
-RUN pip install -r requirements.txt
+WORKDIR /src
 
-COPY . /code
+COPY pyproject.toml poetry.lock ./
+RUN pip install -U pip poetry
 
-CMD [ "python", "manage.py", "run" ]
+RUN poetry config virtualenvs.create false && poetry install
+
+COPY . .
+
+ENTRYPOINT ["/bin/sh", "-c"]
+
+# TODO: Use gunicorn for prod and add a gunicorn config file that can be overriden by a ConfigMap
+CMD ["python3 manage.py"]
