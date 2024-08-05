@@ -7,21 +7,7 @@ on:
 
 jobs:
   notify:
-    defaults:
-      run:
-        working-directory: ./.github/workflows/notify_on_pull_request_open
-
-    name: notify
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: notify telegram when pull request is a created
-        shell: bash
-        run: |
-          ./build_pull_request_notification.sh $GITHUB_EVENT_PATH > notify_on_pull_request_open_message
-      - name: send contribution report to osscameroon channel
-        uses: appleboy/telegram-action@v0.1.1
-        with:
-          to: ${{ secrets.TELEGRAM_OSSCAMEROON_CHANNEL_ID }}
-          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          message_file: ./.github/workflows/notify_on_pull_request_open/notify_on_pull_request_open_message
+    uses: osscameroon/global-github-actions/.github/workflows/notify_on_pull_request_open.yaml@main
+    secrets:
+      telegram_channel_id: ${{ secrets.TELEGRAM_OSSCAMEROON_CHANNEL_ID }}
+      telegram_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
