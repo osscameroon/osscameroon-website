@@ -11,7 +11,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}-frontend
+  IMAGE_NAME: ${{ github.repository }}-api
 
 jobs:
   build-and-push-image:
