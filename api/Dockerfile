@@ -3,7 +3,7 @@ FROM python:3.8-slim-buster
 # https://smirnov-am.github.io/running-flask-in-production-with-docker/
 # https://abdul-the-coder.medium.com/how-to-deploy-a-containerised-python-web-application-with-docker-flask-and-uwsgi-8862a08bd5df
 
-RUN apt update && apt install git gcc nginx build-essential systemd systemd-sysv -y
+RUN apt update && apt install git gcc nginx build-essential systemd systemd-sysv curl procps lsof -y
 
 RUN pip install uwsgi
 
@@ -22,7 +22,6 @@ ENV PYHTONUNBUFFERED 1
 
 # set user to `user`
 USER user
-
 
 RUN mkdir /home/user/code
 WORKDIR /home/user/code

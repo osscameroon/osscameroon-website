@@ -20,7 +20,7 @@ install-deps: venv $(CONFIG_FILE)
 
 ##run: run the api locally
 run: install-deps
-	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) manage.py run
+	$(PYTHON) manage.py run
 
 lint: venv
 	$(PYTHON) -m flake8 . --show-source --statistics

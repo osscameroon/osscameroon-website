@@ -1,14 +1,34 @@
-# For exchanges with github api
-requests
-
-# For tests in the application
-pytest
-
-# meilisearch
-meilisearch
-
-#lint
-flake8
-
-# For gcloud datastore
-google-cloud-datastore
+annotated-types==0.7.0
+cachetools==5.4.0
+camel-converter==3.1.2
+certifi==2024.7.4
+charset-normalizer==3.3.2
+exceptiongroup==1.2.2
+flake8==7.1.1
+google-api-core==2.19.1
+google-auth==2.32.0
+google-cloud-core==2.4.1
+google-cloud-datastore==2.19.0
+googleapis-common-protos==1.63.2
+grpcio==1.65.4
+grpcio-status==1.62.3
+idna==3.7
+iniconfig==2.0.0
+mccabe==0.7.0
+meilisearch==0.31.4
+packaging==24.1
+pluggy==1.5.0
+proto-plus==1.24.0
+protobuf==4.25.4
+pyasn1==0.6.0
+pyasn1_modules==0.4.0
+pycodestyle==2.12.1
+pydantic==2.8.2
+pydantic_core==2.20.1
+pyflakes==3.2.0
+pytest==8.3.2
+requests==2.32.3
+rsa==4.9
+tomli==2.0.1
+typing_extensions==4.12.2
+urllib3==2.2.2

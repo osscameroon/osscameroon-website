@@ -10,15 +10,14 @@ import meilisearch
 def create_github_users_index():
     ret = fetch_all_users()
 
+    print(MEILISEARCH_HOST, MEILISEARCH_MASTER_KEY)
     client = meilisearch.Client(MEILISEARCH_HOST, MEILISEARCH_MASTER_KEY)
     try:
-        index = client.create_index(storage.KIND_USERS, {"primaryKey": "id"})
+        client.get_index(storage.KIND_USERS)
     except Exception as e:
-        index = client.get_index(storage.KIND_USERS)
-        print("error: ", e)
-    finally:
-        index.update_documents(ret)
-        print("started updating github_users documents")
+        client.create_index(storage.KIND_USERS, {"primaryKey": "id"})
+    client.index(storage.KIND_USERS).update_documents(ret)
+    print("started updating github_users documents")
 
 
 def create_github_projects_index():
@@ -26,14 +25,11 @@ def create_github_projects_index():
 
     client = meilisearch.Client(MEILISEARCH_HOST, MEILISEARCH_MASTER_KEY)
     try:
-        index = client.create_index(storage.KIND_PROJECTS, {"primaryKey": "id"})
+        client.get_index(storage.KIND_PROJECTS)
     except Exception as e:
-        index = client.get_index(storage.KIND_PROJECTS)
-        print("error: ", e)
-    finally:
-        index.update_documents(ret)
-        print("started updating github_projects documents")
-
+        client.create_index(storage.KIND_PROJECTS, {"primaryKey": "id"})
+    client.index(storage.KIND_PROJECTS).update_documents(ret)
+    print("started updating github_projects documents")
 
 if __name__ == "__main__":
     # Usage :
