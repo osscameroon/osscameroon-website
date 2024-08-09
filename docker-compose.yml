@@ -1,7 +1,7 @@
 services:
   #find a way to tear this down after the init scripts has worked
   setup-meilisearch:
-    build: ./tools/meilisearch-index-generator/
+    image: ghcr.io/osscameroon/osscameroon-website-meilisearch-setup:6b4149a579ebcfe8508ebc832a2265e33c65d13c
     command: ["/wait-for-it/wait-for-it.sh", "meilisearch:7700", "--", "make", "run-with-emulator"]
     depends_on:
       - meilisearch
@@ -10,6 +10,7 @@ services:
       MEILISEARCH_MASTER_KEY: meilisearch-master-key
     volumes:
       - ./scripts/wait-for-it/:/wait-for-it
+      - ./tools/meilisearch-index-generator/data:/app/data
 
   meilisearch:
     image: getmeili/meilisearch:v1.9
@@ -38,4 +39,4 @@ services:
       REACT_APP_API_BASE_URL: http://localhost:8811
       REACT_ENV: development
     ports:
-       - 3000:3000
+       - 3000:80
