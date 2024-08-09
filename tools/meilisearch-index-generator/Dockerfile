@@ -4,8 +4,6 @@ RUN apt update && apt install git gcc curl procps lsof -y
 
 RUN apt install make
 
-RUN pip3 install virtualenv
-
 # Create appuser
 ENV USER=user
 ENV UID=10001
