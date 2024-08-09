@@ -1,8 +1,8 @@
 services:
   #find a way to tear this down after the init scripts has worked
   setup-meilisearch:
-    image: ghcr.io/osscameroon/osscameroon-website-meilisearch-setup:6b4149a579ebcfe8508ebc832a2265e33c65d13c
-    command: ["/wait-for-it/wait-for-it.sh", "meilisearch:7700", "--", "make", "run-with-emulator"]
+    build: ./tools/meilisearch-index-generator/
+    command: ["/wait-for-it/wait-for-it.sh", "meilisearch:7700", "--", "make", "run"]
     depends_on:
       - meilisearch
     environment:

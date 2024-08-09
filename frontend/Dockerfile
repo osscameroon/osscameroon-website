@@ -16,4 +16,6 @@ RUN yarn build
 
 FROM flashspys/nginx-static
 RUN apk update && apk upgrade
+RUN rm /etc/nginx/conf.d/default.conf
+COPY --from=0 /code/nginx-custom.conf /etc/nginx/conf.d/default.conf
 COPY --from=0 /code/build /static

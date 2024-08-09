@@ -17,11 +17,6 @@ install-deps: venv
 ##run: run the indexer
 ## 		example: make run
 run: install-deps
-	GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-account.json $(PYTHON) -m app.cli
-
-##run-with-emulator: to run the indexer with the gcloud datastore emulator
-##      example: make run-with-emulator
-run-with-emulator: install-deps
 	$(PYTHON) -m app.cli
 
 lint: venv
