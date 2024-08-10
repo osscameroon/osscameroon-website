@@ -3,8 +3,7 @@ name: Build api image
 on:
   push:
     branches:
-      # should be changed to main before merge
-      - deploy-using-docker
+      - main
     paths:
       - api/**
       - .github/workflows/deploy-api.yaml

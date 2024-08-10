@@ -3,8 +3,7 @@ name: Build meilisearch setup image
 on:
   push:
     branches:
-      # should be changed to main before merge
-      - deploy-using-docker
+      - main
     paths:
       - tools/meilisearch-index-generator/**
       - .github/workflows/build-meilisearch-setup-image.yaml

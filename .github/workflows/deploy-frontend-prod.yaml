@@ -3,8 +3,7 @@ name: Build frontend prod image
 on:
   push:
     branches:
-      # should be changed to main before merge
-      - deploy-using-docker
+      - main
     paths:
       - frontend/**
       - .github/workflows/deploy-frontend-prod.yaml
