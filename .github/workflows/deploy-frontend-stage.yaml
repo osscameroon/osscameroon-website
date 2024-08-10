@@ -1,4 +1,4 @@
-name: Build frontend image
+name: Build frontend stage image
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - deploy-using-docker
     paths:
       - frontend/**
-      - .github/workflows/deploy-frontend.yaml
+      - .github/workflows/deploy-frontend-stage.yaml
 
 env:
   REGISTRY: ghcr.io
