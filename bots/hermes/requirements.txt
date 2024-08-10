@@ -39,7 +39,7 @@ requests-oauthlib==1.3.0
 rsa==4.8
 six==1.16.0
 toml==0.10.2
-tornado==6.1
+tornado==6.4.1
 tweepy==4.4.0
 typing-inspect==0.7.1
 typing_extensions==4.0.1
