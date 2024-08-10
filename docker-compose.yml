@@ -1,66 +1,35 @@
-version: '3'
-
 services:
-  #find a way to tear this down after the init scripts has worked
-  setup-datastore:
-    build: ./scripts/setup-datastore/
-    command: ["/wait-for-it/wait-for-it.sh", "datastore:8000", "--", "make", "run-with-emulator"]
-    depends_on:
-      - datastore
-    environment:
-      MEILISEARCH_HOST: http://meilisearch:7700
-      GOOGLE_APPLICATION_CREDENTIALS: /tmp/key/creds.json
-      GCLOUD_PROJECT: pname
-      DATASTORE_EMULATOR_HOST: datastore:8000
-      DATASTORE_PROJECT_ID: pname
-    volumes:
-      - ./scripts/wait-for-it/:/wait-for-it
-
   #find a way to tear this down after the init scripts has worked
   setup-meilisearch:
     build: ./tools/meilisearch-index-generator/
-    command: ["/wait-for-it/wait-for-it.sh", "meilisearch:7700", "--", "make", "run-with-emulator"]
+    command: ["/wait-for-it/wait-for-it.sh", "meilisearch:7700", "--", "make", "run"]
     depends_on:
-      - setup-datastore
       - meilisearch
     environment:
       MEILISEARCH_HOST: http://meilisearch:7700
-      GOOGLE_APPLICATION_CREDENTIALS: /tmp/key/creds.json
-      GCLOUD_PROJECT: pname
-      DATASTORE_EMULATOR_HOST: datastore:8000
-      DATASTORE_PROJECT_ID: pname
+      MEILISEARCH_MASTER_KEY: meilisearch-master-key
     volumes:
       - ./scripts/wait-for-it/:/wait-for-it
+      - ./tools/meilisearch-index-generator/data:/app/data
 
   meilisearch:
-    image: getmeili/meilisearch
+    image: getmeili/meilisearch:v1.9
     volumes:
       - ./data.ms:/data.ms
+    environment:
+      MEILI_MASTER_KEY: meilisearch-master-key
     ports:
       - 7700:7700
-
-  datastore:
-    build:
-      context: ./gcloud-emulator/
-      dockerfile: Dockerfile-datastore
-    command: gcloud beta emulators datastore start --project=pname --host-port 0.0.0.0:8000 --no-store-on-disk
-    ports:
-      - 8000:8000
 
   api:
     build: ./api
     depends_on:
       - setup-meilisearch
-      - setup-datastore
     environment:
       MEILISEARCH_HOST: http://meilisearch:7700
-      GOOGLE_APPLICATION_CREDENTIALS: /tmp/key/creds.json
-      GCLOUD_PROJECT: pname
-      DATASTORE_EMULATOR_HOST: datastore:8000
-      DATASTORE_PROJECT_ID: pname
+      MEILISEARCH_MASTER_KEY: meilisearch-master-key
     ports:
       - 8811:8811
-
 
   frontend:
     build: ./frontend
@@ -70,4 +39,4 @@ services:
       REACT_APP_API_BASE_URL: http://localhost:8811
       REACT_ENV: development
     ports:
-      - 3000:3000
+       - 3000:80

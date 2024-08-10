@@ -22,12 +22,15 @@ def get_search_users(query: str, count: int = 20, page: int = 1):
     offset = (page - 1) * count
 
     client = meilisearch.Client(MEILISEARCH_HOST, MEILISEARCH_MASTER_KEY)
+    client.index(storage.KIND_USERS).update_pagination_settings({'maxTotalHits': 5000})
     index = client.get_index(storage.KIND_USERS)
     ret = index.search(
         storage.KIND_USERS, {"q": query, "limit": count, "offset": offset}
     )
     if not ret or len(ret) < 1:
         return {"code": 400, "reason": "nothing found"}
+
+    ret["nbHits"] = ret["estimatedTotalHits"]
 
     response = {
         "code": 200,
@@ -75,6 +78,7 @@ def post_search_users(
 
     offset = (page - 1) * count
     client = meilisearch.Client(MEILISEARCH_HOST, MEILISEARCH_MASTER_KEY)
+    client.index(storage.KIND_USERS).update_pagination_settings({'maxTotalHits': 5000})
     index = client.get_index(storage.KIND_USERS)
 
     # if sort_type is not specified or not supported
@@ -100,6 +104,8 @@ def post_search_users(
         ret["hits"] = ret["hits"][offset:offset + count]
         ret["offset"] = offset
         ret["limit"] = count
+
+    ret["nbHits"] = ret["estimatedTotalHits"]
 
     response = {
         "code": 200,

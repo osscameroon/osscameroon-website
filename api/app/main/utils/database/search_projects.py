@@ -11,7 +11,7 @@ SORT_TYPE_ALPHABETIC = "alphabetic"
 
 def get_search_projects(query: str, count: int = 20, page: int = 1):
     """
-    get_search_users [this method search for users in our datastore
+    get_search_projects [this method search for projects in our datastore
 
     @params : query, count, page
     @returns : - code : the status code of the request
@@ -22,12 +22,15 @@ def get_search_projects(query: str, count: int = 20, page: int = 1):
     offset = (page - 1) * count
 
     client = meilisearch.Client(MEILISEARCH_HOST, MEILISEARCH_MASTER_KEY)
+    client.index(storage.KIND_PROJECTS).update_pagination_settings({'maxTotalHits': 5000})
     index = client.get_index(storage.KIND_PROJECTS)
     ret = index.search(
         storage.KIND_PROJECTS, {"q": query, "limit": count, "offset": offset}
     )
     if not ret or len(ret) < 1:
         return {"code": 400, "reason": "nothing found"}
+
+    ret["nbHits"] = ret["estimatedTotalHits"]
 
     response = {
         "code": 200,
@@ -47,7 +50,7 @@ def build_project_filters(languages):
     for i in range(len_lang):
         langs += f'language = "{languages[i]}"'
         if i != len_lang - 1:
-            langs += " OR "
+            langs += " "
     filters = langs
     return filters
 
@@ -98,6 +101,8 @@ def post_search_projects(
     offset = (page - 1) * count
     filters = build_project_filters(languages)
     client = meilisearch.Client(MEILISEARCH_HOST, MEILISEARCH_MASTER_KEY)
+    client.index(storage.KIND_PROJECTS).update_pagination_settings({'maxTotalHits': 5000})
+
     index = client.get_index(storage.KIND_PROJECTS)
 
     # if sort_type is not specified or not supported
@@ -108,7 +113,7 @@ def post_search_projects(
     ]:
         query_object = {"q": query, "limit": count, "offset": offset}
         if filters != "":
-            query_object["filters"] = filters
+            query_object["q"] += " " + filters
         ret = index.search(
             storage.KIND_PROJECTS,
             query_object,
@@ -120,7 +125,7 @@ def post_search_projects(
     else:
         query_object = {"q": query, "limit": 1000}
         if filters != "":
-            query_object["filters"] = filters
+            query_object["q"] += " " + filters
         ret = index.search(storage.KIND_PROJECTS, query_object)
         if not ret or len(ret) < 1:
             return {"code": 400, "reason": "nothing found"}
@@ -128,6 +133,8 @@ def post_search_projects(
         ret["hits"] = ret["hits"][offset:offset + count]
         ret["offset"] = offset
         ret["limit"] = count
+
+    ret["nbHits"] = ret["estimatedTotalHits"]
 
     response = {
         "code": 200,
