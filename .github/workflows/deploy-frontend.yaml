@@ -11,7 +11,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}-frontend
+  IMAGE_NAME: ${{ github.repository }}-frontend-stage
 
 jobs:
   build-and-push-image:
@@ -43,6 +43,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./frontend
+          build-args: |
+            baseURL=https://osscameroon-website-api.stage.osscameroon.com
+            env=development
 
           push: true
           tags: ${{ steps.meta.outputs.tags }}

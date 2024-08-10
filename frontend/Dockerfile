@@ -1,5 +1,6 @@
 FROM node:12.22-buster-slim
-ARG baseURL="https://osscameroon-website-api.stage.osscameroon.com"
+ARG baseURL="localhost:8811"
+ARG env="development"
 ENV REACT_APP_API_BASE_URL=$baseURL
 ENV REACT_APP_ENV=$env
 
