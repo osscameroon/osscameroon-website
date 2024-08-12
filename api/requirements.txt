@@ -25,7 +25,7 @@ py==1.11.0
 pycodestyle==2.8.0
 pydantic==2.8.2
 pydantic_core==2.20.1
-pyflakes==2.4.0
+pyflakes==3.2.0
 pytest==6.2.5
 pytz==2024.1
 referencing==0.35.1
