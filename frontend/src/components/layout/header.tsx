@@ -63,7 +63,7 @@ const Header = () => {
               <a
                 className="btn-join-us btn btn-primary"
                 color="primary"
-                href="https://t.me/joinchat/UpKZh_T3W02LsGvQ"
+                href="https://t.me/+seRuevrR1RA0ZmI8"
                 rel="noreferrer"
                 target="_blank"
               >
