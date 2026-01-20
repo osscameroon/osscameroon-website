@@ -3,7 +3,7 @@ requests==2.26.0
 google-cloud-datastore==2.4.0
 mysql-connector-python==8.0.22
 protobuf==3.19.1
-configparser==5.2.0
+configparser==7.1.0
 
 # tests deps
 pytest==6.2.5
