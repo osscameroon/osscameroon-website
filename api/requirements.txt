@@ -22,7 +22,7 @@ meilisearch==0.31.4
 packaging==24.1
 pluggy==1.5.0
 py==1.11.0
-pycodestyle==2.8.0
+pycodestyle==2.12.1
 pydantic==2.8.2
 pydantic_core==2.20.1
 pyflakes==2.4.0
