@@ -7,4 +7,4 @@ configparser==5.2.0
 
 # tests deps
 pytest==6.2.5
-flake8==4.0.1
+flake8==7.1.1
